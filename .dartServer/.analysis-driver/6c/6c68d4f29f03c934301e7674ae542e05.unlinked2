@@ -1,0 +1,2515 @@
+€åpopdoNotPopbubble	navigator
+_navigatorsettings	_settingsrestorationScopeId_restorationScopeId_updateSettings_updateRestorationIdoverlayEntriesinstalldidPushdidAdd
+didReplacewillPopwillHandlePopInternallycurrentResultpopped_popCompleterdidPopdidComplete
+didPopNextdidChangeNextdidChangePreviouschangedInternalStatechangedExternalStatedispose	isCurrentisFirsthasActiveRouteBelowisActivename	argumentstoStringkeyrestorationId	canUpdatecreateRoute_navigators	didRemovedidStartUserGesturedidStopUserGesture
+controllermaybeOfofupdateShouldNotifyrouteisWaitingForEnteringDecisionisWaitingForExitingDecisionmarkForPush
+markForAdd
+markForPopmarkForCompletemarkForRemove_transitionresolvepages	onPopPagetransitionDelegateinitialRouteonGenerateRouteonUnknownRoute	observersrouteTraversalEdgeBehaviordefaultRouteNameonGenerateInitialRoutesreportsRouteUpdateToEngineclipBehaviorrequestFocus	pushNamedrestorablePushNamedpushReplacementNamedrestorablePushReplacementNamedpopAndPushNamedrestorablePopAndPushNamedpushNamedAndRemoveUntil!restorablePushNamedAndRemoveUntilpushrestorablePushpushReplacementrestorablePushReplacementpushAndRemoveUntilrestorablePushAndRemoveUntilreplacerestorableReplacereplaceRouteBelowrestorableReplaceRouteBelowcanPopmaybePoppopUntilremoveRouteremoveRouteBelowdefaultGenerateInitialRoutescreateStatestagingaddaddingpushReplacepushingidlecompleteremovepoppingremoving	disposingdisposedrestorationInformation	pageBasednotAnnouncedcurrentStatelastAnnouncedPreviousRoutelastAnnouncedPoppedNextRoutelastAnnouncedNextRoutecanUpdateFrom	handleAdd
+handlePushhandleDidPopNext	handlePophandleCompletehandleRemovalpendingResult_reportRemovalToObserverfinalizeforcedDisposewillBePresent	isPresentisPresentForRestorationsuitableForAnnouncementsuitableForTransitionAnimationshouldAnnounceChangeToNextisPresentPredicate'suitableForTransitionAnimationPredicatewillBePresentPredicateisRoutePredicate_isWaitingForExitingDecisionmarkNeedsExitingDecisionrestorationEnabledprimaryRoutesecondaryRoutenotify_overlayKey_history_entryWaitingForSubTreeDisposal_serializableHistory_observedRouteAdditions_observedRouteDeletionsfocusScopeNode	focusNode_debugLocked_heroControllerFromScope_effectiveObservers	initState"_rawNextPagelessRestorationScopeId_nextPagelessRestorationScopeIdrestoreStatedidToggleBucketdidChangeDependencies_forcedDisposeAllRouteEntries_disposeRouteEntry_updateHeroController_updateEffectiveObserversdidUpdateWidget_debugCheckDuplicatedPageKeys
+deactivateactivateoverlay_allRouteOverlayEntries_lastAnnouncedRouteName_debugUpdatingPage_updatePages_flushingHistory_flushHistoryUpdates_flushObserverNotifications_flushRouteAnnouncement_getRouteBefore_getIndexBefore_getRouteAfter_routeNamed_debugIsStaticCallback
+_pushEntry_afterNavigation_pushReplacementEntry_pushEntryAndRemoveUntil_replaceEntry_replaceEntryBelowfinalizeRoute_getRouteById_userGesturesInProgress_userGesturesInProgressCountuserGestureInProgressuserGestureInProgressNotifier_activePointers_handlePointerDown_handlePointerUpOrCancel_cancelActivePointers_firstRouteEntryWhereOrNull_lastRouteEntryWhereOrNullbuildnamed	anonymoustype_serializableDataisRestorablegetSerializableDatacomputeSerializableDatatoRouteEntryrouteBuilder_pageToPagelessRoutesupdate_finalizeEntry_debugMapsEqualclearhasDatarestoreEntriesForPagecreateDefaultValuefromPrimitivesinitWithValuetoPrimitivesenablednavigatorFinder	onPresent
+onCompletepresent_route	_disposed_hookOntoRouteFuture_defaultNavigatorFinder$RouteFactoryRouteListFactoryRestorableRouteBuilderRoutePredicateWillPopCallbackPopPageCallbackRoutePopDispositionRouteRouteSettingsPageNavigatorObserverHeroControllerScopeRouteTransitionRecordTransitionDelegateDefaultTransitionDelegate"kDefaultRouteTraversalEdgeBehavior	Navigator_RouteLifecycle_RouteEntryPredicate_NotAnnounced_RouteEntry_NavigatorObservation_NavigatorPushObservation_NavigatorPopObservation_NavigatorRemoveObservation_NavigatorReplaceObservationNavigatorState_RouteRestorationType_RestorationInformation_NamedRestorationInformation _AnonymousRestorationInformation_HistoryPropertyNavigatorFinderCallbackRoutePresentationCallbackRouteCompletionCallbackRestorableRouteFuture£onGenerateRoutedynamiconGenerateInitialRoutesListStringrestorablePushTBuildContextObjectpopUntilboolpopForm	onWillPop
+ModalRouteaddScopedWillPopCallbackremoveScopedWillPopCallbackWillPopScopeFuture	onPopPagedidPoppageswillPopdoNotPopbubbleSystemNavigatorOverlayOverlayEntryMaterialPageRoutecreateRouteRestorationScopeValueListenableValueNotifiervoidvalueremove	protectedmustCallSuperTickerFuturecompletethenwidgetrequestFocus	focusNodeenclosingScopemaybePopfuture	CompleterfinalizeRoutepushReplacementdidStartUserGesturepushoffstageStatedidUpdateWidgetMaterialAppdidChangeDependenciescontextbarrierColordispose_lastRouteEntryWhereOrNullisPresentPredicateroute_firstRouteEntryWhereOrNull_historyentrymaintainStateisRoutePredicate	isPresent	immutableoverrideobjectRuntimeTypecurrentResultpopped	argumentsLocalKeyRestorationManagerruntimeTypekeysettingsfactorynameExpandochildInheritedWidgetHeroControllerof"dependOnInheritedWidgetOfExactType
+controllermaybeOfFlutterErrorresolveisWaitingForEnteringDecisiontransitionDelegateIterableMapnewPageRouteHistorylocationToExitingPageRoutepageRouteToPagelessRoutestoListgrowableSetvaluestoSetexitingPageRouteisWaitingForExitingDecisioncontainsKeypagelessRouteintcast
+routeEntrylengthcontainsisEmptymarkForPush
+markForAdd
+markForPopmarkForCompletemarkForRemovelastadd	pageRouterouteTraversalEdgeBehaviorTraversalEdgeBehaviorkIsWebleaveFlutterView
+closedLoopRouterAppBarScaffoldappBar
+WidgetsApp
+PopupRoute
+showDialogshowMenushowModalBottomSheetPopupMenuButtonDropdownButton	PageRoutePageRouteBuilderCupertinoTabViewBuilder	isCurrentrestorationIdrestorationScopeIdStatefulWidgetdefaultGenerateInitialRoutesCliphardEdgeWidgetElementRenderObjectcreateElementcreateStateRenderObjectWidgetcreateRenderObjectdefaultRouteNameRestorationBucketRestorationMixinselectSingleEntryHistory PlatformRouteInformationProviderrouternonedidPushdidChangeNext	observersonUnknownRouteoptionalTypeArgs	pushNamedStandardMessageCodecrestorablePushNamed
+didReplacedidCompletepushReplacementNamedresultrestorablePushReplacementNamed
+didPopNextTransitionRouteopaquepopAndPushNamedrestorablePopAndPushNamedwillHandlePopInternallywithName	didRemovepushNamedAndRemoveUntil!restorablePushNamedAndRemoveUntilrestorablePushReplacementpushAndRemoveUntilrestorablePushAndRemoveUntildidChangePreviousreplaceoldRoutenewRouterestorableReplacenewRouteBuilderreplaceRouteBelowanchorRouterestorableReplaceRouteBelowisFirstcanPopLocalHistoryRouteremoveRouteremoveRouteBelowStatefulElementstaterootNavigatorfindRootAncestorStateOfTypefindAncestorStateOfType
+startsWith	substring_routeNamed	allowNullsplit
+isNotEmptypartreportErrorFlutterErrorDetails	exceptionclearremoveWhereinitialStatestagingpushReplace	canUpdate	navigator_debugLocked
+_navigatorinstalloverlayEntriesadding_observedRouteAdditionspreviousPresentpushingwhenCompleteOrCancelidle_flushHistoryUpdatesprevious
+isNewFirstpopping_popCompleterisCompletedremoving_observedRouteDeletionsdidAddindex
+isReplaceddisposed	disposingwhereemounted_entryWaitingForSubTreeDisposalVoidCallbackremoveListenereveryscheduleMicrotaskaddListenersuitableForTransitionAnimationwillBePresent_updateRestorationIdprimaryRoutesecondaryRouteTickerProviderStateMixin	GlobalKeyOverlayStateQueueFocusScopeNode
+FocusScope
+Deprecated	FocusNodeFocus
+debugLabel	initStatelibrarystack
+StackTracecurrentobserver_navigators'getElementForInheritedWidgetOfExactTypereportsRouteUpdateToEngineRestorableNumregisterForRestorationaddAllrestoreEntriesForPagepage	pageBasedhasDatainitialRoutemaprestorationInformationnameddidToggleBucketbucketupdatechangedExternalStateforcedDispose
+removeLastgracefuloverlayEntryServicesBindinginstanceaddPostFrameCallbackDuration_heroControllerFromScoperestorePendingKey
+deactivateactivatecurrentStateputIfAbsentcanUpdateFrom_updateSettingsfrommarkNeedsExitingDecision_transitionrearrangeOverlay	handleAdd
+handlePushhandleDidPopNext	handlePopwillBePresentPredicatehandleCompletehandleRemovalremoveAtrouteInformationUpdateduriUriparse	rearrangeforEachnotifyremoveFirstsuitableForAnnouncement'suitableForTransitionAnimationPredicatelastAnnouncedNextRouteshouldAnnounceChangeToNextlastAnnouncedPreviousRoute	fromPartsDiagnosticsNodeErrorSummaryErrorDescriptionDiagnosticsPropertystyleDiagnosticsTreeStyleerrorProperty!debugIsSerializableForRestorationtoRouteEntryFunctionPluginUtilitiesgetCallbackHandle	anonymousrouteBuilderkReleaseMode
+jsonEncodetoEncodableobject	postEventany	lastWhere
+indexWhereinsertIteratoriteratormoveNext
+firstWherefinalizedidStopUserGesturePointerDownEventpointerPointerEventSchedulerBindingschedulerPhaseSchedulerPhaseRenderAbsorbPointercurrentContextfindAncestorRenderObjectOfTypesetState	absorbingWidgetsBindingcancelPointerelementListeneronPointerDownonPointerUponPointerCancelAbsorbPointerFocusTraversalGrouppolicy	autofocusskipTraversalincludeSemanticsUnmanagedRestorationScopeclipBehaviorinitialEntriesfromSerializableDatasublistcomputeSerializableDatagetCallbackFromHandleCallbackHandlefromRawHandletoRawHandleRestorablePropertyisRegisteredkeysisPresentForRestorationrestorationEnabledisRestorablegetSerializableDatanotifyListeners	setEquals
+listEqualsdataMapEntrynavigatorFinder	onPresent
+onComplete_getRouteByIdcallRouteSettingsInheritedWidgetTransitionDelegateStatefulWidgetRouteRouteTransitionRecord_NavigatorObservationStateTickerProviderStateMixinRestorationMixin_RestorationInformationRestorableProperty[Ú×zŞLŸYçÂJ×C(Ä    €¦  
+dart:async  €»  dart:collection  €Õ  dart:convert  €ì  	developerdart:developer    "ui%dart:ui  +  package:flutter/foundation.dart  U  package:flutter/rendering.dart  ~  package:flutter/scheduler.dart  §  package:flutter/services.dart  Ğ  
+basic.dart  å  binding.dart  ü  focus_manager.dart  ‚  focus_scope.dart  ‚4  focus_traversal.dart  ‚S  framework.dart  ‚l  heroes.dart  ‚‚  overlay.dart  ‚™  restoration.dart  ‚´  restoration_properties.dart  ‚Ú  routes.dart  ‚ğ  ticker_provider.dart    	dart:coreÀh ÀkÂ–« <€†€¤€¥€º€Ô€ë)*T}¦ÎÏäû‚‚3‚R‚k‚‚˜‚³‚Ù‚ïƒƒƒ'ƒKƒpƒÖƒø„„„I„M„v„z„ˆ„Œ„È………>…B…s…Ü…İ†††i†¶†Á†Å‡‡X‡œ‡çˆˆuˆvˆµˆóˆô‰E‰I‰‰ĞŠŠŠ:Š>Š‰ŠÌ‹‹f‹“‹â‹ãŒŒ!ŒSŒWŒeŒiŒµŒÇŒâŒ÷ŒıKdklˆàìí"(wÁËÍÎW¦õcŒß‘‘‘T‘š‘ç’/’’·’»’ü“L“o“‰“§“­“ú””d”e”—”Æ”ä”å•••5•;•†•Ã•â•è–8–ƒ–Í——;—f——‚—Ó—å—ë˜7˜M˜S˜¢˜ò™@™™ßšš\š¯š°šä››'›E›K›O›P›š›Ï›şœœœ,œ2œœ¿œÅ!'s˜ÛÜpÄŸ	Ÿ&Ÿ3ŸDŸYŸZŸ¤ŸªŸòŸø E † Œ Û¡
+¡¡(¡C¡}¡²¡ï¡÷¡ÿ¢¢¢K¢Q¢¢Ò¢Ø£'£V£c£t£†£¹¤
+¤X¤§¤ö¥¥ ¥t¥Ç¦¦H¦|¦Î§!§s§Ã¨¨e¨–¨¡¨ñ©?©r©¯©¹©¿©Ã©Äªªªhª—ª¤ªµªåªæ«6«^«d«´«Ò«Ø¬#¬\¬§¬ó­B­­…­Å­è­î®=®k®q®®‡®Ò®æ¯3¯I¯y¯Ä¯È¯É¯ü°)°*°t°¶°¼±±2±R±S±±¤±ó²B²W²ˆ²¿²À³³S³ ³ì´´´[´©´ùµDµ”µ­µ³¶¶S¶¶•¶ä¶ı··)·B·S·W·X·¦·¬·à¸-¸¸›¸¡¸î¹?¹t¹z¹Åººdº¬º¹ºÊºê»»#»$»m»~»„»Ó»ë»ø¼	¼9¼:¼|¼‚¼Ò½"½h½Œ½’½á¾ ¾¾¾R¾S¾™¾Ÿ¾ë¿;¿Œ¿¦¿¬¿ùÀ @À @)À @:À @vÀ @wÀ @ºÀ @ÀÀ A
+À A[À A¬À AåÀ AëÀ AûÀ BÀ BKÀ B‰À B–À B§À BÉÀ BÊÀ CÀ CcÀ CiÀ CÀ CïÀ D2À DtÀ D¹À E À E=À ECÀ EŠÀ EÕÀ FÀ FUÀ F[À FŸÀ F¹À F¿À FÏÀ FÕÀ G%À GBÀ GOÀ G`À G‚À GƒÀ G´À GºÀ HÀ H<À HBÀ HÀ H¡À H§À HôÀ IBÀ I‘À I¢À I¯À IÂÀ IÙÀ IüÀ J À JÀ JBÀ JHÀ J}À J”À J²À JÆÀ JÌÀ K?À KdÀ KxÀ K~À KªÀ K®À K¯À KúÀ L À LPÀ LˆÀ LÀ L»À LÏÀ LÕÀ MIÀ MnÀ M‚À MˆÀ M´À M¸À M¹À NÀ NÀ N/À NMÀ NaÀ NgÀ N£À NÄÀ NÚÀ NâÀ OÀ O*À O2À O8À OJÀ ONÀ OOÀ O}À OƒÀ OÓÀ P#À P_À PeÀ P·À QÀ QbÀ QxÀ Q–À QªÀ Q°À RÀ R À R"À R#À R\À RgÀ R}À RªÀ RÂÀ RÑÀ RåÀ RëÀ RìÀ SÀ S#À SJÀ S`À SaÀ S‹À S‘À SáÀ SüÀ SıÀ T	À TÀ TƒÀ T„À T²À T¶À TÿÀ UFÀ UJÀ UXÀ U\À U­À U½À UìÀ V'À V-À V^À VmÀ V{À V‹À V À V¸À V¾À V¿À VèÀ VîÀ W.À WEÀ WFÀ W–À W§À W­À WıÀ XÀ XÀ XÀ XfÀ XxÀ X—À X˜À XÖÀ XÜÀ Y+À Y8À Y`À YÀ Y¬À Y°À Y±À YêÀ YğÀ ZFÀ ZQÀ ZÀ Z€À ZŒÀ ZäÀ ZæÀ ZçÀ [%À [?À [{À [±À [²À [úÀ \IÀ \ƒÀ \½À ]À ]SÀ ]À ]èÀ ^À ^XÀ ^YÀ ^À ^…À ^ĞÀ ^ñÀ _9À _:À _`À _fÀ _¬À _ÍÀ `À `À `<À `BÀ `À `¹À `¿À aÀ aOÀ aŸÀ a¾À bÀ b	À bDÀ b’À b“À bÕÀ bÛÀ c*À cfÀ cºÀ c»À cøÀ cşÀ d:À dZÀ d\À d]À dÀ d”À dİÀ e+À exÀ e|À eËÀ fÀ ffÀ f°À fäÀ gÀ g9À gHÀ guÀ gÀ g•À g–À gçÀ gôÀ hÀ h&À h@À hZÀ h[À h˜À h¼À h½À i	À i1À i7À iyÀ i¸À i¾À iÎÀ iÔÀ j#À jZÀ j“À jüÀ kÀ kÀ kÀ kjÀ kzÀ k€À kĞÀ kôÀ kúÀ l<À ljÀ lpÀ l€À l†À lÒÀ mÀ mIÀ m‚À m’À m²À mÎÀ n&À nPÀ n¥À n÷À oHÀ o}À o¡À o¹À oÄÀ oÌÀ oßÀ oéÀ pÀ pÀ pÀ pÀ pMÀ p|À p€À p‚À pƒÀ pÒÀ qÀ qCÀ qhÀ q„À q…À qÖÀ qÜÀ r,À rwÀ r›À rÄÀ rÅÀ sÀ sÀ skÀ sµÀ sÙÀ tÀ tÀ t8À t>À t‹À tñÀ u@À uVÀ uWÀ uÀ u•À uâÀ vHÀ v™À v®À v¯À våÀ vëÀ w7À wˆÀ w¦À wËÀ wÌÀ xÀ xÀ xZÀ x§À xõÀ yÀ y À yZÀ y`À y¬À yúÀ z7À zOÀ zQÀ zRÀ z£À zËÀ zÏÀ {À {qÀ {uÀ {ÀÀ {ÄÀ {ØÀ |'À |tÀ |—À |›À |§À |òÀ }À }2À }tÀ }ÔÀ ~9À ~DÀ ~“À ~—À ~äÀ À @À LÀ nÀ rÀ |À ŞÀ €À €IÀ €µÀ €ŞÀ /À ^À nÀ {À ‡À °À ´À ¾À ÖÀ ŞÀ äÀ èÀ ğÀ ‚ À ‚À ‚À ‚À ‚aÀ ‚~À ‚ÍÀ ƒÀ ƒ*À ƒtÀ ƒ’À ƒ“À ƒÃÀ „À „]À „¾À „ÅÀ …À …2À …pÀ …¬À …³À …õÀ …üÀ †À †hÀ †xÀ †ÅÀ †ìÀ ‡:À ‡aÀ ‡°À ˆÀ ˆÀ ˆ-À ˆ4À ˆ_À ˆfÀ ˆŸÀ ˆ¦À ˆÔÀ ‰$À ‰EÀ ‰LÀ ‰—À ‰äÀ ‰ôÀ ŠOÀ ŠµÀ ŠõÀ ‹EÀ ‹„À ‹ËÀ Œ7À ŒwÀ ŒƒÀ ŒÀ Œ•À ŒæÀ À @À AÀ “À øÀ À MÀ —À £À İÀ À À KÀ UÀ ]À ^À lÀ ²À ÕÀ %À nÀ wÀ ŠÀ ”À •À ©À ­À ®À ùÀ ‘EÀ ‘KÀ ‘œÀ ‘äÀ ’!À ’nÀ ’ºÀ “À “5À “;À “‡À “ÕÀ ”!À ”lÀ ”»À •À •SÀ •‰À •ÕÀ – À –^À –ˆÀ –¹À —À —TÀ —¤À —òÀ ˜AÀ ˜À ˜­À ˜³À ™À ™PÀ ™ŸÀ ™ÊÀ ™ĞÀ š À š]À š¨À šóÀ ›<À ›‹À ›ÍÀ ›ÓÀ œÀ œ	À œ1À œ7À œmÀ œsÀ œšÀ œ À œËÀ À 4À :À cÀ iÀ °À ùÀ ÿÀ À À fÀ ŒÀ ÜÀ ŸÀ ŸTÀ ŸzÀ ŸÆÀ  À  bÀ  ¤À  óÀ ¡5À ¡aÀ ¡ŸÀ ¡ûÀ ¢\À ¢bÀ ¢dÀ ¢eÀ ¢¶À ¢öÀ ¢úÀ £KÀ £™À £îÀ ¤+À ¤nÀ ¤±À ¤ŞÀ ¥À ¥À ¥À ¥FÀ ¥„À ¥àÀ ¦AÀ ¦HÀ ¦“À ¦ãÀ §1À §sÀ §¿À ¨À ¨AÀ ¨QÀ ¨YÀ ¨“À ¨òÀ ©cÀ ©À ©ëÀ ©üÀ ªNÀ ªXÀ ªxÀ ªãÀ «1À «€À «ÌÀ ¬À ¬XÀ ¬¬À ¬ùÀ ­À ­bÀ ­rÀ ­€À ­ŒÀ ­–À ­À ­ÃÀ ­ÄÀ ®À ®LÀ ®RÀ ®SÀ ®ŠÀ ®ÅÀ ®ÆÀ ¯À ¯YÀ ¯À ¯âÀ °À °À °8À °BÀ °JÀ °hÀ °À °¤À °¸À °¼À °¾À °¿À ± À ±À ±FÀ ±À ±¹À ±ßÀ ±àÀ ²*À ².À ²}À ²ÌÀ ³À ³oÀ ³ÀÀ ³ıÀ ´À ´À ´ À ´pÀ ´¿À µÀ µ^À µ«À µøÀ ¶À ¶À ¶mÀ ¶ºÀ ¶òÀ ·À ·À ·dÀ ·hÀ ·‡À ·‹À ·ÔÀ ¸À ¸`À ¸ªÀ ¸ñÀ ¹À ¹À ¹jÀ ¹´À ºÀ ºMÀ º—À ºâÀ »1À »zÀ »šÀ »À »ÅÀ »ÉÀ ¼À ¼gÀ ¼µÀ ¼ÎÀ ¼ÒÀ ½ À ½pÀ ½–À ½šÀ ½¦À ½¸À ½ìÀ ½òÀ ½úÀ ½şÀ ¾AÀ ¾‹À ¾ºÀ ¾¾À ¾ÊÀ ¾ÿÀ ¿'À ¿@À ¿xÀ ¿À ¿¯À ¿×À ¿õÀ ÀÀ À.À À=À ÀJÀ ÀUÀ À^À ÀfÀ ÀnÀ ÀrÀ À¸À ÀûÀ Á2À Á6À Á€À Á«À Á¯À Á»À Á×À ÁßÀ ÁãÀ Â.À ÂyÀ ÂºÀ ÃÀ Ã!À Ã%À ÃJÀ ÃNÀ Ã“À ÃÕÀ ÄÀ ÄCÀ ÄGÀ ÄlÀ Ä¶À ÄşÀ ÅHÀ ÅLÀ ÅXÀ ÅjÀ Å„À ÅÄÀ ÅîÀ Æ=À ÆŒÀ ÆÛÀ ÆæÀ ÆğÀ ÆöÀ ÆşÀ ÇÀ ÇÀ Ç#À Ç/À ÇWÀ Ç_À ÇcÀ Ç…À Ç‰À ÇÒÀ ÈÀ ÈÀ ÈZÀ È¦À ÈµÀ È¹À ÉÀ ÉAÀ ÉEÀ ÉQÀ ÉšÀ ÉÂÀ ÉÙÀ ÉûÀ Ê À ÊXÀ ÊeÀ ÊpÀ ÊxÀ Ê€À ÊˆÀ ÊŒÀ ÊÔÀ ËÀ Ë:À Ë>À ËŠÀ ËÆÀ ÌÀ ÌbÀ ÌqÀ ÌuÀ ÌŠÀ ÌÀ ÌÚÀ Í+À ÍzÀ Í¥À Í©À ÍéÀ Î2À ÎwÀ Î»À ÎòÀ ÎöÀ ÏGÀ Ï”À ÏßÀ ÏãÀ ÏùÀ ÏıÀ ĞMÀ ĞšÀ ĞëÀ ÑÀ Ñ"À ÑnÀ Ñ¼À ÒÀ ÒZÀ Ò^À ÒjÀ ÒÀ Ò³À ÒæÀ Ó À Ó)À Ó|À Ó›À Ó¹À ÓŞÀ Ô)À ÔCÀ ÔPÀ Ô[À ÔcÀ ÔkÀ ÔsÀ ÔwÀ Ô´À ÔüÀ ÕJÀ Õ•À ÕÛÀ ÕñÀ ÕõÀ ÖDÀ ÖeÀ ÖiÀ Ö„À ÖˆÀ ÖÔÀ ×$À ×uÀ ×²À ×¶À ×ÇÀ ×ËÀ ØÀ ØfÀ Ø¡À Ø¥À ØõÀ ÙBÀ Ù‘À ÙŞÀ Ú-À ÚCÀ ÚGÀ Ú‘À ÚâÀ ÚúÀ ÚşÀ ÛÀ Û`À Û”À Û˜À ÛáÀ Ü1À Ü5À Ü~À Ü¯À Ü³À ÜıÀ İÀ İÀ İ`À İ«À İúÀ ŞJÀ ŞxÀ Ş|À Ş À Ş¤À ŞñÀ ß;À ßˆÀ ßÙÀ ßôÀ ßøÀ àÀ àÀ à`À à¬À àöÀ áDÀ áfÀ ájÀ á´À áÅÀ âÀ âDÀ â‘À ââÀ ã,À ãzÀ ãÆÀ ãíÀ ãñÀ ä5À äƒÀ äÏÀ åÀ å@À åÀ å”À åÕÀ æÀ æÀ ædÀ æxÀ æ‡À æ±À æÅÀ æÜÀ ç'À çAÀ çZÀ ç¤À çÑÀ çøÀ è*À èHÀ èeÀ è¯À èµÀ è¶À èòÀ èøÀ é@À éÀ éÆÀ êÀ êÀ êfÀ êŸÀ ê¥À êõÀ ëBÀ ë‘À ëâÀ ì	À ìÀ ìZÀ ìªÀ ìøÀ í:À íVÀ í\À í­À íáÀ íçÀ î2À î‚À î¹À îÜÀ îİÀ ï)À ïQÀ ïWÀ ï¤À ïÓÀ ïÙÀ ğ%À ğKÀ ğQÀ ğ¢À ğñÀ ñAÀ ñyÀ ñÀ ñÀ ñîÀ òÀ òÀ òfÀ òÀ òŸÀ òÊÀ òĞÀ ó À óÀ óSÀ ó…À ó£À ó¤À óâÀ ô	À ô
+À ôIÀ ôOÀ ô›À ôìÀ õÀ õÀ õYÀ õ–À õ¼À õ½À õëÀ öÀ öÀ öfÀ öyÀ öÀ ö¾À ÷À ÷]À ÷”À ÷šÀ ÷æÀ ø4À ø@À øFÀ ø‰À øÕÀ ù%À ùLÀ ùRÀ ùbÀ ùhÀ ùµÀ ùÇÀ úÀ ú<À ú‡À úĞÀ ûÀ ûVÀ ûkÀ ûÀ ûÀ ûŞÀ ü(À ü.À üuÀ ü¿À ı
+À ıZÀ ı©À ı÷À şDÀ ş”À ş³À şÈÀ ÿÀ ÿÀ ÿ<À ÿBÀ ÿRÀ ÿXÀ ÿ²À ÿÙÀ À À XÀ …À ‹À ½À ÃÀÀaÀwÀ}ÀÈÀÿÀMÀÀêÀ/À|ÀËÀÔÀÀÀSÀÀ‡ÀÔÀ%ÀrÀxÀÄÀ÷ÀBÀ’ÀàÀôÀúÀIÀ—ÀåÀ0À;ÀAÀZÀƒÀ„ÀºÀÀÀ	À	#À	)À	bÀ	}À	~À	ÑÀ
+À
+À
+&À
+AÀ
+BÀ
+“À
+¢À
+¨À
+ŞÀ%ÀkÀqÀ·ÀÀDÀhÀnÀ¿ÀÍÀÓÀÀ#ÀmÀ}À’À˜ÀÚÀ(ÀaÀvÀ|À²ÀôÀEÀ’ÀÈÀÎÀÀKÀ`ÀfÀ|À‚À¥À«À¹À×À
+ÀÀÀ.À4ÀJÀPÀœÀ©À¯À½ÀßÀüÀÀ%ÀLÀjÀŒÀ™À¤À¬À¶ÀÈÀÎÀäÀêÀ6À<ÀJÀnÀ¼À×ÀõÀûÀÀYÀcÀkÀqÀÀªÀ½ÀÓÀ#À.À6À@ÀRÀXÀhÀnÀ¸ÀÛÀïÀ!À;ÀSÀjÀqÀÁÀÅÀÆÀÀ&À,ÀlÀ»ÀÀ@ÀUÀ[ÀÀ”ÀŞÀ ÀiÀ¹ÀØÀŞÀ ÀYÀnÀtÀÀÀÀ]ÀªÀ÷ÀÀ(À.ÀDÀJÀmÀsÀÀ¢ÀÉÀÜÀòÀÀ6ÀWÀdÀoÀwÀÀ“À§ÀßÀùÀÀ(À/À‰ÀÀÀŞÀ,ÀsÀyÀºÀ À SÀ œÀ ëÀ!9À!‚À!ˆÀ!ÏÀ"À"À"gÀ"´À"ôÀ#BÀ#À#İÀ$
+À$À$aÀ$oÀ$uÀ$ÃÀ%À%
+À%[À%nÀ%ƒÀ%‰À%ÈÀ%ÎÀ&À&À&À&#À&FÀ&LÀ&ZÀ&}À&ÆÀ&ÎÀ&ØÀ&êÀ&ğÀ' À'À'WÀ'ŠÀ'À'ïÀ(	À(!À(1À(HÀ(OÀ(¾À(ÂÀ(ÃÀ)À)aÀ)¨À)®À)ùÀ*GÀ*–À*ØÀ*íÀ*óÀ+1À+7À+~À+„À+ÍÀ+ÓÀ+éÀ+ïÀ,À,À,&À,JÀ,™À,¡À,«À,½À,ÑÀ-(À-BÀ-ZÀ-jÀ-À-ˆÀ.À.À.À.SÀ.ŒÀ.’À.ÎÀ/À/À/bÀ/¨À/®À/ıÀ0>À0ŒÀ0ÛÀ1'À1vÀ1ÆÀ1ıÀ2À2TÀ2bÀ2hÀ2¶À2ğÀ2öÀ3OÀ3dÀ3jÀ3©À3¯À3âÀ3èÀ3şÀ4À4'À4-À4;À4_À4¦À4®À4¸À4ÊÀ4ĞÀ4àÀ4æÀ51À5]À5qÀ5½À5×À5ïÀ5ÿÀ6À6À6‡À6‹À6ŒÀ6ÙÀ7À7À7^À7§À7öÀ88À8MÀ8SÀ8ŒÀ8’À8ÙÀ8ßÀ9(À9.À9DÀ9JÀ9mÀ9sÀ9À9ŸÀ9êÀ9òÀ9üÀ:À:"À:tÀ:À:¦À:¶À:ÍÀ:ÔÀ;HÀ;LÀ;MÀ;›À;ëÀ<À<À<YÀ< À<ÏÀ<ÕÀ=À=SÀ=YÀ=§À=ñÀ=÷À>DÀ>qÀ>wÀ>¶À?À?À?$À?pÀ?¿À?üÀ@<À@†À@ÔÀA"ÀAHÀANÀAŸÀA­ÀA³ÀBÀBÀBWÀBoÀB„ÀBŠÀBÉÀBÏÀCÀCÀCÀC$ÀCGÀCMÀC[ÀC{ÀCÖÀCŞÀCèÀCúÀD ÀDÀDÀDfÀD•ÀD©ÀDéÀEÀEÀE<ÀESÀEZÀEÆÀEÊÀEËÀFÀFiÀFÀF“ÀFáÀG2ÀGÀGÃÀGØÀGŞÀHÀH%ÀHlÀHrÀH»ÀHÁÀH×ÀHİÀI ÀIÀIÀI4ÀI™ÀI¡ÀI«ÀI½ÀIÑÀJÀJ1ÀJJÀJjÀJÀJˆÀJşÀKÀKÀKPÀKeÀKkÀKœÀKâÀL/ÀLoÀL“ÀL™ÀLêÀLøÀLşÀMHÀM]ÀMcÀM¢ÀM¨ÀM¾ÀMÄÀMçÀMíÀMûÀNÀN4ÀNGÀNjÀN©ÀN¶ÀNÁÀNÉÀNÓÀNåÀNëÀNûÀOÀOMÀOiÀO}ÀOÑÀOÿÀPÀPÀPMÀPbÀPhÀP£ÀPñÀQ@ÀQrÀQ‡ÀQÀQ»ÀQÁÀQüÀRKÀR—ÀRãÀS%ÀSrÀS¶ÀS¼ÀTÀTSÀThÀTnÀT·ÀT½ÀTÓÀTöÀTüÀUXÀUjÀU~ÀVÀVZÀV^ÀV_ÀV¯ÀVşÀW8ÀW>ÀWzÀWÆÀXÀXfÀX¶ÀYÀYBÀYHÀY”ÀYáÀZ!ÀZoÀZ±ÀZ·À[À[À[À[jÀ[«À[ÀÀ[ÆÀ\À\À\!À\'À\JÀ\PÀ\^À\|À\«À\¾À\áÀ]$À]1À]<À]DÀ]NÀ]`À]fÀ]vÀ]|À]ÌÀ]ûÀ^À^•À^èÀ^ìÀ^íÀ_=À_ˆÀ_ÂÀ_ÈÀ`À`\À`¦À`èÀ`ıÀaÀa<ÀaBÀazÀa€ÀaÉÀaÏÀaåÀbÀbÀbvÀbˆÀbœÀcPÀcÇÀcËÀcÌÀdÀd`Àd€Àd†ÀdÅÀeÀe;ÀeAÀeƒÀe¿ÀeÅÀfÀf]ÀfcÀf°ÀfİÀfãÀg)ÀgzÀgÄÀhÀh]ÀhªÀhúÀi;ÀiAÀi’Ài Ài¦ÀiôÀj	ÀjÀjNÀjTÀjjÀjpÀj“Àj™Àj§ÀjÍÀjùÀkÀkfÀkŠÀk•ÀkÀk§Àk¹Àk¿ÀkÏÀkÕÀlÀlKÀl_ÀlŞÀm+Àm/Àm0ÀmyÀmÀÀmàÀmæÀn/Àn€ÀnÊÀoÀo!Ào'ÀocÀoiÀo¡Ào§ÀoğÀoöÀpÀp/Àp5Àp¢Àp´ÀpÈÀqzÀqîÀqòÀqóÀr@Àr`ÀrfÀršÀræÀs5Às„ÀsÔÀsüÀtÀtRÀtzÀt€ÀtÑÀuÀu`Àu¨ÀuõÀvFÀv_ÀveÀvµÀv×ÀvİÀw+Àw@ÀwFÀwVÀw\Àw«ÀwöÀx?ÀxkÀxÀyÀyWÀy[Ày\Ày©ÀyÉÀyÏÀzÀz\Àz«ÀzİÀzòÀzøÀ{)À{/À{gÀ{mÀ{¶À{ÊÀ|„À}À}À}À}YÀ}§À}ÂÀ}ÈÀ~À~PÀ~ŸÀ~îÀ>ÀfÀlÀ¼ÀäÀêÀ€;À€zÀ€ÊÀÀ_À°ÀÉÀÏÀ‚À‚2À‚8À‚HÀ‚NÀ‚›À‚®À‚şÀƒ-ÀƒAÀƒÑÀ„6À„:À„;À„ˆÀ„ÖÀ„ñÀ„÷À…?À…À…ÛÀ†#À†8À†>À†yÀ†À†·À†½À‡À‡À‡áÀˆtÀˆxÀˆyÀˆÉÀˆ×ÀˆİÀ‰À‰_À‰¯À‰ÈÀ‰ÎÀŠÀŠÀŠ#ÀŠ3ÀŠ9ÀŠ„ÀŠœÀŠÉÀ‹À‹?À‹CÀ‹DÀ‹•À‹æÀŒ
+ÀŒÀŒEÀŒÀŒáÀŒøÀŒşÀIÀŠÀÀàÀ.ÀlÀrÀÃÀ
+ÀÀ[À¦ÀµÀÊÀĞÀàÀæÀ4ÀqÀÂÀóÀ‘À‘`À‘–À‘šÀ‘›À‘éÀ‘şÀ’À’4À’„À’ÒÀ“À“dÀ“jÀ“¶À”À”MÀ”œÀ”êÀ•5À•;À•‹À•ÚÀ–À–=À–CÀ–”À–šÀ–çÀ—À—#À—)À—?À—EÀ—|À—‚À—À—¦À—ÆÀ—ÎÀ—ØÀ—êÀ—ğÀ˜"À˜(À˜6À˜MÀ˜ŠÀ˜’À˜œÀ˜°À˜üÀ™&À™*À™+À™xÀ™®À™´À™éÀš0Àš_ÀšeÀš®ÀšÙÀšßÀ›À›$À›jÀ›À›…À››À›¡À›ÄÀ›ÊÀ›ØÀ›ïÀœ3Àœ;ÀœEÀœWÀœ ÀœÏÀœÓÀœÔÀ#ÀTÀZÀ’ÀâÀ/ÀGÀMÀ’ÀáÀŸ)ÀŸuÀŸÆÀŸßÀŸåÀ /À MÀ SÀ ‘À ¦À ¬À ıÀ¡1À¡yÀ¡®À¡²À¡³À¢À¢RÀ¢{À¢À¢¾À£À£[À£sÀ£yÀ£¾À¤À¤UÀ¤¡À¤òÀ¥À¥À¥bÀ¥ªÀ¥°À¥îÀ¦À¦VÀ¦–À¦šÀ¦›À¦ëÀ¦úÀ§ À§#À§)À§7À§SÀ§cÀ§sÀ§•À§ŸÀ§¥À§öÀ¨?À¨jÀ¨pÀ¨ÁÀ©	À©À©OÀ©kÀ©‡À©§À©®À©öÀªÀª^Àª‘Àª—Àª°À«À«À«eÀ«kÀ«lÀ«|À«›À«·À¬À¬nÀ¬®À¬¹À¬ÁÀ¬ÔÀ¬ŞÀ¬õÀ¬ùÀ¬úÀ­JÀ­aÀ­gÀ­ŠÀ­À­À­áÀ®À®À®.À®@À®dÀ®lÀ®vÀ®|À®ÍÀ¯À¯AÀ¯GÀ¯”À¯šÀ¯ÚÀ¯üÀ°À°8À°?À°‡À°¦À°ïÀ±"À±(À±AÀ±—À±¤À±öÀ±üÀ²À²À²À²NÀ²TÀ²£À²ÅÀ²ËÀ³À³jÀ³¸À³ÎÀ³ÔÀ´$À´pÀ´¿À´úÀµjÀµ¨ÀµóÀ¶@À¶qÀ¶–À¶¨À¶êÀ¶ÿÀ·À·{À·¾À·çÀ¸À¸6À¸WÀ¸mÀ¸šÀ¸³À¸ÃÀ¹&À¹0À¹8À¹YÀ¹mÀ¹‘À¹²À¹ËÀºÀºKÀº½À»À»!À».À»EÀ»SÀ»kÀ»sÀ»´À¼À¼aÀ¼ÇÀ¼ÍÀ½À½À½_À½®À½÷À¾À¾YÀ¾sÀ¾ÒÀ¾ØÀ¿À¿À¿À¿À¿GÀ¿IÀ¿JÀ¿À¿„À¿¶À¿ÛÀÀ ÀÀ&ÀÀMÀÀzÀÀ¡ÀÀÇÀÀ÷ÀÁ'ÀÁWÀÁ‡ÀÁ·ÀÁçÀÂÀÂKÀÂzÀÂ¨ÀÂÕÀÃÀÃ,ÀÃNÀÃxÀÃ¢ÀÃĞÀÃøÀÄÀÄDÀÄoÀÄ—ÀÄ¿ÀÄçÀÅÀÅ8ÀÅ]ÀÅ‡ÀÅ¬ÀÅÕÀÅúÀÆÀÆSÀÆ€ÀÆƒÀÆÏÀÆöÀÇFÀÇ]ÀÇ¶ÀÇ»ÀÇÙÀÇŞÀÈZÀÈ¯ÀÈÚÀÉ3ÀÉšÀÉŞÀÊ@ÀÊcÀÊhÀÊŠÀÊÀÊøÀËÀËKÀËƒÀËëÀÌ@ÀÌ¦ÀÌîÀÍ"ÀÍmÀÍºÀÍÙÀÎÀÎÀÎÀÎGÀÎHÀÎrÀÎ­ÀÎúÀÏÀÏÀÏÀÏOÀÏ^ÀÏpÀÏÀÏ¼ÀÏßÀĞÀĞ'ÀĞ]ÀĞÀĞÂÀĞüÀÑ0ÀÑ<ÀÑbÀÑcÀÑoÀÑÀÑÆÀÑŞÀÑßÀÒÀÒÀÒ8ÀÒ¡ÀÓÀÓeÀÓfÀÓ¶ÀÓüÀÔÀÔjÀÔ²ÀÔÇÀÕ	ÀÕUÀÕ[ÀÕ…ÀÕÅÀÕËÀÕÜÀÕàÀÕáÀÖÀÖ&ÀÖ:ÀÖ@ÀÖVÀÖjÀÖpÀÖµÀÖÛÀÖßÀÖàÀ×DÀ×uÀ×™À×¿À×áÀ×öÀØ#ÀØNÀØyÀØ²ÀØ¹ÀØ½ÀØ¾ÀÙ`ÀÙìÀÚÀÚÀÚ<ÀÚ‰ÀÚ±ÀÚ¸ÀÚğÀÛÀÛ'ÀÛTÀÛ³ÀÛëÀÜÀÜEÀÜ|ÀÜ«ÀÜÖÀİÀİJÀİ“ÀİÀİ§Àİ´ÀİëÀŞÀŞ8ÀŞ>ÀŞTÀŞuÀŞ{ÀŞ|ÀŞàÀßÀßKÀßTÀßaÀß–ÀßÃÀßşÀàÀàÀàÀàÀàHÀàkÀà›ÀàŸÀà ÀàÆÀàÌÀáÀá\ÀábÀá³ÀáÏÀâ3ÀâWÀâ‚Àâ®ÀâÙÀã#ÀãiÀã‚Àã§ÀãºÀãÀÀãèÀäÀä'Àä-ÀäGÀäXÀä\Àä]ÀäwÀäÀä·ÀåÀå1Àå5Àå6ÀåÀåÂÀåíÀæÀæ>ÀækÀæ¨Àæ±Àæ·Àæ»Àæ¼ÀçÀç ÀçIÀç_Àç€Àç†ÀçŠÀç‹Àç¤Àç¥ÀçÀÀç×ÀçóÀèÀèÀè ÀèHÀèIÀèxÀè¥Àè±ÀèâÀé2Àé€Àé‡ÀéÅÀéÓÀéÙÀéğÀêÀêGÀêKÀêLÀêÀê»ÀêÇÀêøÀëHÀë–ÀëÀëÛÀëéÀëïÀìÀì2ÀìNÀì{ÀìÀì€Àì”ÀìÔÀí ÀíÀíÀíBÀíHÀí™Àí±ÀíÊÀîÀî8ÀîMÀîQÀîRÀîƒÀî‰ÀîÙÀïÀï@ÀïFÀïÀï£ÀïåÀğÀğÀğdÀğ±ÀğóÀñBÀñ“Àñ”ÀòÀòÀò$Àò;ÀòIÀòOÀòPÀòyÀò’ÀòÊÀóÀó:Àó\ÀórÀóÀó¯ÀóÂÀóêÀôÀôTÀô¢ÀôïÀõ>ÀõcÀõpÀõ¸ÀõñÀöÀödÀö²ÀöÒÀ÷À÷.À÷<À÷{À÷˜À÷¦À÷°À÷¹À÷ÜÀ÷âÀ÷æÀ÷çÀøÀøAÀø}ÀøÀø‚Àø™ÀøÚÀùÀùÀùÀùsÀùtÀù™ÀùÜÀúÀúÀúÀúJÀú‹ÀúÈÀúÌÀúÍÀûÀû=Àû‹ÀûÇÀûÕÀûğÀü/Àü6Àü:Àü;ÀüƒÀüõÀıEÀıFÀıÀıÅÀıÉÀıÊÀıÖÀş*Àş+Àş7ÀşÀş¬Àş­Àş÷ÀşøÀÿÀÿÀÿ'ÀÿkÀÿ½À À À @À DÀ EÀ QÀ gÀ sÀ ·ÀÀ[ÀbÀŠÀÀÀ›ÀÁÀÍÀÀoÀÃÀÊÀäÀÀÀÀÀJÀVÀ§ÀøÀLÀZÀaÀ€ÀªÀ®À¯À»ÀÔÀàÀ1À€ÀÔÀâÀéÀ÷À!À%À&ÀoÀ–ÀÃÀÀÀÀÀ/ÀHÀ_ÀxÀ}À¢ÀÊÀËÀöÀøÀùÀ9ÀVÀnÀˆÀÀÀšÀÆÀúÀşÀ	 À	À	@À	\À	tÀ	À	“À	”À	 À	ÌÀ	ÿÀ
+À
+À
+À
+HÀ
+gÀ
+À
+™À
+À
+ŸÀ
+«À
+×ÀÀÀÀÀWÀwÀÀ©À®À¯À»ÀçÀ2À6À8À9ÀaÀeÀ®ÀÀ:ÀjÀ·ÀÇÀÍÀÀXÀ^À­ÀñÀ=ÀÀàÀ?À@À•À¤ÀÒÀ
+ÀÀPÀQÀ‘ÀÓÀÔÀ/À0À\À]À‘À’ÀÀ³ÀÊÀÚÀÀ8À\À€À¡ÀÈÀÀ3ÀDÀmÀ–À¥À²ÀáÀÀ&ÀMÀ”À»ÀÌÀõÀÀ-À:ÀDÀLÀ_ÀiÀªÀÔÀ
+ÀÀ<À=ÀŠÀ¿ÀüÀBÀjÀ¦À§ÀÔÀÀÀÀÀPÀ§À¨ÀÀÀÀWÀÀÚÀÛÀÀCÀaÀÀÀÆÀÀHÀuÀ˜À±ÀÜÀåÀóÀÀiÀ¸ÀÁÀÜÀ,À2À3ÀÀªÀÜÀşÀAÀIÀkÀ„À®ÀÀÀÿÀ 6À KÀ kÀ œÀ ŞÀ!À!=À!`À!§À!¹À!ÑÀ!àÀ!íÀ!øÀ" À"À"À"À".À"zÀ"ÈÀ#À#2À#9À#TÀ#ŒÀ#¨À#áÀ#åÀ#æÀ#òÀ$)À$OÀ$iÀ$–À$£À$ÇÀ$ÍÀ$ÑÀ$İÀ%À%À%$À%EÀ%hÀ%©À%ÙÀ&À&	À&À&À&FÀ&oÀ&µÀ&ÒÀ&åÀ&íÀ'À'QÀ'WÀ'[À'\À'¬À'öÀ(À(À(-À(DÀ(QÀ(nÀ(tÀ(xÀ(yÀ(»À(ôÀ)À)pÀ)„À)ÓÀ*#À*TÀ*‰À*ØÀ+)À+zÀ+½À,"À,UÀ,¨À,÷À-À-WÀ-ƒÀ-¬À-ÛÀ.1À.„À.¨À.ÒÀ/'À/yÀ/°À/ÉÀ/úÀ0+À0BÀ0WÀ0iÀ0yÀ0‰À0•À0¬À0ºÀ0ûÀ1À1SÀ1lÀ1¥À1îÀ1öÀ2*À2MÀ2SÀ2WÀ2XÀ2}À2©À3À3À3CÀ3IÀ3MÀ3NÀ3ZÀ3ˆÀ3®À3¾À3óÀ4À4@À4dÀ4…À4¬À4ğÀ5À5(À5QÀ5zÀ5‰À5–À5ÅÀ5éÀ6
+À61À6xÀ6ŸÀ6°À6ÙÀ7À7À7À7(À70À7CÀ7MÀ7€À7ÆÀ7şÀ8À8IÀ8uÀ8­À8µÀ8ØÀ8ŞÀ9À9.À9RÀ9vÀ9—À9¾À:À:)À::À:cÀ:ŒÀ:›À:¨À:²À:ÇÀ:ÓÀ:éÀ:ïÀ:ğÀ; À;JÀ;PÀ;TÀ;UÀ;~À;À;½À;ôÀ<À<7À<hÀ<‹À<•À<À<°À<ºÀ<¾À<¿À<ËÀ<áÀ=%À=[À=aÀ=yÀ=}À=~À=ŠÀ=À=´À=øÀ>"À>XÀ>^À>bÀ>cÀ>oÀ>‚À>À>­À>ÈÀ>ÛÀ>åÀ>õÀ?;À?gÀ?oÀ?‚À?ŒÀ?­À?ÆÀ?ëÀ@À@AÀ@nÀ@ƒÀ@¼À@ÖÀ@ÚÀ@ÛÀAÀAWÀAXÀAÀAªÀAÚÀBÀBÀBÀBÀB0ÀB1ÀBTÀBlÀB|ÀBŸÀBÆÀBçÀBúÀCÀCÀCIÀC“ÀCİÀD$ÀD+ÀDZÀDzÀDÍÀDüÀEJÀEoÀE¼ÀFÀFÀF`ÀFµÀFèÀG3ÀGÀGÌÀGíÀH1ÀHYÀHÀH­ÀHèÀI6ÀIWÀI“ÀIÙÀJ(ÀJFÀJÀJ«ÀJùÀK%ÀK_ÀK`ÀKˆÀK¤ÀKÂÀKñÀLÀLÀLYÀLÉÀLÊÀLñÀMÀMMÀMŒÀMÍÀNÀN5ÀNVÀN®ÀNÓÀNôÀNÿÀO%ÀODÀOVÀO^ÀOˆÀO—ÀOŸÀOáÀPÀPÀP&ÀPRÀPÀP¡ÀP¼ÀPÙÀPßÀPàÀQ&ÀQxÀQˆÀQİÀRÀRZÀR{ÀR«ÀRÇÀRÙÀRáÀS ÀSNÀS]ÀSeÀSfÀS½ÀSãÀTÀTDÀTXÀT›ÀT¦ÀTĞÀTØÀTÙÀTóÀUÀUÀULÀU‚ÀUƒÀUÕÀVÀV\ÀV©ÀVÁÀVşÀW4ÀWyÀWœÀWªÀWåÀWîÀX=ÀXLÀXmÀXÀX‡ÀXˆÀXÓÀXñÀYÀYÀYÀY1ÀYWÀYiÀYqÀY©ÀYØÀYŞÀYßÀZÀZ2ÀZuÀZÀZ›ÀZ»ÀZóÀ[5À[?À[À[ÚÀ[úÀ\,À\UÀ\pÀ\¡À\¬À\ÒÀ\âÀ]À]cÀ]´À]¿À]áÀ]ğÀ^;À^À^ÅÀ^üÀ_#À_+À_1À_2À_„À`À`AÀ`À`«À`¬À`ÛÀaÀaYÀaqÀa˜Àa»ÀaÈÀaüÀbjÀb§Àb±ÀbÃÀbËÀbÌÀc6Àc†ÀcÒÀcöÀd%ÀdkÀd¨Àe ÀeFÀezÀe·ÀeÁÀeÉÀfÀf	Àf
+Àf/ÀfbÀf‘Àf¼ÀfåÀg:ÀgTÀgdÀg“ÀgÃÀgõÀhGÀhVÀhƒÀh‹Àh•Àh–ÀhºÀiÀiNÀiÀi°ÀiãÀj.ÀjFÀjkÀjÀj™Àj¿ÀjÑÀjÙÀkÀkGÀkvÀk¥ÀkÅÀkâÀkıÀlÀlÀlRÀl®ÀlŞÀlÿÀm6Àm_ÀmŸÀmİÀmúÀn Àn ÀnYÀnÀnÉÀnÏÀnÿÀoÀoVÀo“Ào›Ào¡ÀoŞÀpÀp2ÀpkÀpoÀppÀp‘Àp’ÀpĞÀqÀqÀqmÀq¼ÀrÀrTÀryÀrÀrºÀrşÀs{ÀsáÀtAÀt}Àt–Àt»ÀtİÀuÀuÀu9Àu™Àu¦ÀuæÀuúÀvÀvOÀviÀvˆÀv°Àv¿ÀvÿÀwÀw!ÀwDÀwnÀw”Àw¸ÀwÔÀwñÀxÀxxÀxÀx«ÀxéÀy.ÀyoÀy«ÀyÁÀyÍÀz%ÀzaÀz’ÀzÀzÃÀzæÀ{"À{SÀ{_À{„À{ÖÀ|À|4À|VÀ|vÀ|—À|ıÀ}=À}SÀ}_À}„À}«À}ŞÀ}ìÀ~À~À~FÀ~¼À~ÉÀÀUÀvÀŒÀ˜ÀÙÀúÀ€ À€\À€mÀ€”À€¶À€öÀ
+À/ÀTÀ{À®À¼ÀÜÀèÀ‚À‚$À‚„À‚‘À‚ÓÀ‚çÀƒÀƒ?ÀƒzÀƒÀƒ™ÀƒÑÀƒåÀ„À„]À„“À„«À„ÓÀ„úÀ… À…9À…AÀ…SÀ…gÀ…À…¸À…¾À…öÀ†À†À†fÀ†|À†›À†œÀ†ÀÀ†íÀ‡NÀ‡À‡ÕÀˆ!ÀˆNÀˆVÀˆ\Àˆ]Àˆ«Àˆ¸ÀˆìÀ‰À‰#À‰?À‰rÀ‰xÀ‰’À‰¿À‰ÅÀ‰ãÀ‰çÀ‰èÀŠÀŠ6ÀŠ]ÀŠ„ÀŠ’ÀŠ˜ÀŠÉÀ‹À‹VÀ‹\À‹]À‹À‹åÀŒÀŒ"ÀŒ&ÀŒ'ÀŒJÀŒoÀŒˆÀŒ¹ÀŒåÀŒùÀÀÀƒÀ„À½ÀúÀ,À6ÀjÀrÀçÀ(À`ÀœÀ¤À¶À¼ÀÀÀÁÀÀ<ÀlÀpÀqÀ´ÀìÀşÀ‘À‘À‘À‘À‘fÀ‘«À‘½À‘ÃÀ’ À’À’À’hÀ’ƒÀ’ºÀ’ÍÀ’ÓÀ’ãÀ“À“+À“‰À“æÀ”4À”[À”|À”‘À”œÀ”¤À”·À”ÁÀ”óÀ•À•!À•(À•pÀ•—À•©À•ÖÀ–À–|À–šÀ–ùÀ—(À—7À—®À—¼À—ÆÀ—ÛÀ—çÀ˜%À˜7À˜TÀ˜À˜ùÀ™NÀ™ÅÀ™ÓÀ™İÀ™òÀ™şÀšÀš,Àš>ÀšBÀšCÀšpÀšvÀš©Àš¯ÀšîÀšôÀ›'À›-À›CÀ›IÀ›lÀ›rÀ›€À›À›ÇÀ›ÏÀ›ÙÀ›ëÀ›ñÀœÀœÀœQÀœtÀœˆÀœ³ÀœËÀœâÀœéÀ0À4À5ÀbÀhÀ¥À«ÀŞÀäÀ+À1ÀzÀ€À–ÀœÀ¿ÀÅÀÓÀïÀŸ#ÀŸ+ÀŸ5ÀŸGÀŸ[ÀŸŒÀŸ¤ÀŸ»ÀŸÂÀ GÀ „À ›À ·À òÀ¡0À¡GÀ¡hÀ¡lÀ¡mÀ¡¹À¢À¢%À¢+À¢iÀ¢oÀ¢®À¢´À¢çÀ¢íÀ£À£	À£,À£2À£@À£ZÀ£’À£šÀ£¤À£¶À£¼À£ÌÀ£ÒÀ¤#À¤TÀ¤hÀ¤²À¤ÊÀ¤ÚÀ¤ñÀ¤øÀ¥^À¥bÀ¥cÀ¥¯À¥şÀ¦À¦!À¦iÀ¦oÀ¦­À¦³À¦úÀ§ À§IÀ§OÀ§eÀ§kÀ§À§”À§¢À§»À§ıÀ¨À¨À¨!À¨5À¨…À¨À¨­À¨ÄÀ¨ËÀ©PÀ©À©¤À©ÀÀ©ûÀª@ÀªjÀª‹ÀªÀªÀªÜÀªéÀªïÀ«(À«.À«mÀ«sÀ«¦À«¬À«ÂÀ«ÈÀ«ëÀ«ñÀ«ÿÀ¬À¬EÀ¬MÀ¬WÀ¬iÀ¬oÀ¬À¬…À¬ĞÀ¬üÀ­À­UÀ­mÀ­}À­”À­›À­°À­êÀ­îÀ­ïÀ®;À®HÀ®NÀ®‘À®—À®ĞÀ®ÖÀ¯À¯#À¯lÀ¯rÀ¯ˆÀ¯À¯±À¯·À¯ÅÀ¯ÙÀ°À°À°%À°7À°KÀ°–À°®À°¾À°ÕÀ°ÜÀ°ñÀ±2À±6À±7À±ˆÀ±ÆÀ±ÌÀ²À²À²RÀ²XÀ²‹À²‘À²§À²­À²ĞÀ²ÖÀ²äÀ³À³YÀ³aÀ³kÀ³}À³ƒÀ³“À³™À³éÀ´À´,À´eÀ´~À´À´µÀ´¼ÀµÀµ#Àµ$ÀµuÀµ³Àµ¹À¶À¶
+À¶KÀ¶QÀ¶˜À¶À¶çÀ¶íÀ·À·	À·,À·2À·@À·]À·¹À·ÁÀ·ËÀ·İÀ·ñÀ¸0À¸IÀ¸iÀ¸€À¸‡À¹À¹IÀ¹cÀ¹À¹ºÀ¹øÀº(ÀºIÀºMÀºNÀº}ÀºƒÀº±Àº·ÀºöÀºüÀ»À»À»;À»AÀ»OÀ»hÀ»†À»©À»èÀ»õÀ¼ À¼À¼À¼$À¼*À¼:À¼@À¼ŒÀ¼¨À¼¼À¼óÀ½MÀ½fÀ½jÀ½kÀ½À½·À½ÇÀ¾<À¾À¾ À¾ªÀ¾½À¾ÁÀ¾ÂÀ¾íÀ¾óÀ¿+À¿1À¿_À¿eÀ¿À¿£À¿ìÀ¿òÀÀÀÀ+ÀÀ1ÀÀ“ÀÀ¥ÀÀ¹ÀÁ#ÀÁÀÂÀÂSÀÂuÀÂ‘ÀÂÌÀÃ
+ÀÃ!ÀÃBÀÃFÀÃGÀÃnÀÃ‰ÀÃ™ÀÃ´ÀÃÇÀÃÑÀÃıÀÄ5ÀÄNÀÄjÀÄzÀÄ–ÀÄ©ÀÄ³ÀÄÖÀÄÚÀÄÛÀÅÀÅ%ÀÅuÀÅ¾ÀÆÀÆÀÆ0ÀÆKÀÆxÀÆyÀÆ›ÀÆÌÀÇÀÇBÀÇSÀÇuÀÇÀÇ³ÀÇ´ÀÇëÀÈ5ÀÈVÀÈaÀÈ‹ÀÈÁÀÈáÀÉÀÉ&ÀÉ0ÀÉfÀÉnÀÉoÀÉ²ÀÉÒÀÉÜÀÉâÀÉÿÀÊÀÊÀÊTÀÊœÀÊ°ÀÊ¶ÀÊïÀÊõÀË4ÀË:ÀËPÀËVÀËyÀËÀËÀË¨ÀË×ÀËúÀÌ=ÀÌJÀÌUÀÌ]ÀÌgÀÌyÀÌÀÌÀÌ•ÀÌåÀÍÀÍ(ÀÍ‘ÀÍºÀÎ1ÀÎMÀÎQÀÎRÀÎÀÎæÀÎúÀÏ ÀÏCÀÏIÀÏ‚ÀÏˆÀÏÀÀÏÆÀĞÀĞÀĞ+ÀĞNÀĞTÀĞÂÀĞÔÀĞèÀÑÀÑéÀÒnÀÒ¯ÀÒÑÀÒíÀÓ(ÀÓmÀÓ—ÀÓ¸ÀÓ¼ÀÓ½ÀÔÀÔ*ÀÔ:ÀÔUÀÔhÀÔrÀÔÀÔ¿ÀÕ'ÀÕfÀÕÁÀÕÚÀÕöÀÖÀÖ"ÀÖ5ÀÖ?ÀÖbÀÖfÀÖgÀÖ·ÀÖèÀÖîÀ×*À×0À×oÀ×uÀ×‹À×‘À×´À×ºÀ×ÈÀ×éÀØÀØoÀØ“ÀØÀØ¦ÀØ°ÀØÂÀØÈÀØÎÀØŞÀØäÀÙ.ÀÙZÀÙnÀÙĞÀÙùÀÚ&ÀÚœÀÚ¸ÀÚ¼ÀÚ½ÀÛ	ÀÛ:ÀÛ@ÀÛ†ÀÛŒÀÛÈÀÛÎÀÜÀÜÀÜUÀÜ[ÀÜqÀÜ”ÀÜšÀİÀİÀİ3ÀİÈÀŞ5ÀŞºÀŞûÀß Àß<ÀßwÀßµÀßåÀàÀà
+ÀàÀàZÀàuÀà…Àà Àà³Àà½ÀàéÀáÀáQÀávÀáÀáÍÀáôÀâÀâÀâ0Àâ6ÀâRÀâSÀâcÀâÀâ’ÀâœÀâ¿ÀâÃÀâÄÀâşÀãÀã5Àã;ÀãKÀãQÀã ÀãëÀä4Àä`ÀätÀäÚÀäõÀåÀå‹ÀåÀåÀåÊÀåĞÀæÀæÀæBÀæHÀæ€Àæ†ÀæÏÀæãÀç€Àç©ÀèÀè›ÀèÜÀéÀéÀéXÀé™Àé½ÀéŞÀéâÀéãÀê&ÀêAÀêdÀêrÀêxÀêˆÀê£Àê¶ÀêÀÀêûÀë'ÀëzÀëÍÀì;ÀìkÀì’ÀìÀÀìÜÀììÀíÀíÀí%Àí;Àí`ÀífÀíjÀíkÀíµÀíîÀíôÀî/Àî5ÀîEÀîKÀî˜Àî«ÀîûÀï*Àï>Àï±ÀïÚÀğÀğ{ÀğÀğ€ÀğÊÀñÀñ	ÀñNÀñTÀñÀñ•ÀñÍÀñÓÀòÀò0ÀòÚÀóÀósÀóøÀô9Àô^ÀôzÀôµÀôöÀõ"ÀõCÀõGÀõHÀõ“Àõ®ÀõæÀöBÀöÀ÷À÷6À÷OÀ÷vÀ÷…À÷À÷ŸÀ÷¥À÷õÀøÀøJÀøfÀøŸÀø£Àø¤ÀøÏÀøÕÀùÀùÀùÀù!ÀùlÀù„Àù–ÀùúÀúÀúNÀúbÀúhÀú¢ÀúâÀúõÀúûÀûÀûMÀûaÀûgÀû¦ÀûªÀû«ÀûüÀüMÀüqÀüwÀü©Àü¯Àü¿ÀüÅÀıÀıPÀı¡ÀıÒÀıæÀş(Àş‡Àş¤Àş¸Àş¾ÀşîÀÿSÀÿgÀÿ©Àÿ¼ÀÿÂÀ $À IÀ œÀ ¯À µÀ ĞÀ ÷ÀÀ1ÀFÀ[À„À™ÀŸÀ£À¤ÀÔÀÚÀÀÀ#À)À`ÀfÀtÀÀ©À±À»ÀÍÀãÀéÀÀ!À/ÀLÀ€ÀˆÀ’À¤À¸ÀçÀÀÀ-À@ÀJÀœÀ·ÀÀhÀŸÀÑÀÙÀæÀÀ<ÀBÀwÀ¬À²ÀÀ#À?ÀRÀ\ÀÀƒÀ„ÀÃÀÉÀûÀÀÀÀ@ÀFÀTÀmÀ¨À°ÀºÀÌÀøÀ	QÀ	qÀ	™À	©À	±À	¾À
+À
+À
+À
+À
+dÀ
+jÀ
+ŸÀ
+ÊÀ
+åÀ
+õÀÀ#À-ÀSÀ€ÀØÀìÀÀ/ÀKÀ^ÀhÀ~À–ÀáÀêÀğÀôÀõÀFÀŠÀÀÊÀ ÀÀ+ÀFÀYÀcÀÀëÀGÀ¾ÀßÀøÀÀ.À6ÀHÀNÀÀ¼ÀïÀÿÀÀ.À8À<À=ÀÀ”ÀäÀ4ÀÀËÀõÀûÀHÀ™À±ÀŞÀ*ÀxÀÀªÀÀNÀÀÎÀÀDÀ—À"À/ÀlÀrÀˆÀĞÀïÀÀAÀGÀHÀ‹ÀÀÀ¤ÀÎÀ<À@ÀAÀ„À¬À×ÀÀHÀLÀMÀ”À¹À¿ÀÏÀÕÀÀVÀŸÀ ÀîÀFÀGÀ‚ÀˆÀÌÀÒÀÀ-ÀOÀwÀ¥ÀÂÀîÀ÷À6À[À™ÀÂÀÜÀ
+ÀÀ$ÀjÀ¦À®À´À¸À¹ÀÙÀßÀ -À qÀ À ¸À ÚÀ!À!HÀ!oÀ!wÀ!}À!À!‚À!®À!¯À!ãÀ"À"À"À"FÀ"qÀ"uÀ"vÀ"—À#À#NÀ#•À#ŞÀ$À$ŒÀ$ À$ÄÀ%À%:À%DÀ%JÀ%—À%›À%œÀ%éÀ&4À&fÀ&À&™À&¡À&§À&¸À&¼À&½À'	À'SÀ'lÀ'À'¹À'ÓÀ'ÛÀ'áÀ'ôÀ'øÀ'ùÀ(À(,À(GÀ(hÀ(¶À)À)À)<À)SÀ)~À)­À)àÀ)şÀ*RÀ*xÀ*²À*ÌÀ*ğÀ+À+2À+YÀ+‰À+©À+ÉÀ+íÀ,"À,¡À,´À,ÅÀ,ÔÀ,áÀ,ìÀ,õÀ,üÀ- À-À-À- À-)À-6À-8À-9À-bÀ-ˆÀ-²À-ÌÀ-ìÀ.À.6À.dÀ.ŸÀ.¿À.äÀ/À/À/TÀ/ŒÀ/«À0À0À0?À0”À0ÀÀ1À1À1#À1$À1HÀ1fÀ1ƒÀ1„À1¥À1¦À1ÇÀ1üÀ2À2À2 À21À2\À2}À2À2‚À2À2ÇÀ2ÈÀ35À3nÀ3†À3“À3«À3ÍÀ3ñÀ3øÀ3üÀ3şÀ3ÿÀ4DÀ4eÀ4}À4šÀ4ÀÀ4ëÀ4ìÀ5>À5\À5…À5°À5ĞÀ6À6
+À6À6À6À6FÀ6ƒÀ6À6©À6ÆÀ6ÚÀ6âÀ6æÀ6çÀ6óÀ7À7(À7CÀ7DÀ7PÀ7‰À7çÀ7ùÀ7ıÀ7ÿÀ8 À8IÀ8nÀ8À8«À8ÑÀ9 À9À9WÀ9tÀ:$À:QÀ:|À:À:ÑÀ:ØÀ:ÜÀ:İÀ:éÀ;ZÀ;~À;À;‹À;¶À;ĞÀ<*À<FÀ<ƒÀ<À<ºÀ<×À<ëÀ<óÀ<÷À<øÀ=À=$À=ZÀ=uÀ=vÀ=‚À=»À>	À>À> À>"À>#À>tÀ>¸À>íÀ>îÀ>ıÀ>şÀ?)À?CÀ?„À?´À?ìÀ@
+À@AÀ@À@ÂÀ@ÃÀAÀAWÀAXÀA‡ÀA³ÀAİÀAïÀA÷ÀAøÀB%ÀBBÀB·ÀCÀC(ÀCbÀC™ÀC»ÀCêÀDÀDÀDÀDÆÀDüÀEÀEÀE ÀE!ÀEAÀE©ÀEŞÀEşÀF+ÀFuÀF«ÀGÀG6ÀG†ÀGàÀHÀHÀH#ÀH”ÀHäÀHåÀI-ÀI.ÀI•ÀI–ÀI´ÀIÚÀIóÀIùÀIıÀIşÀJÀJ.ÀJEÀJrÀJ’ÀJ˜ÀJÄÀK ÀKÀKWÀKÀK¼ÀKçÀKíÀKñÀKòÀLGÀL}ÀL‘ÀL—ÀL¿ÀLèÀLşÀMÀMÀMÀM!ÀM"ÀM3ÀMMÀMvÀM„ÀMŠÀM¬ÀMÃÀMÇÀMÈÀMÚÀMÛÀNÀNÀNjÀN„ÀN°ÀNæÀO?ÀOTÀOZÀO°ÀOÒÀOçÀOíÀPÀP{ÀPÀP”ÀP˜ÀP™ÀP¼ÀP½ÀPÉÀPşÀQÀQÀQÀQ ÀQ]ÀQ¦ÀRÀR*ÀR[ÀRcÀRgÀRhÀRtÀR®ÀRÑÀRÕÀRÖÀRâÀRıÀSÀS#ÀS$ÀS0ÀSOÀSQÀSRÀS—ÀS›ÀSêÀTÀTeÀTfÀT®ÀTùÀUÀUÀU\ÀU£ÀU§ÀUÖÀV8ÀV9ÀVuÀVyÀVÇÀVãÀVçÀWÀWUÀWVÀW¤ÀWÛÀWßÀX.ÀX}ÀXÁÀXÅÀYÀY`ÀY¬ÀYûÀZJÀZaÀZeÀZ²ÀZ×ÀZÛÀ[,À[zÀ[ÁÀ[åÀ[éÀ\4À\ƒÀ\·À\»À\ÏÀ]À][À]_À]·À]ÇÀ^À^5À^;À^ƒÀ^À^ÑÀ^îÀ_À_	À_
+À_XÀ_¨À_çÀ`À`À`\À`bÀ`²À`ÿÀaJÀakÀaqÀa¾ÀbÀb*ÀbWÀbXÀb Àb±Àb·ÀböÀc&Àc'ÀctÀc…Àc‹ÀcÔÀdÀd]ÀdƒÀd›ÀdµÀdòÀeÀe,Àe0Àe1ÀetÀezÀeÊÀeñÀeòÀf)Àf/ÀfcÀf„Àf˜Àf™Àf¥ÀfÍÀfÎÀfÚÀg ÀgÀg<ÀgBÀgFÀgGÀgSÀgnÀg‰ÀgÀgÊÀgÎÀgÏÀgÛÀhÀhÀh9Àh=Àh>ÀhXÀhYÀheÀhxÀhÀhÍÀhãÀhçÀhèÀhôÀi3Ài4ÀiVÀi›Ài±ÀiµÀi¶ÀißÀjÀj)ÀjeÀjÀj¦Àj¶Àj¾Àk ÀkÀk.ÀkSÀk[Àk_Àk`ÀkÀÀkÂ    €¥  €º  €Ô  €ë & *  T  }  ¦  Ï  ä  û  ‚  ‚3  ‚R  ‚k  ‚  ‚˜  ‚³  ‚Ù  ‚ï    ÎÀ CS“~„ /// An abstraction for an entry managed by a [Navigator].
+///
+/// This class defines an abstract interface between the navigator and the
+/// "routes" that are pushed on and popped off the navigator. Most routes have
+/// visual affordances, which they place in the navigators [Overlay] using one
+/// or more [OverlayEntry] objects.
+///
+/// See [Navigator] for more explanation of how to use a [Route] with
+/// navigation, including code examples.
+///
+/// See [MaterialPageRoute] for a route that replaces the entire screen with a
+/// platform-adaptive transition.
+///
+/// A route can belong to a page if the [settings] are a subclass of [Page]. A
+/// page-based route, as opposed to a pageless route, is created from
+/// [Page.createRoute] during [Navigator.pages] updates. The page associated
+/// with this route may change during the lifetime of the route. If the
+/// [Navigator] updates the page of this route, it calls [changedInternalState]
+/// to notify the route that the page has been updated.
+///
+/// The type argument `T` is the route's return type, as used by
+/// [currentResult], [popped], and [didPop]. The type `void` may be used if the
+/// route does not return a value.“„“„“‹€Ø ””|/// Initialize the [Route].
+///
+/// If the [settings] are not provided, an empty [RouteSettings] object is
+/// used instead.””(  ”?”5”J”A”M”S”`”a”È”Ø  —h—v  š^Oš{ š‘šš¦šŸš¥š§š¬š¨²Š3² ²®²·²º²¸²¹²»²¼”g^”­//// The navigator that the route is in, if any.   ”ç‚~—O‚;/// The settings for this route.
+///
+/// See [RouteSettings] for details.
+///
+/// The settings can change during the route's lifetime. If the settings
+/// change, the route's overlays will be marked dirty (see
+/// [changedInternalState]).
+///
+/// If the route is created from a [Page] in the [Navigator.pages] list, then
+/// this will be a [Page] subclass, and it will be updated each time its
+/// corresponding [Page] in the [Navigator.pages] has changed. Once the
+/// [Route] is removed from the history, this value stops updating (and
+/// remains with its last value).   —„‚×š1‚w/// The restoration scope ID to be used for the [RestorationScope] surrounding
+/// this route.
+///
+/// The restoration scope ID is null if restoration is currently disabled
+/// for this route.
+///
+/// If the restoration scope ID changes (e.g. because restoration is enabled
+/// or disabled) during the life of the route, the [ValueListenable] notifies
+/// its listeners. As an example, the ID changes to null while the route is
+/// transitioning off screen, which triggers a notification on this field. At
+/// that point, the route is considered as no longer present for restoration
+/// purposes and its state will not be restored.   œÕ±€/// The overlay entries of this route.
+///
+/// These are typically populated by [install]. The [Navigator] is in charge
+/// of adding them to and removing them from the [Overlay].
+///
+/// There must be at least one entry in this list after [install] has been
+/// invoked.
+///
+/// The [Navigator] will take care of keeping the entries together if the
+/// route is moved in the history.   ¯Ë]°0/// Whether calling [didPop] would return false.   °,%±;€ı/// When this route is popped (see [Navigator.pop]) if the result isn't
+/// specified or if it's null, this value will be used instead.
+///
+/// This fallback is implemented by [didComplete]. This value is used if the
+/// argument to that method is null.   ±U2²h€ù/// A future that completes when this route is popped off the navigator.
+///
+/// The future completes with the value given to [Navigator.pop], if any, or
+/// else the value of [currentResult]. See [didComplete] for more discussion
+/// on this topic.   À JªÀ Jˆu/// Whether this route is the top-most route on the navigator.
+///
+/// If this is true, then [isActive] is also true.   À K±‚À L“€Ğ/// Whether this route is the bottom-most active route on the navigator.
+///
+/// If [isFirst] and [isCurrent] are both true then this is the only route on
+/// the navigator (and [isActive] will also be true).   À M»’À NE/// Whether there is at least one active route underneath this route.  À NÀ NÀ OQ‚ÎÀ Qm‚ /// Whether this route is on the navigator.
+///
+/// If the route is not only active, but also the current route (the top-most
+/// route), then [isCurrent] will also be true. If it is the first route (the
+/// bottom-most route), then [isFirst] will also be true.
+///
+/// If a higher route is entirely opaque, then the route will be active but not
+/// rendered. It is even possible for the route to be active but for the stateful
+/// widgets within the route to not be instantiated. See [ModalRoute.maintainState].   š²€œš·  šÇšÖ   ›œe›¡  ›¶›¿   ŞzŸK=/// Called when the route is inserted into the navigator.
+///
+/// Uses this to populate [overlayEntries]. There must be at least one entry in
+/// this list after [install] has been invoked. The [Navigator] will be in charge
+/// to add them to the [Overlay] or remove them from it by calling
+/// [OverlayEntry.remove].  Ÿ(Ÿ)Ÿ5Ÿ6Ÿ\‚¦¡7/// Called after [install] when the route is pushed onto the navigator.
+///
+/// The returned value resolves when the push transition is complete.
+///
+/// The [didAdd] method will be called instead of [didPush] when the route
+/// immediately appears on screen without any push transition.
+///
+/// The [didChangeNext] and [didChangePrevious] methods are typically called
+/// immediately after this method is called.  ¡¡¡¡¢‡¼£{C/// Called after [install] when the route is added to the navigator.
+///
+/// This method is called instead of [didPush] when the route immediately
+/// appears on screen without any push transition.
+///
+/// The [didChangeNext] and [didChangePrevious] methods are typically called
+/// immediately after this method is called.  £X£Y£e£f©Æª¼€Ê/// Called after [install] when the route replaced another in the navigator.
+///
+/// The [didChangeNext] and [didChangePrevious] methods are typically called
+/// immediately after this method is called. ªÇªØ  ª™ªšª¦ª§ªè„ß¯g„0/// Returns whether calling [Navigator.maybePop] when this [Route] is current
+/// ([isCurrent]) should do anything.
+///
+/// [Navigator.maybePop] is usually used instead of [Navigator.pop] to handle
+/// the system back button.
+///
+/// By default, if a [Route] is the first route in the history (i.e., if
+/// [isFirst]), it reports that pops should be bubbled
+/// ([RoutePopDisposition.bubble]). This behavior prevents the user from
+/// popping the first route off the history and being stranded at a blank
+/// screen; instead, the larger scope is popped (e.g. the application quits,
+/// so that the user returns to the previous application).
+///
+/// In other cases, the default behavior is to accept the pop
+/// ([RoutePopDisposition.pop]).
+///
+/// The third possible value is [RoutePopDisposition.doNotPop], which causes
+/// the pop request to be ignored entirely.
+///
+/// See also:
+///
+///  * [Form], which provides a [Form.onWillPop] callback that uses this
+///    mechanism.
+///  * [WillPopScope], another widget that provides a way to intercept the
+///    back button.   ²Â„”·„/// A request was made to pop this route. If the route can handle it
+/// internally (e.g. because it has its own stack of internal state) then
+/// return false, otherwise return true (by returning the value of calling
+/// `super.didPop`). Returning false will prevent the default behavior of
+/// [NavigatorState.pop].
+///
+/// When this function returns true, the navigator removes this route from
+/// the history but does not yet call [dispose]. Instead, it is the route's
+/// responsibility to call [NavigatorState.finalizeRoute], which will in turn
+/// call [dispose] on the route. This sequence lets the route perform an
+/// exit animation (or some other visual effect) after being popped but prior
+/// to being disposed.
+///
+/// This method should call [didComplete] to resolve the [popped] future (and
+/// this is all that the default implementation does); routes should not wait
+/// for their exit animation to complete before doing so.
+///
+/// See [popped], [didComplete], and [currentResult] for a discussion of the
+/// `result` argument. ·	·   ¶ÿ· ·ZƒÈºÑƒ5/// The route was popped or is otherwise being removed somewhat gracefully.
+///
+/// This is called by [didPop] and in response to
+/// [NavigatorState.pushReplacement]. If [didPop] was not called, then the
+/// [NavigatorState.finalizeRoute] method must be called immediately, and no exit
+/// animation will run.
+///
+/// The [popped] future is completed by this method. The `result` argument
+/// specifies the value that this future is completed with, unless it is null,
+/// in which case [currentResult] is used instead.
+///
+/// This should be called before the pop animation, if any, takes place,
+/// though in some cases the animation may be driven by the user before the
+/// route is committed to being popped; this can in particular happen with the
+/// iOS-style back gesture. See [NavigatorState.didStartUserGesture]. ºİ	ºá  º®º¯º»º¼»&¼€¼/// The given route, which was above this one, has been popped off the
+/// navigator.
+///
+/// This route is now the current route ([isCurrent] is now true), and there
+/// is no next route. ¼¼+  »í»î»ú»û¼<‚¾%³/// This route's next route has changed to the given new route.
+///
+/// This is called on a route whenever the next route changes for any reason,
+/// so long as it is in the history, including when a route is first added to
+/// a [Navigator] (e.g. by [Navigator.push]), except for cases when
+/// [didPopNext] would be called.
+///
+/// The `nextRoute` argument will be null if there's no new next route (i.e.
+/// if [isCurrent] is true). ¾3¾D  ¾¾¾¾¾U‚ À @A¶/// This route's previous route has changed to the given new route.
+///
+/// This is called on a route whenever the previous route changes for any
+/// reason, so long as it is in the history, except for immediately after the
+/// route itself has been pushed (in which case [didPush] or [didReplace] will
+/// be called instead).
+///
+/// The `previousRoute` argument will be null if there's no previous route
+/// (i.e. if [isFirst] is true). À @SÀ @d  À @À @À @+À @,À @y‚OÀ B®û/// Called whenever the internal state of the route has changed.
+///
+/// This should be called whenever [willHandlePopInternally], [didPop],
+/// [ModalRoute.offstage], or other internal state of the route changes value.
+/// It is used by [ModalRoute], for example, to report the new information via
+/// its inherited widget to any children of the route.
+///
+/// See also:
+///
+///  * [changedExternalState], which is called when the [Navigator] has
+///    updated in some manner that might affect the routes.  À B‹À BŒÀ B˜À B™À BÌ„µÀ Gg„I/// Called whenever the [Navigator] has updated in some manner that might
+/// affect routes, to indicate that the route may wish to rebuild as well.
+///
+/// This is called by the [Navigator] whenever the
+/// [NavigatorState]'s [State.widget] changes (as in [State.didUpdateWidget]),
+/// for example because the [MaterialApp] has been rebuilt. This
+/// ensures that routes that directly refer to the state of the
+/// widget that built the [MaterialApp] will be notified when that
+/// widget rebuilds, since it would otherwise be difficult to notify
+/// the routes that state they depend on may have changed.
+///
+/// It is also called whenever the [Navigator]'s dependencies change
+/// (as in [State.didChangeDependencies]). This allows routes to use the
+/// [Navigator]'s context ([NavigatorState.context]), for example in
+/// [ModalRoute.barrierColor], and update accordingly.
+///
+/// The [ModalRoute] subclass overrides this to force the barrier
+/// overlay to rebuild.
+///
+/// See also:
+///
+///  * [changedInternalState], the equivalent but for changes to the internal
+///    state of the route.  À GDÀ GEÀ GQÀ GRÀ G…‚zÀ I¶÷/// Discards any resources used by the object.
+///
+/// This method should not remove its [overlayEntries] from the [Overlay]. The
+/// object's owner is in charge of doing that.
+///
+/// After this is called, the object is not in a usable state and should be
+/// discarded.
+///
+/// This method should only be called by the object's owner; typically the
+/// [Navigator] owns a route and so will call this method when the route is
+/// removed, after which the route is no longer referenced by the navigator.  À I“À I”À I¤À I¥ À R#‚_À Rm8/// Data that might be useful in constructing a [Route]. À Rk À R²À R¿*/// Creates data used to construct routes.À RÆ	À RÌ  À RÕÀ RÛ   À RîpÀ SZW/// The name of the route (e.g., "/settings").
+///
+/// If null, the route is anonymous. À Sc€—À Sñy/// The arguments passed to this route.
+///
+/// May be used when building the route, e.g. in [Navigator.onGenerateRoute].  À Sÿ€À T   À SÿÀ T À R\À R]À T„†aÀ UÌ8/// Describes the configuration of a [Route].
+///
+/// The type argument `T` is the corresponding [Route]'s return type, as
+/// used by [Route.currentResult], [Route.popped], and [Route.didPop].
+///
+/// See also:
+///
+///  * [Navigator.pages], which accepts a list of [Page]s and updates its routes
+///    history.À UÑÀ UÑÀ Uî€Ï À VfÀ Vjk/// Creates a page and initializes [key] for subclasses.
+///
+/// The [arguments] argument must not be null.À VqÀ Vw  À V
+À V†  À VÀ V–  À V¤À Vª   À VÁ€‚À W@h/// The key associated with this page.
+///
+/// This key will be used for comparing pages in [canUpdate]. À WHMÀ Xˆ/// Restoration ID to save and restore the state of the [Route] configured by
+/// this page.
+///
+/// If no restoration ID is provided, the [Route] will not restore its state.
+///
+/// See also:
+///
+///  * [RestorationManager], which explains how state restoration works in
+///    Flutter.  À XšÀ Y?€—/// Whether this page can be updated with the [other] page.
+///
+/// Two pages are consider updatable if they have same the [runtimeType] and
+/// [key]. À YIÀ YX   À Y³€ËÀ Z\€/// Creates the [Route] that corresponds to this page.
+///
+/// The created [Route] must have its [Route.settings] property set to this [Page]. À ZhÀ Zv  À ZHÀ ZIÀ Z‚aÀ Z•   À Z‚À Zƒ À Zç‰tÀ [+=/// An interface for observing the behavior of a [Navigator].  À ^
+LÀ ^/ À ^=À ^DÀ ^SÀ ^EÀ ^TÀ ^UÀ [AoÀ [‘9/// The navigator that the observer is observing, if any.   À ^[€İÀ ^ø€/// The [Navigator] pushed `route`.
+///
+/// The route immediately below that one, and thus the previously active
+/// route, is `previousRoute`. À _ À _  À _À _'   À _<€×À _Ô€Š/// The [Navigator] popped `route`.
+///
+/// The route immediately below that one, and thus the newly active
+/// route, is `previousRoute`. À _ÛÀ _ë  À _ñÀ `   À `ğÀ aÅ–/// The [Navigator] removed `route`.
+///
+/// If only one route is being removed, then the route immediately below
+/// that one, if any, is `previousRoute`.
+///
+/// If multiple routes are being removed, then the route below the
+/// bottommost route being removed, if any, is `previousRoute`, and this
+/// method will be called once for each removed route, from the topmost route
+/// to the bottommost route. À aÏÀ aß  À aåÀ aö   À b€†À bK8/// The [Navigator] replaced `oldRoute` with `newRoute`. À bXÀ bi  À brÀ bƒ   À b•$À cm€Ê/// The [Navigator]'s routes are being moved by a user gesture.
+///
+/// For example, this is called when an iOS back gesture starts, and is used
+/// to disabled hero animations during such interactions. À cÀ c‘  À c—À c¨   À c½€œÀ dAx/// User gesture is no longer controlling the [Navigator].
+///
+/// Paired with an earlier call to [didStartUserGesture].    À d]Œ$À f¶‚R/// An inherited widget to host a hero controller.
+///
+/// The hosted hero controller will be picked up by the navigator in the
+/// [child] subtree. Once a navigator picks up this controller, the navigator
+/// will bar any navigator below its subtree from receiving this controller.
+///
+/// The hero controller inside the [HeroControllerScope] can only subscribe to
+/// one navigator at a time. An assertion will be thrown if the hero controller
+/// subscribes to more than one navigators. This can happen when there are
+/// multiple navigators under the same [HeroControllerScope] in parallel. À fæ€® À g#À g64/// Creates a widget to host the input [controller].À g=	À gD  À gL'À gj  À gyÀ g‰   À g˜€ÁÀ hÀ hÀ hY/// Creates a widget to prevent the subtree from receiving the hero controller
+/// above.À h	À h"  À h*À h:  À hRÀ hGÀ hTÀ h]]À h°:/// The hero controller that is hosted inside this widget.  À h¿‚]À jsˆ/// Retrieves the [HeroController] from the closest [HeroControllerScope]
+/// ancestor, or null if none exists.
+///
+/// Calling this method will create a dependency on the closest
+/// [HeroControllerScope] in the [context], if there is one.
+///
+/// See also:
+///
+/// * [HeroControllerScope.of], which is similar to this method, but asserts
+///   if no [HeroControllerScope] ancestor is found. À j{À j‰   À k „äÀ m.İ/// Retrieves the [HeroController] from the closest [HeroControllerScope]
+/// ancestor.
+///
+/// If no ancestor is found, this method will assert in debug mode, and throw
+/// an exception in release mode.
+///
+/// Calling this method will create a dependency on the closest
+/// [HeroControllerScope] in the [context].
+///
+/// See also:
+///
+/// * [HeroControllerScope.maybeOf], which is similar to this method, but
+///   returns null if no [HeroControllerScope] ancestor is found. À m1À m?   À pwÀ p  À p,À pA  À pÀ p	 À pƒ‰ÍÀ q+€˜/// A [Route] wrapper interface that can be staged for [TransitionDelegate] to
+/// decide how its underlying [Route] should transition on or off screen.   À qE>À q}"/// Retrieves the wrapped [Route].   À q‡<À r¦/// Whether this route is waiting for the decision on how to enter the screen.
+///
+/// If this property is true, this route requires an explicit decision on how
+/// to transition into the screen. Such a decision should be made in the
+/// [TransitionDelegate.resolve].   À rÇ9À sä	/// Whether this route is waiting for the decision on how to exit the screen.
+///
+/// If this property is true, this route requires an explicit decision on how
+/// to transition off the screen. Such a decision should be made in the
+/// [TransitionDelegate.resolve].   À tQÀ uG3/// Marks the [route] to be pushed with transition.
+///
+/// During [TransitionDelegate.resolve], this can be called on an entering
+/// route (where [RouteTransitionRecord.isWaitingForEnteringDecision] is true) in indicate that the
+/// route should be pushed onto the [Navigator] with an animated transition.   À uYTÀ v 7/// Marks the [route] to be added without transition.
+///
+/// During [TransitionDelegate.resolve], this can be called on an entering
+/// route (where [RouteTransitionRecord.isWaitingForEnteringDecision] is true) in indicate that the
+/// route should be added onto the [Navigator] without an animated transition.   À v±À w­€ì/// Marks the [route] to be popped with transition.
+///
+/// During [TransitionDelegate.resolve], this can be called on an exiting
+/// route to indicate that the route should be popped off the [Navigator] with
+/// an animated transition. À w¹À wÂ   À wÎPÀ xü/// Marks the [route] to be completed without transition.
+///
+/// During [TransitionDelegate.resolve], this can be called on an exiting
+/// route to indicate that the route should be completed with the provided
+/// result and removed from the [Navigator] without an animated transition. À yÀ y   À y",À z>/// Marks the [route] to be removed without transition.
+///
+/// During [TransitionDelegate.resolve], this can be called on an exiting
+/// route to indicate that the route should be removed from the [Navigator]
+/// without completing and without an animated transition.    À zR¨À ƒˆ°/// The delegate that decides how pages added and removed from [Navigator.pages]
+/// transition in or out of the screen.
+///
+/// This abstract class implements the API to be called by [Navigator] when it
+/// requires explicit decisions on how the routes transition on or off the screen.
+///
+/// To make route transition decisions, subclass must implement [resolve].
+///
+/// {@tool snippet}
+/// The following example demonstrates how to implement a subclass that always
+/// removes or adds routes without animated transitions and puts the removed
+/// routes at the top of the list.
+///
+/// ```dart
+/// class NoAnimationTransitionDelegate extends TransitionDelegate<void> {
+///   @override
+///   Iterable<RouteTransitionRecord> resolve({
+///     required List<RouteTransitionRecord> newPageRouteHistory,
+///     required Map<RouteTransitionRecord?, RouteTransitionRecord> locationToExitingPageRoute,
+///     required Map<RouteTransitionRecord?, List<RouteTransitionRecord>> pageRouteToPagelessRoutes,
+///   }) {
+///     final List<RouteTransitionRecord> results = <RouteTransitionRecord>[];
+///
+///     for (final RouteTransitionRecord pageRoute in newPageRouteHistory) {
+///       if (pageRoute.isWaitingForEnteringDecision) {
+///         pageRoute.markForAdd();
+///       }
+///       results.add(pageRoute);
+///
+///     }
+///     for (final RouteTransitionRecord exitingPageRoute in locationToExitingPageRoute.values) {
+///       if (exitingPageRoute.isWaitingForExitingDecision) {
+///        exitingPageRoute.markForRemove();
+///        final List<RouteTransitionRecord>? pagelessRoutes = pageRouteToPagelessRoutes[exitingPageRoute];
+///        if (pagelessRoutes != null) {
+///          for (final RouteTransitionRecord pagelessRoute in pagelessRoutes) {
+///             pagelessRoute.markForRemove();
+///           }
+///        }
+///       }
+///       results.add(exitingPageRoute);
+///
+///     }
+///     return results;
+///   }
+/// }
+///
+/// ```
+/// {@end-tool}
+///
+/// See also:
+///
+///  * [Navigator.transitionDelegate], which uses this class to make route
+///    transition decisions.
+///  * [DefaultTransitionDelegate], which implements the default way to decide
+///    how routes transition in or out of the screen.À ƒ%À ƒ%À ƒ,e À ƒ|À ƒG/// Creates a delegate and enables subclass to create a constant class.    À ƒ•À ƒµ  À ƒÇ8À ƒí  À „VÀ „B  À „a[À „¤   À °‘±À ¡Wî/// A method that will be called by the [Navigator] to decide how routes
+/// transition in or out of the screen when [Navigator.pages] is updated.
+///
+/// The `newPageRouteHistory` list contains all page-based routes in the order
+/// that will be on the [Navigator]'s history stack after this update
+/// completes. If a route in `newPageRouteHistory` has its
+/// [RouteTransitionRecord.isWaitingForEnteringDecision] set to true, this
+/// route requires explicit decision on how it should transition onto the
+/// Navigator. To make a decision, call [RouteTransitionRecord.markForPush] or
+/// [RouteTransitionRecord.markForAdd].
+///
+/// The `locationToExitingPageRoute` contains the pages-based routes that
+/// are removed from the routes history after page update. This map records
+/// page-based routes to be removed with the location of the route in the
+/// original route history before the update. The keys are the locations
+/// represented by the page-based routes that are directly below the removed
+/// routes, and the value are the page-based routes to be removed. The
+/// location is null if the route to be removed is the bottom most route. If
+/// a route in `locationToExitingPageRoute` has its
+/// [RouteTransitionRecord.isWaitingForExitingDecision] set to true, this
+/// route requires explicit decision on how it should transition off the
+/// Navigator. To make a decision for a removed route, call
+/// [RouteTransitionRecord.markForPop],
+/// [RouteTransitionRecord.markForComplete] or
+/// [RouteTransitionRecord.markForRemove]. It is possible that decisions are
+/// not required for routes in the `locationToExitingPageRoute`. This can
+/// happen if the routes have already been popped in earlier page updates and
+/// are still waiting for popping animations to finish. In such case, those
+/// routes are still included in the `locationToExitingPageRoute` with their
+/// [RouteTransitionRecord.isWaitingForExitingDecision] set to false and no
+/// decisions are required.
+///
+/// The `pageRouteToPagelessRoutes` records the page-based routes and their
+/// associated pageless routes. If a page-based route is waiting for exiting
+/// decision, its associated pageless routes also require explicit decisions
+/// on how to transition off the screen.
+///
+/// Once all the decisions have been made, this method must merge the removed
+/// routes (whether or not they require decisions) and the
+/// `newPageRouteHistory` and return the merged result. The order in the
+/// result will be the order the [Navigator] uses for updating the route
+/// history. The return list must preserve the same order of routes in
+/// `newPageRouteHistory`. The removed routes, however, can be inserted into
+/// the return list freely as long as all of them are included.
+///
+/// For example, consider the following case.
+///
+/// `newPageRouteHistory = [A, B, C]`
+///
+/// `locationToExitingPageRoute = {A -> D, C -> E}`
+///
+/// The following outputs are valid.
+///
+/// `result = [A, B ,C ,D ,E]` is valid.
+/// `result = [D, A, B ,C ,E]` is also valid because exiting route can be
+/// inserted in any place.
+///
+/// The following outputs are invalid.
+///
+/// `result = [B, A, C ,D ,E]` is invalid because B must be after A.
+/// `result = [A, B, C ,E]` is invalid because results must include D.
+///
+/// See also:
+///
+///  * [RouteTransitionRecord.markForPush], which makes route enter the screen
+///    with an animated transition.
+///  * [RouteTransitionRecord.markForAdd], which makes route enter the screen
+///    without an animated transition.
+///  * [RouteTransitionRecord.markForPop], which makes route exit the screen
+///    with an animated transition.
+///  * [RouteTransitionRecord.markForRemove], which does not complete the
+///    route and makes it exit the screen without an animated transition.
+///  * [RouteTransitionRecord.markForComplete], which completes the route and
+///    makes it exit the screen without an animated transition.
+///  * [DefaultTransitionDelegate.resolve], which implements the default way
+///    to decide how routes transition in or out of the screen. À ¡e8À ¡‹  À ¡£VÀ ¡à  À ¡ÿ[À ¢B    À ¢eXÀ ¤t‚/// The default implementation of [TransitionDelegate] that the [Navigator] will
+/// use if its [Navigator.transitionDelegate] is not specified.
+///
+/// This transition delegate follows two rules. Firstly, all the entering routes
+/// are placed on top of the exiting routes if they are at the same location.
+/// Secondly, the top most route will always transition with an animated transition.
+/// All the other routes below will either be completed with
+/// [Route.currentResult] or added without an animated transition.À ¤À ¤À ¤³Y À ¤æÀ ¤ÿ*/// Creates a default transition delegate. À ¥À ¥	À ¥
+  À ¥‹«À ¥<  À ¥J8À ¥p  À ¥ˆVÀ ¥Å  À ¥ä[À ¦'  À ¥À ¥ À ±àÀhÀ å³6/// A widget that manages a set of child widgets with a stack discipline.
+///
+/// Many apps have a navigator near the top of their widget hierarchy in order
+/// to display their logical history using an [Overlay] with the most recently
+/// visited pages visually on top of the older pages. Using this pattern lets
+/// the navigator visually transition from one page to another by moving the widgets
+/// around in the overlay. Similarly, the navigator can be used to show a dialog
+/// by positioning the dialog widget above the current page.
+///
+/// ## Using the Pages API
+///
+/// The [Navigator] will convert its [Navigator.pages] into a stack of [Route]s
+/// if it is provided. A change in [Navigator.pages] will trigger an update to
+/// the stack of [Route]s. The [Navigator] will update its routes to match the
+/// new configuration of its [Navigator.pages]. To use this API, one can create
+/// a [Page] subclass and defines a list of [Page]s for [Navigator.pages]. A
+/// [Navigator.onPopPage] callback is also required to properly clean up the
+/// input pages in case of a pop.
+///
+/// By Default, the [Navigator] will use [DefaultTransitionDelegate] to decide
+/// how routes transition in or out of the screen. To customize it, define a
+/// [TransitionDelegate] subclass and provide it to the
+/// [Navigator.transitionDelegate].
+///
+/// For more information on using the pages API, see the [Router] widget.
+///
+/// ## Using the Navigator API
+///
+/// Mobile apps typically reveal their contents via full-screen elements
+/// called "screens" or "pages". In Flutter these elements are called
+/// routes and they're managed by a [Navigator] widget. The navigator
+/// manages a stack of [Route] objects and provides two ways for managing
+/// the stack, the declarative API [Navigator.pages] or imperative API
+/// [Navigator.push] and [Navigator.pop].
+///
+/// When your user interface fits this paradigm of a stack, where the user
+/// should be able to _navigate_ back to an earlier element in the stack,
+/// the use of routes and the Navigator is appropriate. On certain platforms,
+/// such as Android, the system UI will provide a back button (outside the
+/// bounds of your application) that will allow the user to navigate back
+/// to earlier routes in your application's stack. On platforms that don't
+/// have this build-in navigation mechanism, the use of an [AppBar] (typically
+/// used in the [Scaffold.appBar] property) can automatically add a back
+/// button for user navigation.
+///
+/// ### Displaying a full-screen route
+///
+/// Although you can create a navigator directly, it's most common to use the
+/// navigator created by the `Router` which itself is created and configured by
+/// a [WidgetsApp] or a [MaterialApp] widget. You can refer to that navigator
+/// with [Navigator.of].
+///
+/// A [MaterialApp] is the simplest way to set things up. The [MaterialApp]'s
+/// home becomes the route at the bottom of the [Navigator]'s stack. It is what
+/// you see when the app is launched.
+///
+/// ```dart
+/// void main() {
+///   runApp(const MaterialApp(home: MyAppHome()));
+/// }
+/// ```
+///
+/// To push a new route on the stack you can create an instance of
+/// [MaterialPageRoute] with a builder function that creates whatever you
+/// want to appear on the screen. For example:
+///
+/// ```dart
+/// Navigator.push(context, MaterialPageRoute<void>(
+///   builder: (BuildContext context) {
+///     return Scaffold(
+///       appBar: AppBar(title: const Text('My Page')),
+///       body: Center(
+///         child: TextButton(
+///           child: const Text('POP'),
+///           onPressed: () {
+///             Navigator.pop(context);
+///           },
+///         ),
+///       ),
+///     );
+///   },
+/// ));
+/// ```
+///
+/// The route defines its widget with a builder function instead of a
+/// child widget because it will be built and rebuilt in different
+/// contexts depending on when it's pushed and popped.
+///
+/// As you can see, the new route can be popped, revealing the app's home
+/// page, with the Navigator's pop method:
+///
+/// ```dart
+/// Navigator.pop(context);
+/// ```
+///
+/// It usually isn't necessary to provide a widget that pops the Navigator
+/// in a route with a [Scaffold] because the Scaffold automatically adds a
+/// 'back' button to its AppBar. Pressing the back button causes
+/// [Navigator.pop] to be called. On Android, pressing the system back
+/// button does the same thing.
+///
+/// ### Using named navigator routes
+///
+/// Mobile apps often manage a large number of routes and it's often
+/// easiest to refer to them by name. Route names, by convention,
+/// use a path-like structure (for example, '/a/b/c').
+/// The app's home page route is named '/' by default.
+///
+/// The [MaterialApp] can be created
+/// with a [Map<String, WidgetBuilder>] which maps from a route's name to
+/// a builder function that will create it. The [MaterialApp] uses this
+/// map to create a value for its navigator's [onGenerateRoute] callback.
+///
+/// ```dart
+/// void main() {
+///   runApp(MaterialApp(
+///     home: const MyAppHome(), // becomes the route named '/'
+///     routes: <String, WidgetBuilder> {
+///       '/a': (BuildContext context) => const MyPage(title: Text('page A')),
+///       '/b': (BuildContext context) => const MyPage(title: Text('page B')),
+///       '/c': (BuildContext context) => const MyPage(title: Text('page C')),
+///     },
+///   ));
+/// }
+/// ```
+///
+/// To show a route by name:
+///
+/// ```dart
+/// Navigator.pushNamed(context, '/b');
+/// ```
+///
+/// ### Routes can return a value
+///
+/// When a route is pushed to ask the user for a value, the value can be
+/// returned via the [pop] method's result parameter.
+///
+/// Methods that push a route return a [Future]. The Future resolves when the
+/// route is popped and the [Future]'s value is the [pop] method's `result`
+/// parameter.
+///
+/// For example if we wanted to ask the user to press 'OK' to confirm an
+/// operation we could `await` the result of [Navigator.push]:
+///
+/// ```dart
+/// bool? value = await Navigator.push(context, MaterialPageRoute<bool>(
+///   builder: (BuildContext context) {
+///     return Center(
+///       child: GestureDetector(
+///         child: const Text('OK'),
+///         onTap: () { Navigator.pop(context, true); }
+///       ),
+///     );
+///   }
+/// ));
+/// ```
+///
+/// If the user presses 'OK' then value will be true. If the user backs
+/// out of the route, for example by pressing the Scaffold's back button,
+/// the value will be null.
+///
+/// When a route is used to return a value, the route's type parameter must
+/// match the type of [pop]'s result. That's why we've used
+/// `MaterialPageRoute<bool>` instead of `MaterialPageRoute<void>` or just
+/// `MaterialPageRoute`. (If you prefer to not specify the types, though, that's
+/// fine too.)
+///
+/// ### Popup routes
+///
+/// Routes don't have to obscure the entire screen. [PopupRoute]s cover the
+/// screen with a [ModalRoute.barrierColor] that can be only partially opaque to
+/// allow the current screen to show through. Popup routes are "modal" because
+/// they block input to the widgets below.
+///
+/// There are functions which create and show popup routes. For
+/// example: [showDialog], [showMenu], and [showModalBottomSheet]. These
+/// functions return their pushed route's Future as described above.
+/// Callers can await the returned value to take an action when the
+/// route is popped, or to discover the route's value.
+///
+/// There are also widgets which create popup routes, like [PopupMenuButton] and
+/// [DropdownButton]. These widgets create internal subclasses of PopupRoute
+/// and use the Navigator's push and pop methods to show and dismiss them.
+///
+/// ### Custom routes
+///
+/// You can create your own subclass of one of the widget library route classes
+/// like [PopupRoute], [ModalRoute], or [PageRoute], to control the animated
+/// transition employed to show the route, the color and behavior of the route's
+/// modal barrier, and other aspects of the route.
+///
+/// The [PageRouteBuilder] class makes it possible to define a custom route
+/// in terms of callbacks. Here's an example that rotates and fades its child
+/// when the route appears or disappears. This route does not obscure the entire
+/// screen because it specifies `opaque: false`, just as a popup route does.
+///
+/// ```dart
+/// Navigator.push(context, PageRouteBuilder<void>(
+///   opaque: false,
+///   pageBuilder: (BuildContext context, _, __) {
+///     return const Center(child: Text('My PageRoute'));
+///   },
+///   transitionsBuilder: (___, Animation<double> animation, ____, Widget child) {
+///     return FadeTransition(
+///       opacity: animation,
+///       child: RotationTransition(
+///         turns: Tween<double>(begin: 0.5, end: 1.0).animate(animation),
+///         child: child,
+///       ),
+///     );
+///   }
+/// ));
+/// ```
+///
+/// The page route is built in two parts, the "page" and the
+/// "transitions". The page becomes a descendant of the child passed to
+/// the `transitionsBuilder` function. Typically the page is only built once,
+/// because it doesn't depend on its animation parameters (elided with `_`
+/// and `__` in this example). The transition is built on every frame
+/// for its duration.
+///
+/// (In this example, `void` is used as the return type for the route, because
+/// it does not return a value.)
+///
+/// ### Nesting Navigators
+///
+/// An app can use more than one [Navigator]. Nesting one [Navigator] below
+/// another [Navigator] can be used to create an "inner journey" such as tabbed
+/// navigation, user registration, store checkout, or other independent journeys
+/// that represent a subsection of your overall application.
+///
+/// #### Example
+///
+/// It is standard practice for iOS apps to use tabbed navigation where each
+/// tab maintains its own navigation history. Therefore, each tab has its own
+/// [Navigator], creating a kind of "parallel navigation."
+///
+/// In addition to the parallel navigation of the tabs, it is still possible to
+/// launch full-screen pages that completely cover the tabs. For example: an
+/// on-boarding flow, or an alert dialog. Therefore, there must exist a "root"
+/// [Navigator] that sits above the tab navigation. As a result, each of the
+/// tab's [Navigator]s are actually nested [Navigator]s sitting below a single
+/// root [Navigator].
+///
+/// In practice, the nested [Navigator]s for tabbed navigation sit in the
+/// [WidgetsApp] and [CupertinoTabView] widgets and do not need to be explicitly
+/// created or managed.
+///
+/// {@tool sample}
+/// The following example demonstrates how a nested [Navigator] can be used to
+/// present a standalone user registration journey.
+///
+/// Even though this example uses two [Navigator]s to demonstrate nested
+/// [Navigator]s, a similar result is possible using only a single [Navigator].
+///
+/// Run this example with `flutter run --route=/signup` to start it with
+/// the signup flow instead of on the home page.
+///
+/// ** See code in examples/api/lib/widgets/navigator/navigator.0.dart **
+/// {@end-tool}
+///
+/// [Navigator.of] operates on the nearest ancestor [Navigator] from the given
+/// [BuildContext]. Be sure to provide a [BuildContext] below the intended
+/// [Navigator], especially in large `build` methods where nested [Navigator]s
+/// are created. The [Builder] widget can be used to access a [BuildContext] at
+/// a desired location in the widget subtree.
+///
+/// ### Finding the enclosing route
+///
+/// In the common case of a modal route, the enclosing route can be obtained
+/// from inside a build method using [ModalRoute.of]. To determine if the
+/// enclosing route is the active route (e.g. so that controls can be dimmed
+/// when the route is not active), the [Route.isCurrent] property can be checked
+/// on the returned route.
+///
+/// ## State Restoration
+///
+/// If provided with a [restorationScopeId] and when surrounded by a valid
+/// [RestorationScope] the [Navigator] will restore its state by recreating
+/// the current history stack of [Route]s during state restoration and by
+/// restoring the internal state of those [Route]s. However, not all [Route]s
+/// on the stack can be restored:
+///
+///  * [Page]-based routes restore their state if [Page.restorationId] is
+///    provided.
+///  * [Route]s added with the classic imperative API ([push], [pushNamed], and
+///    friends) can never restore their state.
+///  * A [Route] added with the restorable imperative API ([restorablePush],
+///    [restorablePushNamed], and all other imperative methods with "restorable"
+///    in their name) restores its state if all routes below it up to and
+///    including the first [Page]-based route below it are restored. If there
+///    is no [Page]-based route below it, it only restores its state if all
+///    routes below it restore theirs.
+///
+/// If a [Route] is deemed restorable, the [Navigator] will set its
+/// [Route.restorationScopeId] to a non-null value. Routes can use that ID to
+/// store and restore their own state. As an example, the [ModalRoute] will
+/// use this ID to create a [RestorationScope] for its content widgets. À åBƒr À ælÀ æu/// Creates a widget that maintains a stack-based history of child widgets.
+///
+/// The [onGenerateRoute], [pages], [onGenerateInitialRoutes],
+/// [transitionDelegate], [observers] arguments must not be null.
+///
+/// If the [pages] is not empty, the [onPopPage] must not be null.À æ|	À æƒ  À æ‹$À æ‘  À æµÀ æ»  À æÉÀ æÏ  À æàEÀ ææ  À ç+À ç1  À çEÀ çK  À ç^DÀ çd  À ç¨'À ç®  À çÕ!À çÛ  À çü,À è  À è.À è4  À èLÀ èR  À èiDÀ èo  À æ˜À æ­À æ®À æÀ æ¬À æŸÀ æ£À æ«À æ¤À æÿÀ çÀ ç	À çxÀ ç~À ç—À çŸÀ ç˜À ç À ç¡À çÊÀ çéÀ çíÀ çîÀ èÀ è&À è'À èÀ è%À èÀ èBÀ è‹À è¸†"À îÕ…Ê/// The list of pages with which to populate the history.
+///
+/// Pages are turned into routes using [Page.createRoute] in a manner
+/// analogous to how [Widget]s are turned into [Element]s (and [State]s or
+/// [RenderObject]s) using [Widget.createElement] (and
+/// [StatefulWidget.createState] or [RenderObjectWidget.createRenderObject]).
+///
+/// When this list is updated, the new list is compared to the previous
+/// list and the set of routes is updated accordingly.
+///
+/// Some [Route]s do not correspond to [Page] objects, namely, those that are
+/// added to the history using the [Navigator] API ([push] and friends). A
+/// [Route] that does not correspond to a [Page] object is called a pageless
+/// route and is tied to the [Route] that _does_ correspond to a [Page] object
+/// that is below it in the history.
+///
+/// Pages that are added or removed may be animated as controlled by the
+/// [transitionDelegate]. If a page is removed that had other pageless routes
+/// pushed on top of it using [push] and friends, those pageless routes are
+/// also removed with or without animation as determined by the
+/// [transitionDelegate].
+///
+/// To use this API, an [onPopPage] callback must also be provided to properly
+/// clean up this list if a page has been popped.
+///
+/// If [initialRoute] is non-null when the widget is first created, then
+/// [onGenerateInitialRoutes] is used to generate routes that are above those
+/// corresponding to [pages] in the initial history. À îß‚¼À ñ’‚/// Called when [pop] is invoked but the current [Route] corresponds to a
+/// [Page] found in the [pages] list.
+///
+/// The `result` argument is the value with which the route is to complete
+/// (e.g. the value returned from a dialog).
+///
+/// This callback is responsible for calling [Route.didPop] and returning
+/// whether this pop is successful.
+///
+/// The [Navigator] widget should be rebuilt with a [pages] list that does not
+/// contain the [Page] for the given [Route]. The next time the [pages] list
+/// is updated, if the [Page] corresponding to this [Route] is still present,
+/// it will be interpreted as a new route to display. À ñ €üÀ òŠ€¿/// The delegate used for deciding how routes transition in or off the screen
+/// during the [pages] updates.
+///
+/// Defaults to [DefaultTransitionDelegate] if not specified, cannot be null. À ò¡ À ó•€Ù/// The name of the first route to show.
+///
+/// Defaults to [Navigator.defaultRouteName].
+///
+/// The value is interpreted according to [onGenerateInitialRoutes], which
+/// defaults to [defaultGenerateInitialRoutes]. À ó¦aÀ óø;/// Called to generate a route for a given [RouteSettings]. À ô®À õ¬{/// Called when [onGenerateRoute] fails to generate a route.
+///
+/// This callback is typically used for error handling. For example, this
+/// callback might always generate a "not found" page that describes the route
+/// that wasn't found.
+///
+/// Unknown routes can arise either from errors in the app or from external
+/// requests to push routes, such as from Android intents. À õ¿UÀ ö+/// A list of observers for this navigator. À ö…tÀ û{…/// Restoration ID to save and restore the state of the navigator, including
+/// its history.
+///
+/// {@template flutter.widgets.navigator.restorationScopeId}
+/// If a restoration ID is provided, the navigator will persist its internal
+/// state (including the route history as well as the restorable state of the
+/// routes) and restore it during state restoration.
+///
+/// If no restoration ID is provided, the route history stack will not be
+/// restored and state restoration is disabled for the individual routes as
+/// well.
+///
+/// The state is persisted in a [RestorationBucket] claimed from
+/// the surrounding [RestorationScope] using the provided restoration ID.
+/// Within that bucket, the [Navigator] also creates a new [RestorationScope]
+/// for its children (the [Route]s).
+///
+/// See also:
+///
+///  * [RestorationManager], which explains how state restoration works in
+///    Flutter.
+///  * [RestorationMixin], which contains a runnable code sample showcasing
+///    state restoration in Flutter.
+///  * [Navigator], which explains under the heading "state restoration"
+///    how and under what conditions the navigator restores its state.
+///  * [Navigator.restorablePush], which includes an example showcasing how
+///    to push a restorable route unto the navigator.
+/// {@endtemplate} À û’ƒnÀ şæƒ/// Controls the transfer of focus beyond the first and the last items of a
+/// focus scope that defines focus traversal of widgets within a route.
+///
+/// {@template flutter.widgets.navigator.routeTraversalEdgeBehavior}
+/// The focus inside routes installed in the top of the app affects how
+/// the app behaves with respect to the platform content surrounding it.
+/// For example, on the web, an app is at a minimum surrounded by browser UI,
+/// such as the address bar, browser tabs, and more. The user should be able
+/// to reach browser UI using normal focus shortcuts. Similarly, if the app
+/// is embedded within an `<iframe>` or inside a custom element, it should
+/// be able to participate in the overall focus traversal, including elements
+/// not rendered by Flutter.
+/// {@endtemplate} À ÿ À ÿï€É/// The name for the default route of the application.
+///
+/// See also:
+///
+///  * [dart:ui.PlatformDispatcher.defaultRouteName], which reflects the route that the
+///    application was started with.À À 
+ƒúÀíƒ±/// Called when the widget is created to generate the initial list of [Route]
+/// objects if [initialRoute] is not null.
+///
+/// Defaults to [defaultGenerateInitialRoutes].
+///
+/// The [NavigatorState] and [initialRoute] will be passed to the callback.
+/// The callback must return a list of [Route] objects with which the history
+/// will be primed.
+///
+/// When parsing the initialRoute, if there's any chance that the it may
+/// contain complex characters, it's best to use the
+/// [characters](https://pub.dev/packages/characters) API. This will ensure
+/// that extended grapheme clusters and surrogate pairs are treated as single
+/// characters by the code, the same way that they appear to the user. For
+/// example, the string "ğŸ‘¨â€ğŸ‘©â€ğŸ‘¦" appears to the user as a single
+/// character and `string.characters.length` intuitively returns 1. On the
+/// other hand, `string.length` returns 8, and `string.runes.length` returns
+/// 5! À	„xÀg„(/// Whether this navigator should report route update message back to the
+/// engine when the top-most route changes.
+///
+/// If the property is set to true, this navigator automatically sends the
+/// route update message to the engine when it detects top-most route changes.
+/// The messages are used by the web engine to update the browser URL bar.
+///
+/// If the property is set to true when the [Navigator] is first created,
+/// single-entry history mode is requested using
+/// [SystemNavigator.selectSingleEntryHistory]. This means this property
+/// should not be used at the same time as [PlatformRouteInformationProvider]
+/// is used with a [Router] (including when used with [MaterialApp.router],
+/// for example).
+///
+/// If there are multiple navigators in the widget tree, at most one of them
+/// can set this property to true (typically, the top-most one created from
+/// the [WidgetsApp]). Otherwise, the web engine may receive multiple route
+/// update messages from different navigators and fail to update the URL
+/// bar.
+///
+/// Defaults to false. À†€õÀ	o€Ñ/// {@macro flutter.material.Material.clipBehavior}
+///
+/// In cases where clipping is not desired, consider setting this property to
+/// [Clip.none].
+///
+/// Defaults to [Clip.hardEdge], and must not be null. À	€€¿À
+3€Ÿ/// Whether or not the navigator and it's new topmost route should request focus
+/// when the new route is pushed onto the navigator.
+///
+/// Defaults to true.  À
+DŒ€ÀŠÚ/// Push a named route onto the navigator that most tightly encloses the given
+/// context.
+///
+/// {@template flutter.widgets.navigator.pushNamed}
+/// The route name will be passed to the [Navigator.onGenerateRoute]
+/// callback. The returned route will be pushed into the navigator.
+///
+/// The new route and the previous route (if any) are notified (see
+/// [Route.didPush] and [Route.didChangeNext]). If the [Navigator] has any
+/// [Navigator.observers], they will be notified as well (see
+/// [NavigatorObserver.didPush]).
+///
+/// Ongoing gestures within the current route are canceled when a new route is
+/// pushed.
+///
+/// The `T` type argument is the type of the return value of the route.
+///
+/// To use [pushNamed], an [Navigator.onGenerateRoute] callback must be
+/// provided,
+/// {@endtemplate}
+///
+/// {@template flutter.widgets.navigator.pushNamed.returnValue}
+/// Returns a [Future] that completes to the `result` value passed to [pop]
+/// when the pushed route is popped off the navigator.
+/// {@endtemplate}
+///
+/// {@template flutter.widgets.Navigator.pushNamed}
+/// The provided `arguments` are passed to the pushed route via
+/// [RouteSettings.arguments]. Any object can be passed as `arguments` (e.g. a
+/// [String], [int], or an instance of a custom `MyRouteArguments` class).
+/// Often, a [Map] is used to pass key-value pairs.
+///
+/// The `arguments` may be used in [Navigator.onGenerateRoute] or
+/// [Navigator.onUnknownRoute] to construct the route.
+/// {@endtemplate}
+///
+/// {@tool snippet}
+///
+/// Typical usage is as follows:
+///
+/// ```dart
+/// void _didPushButton() {
+///   Navigator.pushNamed(context, '/settings');
+/// }
+/// ```
+/// {@end-tool}
+///
+/// {@tool snippet}
+///
+/// The following example shows how to pass additional `arguments` to the
+/// route:
+///
+/// ```dart
+/// void _showBerlinWeather() {
+///   Navigator.pushNamed(
+///     context,
+///     '/weather',
+///     arguments: <String, String>{
+///       'city': 'Berlin',
+///       'country': 'Germany',
+///     },
+///   );
+/// }
+/// ```
+/// {@end-tool}
+///
+/// {@tool snippet}
+///
+/// The following example shows how to pass a custom Object to the route:
+///
+/// ```dart
+/// class WeatherRouteArguments {
+///   WeatherRouteArguments({ required this.city, required this.country });
+///   final String city;
+///   final String country;
+///
+///   bool get isGermanCapital {
+///     return country == 'Germany' && city == 'Berlin';
+///   }
+/// }
+///
+/// void _showWeather() {
+///   Navigator.pushNamed(
+///     context,
+///     '/weather',
+///     arguments: WeatherRouteArguments(city: 'Berlin', country: 'Germany'),
+///   );
+/// }
+/// ```
+/// {@end-tool}
+///
+/// See also:
+///
+///  * [restorablePushNamed], which pushes a route that can be restored
+///    during state restoration.ÀÀÀ%À3  À?ÀG  ÀWÀ`  ÀİÀŞÀÈ‡ÄÀ·†p/// Push a named route onto the navigator that most tightly encloses the given
+/// context.
+///
+/// {@template flutter.widgets.navigator.restorablePushNamed}
+/// Unlike [Route]s pushed via [pushNamed], [Route]s pushed with this method
+/// are restored during state restoration according to the rules outlined
+/// in the "State Restoration" section of [Navigator].
+/// {@endtemplate}
+///
+/// {@macro flutter.widgets.navigator.pushNamed}
+///
+/// {@template flutter.widgets.Navigator.restorablePushNamed.arguments}
+/// The provided `arguments` are passed to the pushed route via
+/// [RouteSettings.arguments]. Any object that is serializable via the
+/// [StandardMessageCodec] can be passed as `arguments`. Often, a Map is used
+/// to pass key-value pairs.
+///
+/// The arguments may be used in [Navigator.onGenerateRoute] or
+/// [Navigator.onUnknownRoute] to construct the route.
+/// {@endtemplate}
+///
+/// {@template flutter.widgets.Navigator.restorablePushNamed.returnValue}
+/// The method returns an opaque ID for the pushed route that can be used by
+/// the [RestorableRouteFuture] to gain access to the actual [Route] object
+/// added to the navigator and its return value. You can ignore the return
+/// value of this method, if you do not care about the route object or the
+/// route's return value.
+/// {@endtemplate}
+///
+/// {@tool snippet}
+///
+/// Typical usage is as follows:
+///
+/// ```dart
+/// void _showParisWeather() {
+///   Navigator.restorablePushNamed(
+///     context,
+///     '/weather',
+///     arguments: <String, String>{
+///       'city': 'Paris',
+///       'country': 'France',
+///     },
+///   );
+/// }
+/// ```
+/// {@end-tool}ÀËÀËÀãÀñ  ÀıÀ  ÀÀ  À•À–ÀŠ1À'²ˆ“/// Replace the current route of the navigator that most tightly encloses the
+/// given context by pushing the route named [routeName] and then disposing
+/// the previous route once the new route has finished animating in.
+///
+/// {@template flutter.widgets.navigator.pushReplacementNamed}
+/// If non-null, `result` will be used as the result of the route that is
+/// removed; the future that had been returned from pushing that old route
+/// will complete with `result`. Routes such as dialogs or popup menus
+/// typically use this mechanism to return the value selected by the user to
+/// the widget that created their route. The type of `result`, if provided,
+/// must match the type argument of the class of the old route (`TO`).
+///
+/// The route name will be passed to the [Navigator.onGenerateRoute]
+/// callback. The returned route will be pushed into the navigator.
+///
+/// The new route and the route below the removed route are notified (see
+/// [Route.didPush] and [Route.didChangeNext]). If the [Navigator] has any
+/// [Navigator.observers], they will be notified as well (see
+/// [NavigatorObserver.didReplace]). The removed route is notified once the
+/// new route has finished animating (see [Route.didComplete]). The removed
+/// route's exit animation is not run (see [popAndPushNamed] for a variant
+/// that does animated the removed route).
+///
+/// Ongoing gestures within the current route are canceled when a new route is
+/// pushed.
+///
+/// The `T` type argument is the type of the return value of the new route,
+/// and `TO` is the type of the return value of the old route.
+///
+/// To use [pushReplacementNamed], a [Navigator.onGenerateRoute] callback must
+/// be provided.
+/// {@endtemplate}
+///
+/// {@macro flutter.widgets.navigator.pushNamed.returnValue}
+///
+/// {@macro flutter.widgets.Navigator.pushNamed}
+///
+/// {@tool snippet}
+///
+/// Typical usage is as follows:
+///
+/// ```dart
+/// void _switchToBrightness() {
+///   Navigator.pushReplacementNamed(context, '/settings/brightness');
+/// }
+/// ```
+/// {@end-tool}
+///
+/// See also:
+///
+///  * [restorablePushReplacementNamed], which pushes a replacement route that
+///    can be restored during state restoration.À'ÇÀ'ÇÀ'ÚÀ'ÚÀ'óÀ(  À(À(  À(%
+À(*  À(5À(>  À'ŒÀ'À(Å…?À,áƒÅ/// Replace the current route of the navigator that most tightly encloses the
+/// given context by pushing the route named [routeName] and then disposing
+/// the previous route once the new route has finished animating in.
+///
+/// {@template flutter.widgets.navigator.restorablePushReplacementNamed}
+/// Unlike [Route]s pushed via [pushReplacementNamed], [Route]s pushed with
+/// this method are restored during state restoration according to the rules
+/// outlined in the "State Restoration" section of [Navigator].
+/// {@endtemplate}
+///
+/// {@macro flutter.widgets.navigator.pushReplacementNamed}
+///
+/// {@macro flutter.widgets.Navigator.restorablePushNamed.arguments}
+///
+/// {@macro flutter.widgets.Navigator.restorablePushNamed.returnValue}
+///
+/// {@tool snippet}
+///
+/// Typical usage is as follows:
+///
+/// ```dart
+/// void _switchToAudioVolume() {
+///   Navigator.restorablePushReplacementNamed(context, '/settings/volume');
+/// }
+/// ```
+/// {@end-tool}À- À- À-À-À-,À-:  À-FÀ-N  À-^
+À-c  À-nÀ-w  À,¿À,ÀÀ.ˆ‚À5…†ú/// Pop the current route off the navigator that most tightly encloses the
+/// given context and push a named route in its place.
+///
+/// {@template flutter.widgets.navigator.popAndPushNamed}
+/// The popping of the previous route is handled as per [pop].
+///
+/// The new route's name will be passed to the [Navigator.onGenerateRoute]
+/// callback. The returned route will be pushed into the navigator.
+///
+/// The new route, the old route, and the route below the old route (if any)
+/// are all notified (see [Route.didPop], [Route.didComplete],
+/// [Route.didPopNext], [Route.didPush], and [Route.didChangeNext]). If the
+/// [Navigator] has any [Navigator.observers], they will be notified as well
+/// (see [NavigatorObserver.didPop] and [NavigatorObserver.didPush]). The
+/// animations for the pop and the push are performed simultaneously, so the
+/// route below may be briefly visible even if both the old route and the new
+/// route are opaque (see [TransitionRoute.opaque]).
+///
+/// Ongoing gestures within the current route are canceled when a new route is
+/// pushed.
+///
+/// The `T` type argument is the type of the return value of the new route,
+/// and `TO` is the return value type of the old route.
+///
+/// To use [popAndPushNamed], a [Navigator.onGenerateRoute] callback must be provided.
+/// {@endtemplate}
+///
+/// {@macro flutter.widgets.navigator.pushNamed.returnValue}
+///
+/// {@macro flutter.widgets.Navigator.pushNamed}
+///
+/// {@tool snippet}
+///
+/// Typical usage is as follows:
+///
+/// ```dart
+/// void _selectAccessibility() {
+///   Navigator.popAndPushNamed(context, '/settings/accessibility');
+/// }
+/// ```
+/// {@end-tool}
+///
+/// See also:
+///
+///  * [restorablePopAndPushNamed], which pushes a new route that can be
+///    restored during state restoration.À5•À5•À5¨À5¨À5ÁÀ5Ï  À5ÛÀ5ã  À5ó
+À5ø  À6À6  À5_À5`À6„½À:2ƒO/// Pop the current route off the navigator that most tightly encloses the
+/// given context and push a named route in its place.
+///
+/// {@template flutter.widgets.navigator.restorablePopAndPushNamed}
+/// Unlike [Route]s pushed via [popAndPushNamed], [Route]s pushed with
+/// this method are restored during state restoration according to the rules
+/// outlined in the "State Restoration" section of [Navigator].
+/// {@endtemplate}
+///
+/// {@macro flutter.widgets.navigator.popAndPushNamed}
+///
+/// {@macro flutter.widgets.Navigator.restorablePushNamed.arguments}
+///
+/// {@macro flutter.widgets.Navigator.restorablePushNamed.returnValue}
+///
+/// {@tool snippet}
+///
+/// Typical usage is as follows:
+///
+/// ```dart
+/// void _selectNetwork() {
+///   Navigator.restorablePopAndPushNamed(context, '/settings/network');
+/// }
+/// ```
+/// {@end-tool}À:LÀ:LÀ:_À:_À:xÀ:†  À:’À:š  À:ª
+À:¯  À:ºÀ:Ã  À:À:À;OŠzÀD½ˆÓ/// Push the route with the given name onto the navigator that most tightly
+/// encloses the given context, and then remove all the previous routes until
+/// the `predicate` returns true.
+///
+/// {@template flutter.widgets.navigator.pushNamedAndRemoveUntil}
+/// The predicate may be applied to the same route more than once if
+/// [Route.willHandlePopInternally] is true.
+///
+/// To remove routes until a route with a certain name, use the
+/// [RoutePredicate] returned from [ModalRoute.withName].
+///
+/// To remove all the routes below the pushed route, use a [RoutePredicate]
+/// that always returns false (e.g. `(Route<dynamic> route) => false`).
+///
+/// The removed routes are removed without being completed, so this method
+/// does not take a return value argument.
+///
+/// The new route's name (`routeName`) will be passed to the
+/// [Navigator.onGenerateRoute] callback. The returned route will be pushed
+/// into the navigator.
+///
+/// The new route and the route below the bottommost removed route (which
+/// becomes the route below the new route) are notified (see [Route.didPush]
+/// and [Route.didChangeNext]). If the [Navigator] has any
+/// [Navigator.observers], they will be notified as well (see
+/// [NavigatorObserver.didPush] and [NavigatorObserver.didRemove]). The
+/// removed routes are disposed, without being notified, once the new route
+/// has finished animating. The futures that had been returned from pushing
+/// those routes will not complete.
+///
+/// Ongoing gestures within the current route are canceled when a new route is
+/// pushed.
+///
+/// The `T` type argument is the type of the return value of the new route.
+///
+/// To use [pushNamedAndRemoveUntil], an [Navigator.onGenerateRoute] callback
+/// must be provided.
+/// {@endtemplate}
+///
+/// {@macro flutter.widgets.navigator.pushNamed.returnValue}
+///
+/// {@macro flutter.widgets.Navigator.pushNamed}
+///
+/// {@tool snippet}
+///
+/// Typical usage is as follows:
+///
+/// ```dart
+/// void _resetToCalendar() {
+///   Navigator.pushNamedAndRemoveUntil(context, '/calendar', ModalRoute.withName('/'));
+/// }
+/// ```
+/// {@end-tool}
+///
+/// See also:
+///
+///  * [restorablePushNamedAndRemoveUntil], which pushes a new route that can
+///    be restored during state restoration.ÀDÕÀDÕÀDíÀDû  ÀEÀE  ÀE ÀE0  ÀE@ÀEI  ÀD—ÀD˜ÀEÍ…4ÀIáƒ½/// Push the route with the given name onto the navigator that most tightly
+/// encloses the given context, and then remove all the previous routes until
+/// the `predicate` returns true.
+///
+/// {@template flutter.widgets.navigator.restorablePushNamedAndRemoveUntil}
+/// Unlike [Route]s pushed via [pushNamedAndRemoveUntil], [Route]s pushed with
+/// this method are restored during state restoration according to the rules
+/// outlined in the "State Restoration" section of [Navigator].
+/// {@endtemplate}
+///
+/// {@macro flutter.widgets.navigator.pushNamedAndRemoveUntil}
+///
+/// {@macro flutter.widgets.Navigator.restorablePushNamed.arguments}
+///
+/// {@macro flutter.widgets.Navigator.restorablePushNamed.returnValue}
+///
+/// {@tool snippet}
+///
+/// Typical usage is as follows:
+///
+/// ```dart
+/// void _resetToOverview() {
+///   Navigator.restorablePushNamedAndRemoveUntil(context, '/overview', ModalRoute.withName('/'));
+/// }
+/// ```
+/// {@end-tool}ÀJÀJÀJÀJ)  ÀJ5ÀJ=  ÀJNÀJ^  ÀJnÀJw  ÀI¿ÀIÀÀK„ıÀO‘„/// Push the given route onto the navigator that most tightly encloses the
+/// given context.
+///
+/// {@template flutter.widgets.navigator.push}
+/// The new route and the previous route (if any) are notified (see
+/// [Route.didPush] and [Route.didChangeNext]). If the [Navigator] has any
+/// [Navigator.observers], they will be notified as well (see
+/// [NavigatorObserver.didPush]).
+///
+/// Ongoing gestures within the current route are canceled when a new route is
+/// pushed.
+///
+/// The `T` type argument is the type of the return value of the route.
+/// {@endtemplate}
+///
+/// {@macro flutter.widgets.navigator.pushNamed.returnValue}
+///
+/// {@tool snippet}
+///
+/// Typical usage is as follows:
+///
+/// ```dart
+/// void _openMyPage() {
+///   Navigator.push<void>(
+///     context,
+///     MaterialPageRoute<void>(
+///       builder: (BuildContext context) => const MyPage(),
+///     ),
+///   );
+/// }
+/// ```
+/// {@end-tool}
+///
+/// See also:
+///
+///  * [restorablePush], which pushes a route that can be restored during
+///    state restoration.ÀO–ÀO–ÀO©ÀO·  ÀO¿ÀOÉ  ÀOkÀOlÀP†WÀU…)/// Push a new route onto the navigator that most tightly encloses the
+/// given context.
+///
+/// {@template flutter.widgets.navigator.restorablePush}
+/// Unlike [Route]s pushed via [push], [Route]s pushed with this method are
+/// restored during state restoration according to the rules outlined in the
+/// "State Restoration" section of [Navigator].
+/// {@endtemplate}
+///
+/// {@macro flutter.widgets.navigator.push}
+///
+/// {@template flutter.widgets.Navigator.restorablePush}
+/// The method takes a [RestorableRouteBuilder] as argument, which must be a
+/// _static_ function annotated with `@pragma('vm:entry-point')`. It must
+/// instantiate and return a new [Route] object that will be added to the
+/// navigator. The provided `arguments` object is passed to the
+/// `routeBuilder`. The navigator calls the static `routeBuilder` function
+/// again during state restoration to re-create the route object.
+///
+/// Any object that is serializable via the [StandardMessageCodec] can be
+/// passed as `arguments`. Often, a Map is used to pass key-value pairs.
+/// {@endtemplate}
+///
+/// {@macro flutter.widgets.Navigator.restorablePushNamed.returnValue}
+///
+/// {@tool dartpad}
+/// Typical usage is as follows:
+///
+/// ** See code in examples/api/lib/widgets/navigator/navigator.restorable_push.0.dart **
+/// {@end-tool}ÀUÀUÀU°ÀU¾  ÀUÆ&ÀUá  ÀUïÀUø  ÀUlÀUmÀVaˆŠÀ^#‡=/// Replace the current route of the navigator that most tightly encloses the
+/// given context by pushing the given route and then disposing the previous
+/// route once the new route has finished animating in.
+///
+/// {@template flutter.widgets.navigator.pushReplacement}
+/// If non-null, `result` will be used as the result of the route that is
+/// removed; the future that had been returned from pushing that old route will
+/// complete with `result`. Routes such as dialogs or popup menus typically
+/// use this mechanism to return the value selected by the user to the widget
+/// that created their route. The type of `result`, if provided, must match
+/// the type argument of the class of the old route (`TO`).
+///
+/// The new route and the route below the removed route are notified (see
+/// [Route.didPush] and [Route.didChangeNext]). If the [Navigator] has any
+/// [Navigator.observers], they will be notified as well (see
+/// [NavigatorObserver.didReplace]). The removed route is notified once the
+/// new route has finished animating (see [Route.didComplete]).
+///
+/// Ongoing gestures within the current route are canceled when a new route is
+/// pushed.
+///
+/// The `T` type argument is the type of the return value of the new route,
+/// and `TO` is the type of the return value of the old route.
+/// {@endtemplate}
+///
+/// {@macro flutter.widgets.navigator.pushNamed.returnValue}
+///
+/// {@tool snippet}
+///
+/// Typical usage is as follows:
+///
+/// ```dart
+/// void _completeLogin() {
+///   Navigator.pushReplacement<void, void>(
+///     context,
+///     MaterialPageRoute<void>(
+///       builder: (BuildContext context) => const MyHomePage(),
+///     ),
+///   );
+/// }
+/// ```
+/// {@end-tool}
+///
+/// See also:
+///
+///  * [restorablePushReplacement], which pushes a replacement route that can
+///    be restored during state restoration.À^3À^3À^FÀ^FÀ^ZÀ^h  À^pÀ^z  À^…
+À^Š  À]ıÀ]şÀ^ï„ÛÀb¬ƒp/// Replace the current route of the navigator that most tightly encloses the
+/// given context by pushing a new route and then disposing the previous
+/// route once the new route has finished animating in.
+///
+/// {@template flutter.widgets.navigator.restorablePushReplacement}
+/// Unlike [Route]s pushed via [pushReplacement], [Route]s pushed with this
+/// method are restored during state restoration according to the rules
+/// outlined in the "State Restoration" section of [Navigator].
+/// {@endtemplate}
+///
+/// {@macro flutter.widgets.navigator.pushReplacement}
+///
+/// {@macro flutter.widgets.Navigator.restorablePush}
+///
+/// {@macro flutter.widgets.Navigator.restorablePushNamed.returnValue}
+///
+/// {@tool dartpad}
+/// Typical usage is as follows:
+///
+/// ** See code in examples/api/lib/widgets/navigator/navigator.restorable_push_replacement.0.dart **
+/// {@end-tool}ÀbÆÀbÆÀbÙÀbÙÀbíÀbû  Àc&Àc  Àc-
+Àc2  Àc9ÀcB  ÀbŠÀb‹ÀcÎ‰`Àlsˆ/// Push the given route onto the navigator that most tightly encloses the
+/// given context, and then remove all the previous routes until the
+/// `predicate` returns true.
+///
+/// {@template flutter.widgets.navigator.pushAndRemoveUntil}
+/// The predicate may be applied to the same route more than once if
+/// [Route.willHandlePopInternally] is true.
+///
+/// To remove routes until a route with a certain name, use the
+/// [RoutePredicate] returned from [ModalRoute.withName].
+///
+/// To remove all the routes below the pushed route, use a [RoutePredicate]
+/// that always returns false (e.g. `(Route<dynamic> route) => false`).
+///
+/// The removed routes are removed without being completed, so this method
+/// does not take a return value argument.
+///
+/// The newly pushed route and its preceding route are notified for
+/// [Route.didPush]. After removal, the new route and its new preceding route,
+/// (the route below the bottommost removed route) are notified through
+/// [Route.didChangeNext]). If the [Navigator] has any [Navigator.observers],
+/// they will be notified as well (see [NavigatorObserver.didPush] and
+/// [NavigatorObserver.didRemove]). The removed routes are disposed of and
+/// notified, once the new route has finished animating. The futures that had
+/// been returned from pushing those routes will not complete.
+///
+/// Ongoing gestures within the current route are canceled when a new route is
+/// pushed.
+///
+/// The `T` type argument is the type of the return value of the new route.
+/// {@endtemplate}
+///
+/// {@macro flutter.widgets.navigator.pushNamed.returnValue}
+///
+/// {@tool snippet}
+///
+/// Typical usage is as follows:
+///
+/// ```dart
+/// void _finishAccountCreation() {
+///   Navigator.pushAndRemoveUntil<void>(
+///     context,
+///     MaterialPageRoute<void>(builder: (BuildContext context) => const MyHomePage()),
+///     ModalRoute.withName('/'),
+///   );
+/// }
+/// ```
+/// {@end-tool}
+///
+/// See also:
+///
+///  * [restorablePushAndRemoveUntil], which pushes a route that can be
+///    restored during state restoration.Àl†Àl†Àl™Àl§  Àl¯Àl¹  ÀlÂÀlÒ  ÀlMÀlNÀm2„¿ÀpØƒY/// Push a new route onto the navigator that most tightly encloses the
+/// given context, and then remove all the previous routes until the
+/// `predicate` returns true.
+///
+/// {@template flutter.widgets.navigator.restorablePushAndRemoveUntil}
+/// Unlike [Route]s pushed via [pushAndRemoveUntil], [Route]s pushed with this
+/// method are restored during state restoration according to the rules
+/// outlined in the "State Restoration" section of [Navigator].
+/// {@endtemplate}
+///
+/// {@macro flutter.widgets.navigator.pushAndRemoveUntil}
+///
+/// {@macro flutter.widgets.Navigator.restorablePush}
+///
+/// {@macro flutter.widgets.Navigator.restorablePushNamed.returnValue}
+///
+/// {@tool dartpad}
+/// Typical usage is as follows:
+///
+/// ** See code in examples/api/lib/widgets/navigator/navigator.restorable_push_and_remove_until.0.dart **
+/// {@end-tool}ÀpõÀpõÀqÀq  Àq)Àq9  ÀqIÀqY  ÀqdÀqm  Àp¶Àp·Àqõ‡eÀx†5/// Replaces a route on the navigator that most tightly encloses the given
+/// context with a new route.
+///
+/// {@template flutter.widgets.navigator.replace}
+/// The old route must not be currently visible, as this method skips the
+/// animations and therefore the removal would be jarring if it was visible.
+/// To replace the top-most route, consider [pushReplacement] instead, which
+/// _does_ animate the new route, and delays removing the old route until the
+/// new route has finished animating.
+///
+/// The removed route is removed without being completed, so this method does
+/// not take a return value argument.
+///
+/// The new route, the route below the new route (if any), and the route above
+/// the new route, are all notified (see [Route.didReplace],
+/// [Route.didChangeNext], and [Route.didChangePrevious]). If the [Navigator]
+/// has any [Navigator.observers], they will be notified as well (see
+/// [NavigatorObserver.didReplace]). The removed route is disposed without
+/// being notified. The future that had been returned from pushing that routes
+/// will not complete.
+///
+/// This can be useful in combination with [removeRouteBelow] when building a
+/// non-linear user experience.
+///
+/// The `T` type argument is the type of the return value of the new route.
+/// {@endtemplate}
+///
+/// See also:
+///
+///  * [replaceRouteBelow], which is the same but identifies the route to be
+///    removed by reference to the route above it, rather than directly.
+///  * [restorableReplace], which adds a replacement route that can be
+///    restored during state restoration.Àx•Àx•Àx¨Àx¶  ÀxÀ ÀxÙ  ÀxâÀxõ  ÀxmÀxnÀy^ƒ¬À{Ú‚=/// Replaces a route on the navigator that most tightly encloses the given
+/// context with a new route.
+///
+/// {@template flutter.widgets.navigator.restorableReplace}
+/// Unlike [Route]s added via [replace], [Route]s added with this method are
+/// restored during state restoration according to the rules outlined in the
+/// "State Restoration" section of [Navigator].
+/// {@endtemplate}
+///
+/// {@macro flutter.widgets.navigator.replace}
+///
+/// {@macro flutter.widgets.Navigator.restorablePush}
+///
+/// {@macro flutter.widgets.Navigator.restorablePushNamed.returnValue}À{ìÀ{ìÀ{ÿÀ|  À| À|0  À|92À|]  À|mÀ|v  À{¸À{¹À}‡+ÀƒO…â/// Replaces a route on the navigator that most tightly encloses the given
+/// context with a new route. The route to be replaced is the one below the
+/// given `anchorRoute`.
+///
+/// {@template flutter.widgets.navigator.replaceRouteBelow}
+/// The old route must not be current visible, as this method skips the
+/// animations and therefore the removal would be jarring if it was visible.
+/// To replace the top-most route, consider [pushReplacement] instead, which
+/// _does_ animate the new route, and delays removing the old route until the
+/// new route has finished animating.
+///
+/// The removed route is removed without being completed, so this method does
+/// not take a return value argument.
+///
+/// The new route, the route below the new route (if any), and the route above
+/// the new route, are all notified (see [Route.didReplace],
+/// [Route.didChangeNext], and [Route.didChangePrevious]). If the [Navigator]
+/// has any [Navigator.observers], they will be notified as well (see
+/// [NavigatorObserver.didReplace]). The removed route is disposed without
+/// being notified. The future that had been returned from pushing that routes
+/// will not complete.
+///
+/// The `T` type argument is the type of the return value of the new route.
+/// {@endtemplate}
+///
+/// See also:
+///
+///  * [replace], which is the same but identifies the route to be removed
+///    directly.
+///  * [restorableReplaceRouteBelow], which adds a replacement route that can
+///    be restored during state restoration.ÀƒaÀƒaÀƒtÀƒ‚  ÀƒŒ#Àƒ¥  Àƒ±ÀƒÄ  Àƒ/Àƒ0À„=„:À‡*‚¬/// Replaces a route on the navigator that most tightly encloses the given
+/// context with a new route. The route to be replaced is the one below the
+/// given `anchorRoute`.
+///
+/// {@template flutter.widgets.navigator.restorableReplaceRouteBelow}
+/// Unlike [Route]s added via [restorableReplaceRouteBelow], [Route]s added
+/// with this method are restored during state restoration according to the
+/// rules outlined in the "State Restoration" section of [Navigator].
+/// {@endtemplate}
+///
+/// {@macro flutter.widgets.navigator.replaceRouteBelow}
+///
+/// {@macro flutter.widgets.Navigator.restorablePush}
+///
+/// {@macro flutter.widgets.Navigator.restorablePushNamed.returnValue}À‡FÀ‡FÀ‡YÀ‡g  À‡q#À‡Š  À‡–2À‡º  À‡ÊÀ‡Ó  À‡À‡	Àˆ{‚ÇÀŠª‚/// Whether the navigator that most tightly encloses the given context can be
+/// popped.
+///
+/// {@template flutter.widgets.navigator.canPop}
+/// The initial route cannot be popped off the navigator, which implies that
+/// this function returns true only if popping the navigator would not remove
+/// the initial route.
+///
+/// If there is no [Navigator] in scope, returns false.
+/// {@endtemplate}
+///
+/// See also:
+///
+///  * [Route.isFirst], which returns true for routes for which [canPop]
+///    returns false. ÀŠ±ÀŠ¿   À‹F†SÀ‘…r/// Consults the current route's [Route.willPop] method, and acts accordingly,
+/// potentially popping the route as a result; returns whether the pop request
+/// should be considered handled.
+///
+/// {@template flutter.widgets.navigator.maybePop}
+/// If [Route.willPop] returns [RoutePopDisposition.pop], then the [pop]
+/// method is called, and this method returns true, indicating that it handled
+/// the pop request.
+///
+/// If [Route.willPop] returns [RoutePopDisposition.doNotPop], then this
+/// method returns true, but does not do anything beyond that.
+///
+/// If [Route.willPop] returns [RoutePopDisposition.bubble], then this method
+/// returns false, and the caller is responsible for sending the request to
+/// the containing scope (e.g. by closing the application).
+///
+/// This method is typically called for a user-initiated [pop]. For example on
+/// Android it's called by the binding for the system's back button.
+///
+/// The `T` type argument is the type of the return value of the current
+/// route. (Typically this isn't known; consider specifying `dynamic` or
+/// `Null`.)
+/// {@endtemplate}
+///
+/// See also:
+///
+///  * [Form], which provides an `onWillPop` callback that enables the form
+///    to veto a [pop] initiated by the app's back button.
+///  * [ModalRoute], which provides a `scopedWillPopCallback` that can be used
+///    to define the route's `willPop` method.À‘&À‘&À‘9À‘G  À‘Q	À‘U  ÀõÀöÀ‘‡ŒÀ˜¾†¦/// Pop the top-most route off the navigator that most tightly encloses the
+/// given context.
+///
+/// {@template flutter.widgets.navigator.pop}
+/// The current route's [Route.didPop] method is called first. If that method
+/// returns false, then the route remains in the [Navigator]'s history (the
+/// route is expected to have popped some internal state; see e.g.
+/// [LocalHistoryRoute]). Otherwise, the rest of this description applies.
+///
+/// If non-null, `result` will be used as the result of the route that is
+/// popped; the future that had been returned from pushing the popped route
+/// will complete with `result`. Routes such as dialogs or popup menus
+/// typically use this mechanism to return the value selected by the user to
+/// the widget that created their route. The type of `result`, if provided,
+/// must match the type argument of the class of the popped route (`T`).
+///
+/// The popped route and the route below it are notified (see [Route.didPop],
+/// [Route.didComplete], and [Route.didPopNext]). If the [Navigator] has any
+/// [Navigator.observers], they will be notified as well (see
+/// [NavigatorObserver.didPop]).
+///
+/// The `T` type argument is the type of the return value of the popped route.
+///
+/// The type of `result`, if provided, must match the type argument of the
+/// class of the popped route (`T`).
+/// {@endtemplate}
+///
+/// {@tool snippet}
+///
+/// Typical usage for closing a route is as follows:
+///
+/// ```dart
+/// void _close() {
+///   Navigator.pop(context);
+/// }
+/// ```
+/// {@end-tool}
+///
+/// A dialog box might be closed with a result:
+///
+/// ```dart
+/// void _accept() {
+///   Navigator.pop(context, true); // dialog returns true
+/// }
+/// ```À˜ÂÀ˜ÂÀ˜ÕÀ˜ã  À˜í	À˜ñ  À˜À˜ŸÀ™-ƒ¥Àœe‚ù/// Calls [pop] repeatedly on the navigator that most tightly encloses the
+/// given context until the predicate returns true.
+///
+/// {@template flutter.widgets.navigator.popUntil}
+/// The predicate may be applied to the same route more than once if
+/// [Route.willHandlePopInternally] is true.
+///
+/// To pop until a route with a certain name, use the [RoutePredicate]
+/// returned from [ModalRoute.withName].
+///
+/// The routes are closed with null as their `return` value.
+///
+/// See [pop] for more details of the semantics of popping a route.
+/// {@endtemplate}
+///
+/// {@tool snippet}
+///
+/// Typical usage is as follows:
+///
+/// ```dart
+/// void _logout() {
+///   Navigator.popUntil(context, ModalRoute.withName('/login'));
+/// }
+/// ```
+/// {@end-tool} ÀœnÀœ|  Àœ„Àœ”   ÀœÖ„ÛÀ¡?„./// Immediately remove `route` from the navigator that most tightly encloses
+/// the given context, and [Route.dispose] it.
+///
+/// {@template flutter.widgets.navigator.removeRoute}
+/// The removed route is removed without being completed, so this method does
+/// not take a return value argument. No animations are run as a result of
+/// this method call.
+///
+/// The routes below and above the removed route are notified (see
+/// [Route.didChangeNext] and [Route.didChangePrevious]). If the [Navigator]
+/// has any [Navigator.observers], they will be notified as well (see
+/// [NavigatorObserver.didRemove]). The removed route is disposed without
+/// being notified. The future that had been returned from pushing that routes
+/// will not complete.
+///
+/// The given `route` must be in the history; this method will throw an
+/// exception if it is not.
+///
+/// Ongoing gestures within the current route are canceled.
+/// {@endtemplate}
+///
+/// This method is used, for example, to instantly dismiss dropdown menus that
+/// are up when the screen's orientation changes. À¡KÀ¡Y  À¡aÀ¡q   À¡µ„äÀ¦„%/// Immediately remove a route from the navigator that most tightly encloses
+/// the given context, and [Route.dispose] it. The route to be removed is the
+/// one below the given `anchorRoute`.
+///
+/// {@template flutter.widgets.navigator.removeRouteBelow}
+/// The removed route is removed without being completed, so this method does
+/// not take a return value argument. No animations are run as a result of
+/// this method call.
+///
+/// The routes below and above the removed route are notified (see
+/// [Route.didChangeNext] and [Route.didChangePrevious]). If the [Navigator]
+/// has any [Navigator.observers], they will be notified as well (see
+/// [NavigatorObserver.didRemove]). The removed route is disposed without
+/// being notified. The future that had been returned from pushing that routes
+/// will not complete.
+///
+/// The given `anchorRoute` must be in the history and must have a route below
+/// it; this method will throw an exception if it is not or does not.
+///
+/// Ongoing gestures within the current route are canceled.
+/// {@endtemplate} À¦"À¦0  À¦8À¦H   À¦†[À©g‚‹/// The state from the closest instance of this class that encloses the given
+/// context.
+///
+/// Typical usage is as follows:
+///
+/// ```dart
+/// Navigator.of(context)
+///   ..pop()
+///   ..pop()
+///   ..pushNamed('/settings');
+/// ```
+///
+/// If `rootNavigator` is set to true, the state from the furthest instance of
+/// this class is given instead. Useful for pushing contents above all
+/// subsequent instances of [Navigator].
+///
+/// If there is no [Navigator] in the give `context`, this function will throw
+/// a [FlutterError] in debug mode, and an exception in release mode.
+///
+/// This method can be expensive (it walks the element tree). À©oÀ©}  À©‹À©‘  À© À¬ü…À¯ó‚³/// The state from the closest instance of this class that encloses the given
+/// context, if any.
+///
+/// Typical usage is as follows:
+///
+/// ```dart
+/// NavigatorState? navigatorState = Navigator.maybeOf(context);
+/// if (navigatorState != null) {
+///   navigatorState
+///     ..pop()
+///     ..pop()
+///     ..pushNamed('/settings');
+/// }
+/// ```
+///
+/// If `rootNavigator` is set to true, the state from the furthest instance of
+/// this class is given instead. Useful for pushing contents above all
+/// subsequent instances of [Navigator].
+///
+/// Will return null if there is no ancestor [Navigator] in the `context`.
+///
+/// This method can be expensive (it walks the element tree). À° À°  À°À°"  À°1À²ŒìÀµ‚Æ/// Turn a route name into a set of [Route] objects.
+///
+/// This is the default value of [onGenerateInitialRoutes], which is used if
+/// [initialRoute] is not null.
+///
+/// If this string starts with a `/` character and has multiple `/` characters
+/// in it, then the string is split on those characters and substrings from
+/// the start of the string up to each such character are, in turn, used as
+/// routes to push.
+///
+/// For example, if the route `/stocks/HOOLI` was used as the [initialRoute],
+/// then the [Navigator] would push the following routes on startup: `/`,
+/// `/stocks`, `/stocks/HOOLI`. This enables deep linking while allowing the
+/// application to maintain a predictable route history. Àµ5ÀµE  ÀµOÀµW   À¿	=À¿$   À¿	À¿
+ ÀÎH€ÓÀÎN       ÀÏ·éÀÏ#  ÀÏQ‚ ÀÏQÀÏ\ ÀÏb
+ÀÏh  ÀÏv%ÀÏ  ÀÏ£ÀÏ²  ÀÏÂÀÏÈ  .ÀÏèÀÏîÀĞÀÏúÀÏïÀÏğÀĞÀÏıÀĞÀĞÀĞÀĞÀĞ%ÀÑ9ÀĞùÀĞ¿ÀĞŒÀĞZÀĞ?ÀĞ2ÀĞBÀĞQÀĞRÀĞuÀĞhÀĞxÀĞ‡ÀĞˆÀĞ§ÀĞšÀĞªÀĞ¹ÀĞºÀĞÚÀĞÍÀĞİÀĞìÀĞíÀÑÀÑÀÑÀÑ&ÀÑ'ÀÑRÀÑEÀÑTÀÑe&ÀÑ† ÀÑeÀÑfÀÑ5ÀÑ®  ÀÑÈÀÑÓ  ÀÑá4ÀÑ÷ ÀÒÀÒÀÒÀÒÀÒ*  ÀÒ:9ÀÒJ ÀÒgÀÒ£:ÀÒ² ÀÒÑÀÓ5ÀÓ ÀÓ/ÀçÀç•  Àè"$Àè' ÀèBÀş)Àş† Àş¥
+ÀÓh‚wÀÔ
+€‘/// Restoration ID to be used for the encapsulating route when restoration is
+/// enabled for it or null if restoration cannot be enabled for it.   À÷é€—À÷ò    Àø„€•Àø    ÀùUÀù&    Àùv€¦Àù    Àú €«Àú)    ÀıÌ]Àıá   ÀıÌÀıÍÀş-QÀşB   Àş-Àş.À(FÀ1    Àq€“Àu  Àˆ
+À   ÀÕã€ûÀÕè  ÀÕöÀÖ   ÀÖâÚÀÖç  ÀÖó!À×  À×(À×0   ÀØÀ‡PÀØÅ  ÀØÒ!ÀØë  ÀØõÀÙ  ÀÙ!ÀÙ)  ÀÙ2(ÀÙL   Àà€ŠÀà  Àà*Àà:   Àà¢ƒ¹ÀáÖ /// Process the to-be-popped route.
+///
+/// A route can be marked for pop by transition delegate or Navigator.pop,
+/// this method actually pops the route by calling Route.didPop.
+///
+/// Returns true if the route is popped; otherwise, returns false if the route
+/// refuses to be popped. Àáâ!Àáû  Àâ(Àâ   Àä_€ÕÀäd    Àå8‚Àå=  ÀåM!Àåf  Àåp(ÀåŠ   Àæ¾€ËÀæÃ  ÀæÌ!Àæå  ÀæïÀæş   Àç§wÀç¬ Àç°Àç°Àç³	Àç·   ÀèzĞÀè  ÀèˆÀè  ÀèšÀêıÀê† ÀêÀêÀê’Àê•  ÀêÀê¤  Àê°Àì‚€Àì‡    ÀíIÀí¸€£/// Disposes this route entry and its [route] immediately.
+///
+/// This method does not wait for the widget subtree of the [route] to unmount
+/// before disposing.   ÀîT‰‘Àï—//// Disposes this route entry and its [route].
+///
+/// This method waits for the widget subtree of the [route] to unmount before
+/// disposing. If subtree is already unmounted, this method calls
+/// [forcedDispose] immediately.
+///
+/// Use [forcedDispose] if the [route] need to be disposed immediately.   ÀúÏjÀúÔ  ÀúïÀû    Àü=EÀüI  Àü\Àüi   Àü…oÀü‘  Àü¹ÀüÆ   Àü÷MÀı  ÀıÀı'   ÀıH€€Àıd  ÀıuÀı…   Àş¯GÀş´    ÀşúIÀÿ   ÀşúÀşûÀ GFÀ X   À GÀ HÀ‘€À¢  À®À·  À‘À’À˜À&  À7À@  ÀÀÀ±sÀÂ   À±À² À€ïÀ  À1K À1ÀF ÀLÀR  ÀcÀi   À!À”  À¤$Àº   ÀÍ(ÀÒ  ÀÙÀì    ÀùÀÿ  À;Q À;ÀT ÀZÀa  ÀrÀy     ÀmÀ¡  À¨À»  ÀÀ‘ À	À	  À	BP À	BÀ	Z À	`À	g  À	xÀ	     À	–lÀ	§  À	®À	Á  À	–À	— À
+À
+  À
+JS À
+JÀ
+e À
+kÀ
+r  À
+ƒÀ
+Š     À
+¡oÀ
+²  À
+¹À
+Ì  À
+¡À
+¢ À#À  ÀYT ÀYÀu À{À‚  À“Àš     À±€„ÀÂ  ÀÉÀÜ  À±À² À9À ÈÀ´t/// The state for a [Navigator] widget.
+///
+/// A reference to this class can be obtained by calling [Navigator.of].  À(À-  À<,ÀN ÀfÀgÀYÀeÀZÀlÏÀ
+v/// A set for entries that are waiting to dispose until their subtrees are
+/// disposed.
+///
+/// These entries are not considered to be in the _history and will usually
+/// remove themselves from this set once they can dispose.
+///
+/// The navigator keep track of these entries so that, in case the navigator
+/// itself is disposed, it can dispose these entries immediately.À9À:À,À8À-À?@ÀV ÀmÀ}À~Àƒ[À¦ ÀÀÀÅÀÛÀÆÀÜÀİÀâ[À ÀÀ$À:À%À;À<ÀS~À£=/// The [FocusNode] for the [Focus] that encloses the routes.À¯À¸ÀĞÀÃÀ¹ÀÅÀÖÀÛ ÀêÀ2(ÀB  À_0À|  ÀRSÀk ÀÀÀ¡ÀÀ¢À¤À£ÀBÀB  ÀB3ÀB8 ÀBMÀprÀpw ÀpŠÀ†$ÀŠ À©À¢€¢À
+K/// Notifies its listeners if the value of [userGestureInProgress] changes.À*À7À<À8À=ÀCÀ>À!„(À!“ À!ªÀ!«À!¥À!©À!¦ÀBÀ#R/// The [FocusScopeNode] for the [FocusScope] that encloses the topmost navigator.  À—À˜À¢ÀÀ¨ÀÖÀªVÀ²    À$ÓCÀ$ë   À$ÓÀ$ÔÀ@İyÀA2@/// The overlay this navigator uses for its visual presentation.   ÀAZ€±ÀAu    ÀC@ÀK    À®€À²  ÀÊ	ÀÏ   ÀOOÀa€ú/// Whether a route is currently being manipulated by the user, e.g.
+/// as during an iOS back gesture.
+///
+/// See also:
+///
+///  * [userGestureInProgressNotifier], which notifies its listeners if
+///    the value of [userGestureInProgress] changes.   >À”†{À¥   À”À•À‰àÀ  À"À6  À@ÀF  ÀÀÀ#è€èÀ#ù  À$	À$  À#èÀ#éÀ%€òÀ%+   À%À%À&JÀ&M5/// Dispose all lingering router entries immediately.   À'^À'j  À'}À'Š  À'‘À'    À({‰ÛÀ(€  À(–!À(§   À2Z€òÀ2_    À3PˆÀ3a  À3qÀ3|  À3PÀ3QÀ;WfÀ;\    À<Á€»À<Ò   À<ÁÀ<ÂÀ=€€áÀ=‘   À=€À=À>e‚tÀ>v   À>eÀ>fÀBV®ÀB[    Àp”™RÀp™  Àp¯Àpµ  ÀpÇÀ‰ê‚;À‰ï    ÀŒ)ƒ–ÀŒ.    ÀÃ€¬ÀĞ  Àà	Àå  ÀëÀ   Às€¦Àw  À‡	ÀŒ  À’À¨   À‘€æÀ‘*  À‘9	À‘>  À‘DÀ‘Z   À’ˆ:À’ À’À’À’!À’)  À’0À’B  À’LÀ’R  À’]ÀšE‚îÀœ•‚/// Push a named route onto the navigator.
+///
+/// {@macro flutter.widgets.navigator.pushNamed}
+///
+/// {@macro flutter.widgets.navigator.pushNamed.returnValue}
+///
+/// {@macro flutter.widgets.Navigator.pushNamed}
+///
+/// {@tool snippet}
+///
+/// Typical usage is as follows:
+///
+/// ```dart
+/// void _aaronBurrSir() {
+///   navigator.pushNamed('/nyc/1776');
+/// }
+/// ```
+/// {@end-tool}
+///
+/// See also:
+///
+///  * [restorablePushNamed], which pushes a route that can be restored
+///    during state restoration.ÀœŸÀœŸÀœ·Àœ¿  ÀœÏÀœØ  ÀœvÀœwÀ7„4ÀŸdé/// Push a named route onto the navigator.
+///
+/// {@macro flutter.widgets.navigator.restorablePushNamed}
+///
+/// {@macro flutter.widgets.navigator.pushNamed}
+///
+/// {@macro flutter.widgets.Navigator.restorablePushNamed.arguments}
+///
+/// {@macro flutter.widgets.Navigator.restorablePushNamed.returnValue}
+///
+/// {@tool snippet}
+///
+/// Typical usage is as follows:
+///
+/// ```dart
+/// void _openDetails() {
+///   navigator.restorablePushNamed('/nyc/1776');
+/// }
+/// ```
+/// {@end-tool}ÀŸxÀŸxÀŸÀŸ˜  ÀŸ¨ÀŸ±  ÀŸIÀŸJÀ¡oƒòÀ¤u‚´/// Replace the current route of the navigator by pushing the route named
+/// [routeName] and then disposing the previous route once the new route has
+/// finished animating in.
+///
+/// {@macro flutter.widgets.navigator.pushReplacementNamed}
+///
+/// {@macro flutter.widgets.navigator.pushNamed.returnValue}
+///
+/// {@macro flutter.widgets.Navigator.pushNamed}
+///
+/// {@tool snippet}
+///
+/// Typical usage is as follows:
+///
+/// ```dart
+/// void _startBike() {
+///   navigator.pushReplacementNamed('/jouett/1781');
+/// }
+/// ```
+/// {@end-tool}
+///
+/// See also:
+///
+///  * [restorablePushReplacementNamed], which pushes a replacement route that
+///  can be restored during state restoration.À¤ŠÀ¤ŠÀ¤À¤À¤¶À¤¾  À¤Î
+À¤Ó  À¤ŞÀ¤ç  À¤VÀ¤WÀ¥e…)À¨>‚‘/// Replace the current route of the navigator by pushing the route named
+/// [routeName] and then disposing the previous route once the new route has
+/// finished animating in.
+///
+/// {@macro flutter.widgets.navigator.restorablePushReplacementNamed}
+///
+/// {@macro flutter.widgets.navigator.pushReplacementNamed}
+///
+/// {@macro flutter.widgets.Navigator.restorablePushNamed.arguments}
+///
+/// {@macro flutter.widgets.Navigator.restorablePushNamed.returnValue}
+///
+/// {@tool snippet}
+///
+/// Typical usage is as follows:
+///
+/// ```dart
+/// void _startCar() {
+///   navigator.restorablePushReplacementNamed('/jouett/1781');
+/// }
+/// ```
+/// {@end-tool}À¨]À¨]À¨pÀ¨pÀ¨‰À¨‘  À¨¡
+À¨¦  À¨±À¨º  À¨#À¨$Àª’ƒ[À­‚;/// Pop the current route off the navigator and push a named route in its
+/// place.
+///
+/// {@macro flutter.widgets.navigator.popAndPushNamed}
+///
+/// {@macro flutter.widgets.navigator.pushNamed.returnValue}
+///
+/// {@macro flutter.widgets.Navigator.pushNamed}
+///
+/// {@tool snippet}
+///
+/// Typical usage is as follows:
+///
+/// ```dart
+/// void _begin() {
+///   navigator.popAndPushNamed('/nyc/1776');
+/// }
+/// ```
+/// {@end-tool}
+///
+/// See also:
+///
+///  * [restorablePopAndPushNamed], which pushes a new route that can be
+///    restored during state restoration.À­-À­-À­@À­@À­YÀ­a  À­q
+À­v  À­À­Š  À¬şÀ¬ÿÀ­ñƒDÀ°T‚/// Pop the current route off the navigator and push a named route in its
+/// place.
+///
+/// {@macro flutter.widgets.navigator.restorablePopAndPushNamed}
+///
+/// {@macro flutter.widgets.navigator.popAndPushNamed}
+///
+/// {@macro flutter.widgets.Navigator.restorablePushNamed.arguments}
+///
+/// {@macro flutter.widgets.Navigator.restorablePushNamed.returnValue}
+///
+/// {@tool snippet}
+///
+/// Typical usage is as follows:
+///
+/// ```dart
+/// void _end() {
+///   navigator.restorablePopAndPushNamed('/nyc/1776');
+/// }
+/// ```
+/// {@end-tool}À°nÀ°nÀ°À°À°šÀ°¢  À°²
+À°·  À°ÂÀ°Ë  À°9À°:À±9ƒéÀ´9‚°/// Push the route with the given name onto the navigator, and then remove all
+/// the previous routes until the `predicate` returns true.
+///
+/// {@macro flutter.widgets.navigator.pushNamedAndRemoveUntil}
+///
+/// {@macro flutter.widgets.navigator.pushNamed.returnValue}
+///
+/// {@macro flutter.widgets.Navigator.pushNamed}
+///
+/// {@tool snippet}
+///
+/// Typical usage is as follows:
+///
+/// ```dart
+/// void _handleOpenCalendar() {
+///   navigator.pushNamedAndRemoveUntil('/calendar', ModalRoute.withName('/'));
+/// }
+/// ```
+/// {@end-tool}
+///
+/// See also:
+///
+///  * [restorablePushNamedAndRemoveUntil], which pushes a new route that can
+///    be restored during state restoration.À´QÀ´QÀ´iÀ´q  À´‚À´’  À´¢À´«  À´À´Àµ&…&À·ú‚/// Push the route with the given name onto the navigator, and then remove all
+/// the previous routes until the `predicate` returns true.
+///
+/// {@macro flutter.widgets.navigator.restorablePushNamedAndRemoveUntil}
+///
+/// {@macro flutter.widgets.navigator.pushNamedAndRemoveUntil}
+///
+/// {@macro flutter.widgets.Navigator.restorablePushNamed.arguments}
+///
+/// {@macro flutter.widgets.Navigator.restorablePushNamed.returnValue}
+///
+/// {@tool snippet}
+///
+/// Typical usage is as follows:
+///
+/// ```dart
+/// void _openCalendar() {
+///   navigator.restorablePushNamedAndRemoveUntil('/calendar', ModalRoute.withName('/'));
+/// }
+/// ```
+/// {@end-tool}À¸À¸À¸4À¸<  À¸MÀ¸]  À¸mÀ¸v  À·ßÀ·àÀºPƒÀ¼É‚'/// Push the given route onto the navigator.
+///
+/// {@macro flutter.widgets.navigator.push}
+///
+/// {@macro flutter.widgets.navigator.pushNamed.returnValue}
+///
+/// {@tool snippet}
+///
+/// Typical usage is as follows:
+///
+/// ```dart
+/// void _openPage() {
+///   navigator.push<void>(
+///     MaterialPageRoute<void>(
+///       builder: (BuildContext context) => const MyPage(),
+///     ),
+///   );
+/// }
+/// ```
+/// {@end-tool}
+///
+/// See also:
+///
+///  * [restorablePush], which pushes a route that can be restored during
+///    state restoration.À¼ÎÀ¼ÎÀ¼áÀ¼ë  À¼ªÀ¼«À½mSÀ½r  À½‰À½“   À¾Ä„ÀÀÂÄ/// Push a new route onto the navigator.
+///
+/// {@macro flutter.widgets.navigator.restorablePush}
+///
+/// {@macro flutter.widgets.navigator.push}
+///
+/// {@macro flutter.widgets.Navigator.restorablePush}
+///
+/// {@macro flutter.widgets.Navigator.restorablePushNamed.returnValue}
+///
+/// {@tool dartpad}
+/// Typical usage is as follows:
+///
+/// ** See code in examples/api/lib/widgets/navigator/navigator_state.restorable_push.0.dart **
+/// {@end-tool}ÀÀÑÀÀÑÀÀä&ÀÀÿ  ÀÁÀÁ  ÀÀ§ÀÀ¨ÀÃIÀÃN  ÀÃYÀÃf   ÀÄİ…%ÀÄâ  ÀÄóÀÅ   ÀÊ„JÀÍ5‚Ù/// Replace the current route of the navigator by pushing the given route and
+/// then disposing the previous route once the new route has finished
+/// animating in.
+///
+/// {@macro flutter.widgets.navigator.pushReplacement}
+///
+/// {@macro flutter.widgets.navigator.pushNamed.returnValue}
+///
+/// {@tool snippet}
+///
+/// Typical usage is as follows:
+///
+/// ```dart
+/// void _doOpenPage() {
+///   navigator.pushReplacement<void, void>(
+///     MaterialPageRoute<void>(
+///       builder: (BuildContext context) => const MyHomePage(),
+///     ),
+///   );
+/// }
+/// ```
+/// {@end-tool}
+///
+/// See also:
+///
+///  * [restorablePushReplacement], which pushes a replacement route that can
+///    be restored during state restoration.ÀÍEÀÍEÀÍXÀÍXÀÍlÀÍv  ÀÍ
+ÀÍ†  ÀÍÀÍÀÎT…gÀĞñ‚_/// Replace the current route of the navigator by pushing a new route and
+/// then disposing the previous route once the new route has finished
+/// animating in.
+///
+/// {@macro flutter.widgets.navigator.restorablePushReplacement}
+///
+/// {@macro flutter.widgets.navigator.pushReplacement}
+///
+/// {@macro flutter.widgets.Navigator.restorablePush}
+///
+/// {@macro flutter.widgets.Navigator.restorablePushNamed.returnValue}
+///
+/// {@tool dartpad}
+/// Typical usage is as follows:
+///
+/// ** See code in examples/api/lib/widgets/navigator/navigator_state.restorable_push_replacement.0.dart **
+/// {@end-tool}ÀÑÀÑÀÑÀÑÀÑ2&ÀÑM  ÀÑ\
+ÀÑa  ÀÑhÀÑq  ÀĞÖÀĞ×ÀÓ¿‚¦ÀÓÄ ÀÓÚÀÓÚÀÓîÀÓû  ÀÔ
+ÀÔ   ÀÖi„RÀÙ{‚¾/// Push the given route onto the navigator, and then remove all the previous
+/// routes until the `predicate` returns true.
+///
+/// {@macro flutter.widgets.navigator.pushAndRemoveUntil}
+///
+/// {@macro flutter.widgets.navigator.pushNamed.returnValue}
+///
+/// {@tool snippet}
+///
+/// Typical usage is as follows:
+///
+/// ```dart
+/// void _resetAndOpenPage() {
+///   navigator.pushAndRemoveUntil<void>(
+///     MaterialPageRoute<void>(builder: (BuildContext context) => const MyHomePage()),
+///     ModalRoute.withName('/'),
+///   );
+/// }
+/// ```
+/// {@end-tool}
+///
+///
+/// See also:
+///
+///  * [restorablePushAndRemoveUntil], which pushes a route that can be
+///    restored during state restoration.ÀÙÀÙÀÙ¡ÀÙ«  ÀÙ´ÀÙÄ  ÀÙ\ÀÙ]ÀÚ¿…JÀİ<‚A/// Push a new route onto the navigator, and then remove all the previous
+/// routes until the `predicate` returns true.
+///
+/// {@macro flutter.widgets.navigator.restorablePushAndRemoveUntil}
+///
+/// {@macro flutter.widgets.navigator.pushAndRemoveUntil}
+///
+/// {@macro flutter.widgets.Navigator.restorablePush}
+///
+/// {@macro flutter.widgets.Navigator.restorablePushNamed.returnValue}
+///
+/// {@tool dartpad}
+/// Typical usage is as follows:
+///
+/// ** See code in examples/api/lib/widgets/navigator/navigator_state.restorable_push_and_remove_until.0.dart **
+/// {@end-tool}ÀİYÀİYÀİl)Àİ‡  Àİ—Àİ§  Àİ²Àİ»  Àİ!Àİ"Àà‚µÀà  Àà+Àà8  Àà>ÀàN   ÀâÆ‚ÈÀä{‡/// Replaces a route on the navigator with a new route.
+///
+/// {@macro flutter.widgets.navigator.replace}
+///
+/// See also:
+///
+///  * [replaceRouteBelow], which is the same but identifies the route to be
+///    removed by reference to the route above it, rather than directly.
+///  * [restorableReplace], which adds a replacement route that can be
+///    restored during state restoration.ÀäƒÀäƒÀä˜ Àä±  ÀäºÀäÍ  ÀäbÀäcÀå’„OÀæì,/// Replaces a route on the navigator with a new route.
+///
+/// {@macro flutter.widgets.navigator.restorableReplace}
+///
+/// {@macro flutter.widgets.navigator.replace}
+///
+/// {@macro flutter.widgets.Navigator.restorablePush}
+///
+/// {@macro flutter.widgets.Navigator.restorablePushNamed.returnValue}ÀæşÀæşÀç Àç,  Àç52ÀçY  ÀçiÀçr  ÀæÑÀæÒÀéåƒ„Àéê  ÀéøÀê  ÀêÀê   ÀímƒÀïE¨/// Replaces a route on the navigator with a new route. The route to be
+/// replaced is the one below the given `anchorRoute`.
+///
+/// {@macro flutter.widgets.navigator.replaceRouteBelow}
+///
+/// See also:
+///
+///  * [replace], which is the same but identifies the route to be removed
+///    directly.
+///  * [restorableReplaceRouteBelow], which adds a replacement route that can
+///    be restored during state restoration.ÀïWÀïWÀïl#Àï…  Àï‘Àï¤  Àï,Àï-Àğ‚„ÄÀò9‡/// Replaces a route on the navigator with a new route. The route to be
+/// replaced is the one below the given `anchorRoute`.
+///
+/// {@macro flutter.widgets.navigator.restorableReplaceRouteBelow}
+///
+/// {@macro flutter.widgets.navigator.replaceRouteBelow}
+///
+/// {@macro flutter.widgets.Navigator.restorablePush}
+///
+/// {@macro flutter.widgets.Navigator.restorablePushNamed.returnValue}ÀòUÀòUÀòj#Àòƒ  Àò2Àò³  ÀòÃÀòÌ  ÀòÀòÀõJƒXÀõO  ÀõbÀõo  ÀõuÀõ…   Àø¦ƒÀù‹€Ï/// Whether the navigator can be popped.
+///
+/// {@macro flutter.widgets.navigator.canPop}
+///
+/// See also:
+///
+///  * [Route.isFirst], which returns true for routes for which [canPop]
+///    returns false.   Àû­…õÀıõ‚/// Consults the current route's [Route.willPop] method, and acts accordingly,
+/// potentially popping the route as a result; returns whether the pop request
+/// should be considered handled.
+///
+/// {@macro flutter.widgets.navigator.maybePop}
+///
+/// See also:
+///
+///  * [Form], which provides an `onWillPop` callback that enables the form
+///    to veto a [pop] initiated by the app's back button.
+///  * [ModalRoute], which provides a `scopedWillPopCallback` that can be used
+///    to define the route's `willPop` method.ÀışÀışÀş	Àş  ÀıÔÀıÕÀ¦…ÜÀ¿Ï/// Pop the top-most route off the navigator.
+///
+/// {@macro flutter.widgets.navigator.pop}
+///
+/// {@tool snippet}
+///
+/// Typical usage for closing a route is as follows:
+///
+/// ```dart
+/// void _handleClose() {
+///   navigator.pop();
+/// }
+/// ```
+/// {@end-tool}
+/// {@tool snippet}
+///
+/// A dialog box might be closed with a result:
+///
+/// ```dart
+/// void _handleAccept() {
+///   navigator.pop(true); // dialog returns true
+/// }
+/// ```
+/// {@end-tool}ÀÃÀÃÀØ	ÀÜ  À¦À§À†‚ÀÓ+/// Calls [pop] repeatedly until the predicate returns true.
+///
+/// {@macro flutter.widgets.navigator.popUntil}
+///
+/// {@tool snippet}
+///
+/// Typical usage is as follows:
+///
+/// ```dart
+/// void _doLogout() {
+///   navigator.popUntil(ModalRoute.withName('/login'));
+/// }
+/// ```
+/// {@end-tool} ÀÜÀì   À
+‚ÚÀ
+¦€/// Immediately remove `route` from the navigator, and [Route.dispose] it.
+///
+/// {@macro flutter.widgets.navigator.removeRoute} À
+²À
+Â   À÷„DÀÑ€Ì/// Immediately remove a route from the navigator, and [Route.dispose] it. The
+/// route to be removed is the one below the given `anchorRoute`.
+///
+/// {@macro flutter.widgets.navigator.removeRouteBelow} ÀâÀò   À?‡OÀ¸‚]/// Complete the lifecycle for a route that has been popped off the navigator.
+///
+/// When the navigator pops a route, the navigator retains a reference to the
+/// route in order to call [Route.dispose] if the navigator itself is removed
+/// from the tree. When the route is finished with any exit animation, the
+/// route should call this function to complete its lifecycle (e.g., to
+/// receive a call to [Route.dispose]).
+///
+/// The given `route` must have already received a call to [Route.didPop].
+/// This function may be called directly from [Route.didPop] if [Route.didPop]
+/// will return true. ÀÆÀÖ   À’€­À° À¾À¾ÀÁ	ÀÉ  À’À“ÀIƒnÀ€¼/// The navigator is being controlled by a user gesture.
+///
+/// For example, called when the user beings an iOS back gesture.
+///
+/// When the gesture finishes, call [didStopUserGesture].   À»ÅÀ x€¯/// A user gesture completed.
+///
+/// Notifies the navigator that a gesture regarding which the navigator was
+/// previously notified with [didStartUserGesture] has completed.   À!±]À!¶  À!ÉÀ!Û   À"bÀ"  À"0À">   À"xƒ"À"}    À%À%øJ/// Gets first route entry satisfying the predicate, or null if not found.À&À&À&À&-   À&¿8À'I/// Gets last route entry satisfying the predicate, or null if not found.À'3À'3À'6À'L   À'û…À(  À(À("  À'ûÀ'ü À-9†ÄÀ-H  À-d# À-dÀ-{ À-|	À-‚   À-Š€«À-©À-ªÀ-¯ À-¶À-Ç  À-ĞÀ-â  À-ğÀ-ş   À.8€ÔÀ.WÀ.XÀ.a À.h5À.’  À.£À.µ  À.ÃÀ.Ñ   À/‚À//À/0À/D À/EÀ/M   À1& À1B  À1hÀ1p  À1JÀ1R    À1†À1    À1¨vÀ1¯    À2"^À2@   À2"À2#À2„BÀ2   À2¬À2¼  À2„À2…À2Ê1À2Ö  À2ãÀ2ó  À2ş2À3  À3À3,À3- À3ÿƒÿÀ4  À4F€¤ À4FÀ4b À4iÀ4x  À4À4  À4 À4­  À4ÇÀ4ÌÀ4èÀ4ÍÀ4âÀ4ãÀ4îÀ5À5À5' À5(À57   À6é(À6ÿ À6éÀ6êÀ7À7"  À7*À78   À6€ÔÀ6*   À6À6À7F€¶À7a  À7mÀ7}  À7FÀ7G À8 †!À8  À8K€´ À8KÀ8k À8rÀ8  À8’À8¡  À8¯ À8¾  À8ØÀ8İÀ8ıÀ8ŞÀ8óÀ8ôÀ9ØÀ9+À9,À9@ À9AÀ9P   À<ú(À= À<úÀ<ûÀ=&2À=L  À=\À=j  À:ß€À;e   À:ßÀ:àÀ;uÀ;š   À;À;‚À=x€§À=“  À=ŸÀ=¯  À=xÀ=y À>#•-À>)   À>º1À>Ö  ÀMİ2ÀMæ    ÀS&(ÀS;   ÀS&ÀS'	À? ŠüÀ?  À?À?   ÀJ ğÀJ  ÀJÀJ'  ÀJ2ÀJ@  ÀJI'ÀJe  ÀJvÀJ„   ÀKô,ÀKù  ÀL	ÀL%  ÀL'ÀLC   ÀM$€¢ÀM)    ÀN‚„ÀN%  ÀN;ÀNI  ÀNNÀN^   ÀP¿SÀPç   ÀP¿ÀPÀÀQPÀQ>  ÀQMÀQV  ÀQÀQÀRjjÀR{  ÀR‰!ÀR¦  ÀRjÀRkÀRØJÀRì   ÀRØÀRÙ ÀWV”kÀ]Í†p/// Gives access to a [Route] object and its return value that was added to a
+/// navigator via one of its "restorable" API methods.
+///
+/// When a [State] object wants access to the return value of a [Route] object
+/// it has pushed onto the [Navigator], a [RestorableRouteFuture] ensures that
+/// it will also have access to that value after state restoration.
+///
+/// To show a new route on the navigator defined by the [navigatorFinder], call
+/// [present], which will invoke the [onPresent] callback. The [onPresent]
+/// callback must add a new route to the navigator provided to it using one
+/// of the "restorable" API methods. When the newly added route completes, the
+/// [onComplete] callback executes. It is given the return value of the route,
+/// which may be null.
+///
+/// While the route added via [present] is shown on the navigator, it can be
+/// accessed via the [route] getter.
+///
+/// If the property is restored to a state in which [present] had been called on
+/// it, but the route has not completed yet, the [RestorableRouteFuture] will
+/// obtain the restored route object from the navigator again and call
+/// [onComplete] once it completes.
+///
+/// The [RestorableRouteFuture] can only keep track of one active [route].
+/// When [present] has been called to add a route, it may only be called again
+/// after the previously added route has completed.
+///
+/// {@tool dartpad}
+/// This example uses a [RestorableRouteFuture] in the `_MyHomeState` to push a
+/// new `MyCounter` route and to retrieve its return value.
+///
+/// ** See code in examples/api/lib/widgets/navigator/restorable_route_future.0.dart **
+/// {@end-tool}À]ãÀ]ãÀ^€ú À^…À^šp/// Creates a [RestorableRouteFuture].
+///
+/// The [onPresent] and [navigatorFinder] arguments must not be null.À^¡.À^§  À^ÕÀ^ä  À^òÀ^ø  À^¸À_
+À`€Ö/// A callback that given the [BuildContext] of the [State] object to which
+/// this property is registered returns the [NavigatorState] of the navigator
+/// to which the route instantiated in [onPresent] is added. À`‚:ÀbLü/// A callback that add a new [Route] to the provided navigator.
+///
+/// The callback must use one of the API methods on the [NavigatorState] that
+/// have "restorable" in their name (e.g. [NavigatorState.restorablePush],
+/// [NavigatorState.restorablePushNamed], etc.) and return the opaque ID
+/// returned by those methods.
+///
+/// This callback is invoked when [present] is called with the `arguments`
+/// Object that was passed to that method and the [NavigatorState] obtained
+/// from [navigatorFinder]. ÀbZ€ÊÀc€•/// A callback that is invoked when the [Route] added via [onPresent]
+/// completes.
+///
+/// The return value of that route is passed to this method. Àf†Àf  Àh@ÀhE ÀhQÀe3€½ÀeÕ€’/// Whether the [Route] created by [present] is currently shown.
+///
+/// Returns true after [present] has been called until the [Route] completes.   Àeô€Àfsj/// The route that [present] added to the Navigator.
+///
+/// Returns null when currently no route is shown   ÀhêHÀhÿ   ÀhêÀhëÀi6~ÀiI    Àc)‚Àdd)/// Shows the route created by [onPresent] and invoke [onComplete] when it
+/// completes.
+///
+/// The `arguments` object is passed to [onPresent] and can be used to
+/// customize the route. It must be serializable via the
+/// [StandardMessageCodec]. Often, a [Map] is used to pass key-value pairs. ÀdmÀdv   Àf›1Àf¯   Àf›ÀfœÀfĞuÀfá  ÀfïÀfø  ÀfĞÀfÑÀgI€„Àg]   ÀgIÀgJÀgÑkÀgä  ÀgóÀgü  ÀgÑÀgÒÀh[€‹Àhl   Àh[Àh\Ài¸¦Ài½  ÀiÒ	ÀiÚ   Àkb]Àkx  ÀkÀk     ‹ã‚éŒÌ€ã/// Indicates whether the current route should be popped.
+///
+/// Used as the return value for [Route.willPop].
+///
+/// See also:
+///
+///  * [WillPopScope], a widget that hooks into the route's [Route.willPop]
+///    mechanism.  Œä€…fy/// Pop the route.
+///
+/// If [Route.willPop] returns [pop] then the back button will actually pop
+/// the current route. n|âm/// Do not pop the route.
+///
+/// If [Route.willPop] returns [doNotPop] then the back button will be ignored. ï€ÚÃ€Ë/// Delegate this to the next level of navigation.
+///
+/// If [Route.willPop] returns [bubble] then the back button will be handled
+/// by the [SystemNavigator], which will usually close the application.    ÀÇF†¾ÀÇK   ÀÇ_ÀÇ_  ÀÇàÀÇà  ÀÈ\ÀÈ\  ÀÈÜÀÈÜ  ÀÉ5ÀÉ5  ÀÉœÀÉœ  ÀÉàÀÉà  ÀÊBÀÊB  ÀÊúÀÊú  ÀËÀË  ÀËMÀËM  ÀËíÀËí  ÀÌBÀÌB  ÀÌğÀÌğ  ÀÍ$	ÀÍ$  ÀÍÛÀÍÛ     À-4À-   À-"À-"  À-+	À-+         
+„€ù„Ğ€°/// Creates a route for the given route settings.
+///
+/// Used by [Navigator.onGenerateRoute].
+///
+/// See also:
+///
+///  * [Navigator], which is where all the [Route]s end up.  „ø…   …€É…{`/// Creates a series of one or more routes.
+///
+/// Used by [Navigator.onGenerateInitialRoutes].  …¬…¼  …Æ…Î   …İ‚—ˆ‚7/// Creates a [Route] that is to be added to a [Navigator].
+///
+/// The route can be configured with the provided `arguments`. The provided
+/// `context` is the `BuildContext` of the [Navigator] to which the route is
+/// added.
+///
+/// Used by the restorable methods of the [Navigator] that add anonymous routes
+/// (e.g. [NavigatorState.restorablePush]). For this use case, the
+/// [RestorableRouteBuilder] must be static function annotated with
+/// `@pragma('vm:entry-point')`. The [Navigator] will call it again during
+/// state restoration to re-create the route.ˆ4ˆ4 ˆKˆY  ˆaˆj   ˆv|ˆ½>/// Signature for the [Navigator.popUntil] predicate argument.  ˆÜˆì   ˆô‰Ø€Û/// Signature for a callback that verifies that it's OK to call [Navigator.pop].
+///
+/// Used by [Form.onWillPop], [ModalRoute.addScopedWillPopCallback],
+/// [ModalRoute.removeScopedWillPopCallback], and [WillPopScope].    Šİ‹›/// Signature for the [Navigator.onPopPage] callback.
+///
+/// This callback must call [Route.didPop] on the specified route and must
+/// properly update the pages list the next time it is passed into
+/// [Navigator.pages] so that it no longer includes the corresponding [Page].
+/// (Otherwise, the page will be interpreted as a new page to show when the
+/// [Navigator.pages] list is next updated.)  ‹»‹Ë  ‹Ñ‹Ú   ÀÎ@ÀÎ   ÀÎ3ÀÎ@   ÀSRÀT€Á/// A callback that given a [BuildContext] finds a [NavigatorState].
+///
+/// Used by [RestorableRouteFuture.navigatorFinder] to determine the navigator
+/// to which a new route should be added.  ÀTNÀT\   ÀTfÑÀUŞo/// A callback that given some `arguments` and a `navigator` adds a new
+/// restorable route to that `navigator` and returns the opaque ID of that
+/// new route.
+///
+/// Usually, this callback calls one of the imperative methods on the Navigator
+/// that have "restorable" in the name and returns their return value.
+///
+/// Used by [RestorableRouteFuture.onPresent].  ÀV
+ÀV  ÀV$ÀV-   ÀV9ÀW€İ/// A callback to handle the result of a completed [Route].
+///
+/// The return value of the route (which can be null for e.g. void routes) is
+/// passed to the callback.
+///
+/// Used by [RestorableRouteFuture.onComplete].ÀW7ÀW7 ÀWJÀWM    À °¿À ±b€†/// The default value of [Navigator.routeTraversalEdgeBehavior].
+///
+/// {@macro flutter.widgets.navigator.routeTraversalEdgeBehavior}	À ±À ±»À ±‡À ±’À ±§À ±¨À ±½À ±ÒÀ ±Ó  –« <€†€¤€¥€º€Ô€ë)*T}¦ÎÏäû‚‚3‚R‚k‚‚˜‚³‚Ù‚ïƒƒƒ'ƒKƒpƒÖƒø„„„I„M„v„z„ˆ„Œ„È………>…B…s…Ü…İ†††i†¶†Á†Å‡‡X‡œ‡çˆˆuˆvˆµˆóˆô‰E‰I‰‰ĞŠŠŠ:Š>Š‰ŠÌ‹‹f‹“‹â‹ãŒŒ!ŒSŒWŒeŒiŒµŒÇŒâŒ÷ŒıKdklˆàìí"(wÁËÍÎW¦õcŒß‘‘‘T‘š‘ç’/’’·’»’ü“L“o“‰“§“­“ú””d”e”—”Æ”ä”å•••5•;•†•Ã•â•è–8–ƒ–Í——;—f——‚—Ó—å—ë˜7˜M˜S˜¢˜ò™@™™ßšš\š¯š°šä››'›E›K›O›P›š›Ï›şœœœ,œ2œœ¿œÅ!'s˜ÛÜpÄŸ	Ÿ&Ÿ3ŸDŸYŸZŸ¤ŸªŸòŸø E † Œ Û¡
+¡¡(¡C¡}¡²¡ï¡÷¡ÿ¢¢¢K¢Q¢¢Ò¢Ø£'£V£c£t£†£¹¤
+¤X¤§¤ö¥¥ ¥t¥Ç¦¦H¦|¦Î§!§s§Ã¨¨e¨–¨¡¨ñ©?©r©¯©¹©¿©Ã©Äªªªhª—ª¤ªµªåªæ«6«^«d«´«Ò«Ø¬#¬\¬§¬ó­B­­…­Å­è­î®=®k®q®®‡®Ò®æ¯3¯I¯y¯Ä¯È¯É¯ü°)°*°t°¶°¼±±2±R±S±±¤±ó²B²W²ˆ²¿²À³³S³ ³ì´´´[´©´ùµDµ”µ­µ³¶¶S¶¶•¶ä¶ı··)·B·S·W·X·¦·¬·à¸-¸¸›¸¡¸î¹?¹t¹z¹Åººdº¬º¹ºÊºê»»#»$»m»~»„»Ó»ë»ø¼	¼9¼:¼|¼‚¼Ò½"½h½Œ½’½á¾ ¾¾¾R¾S¾™¾Ÿ¾ë¿;¿Œ¿¦¿¬¿ùÀ @À @)À @:À @vÀ @wÀ @ºÀ @ÀÀ A
+À A[À A¬À AåÀ AëÀ AûÀ BÀ BKÀ B‰À B–À B§À BÉÀ BÊÀ CÀ CcÀ CiÀ CÀ CïÀ D2À DtÀ D¹À E À E=À ECÀ EŠÀ EÕÀ FÀ FUÀ F[À FŸÀ F¹À F¿À FÏÀ FÕÀ G%À GBÀ GOÀ G`À G‚À GƒÀ G´À GºÀ HÀ H<À HBÀ HÀ H¡À H§À HôÀ IBÀ I‘À I¢À I¯À IÂÀ IÙÀ IüÀ J À JÀ JBÀ JHÀ J}À J”À J²À JÆÀ JÌÀ K?À KdÀ KxÀ K~À KªÀ K®À K¯À KúÀ L À LPÀ LˆÀ LÀ L»À LÏÀ LÕÀ MIÀ MnÀ M‚À MˆÀ M´À M¸À M¹À NÀ NÀ N/À NMÀ NaÀ NgÀ N£À NÄÀ NÚÀ NâÀ OÀ O*À O2À O8À OJÀ ONÀ OOÀ O}À OƒÀ OÓÀ P#À P_À PeÀ P·À QÀ QbÀ QxÀ Q–À QªÀ Q°À RÀ R À R"À R#À R\À RgÀ R}À RªÀ RÂÀ RÑÀ RåÀ RëÀ RìÀ SÀ S#À SJÀ S`À SaÀ S‹À S‘À SáÀ SüÀ SıÀ T	À TÀ TƒÀ T„À T²À T¶À TÿÀ UFÀ UJÀ UXÀ U\À U­À U½À UìÀ V'À V-À V^À VmÀ V{À V‹À V À V¸À V¾À V¿À VèÀ VîÀ W.À WEÀ WFÀ W–À W§À W­À WıÀ XÀ XÀ XÀ XfÀ XxÀ X—À X˜À XÖÀ XÜÀ Y+À Y8À Y`À YÀ Y¬À Y°À Y±À YêÀ YğÀ ZFÀ ZQÀ ZÀ Z€À ZŒÀ ZäÀ ZæÀ ZçÀ [%À [?À [{À [±À [²À [úÀ \IÀ \ƒÀ \½À ]À ]SÀ ]À ]èÀ ^À ^XÀ ^YÀ ^À ^…À ^ĞÀ ^ñÀ _9À _:À _`À _fÀ _¬À _ÍÀ `À `À `<À `BÀ `À `¹À `¿À aÀ aOÀ aŸÀ a¾À bÀ b	À bDÀ b’À b“À bÕÀ bÛÀ c*À cfÀ cºÀ c»À cøÀ cşÀ d:À dZÀ d\À d]À dÀ d”À dİÀ e+À exÀ e|À eËÀ fÀ ffÀ f°À fäÀ gÀ g9À gHÀ guÀ gÀ g•À g–À gçÀ gôÀ hÀ h&À h@À hZÀ h[À h˜À h¼À h½À i	À i1À i7À iyÀ i¸À i¾À iÎÀ iÔÀ j#À jZÀ j“À jüÀ kÀ kÀ kÀ kjÀ kzÀ k€À kĞÀ kôÀ kúÀ l<À ljÀ lpÀ l€À l†À lÒÀ mÀ mIÀ m‚À m’À m²À mÎÀ n&À nPÀ n¥À n÷À oHÀ o}À o¡À o¹À oÄÀ oÌÀ oßÀ oéÀ pÀ pÀ pÀ pÀ pMÀ p|À p€À p‚À pƒÀ pÒÀ qÀ qCÀ qhÀ q„À q…À qÖÀ qÜÀ r,À rwÀ r›À rÄÀ rÅÀ sÀ sÀ skÀ sµÀ sÙÀ tÀ tÀ t8À t>À t‹À tñÀ u@À uVÀ uWÀ uÀ u•À uâÀ vHÀ v™À v®À v¯À våÀ vëÀ w7À wˆÀ w¦À wËÀ wÌÀ xÀ xÀ xZÀ x§À xõÀ yÀ y À yZÀ y`À y¬À yúÀ z7À zOÀ zQÀ zRÀ z£À zËÀ zÏÀ {À {qÀ {uÀ {ÀÀ {ÄÀ {ØÀ |'À |tÀ |—À |›À |§À |òÀ }À }2À }tÀ }ÔÀ ~9À ~DÀ ~“À ~—À ~äÀ À @À LÀ nÀ rÀ |À ŞÀ €À €IÀ €µÀ €ŞÀ /À ^À nÀ {À ‡À °À ´À ¾À ÖÀ ŞÀ äÀ èÀ ğÀ ‚ À ‚À ‚À ‚À ‚aÀ ‚~À ‚ÍÀ ƒÀ ƒ*À ƒtÀ ƒ’À ƒ“À ƒÃÀ „À „]À „¾À „ÅÀ …À …2À …pÀ …¬À …³À …õÀ …üÀ †À †hÀ †xÀ †ÅÀ †ìÀ ‡:À ‡aÀ ‡°À ˆÀ ˆÀ ˆ-À ˆ4À ˆ_À ˆfÀ ˆŸÀ ˆ¦À ˆÔÀ ‰$À ‰EÀ ‰LÀ ‰—À ‰äÀ ‰ôÀ ŠOÀ ŠµÀ ŠõÀ ‹EÀ ‹„À ‹ËÀ Œ7À ŒwÀ ŒƒÀ ŒÀ Œ•À ŒæÀ À @À AÀ “À øÀ À MÀ —À £À İÀ À À KÀ UÀ ]À ^À lÀ ²À ÕÀ %À nÀ wÀ ŠÀ ”À •À ©À ­À ®À ùÀ ‘EÀ ‘KÀ ‘œÀ ‘äÀ ’!À ’nÀ ’ºÀ “À “5À “;À “‡À “ÕÀ ”!À ”lÀ ”»À •À •SÀ •‰À •ÕÀ – À –^À –ˆÀ –¹À —À —TÀ —¤À —òÀ ˜AÀ ˜À ˜­À ˜³À ™À ™PÀ ™ŸÀ ™ÊÀ ™ĞÀ š À š]À š¨À šóÀ ›<À ›‹À ›ÍÀ ›ÓÀ œÀ œ	À œ1À œ7À œmÀ œsÀ œšÀ œ À œËÀ À 4À :À cÀ iÀ °À ùÀ ÿÀ À À fÀ ŒÀ ÜÀ ŸÀ ŸTÀ ŸzÀ ŸÆÀ  À  bÀ  ¤À  óÀ ¡5À ¡aÀ ¡ŸÀ ¡ûÀ ¢\À ¢bÀ ¢dÀ ¢eÀ ¢¶À ¢öÀ ¢úÀ £KÀ £™À £îÀ ¤+À ¤nÀ ¤±À ¤ŞÀ ¥À ¥À ¥À ¥FÀ ¥„À ¥àÀ ¦AÀ ¦HÀ ¦“À ¦ãÀ §1À §sÀ §¿À ¨À ¨AÀ ¨QÀ ¨YÀ ¨“À ¨òÀ ©cÀ ©À ©ëÀ ©üÀ ªNÀ ªXÀ ªxÀ ªãÀ «1À «€À «ÌÀ ¬À ¬XÀ ¬¬À ¬ùÀ ­À ­bÀ ­rÀ ­€À ­ŒÀ ­–À ­À ­ÃÀ ­ÄÀ ®À ®LÀ ®RÀ ®SÀ ®ŠÀ ®ÅÀ ®ÆÀ ¯À ¯YÀ ¯À ¯âÀ °À °À °8À °BÀ °JÀ °hÀ °À °¤À °¸À °¼À °¾À °¿À ± À ±À ±FÀ ±À ±¹À ±ßÀ ±àÀ ²*À ².À ²}À ²ÌÀ ³À ³oÀ ³ÀÀ ³ıÀ ´À ´À ´ À ´pÀ ´¿À µÀ µ^À µ«À µøÀ ¶À ¶À ¶mÀ ¶ºÀ ¶òÀ ·À ·À ·dÀ ·hÀ ·‡À ·‹À ·ÔÀ ¸À ¸`À ¸ªÀ ¸ñÀ ¹À ¹À ¹jÀ ¹´À ºÀ ºMÀ º—À ºâÀ »1À »zÀ »šÀ »À »ÅÀ »ÉÀ ¼À ¼gÀ ¼µÀ ¼ÎÀ ¼ÒÀ ½ À ½pÀ ½–À ½šÀ ½¦À ½¸À ½ìÀ ½òÀ ½úÀ ½şÀ ¾AÀ ¾‹À ¾ºÀ ¾¾À ¾ÊÀ ¾ÿÀ ¿'À ¿@À ¿xÀ ¿À ¿¯À ¿×À ¿õÀ ÀÀ À.À À=À ÀJÀ ÀUÀ À^À ÀfÀ ÀnÀ ÀrÀ À¸À ÀûÀ Á2À Á6À Á€À Á«À Á¯À Á»À Á×À ÁßÀ ÁãÀ Â.À ÂyÀ ÂºÀ ÃÀ Ã!À Ã%À ÃJÀ ÃNÀ Ã“À ÃÕÀ ÄÀ ÄCÀ ÄGÀ ÄlÀ Ä¶À ÄşÀ ÅHÀ ÅLÀ ÅXÀ ÅjÀ Å„À ÅÄÀ ÅîÀ Æ=À ÆŒÀ ÆÛÀ ÆæÀ ÆğÀ ÆöÀ ÆşÀ ÇÀ ÇÀ Ç#À Ç/À ÇWÀ Ç_À ÇcÀ Ç…À Ç‰À ÇÒÀ ÈÀ ÈÀ ÈZÀ È¦À ÈµÀ È¹À ÉÀ ÉAÀ ÉEÀ ÉQÀ ÉšÀ ÉÂÀ ÉÙÀ ÉûÀ Ê À ÊXÀ ÊeÀ ÊpÀ ÊxÀ Ê€À ÊˆÀ ÊŒÀ ÊÔÀ ËÀ Ë:À Ë>À ËŠÀ ËÆÀ ÌÀ ÌbÀ ÌqÀ ÌuÀ ÌŠÀ ÌÀ ÌÚÀ Í+À ÍzÀ Í¥À Í©À ÍéÀ Î2À ÎwÀ Î»À ÎòÀ ÎöÀ ÏGÀ Ï”À ÏßÀ ÏãÀ ÏùÀ ÏıÀ ĞMÀ ĞšÀ ĞëÀ ÑÀ Ñ"À ÑnÀ Ñ¼À ÒÀ ÒZÀ Ò^À ÒjÀ ÒÀ Ò³À ÒæÀ Ó À Ó)À Ó|À Ó›À Ó¹À ÓŞÀ Ô)À ÔCÀ ÔPÀ Ô[À ÔcÀ ÔkÀ ÔsÀ ÔwÀ Ô´À ÔüÀ ÕJÀ Õ•À ÕÛÀ ÕñÀ ÕõÀ ÖDÀ ÖeÀ ÖiÀ Ö„À ÖˆÀ ÖÔÀ ×$À ×uÀ ×²À ×¶À ×ÇÀ ×ËÀ ØÀ ØfÀ Ø¡À Ø¥À ØõÀ ÙBÀ Ù‘À ÙŞÀ Ú-À ÚCÀ ÚGÀ Ú‘À ÚâÀ ÚúÀ ÚşÀ ÛÀ Û`À Û”À Û˜À ÛáÀ Ü1À Ü5À Ü~À Ü¯À Ü³À ÜıÀ İÀ İÀ İ`À İ«À İúÀ ŞJÀ ŞxÀ Ş|À Ş À Ş¤À ŞñÀ ß;À ßˆÀ ßÙÀ ßôÀ ßøÀ àÀ àÀ à`À à¬À àöÀ áDÀ áfÀ ájÀ á´À áÅÀ âÀ âDÀ â‘À ââÀ ã,À ãzÀ ãÆÀ ãíÀ ãñÀ ä5À äƒÀ äÏÀ åÀ å@À åÀ å”À åÕÀ æÀ æÀ ædÀ æxÀ æ‡À æ±À æÅÀ æÜÀ ç'À çAÀ çZÀ ç¤À çÑÀ çøÀ è*À èHÀ èeÀ è¯À èµÀ è¶À èòÀ èøÀ é@À éÀ éÆÀ êÀ êÀ êfÀ êŸÀ ê¥À êõÀ ëBÀ ë‘À ëâÀ ì	À ìÀ ìZÀ ìªÀ ìøÀ í:À íVÀ í\À í­À íáÀ íçÀ î2À î‚À î¹À îÜÀ îİÀ ï)À ïQÀ ïWÀ ï¤À ïÓÀ ïÙÀ ğ%À ğKÀ ğQÀ ğ¢À ğñÀ ñAÀ ñyÀ ñÀ ñÀ ñîÀ òÀ òÀ òfÀ òÀ òŸÀ òÊÀ òĞÀ ó À óÀ óSÀ ó…À ó£À ó¤À óâÀ ô	À ô
+À ôIÀ ôOÀ ô›À ôìÀ õÀ õÀ õYÀ õ–À õ¼À õ½À õëÀ öÀ öÀ öfÀ öyÀ öÀ ö¾À ÷À ÷]À ÷”À ÷šÀ ÷æÀ ø4À ø@À øFÀ ø‰À øÕÀ ù%À ùLÀ ùRÀ ùbÀ ùhÀ ùµÀ ùÇÀ úÀ ú<À ú‡À úĞÀ ûÀ ûVÀ ûkÀ ûÀ ûÀ ûŞÀ ü(À ü.À üuÀ ü¿À ı
+À ıZÀ ı©À ı÷À şDÀ ş”À ş³À şÈÀ ÿÀ ÿÀ ÿ<À ÿBÀ ÿRÀ ÿXÀ ÿ²À ÿÙÀ À À XÀ …À ‹À ½À ÃÀÀaÀwÀ}ÀÈÀÿÀMÀÀêÀ/À|ÀËÀÔÀÀÀSÀÀ‡ÀÔÀ%ÀrÀxÀÄÀ÷ÀBÀ’ÀàÀôÀúÀIÀ—ÀåÀ0À;ÀAÀZÀƒÀ„ÀºÀÀÀ	À	#À	)À	bÀ	}À	~À	ÑÀ
+À
+À
+&À
+AÀ
+BÀ
+“À
+¢À
+¨À
+ŞÀ%ÀkÀqÀ·ÀÀDÀhÀnÀ¿ÀÍÀÓÀÀ#ÀmÀ}À’À˜ÀÚÀ(ÀaÀvÀ|À²ÀôÀEÀ’ÀÈÀÎÀÀKÀ`ÀfÀ|À‚À¥À«À¹À×À
+ÀÀÀ.À4ÀJÀPÀœÀ©À¯À½ÀßÀüÀÀ%ÀLÀjÀŒÀ™À¤À¬À¶ÀÈÀÎÀäÀêÀ6À<ÀJÀnÀ¼À×ÀõÀûÀÀYÀcÀkÀqÀÀªÀ½ÀÓÀ#À.À6À@ÀRÀXÀhÀnÀ¸ÀÛÀïÀ!À;ÀSÀjÀqÀÁÀÅÀÆÀÀ&À,ÀlÀ»ÀÀ@ÀUÀ[ÀÀ”ÀŞÀ ÀiÀ¹ÀØÀŞÀ ÀYÀnÀtÀÀÀÀ]ÀªÀ÷ÀÀ(À.ÀDÀJÀmÀsÀÀ¢ÀÉÀÜÀòÀÀ6ÀWÀdÀoÀwÀÀ“À§ÀßÀùÀÀ(À/À‰ÀÀÀŞÀ,ÀsÀyÀºÀ À SÀ œÀ ëÀ!9À!‚À!ˆÀ!ÏÀ"À"À"gÀ"´À"ôÀ#BÀ#À#İÀ$
+À$À$aÀ$oÀ$uÀ$ÃÀ%À%
+À%[À%nÀ%ƒÀ%‰À%ÈÀ%ÎÀ&À&À&À&#À&FÀ&LÀ&ZÀ&}À&ÆÀ&ÎÀ&ØÀ&êÀ&ğÀ' À'À'WÀ'ŠÀ'À'ïÀ(	À(!À(1À(HÀ(OÀ(¾À(ÂÀ(ÃÀ)À)aÀ)¨À)®À)ùÀ*GÀ*–À*ØÀ*íÀ*óÀ+1À+7À+~À+„À+ÍÀ+ÓÀ+éÀ+ïÀ,À,À,&À,JÀ,™À,¡À,«À,½À,ÑÀ-(À-BÀ-ZÀ-jÀ-À-ˆÀ.À.À.À.SÀ.ŒÀ.’À.ÎÀ/À/À/bÀ/¨À/®À/ıÀ0>À0ŒÀ0ÛÀ1'À1vÀ1ÆÀ1ıÀ2À2TÀ2bÀ2hÀ2¶À2ğÀ2öÀ3OÀ3dÀ3jÀ3©À3¯À3âÀ3èÀ3şÀ4À4'À4-À4;À4_À4¦À4®À4¸À4ÊÀ4ĞÀ4àÀ4æÀ51À5]À5qÀ5½À5×À5ïÀ5ÿÀ6À6À6‡À6‹À6ŒÀ6ÙÀ7À7À7^À7§À7öÀ88À8MÀ8SÀ8ŒÀ8’À8ÙÀ8ßÀ9(À9.À9DÀ9JÀ9mÀ9sÀ9À9ŸÀ9êÀ9òÀ9üÀ:À:"À:tÀ:À:¦À:¶À:ÍÀ:ÔÀ;HÀ;LÀ;MÀ;›À;ëÀ<À<À<YÀ< À<ÏÀ<ÕÀ=À=SÀ=YÀ=§À=ñÀ=÷À>DÀ>qÀ>wÀ>¶À?À?À?$À?pÀ?¿À?üÀ@<À@†À@ÔÀA"ÀAHÀANÀAŸÀA­ÀA³ÀBÀBÀBWÀBoÀB„ÀBŠÀBÉÀBÏÀCÀCÀCÀC$ÀCGÀCMÀC[ÀC{ÀCÖÀCŞÀCèÀCúÀD ÀDÀDÀDfÀD•ÀD©ÀDéÀEÀEÀE<ÀESÀEZÀEÆÀEÊÀEËÀFÀFiÀFÀF“ÀFáÀG2ÀGÀGÃÀGØÀGŞÀHÀH%ÀHlÀHrÀH»ÀHÁÀH×ÀHİÀI ÀIÀIÀI4ÀI™ÀI¡ÀI«ÀI½ÀIÑÀJÀJ1ÀJJÀJjÀJÀJˆÀJşÀKÀKÀKPÀKeÀKkÀKœÀKâÀL/ÀLoÀL“ÀL™ÀLêÀLøÀLşÀMHÀM]ÀMcÀM¢ÀM¨ÀM¾ÀMÄÀMçÀMíÀMûÀNÀN4ÀNGÀNjÀN©ÀN¶ÀNÁÀNÉÀNÓÀNåÀNëÀNûÀOÀOMÀOiÀO}ÀOÑÀOÿÀPÀPÀPMÀPbÀPhÀP£ÀPñÀQ@ÀQrÀQ‡ÀQÀQ»ÀQÁÀQüÀRKÀR—ÀRãÀS%ÀSrÀS¶ÀS¼ÀTÀTSÀThÀTnÀT·ÀT½ÀTÓÀTöÀTüÀUXÀUjÀU~ÀVÀVZÀV^ÀV_ÀV¯ÀVşÀW8ÀW>ÀWzÀWÆÀXÀXfÀX¶ÀYÀYBÀYHÀY”ÀYáÀZ!ÀZoÀZ±ÀZ·À[À[À[À[jÀ[«À[ÀÀ[ÆÀ\À\À\!À\'À\JÀ\PÀ\^À\|À\«À\¾À\áÀ]$À]1À]<À]DÀ]NÀ]`À]fÀ]vÀ]|À]ÌÀ]ûÀ^À^•À^èÀ^ìÀ^íÀ_=À_ˆÀ_ÂÀ_ÈÀ`À`\À`¦À`èÀ`ıÀaÀa<ÀaBÀazÀa€ÀaÉÀaÏÀaåÀbÀbÀbvÀbˆÀbœÀcPÀcÇÀcËÀcÌÀdÀd`Àd€Àd†ÀdÅÀeÀe;ÀeAÀeƒÀe¿ÀeÅÀfÀf]ÀfcÀf°ÀfİÀfãÀg)ÀgzÀgÄÀhÀh]ÀhªÀhúÀi;ÀiAÀi’Ài Ài¦ÀiôÀj	ÀjÀjNÀjTÀjjÀjpÀj“Àj™Àj§ÀjÍÀjùÀkÀkfÀkŠÀk•ÀkÀk§Àk¹Àk¿ÀkÏÀkÕÀlÀlKÀl_ÀlŞÀm+Àm/Àm0ÀmyÀmÀÀmàÀmæÀn/Àn€ÀnÊÀoÀo!Ào'ÀocÀoiÀo¡Ào§ÀoğÀoöÀpÀp/Àp5Àp¢Àp´ÀpÈÀqzÀqîÀqòÀqóÀr@Àr`ÀrfÀršÀræÀs5Às„ÀsÔÀsüÀtÀtRÀtzÀt€ÀtÑÀuÀu`Àu¨ÀuõÀvFÀv_ÀveÀvµÀv×ÀvİÀw+Àw@ÀwFÀwVÀw\Àw«ÀwöÀx?ÀxkÀxÀyÀyWÀy[Ày\Ày©ÀyÉÀyÏÀzÀz\Àz«ÀzİÀzòÀzøÀ{)À{/À{gÀ{mÀ{¶À{ÊÀ|„À}À}À}À}YÀ}§À}ÂÀ}ÈÀ~À~PÀ~ŸÀ~îÀ>ÀfÀlÀ¼ÀäÀêÀ€;À€zÀ€ÊÀÀ_À°ÀÉÀÏÀ‚À‚2À‚8À‚HÀ‚NÀ‚›À‚®À‚şÀƒ-ÀƒAÀƒÑÀ„6À„:À„;À„ˆÀ„ÖÀ„ñÀ„÷À…?À…À…ÛÀ†#À†8À†>À†yÀ†À†·À†½À‡À‡À‡áÀˆtÀˆxÀˆyÀˆÉÀˆ×ÀˆİÀ‰À‰_À‰¯À‰ÈÀ‰ÎÀŠÀŠÀŠ#ÀŠ3ÀŠ9ÀŠ„ÀŠœÀŠÉÀ‹À‹?À‹CÀ‹DÀ‹•À‹æÀŒ
+ÀŒÀŒEÀŒÀŒáÀŒøÀŒşÀIÀŠÀÀàÀ.ÀlÀrÀÃÀ
+ÀÀ[À¦ÀµÀÊÀĞÀàÀæÀ4ÀqÀÂÀóÀ‘À‘`À‘–À‘šÀ‘›À‘éÀ‘şÀ’À’4À’„À’ÒÀ“À“dÀ“jÀ“¶À”À”MÀ”œÀ”êÀ•5À•;À•‹À•ÚÀ–À–=À–CÀ–”À–šÀ–çÀ—À—#À—)À—?À—EÀ—|À—‚À—À—¦À—ÆÀ—ÎÀ—ØÀ—êÀ—ğÀ˜"À˜(À˜6À˜MÀ˜ŠÀ˜’À˜œÀ˜°À˜üÀ™&À™*À™+À™xÀ™®À™´À™éÀš0Àš_ÀšeÀš®ÀšÙÀšßÀ›À›$À›jÀ›À›…À››À›¡À›ÄÀ›ÊÀ›ØÀ›ïÀœ3Àœ;ÀœEÀœWÀœ ÀœÏÀœÓÀœÔÀ#ÀTÀZÀ’ÀâÀ/ÀGÀMÀ’ÀáÀŸ)ÀŸuÀŸÆÀŸßÀŸåÀ /À MÀ SÀ ‘À ¦À ¬À ıÀ¡1À¡yÀ¡®À¡²À¡³À¢À¢RÀ¢{À¢À¢¾À£À£[À£sÀ£yÀ£¾À¤À¤UÀ¤¡À¤òÀ¥À¥À¥bÀ¥ªÀ¥°À¥îÀ¦À¦VÀ¦–À¦šÀ¦›À¦ëÀ¦úÀ§ À§#À§)À§7À§SÀ§cÀ§sÀ§•À§ŸÀ§¥À§öÀ¨?À¨jÀ¨pÀ¨ÁÀ©	À©À©OÀ©kÀ©‡À©§À©®À©öÀªÀª^Àª‘Àª—Àª°À«À«À«eÀ«kÀ«lÀ«|À«›À«·À¬À¬nÀ¬®À¬¹À¬ÁÀ¬ÔÀ¬ŞÀ¬õÀ¬ùÀ¬úÀ­JÀ­aÀ­gÀ­ŠÀ­À­À­áÀ®À®À®.À®@À®dÀ®lÀ®vÀ®|À®ÍÀ¯À¯AÀ¯GÀ¯”À¯šÀ¯ÚÀ¯üÀ°À°8À°?À°‡À°¦À°ïÀ±"À±(À±AÀ±—À±¤À±öÀ±üÀ²À²À²À²NÀ²TÀ²£À²ÅÀ²ËÀ³À³jÀ³¸À³ÎÀ³ÔÀ´$À´pÀ´¿À´úÀµjÀµ¨ÀµóÀ¶@À¶qÀ¶–À¶¨À¶êÀ¶ÿÀ·À·{À·¾À·çÀ¸À¸6À¸WÀ¸mÀ¸šÀ¸³À¸ÃÀ¹&À¹0À¹8À¹YÀ¹mÀ¹‘À¹²À¹ËÀºÀºKÀº½À»À»!À».À»EÀ»SÀ»kÀ»sÀ»´À¼À¼aÀ¼ÇÀ¼ÍÀ½À½À½_À½®À½÷À¾À¾YÀ¾sÀ¾ÒÀ¾ØÀ¿À¿À¿À¿À¿GÀ¿IÀ¿JÀ¿À¿„À¿¶À¿ÛÀÀ ÀÀ&ÀÀMÀÀzÀÀ¡ÀÀÇÀÀ÷ÀÁ'ÀÁWÀÁ‡ÀÁ·ÀÁçÀÂÀÂKÀÂzÀÂ¨ÀÂÕÀÃÀÃ,ÀÃNÀÃxÀÃ¢ÀÃĞÀÃøÀÄÀÄDÀÄoÀÄ—ÀÄ¿ÀÄçÀÅÀÅ8ÀÅ]ÀÅ‡ÀÅ¬ÀÅÕÀÅúÀÆÀÆSÀÆ€ÀÆƒÀÆÏÀÆöÀÇFÀÇ]ÀÇ¶ÀÇ»ÀÇÙÀÇŞÀÈZÀÈ¯ÀÈÚÀÉ3ÀÉšÀÉŞÀÊ@ÀÊcÀÊhÀÊŠÀÊÀÊøÀËÀËKÀËƒÀËëÀÌ@ÀÌ¦ÀÌîÀÍ"ÀÍmÀÍºÀÍÙÀÎÀÎÀÎÀÎGÀÎHÀÎrÀÎ­ÀÎúÀÏÀÏÀÏÀÏOÀÏ^ÀÏpÀÏÀÏ¼ÀÏßÀĞÀĞ'ÀĞ]ÀĞÀĞÂÀĞüÀÑ0ÀÑ<ÀÑbÀÑcÀÑoÀÑÀÑÆÀÑŞÀÑßÀÒÀÒÀÒ8ÀÒ¡ÀÓÀÓeÀÓfÀÓ¶ÀÓüÀÔÀÔjÀÔ²ÀÔÇÀÕ	ÀÕUÀÕ[ÀÕ…ÀÕÅÀÕËÀÕÜÀÕàÀÕáÀÖÀÖ&ÀÖ:ÀÖ@ÀÖVÀÖjÀÖpÀÖµÀÖÛÀÖßÀÖàÀ×DÀ×uÀ×™À×¿À×áÀ×öÀØ#ÀØNÀØyÀØ²ÀØ¹ÀØ½ÀØ¾ÀÙ`ÀÙìÀÚÀÚÀÚ<ÀÚ‰ÀÚ±ÀÚ¸ÀÚğÀÛÀÛ'ÀÛTÀÛ³ÀÛëÀÜÀÜEÀÜ|ÀÜ«ÀÜÖÀİÀİJÀİ“ÀİÀİ§Àİ´ÀİëÀŞÀŞ8ÀŞ>ÀŞTÀŞuÀŞ{ÀŞ|ÀŞàÀßÀßKÀßTÀßaÀß–ÀßÃÀßşÀàÀàÀàÀàÀàHÀàkÀà›ÀàŸÀà ÀàÆÀàÌÀáÀá\ÀábÀá³ÀáÏÀâ3ÀâWÀâ‚Àâ®ÀâÙÀã#ÀãiÀã‚Àã§ÀãºÀãÀÀãèÀäÀä'Àä-ÀäGÀäXÀä\Àä]ÀäwÀäÀä·ÀåÀå1Àå5Àå6ÀåÀåÂÀåíÀæÀæ>ÀækÀæ¨Àæ±Àæ·Àæ»Àæ¼ÀçÀç ÀçIÀç_Àç€Àç†ÀçŠÀç‹Àç¤Àç¥ÀçÀÀç×ÀçóÀèÀèÀè ÀèHÀèIÀèxÀè¥Àè±ÀèâÀé2Àé€Àé‡ÀéÅÀéÓÀéÙÀéğÀêÀêGÀêKÀêLÀêÀê»ÀêÇÀêøÀëHÀë–ÀëÀëÛÀëéÀëïÀìÀì2ÀìNÀì{ÀìÀì€Àì”ÀìÔÀí ÀíÀíÀíBÀíHÀí™Àí±ÀíÊÀîÀî8ÀîMÀîQÀîRÀîƒÀî‰ÀîÙÀïÀï@ÀïFÀïÀï£ÀïåÀğÀğÀğdÀğ±ÀğóÀñBÀñ“Àñ”ÀòÀòÀò$Àò;ÀòIÀòOÀòPÀòyÀò’ÀòÊÀóÀó:Àó\ÀórÀóÀó¯ÀóÂÀóêÀôÀôTÀô¢ÀôïÀõ>ÀõcÀõpÀõ¸ÀõñÀöÀödÀö²ÀöÒÀ÷À÷.À÷<À÷{À÷˜À÷¦À÷°À÷¹À÷ÜÀ÷âÀ÷æÀ÷çÀøÀøAÀø}ÀøÀø‚Àø™ÀøÚÀùÀùÀùÀùsÀùtÀù™ÀùÜÀúÀúÀúÀúJÀú‹ÀúÈÀúÌÀúÍÀûÀû=Àû‹ÀûÇÀûÕÀûğÀü/Àü6Àü:Àü;ÀüƒÀüõÀıEÀıFÀıÀıÅÀıÉÀıÊÀıÖÀş*Àş+Àş7ÀşÀş¬Àş­Àş÷ÀşøÀÿÀÿÀÿ'ÀÿkÀÿ½À À À @À DÀ EÀ QÀ gÀ sÀ ·ÀÀ[ÀbÀŠÀÀÀ›ÀÁÀÍÀÀoÀÃÀÊÀäÀÀÀÀÀJÀVÀ§ÀøÀLÀZÀaÀ€ÀªÀ®À¯À»ÀÔÀàÀ1À€ÀÔÀâÀéÀ÷À!À%À&ÀoÀ–ÀÃÀÀÀÀÀ/ÀHÀ_ÀxÀ}À¢ÀÊÀËÀöÀøÀùÀ9ÀVÀnÀˆÀÀÀšÀÆÀúÀşÀ	 À	À	@À	\À	tÀ	À	“À	”À	 À	ÌÀ	ÿÀ
+À
+À
+À
+HÀ
+gÀ
+À
+™À
+À
+ŸÀ
+«À
+×ÀÀÀÀÀWÀwÀÀ©À®À¯À»ÀçÀ2À6À8À9ÀaÀeÀ®ÀÀ:ÀjÀ·ÀÇÀÍÀÀXÀ^À­ÀñÀ=ÀÀàÀ?À@À•À¤ÀÒÀ
+ÀÀPÀQÀ‘ÀÓÀÔÀ/À0À\À]À‘À’ÀÀ³ÀÊÀÚÀÀ8À\À€À¡ÀÈÀÀ3ÀDÀmÀ–À¥À²ÀáÀÀ&ÀMÀ”À»ÀÌÀõÀÀ-À:ÀDÀLÀ_ÀiÀªÀÔÀ
+ÀÀ<À=ÀŠÀ¿ÀüÀBÀjÀ¦À§ÀÔÀÀÀÀÀPÀ§À¨ÀÀÀÀWÀÀÚÀÛÀÀCÀaÀÀÀÆÀÀHÀuÀ˜À±ÀÜÀåÀóÀÀiÀ¸ÀÁÀÜÀ,À2À3ÀÀªÀÜÀşÀAÀIÀkÀ„À®ÀÀÀÿÀ 6À KÀ kÀ œÀ ŞÀ!À!=À!`À!§À!¹À!ÑÀ!àÀ!íÀ!øÀ" À"À"À"À".À"zÀ"ÈÀ#À#2À#9À#TÀ#ŒÀ#¨À#áÀ#åÀ#æÀ#òÀ$)À$OÀ$iÀ$–À$£À$ÇÀ$ÍÀ$ÑÀ$İÀ%À%À%$À%EÀ%hÀ%©À%ÙÀ&À&	À&À&À&FÀ&oÀ&µÀ&ÒÀ&åÀ&íÀ'À'QÀ'WÀ'[À'\À'¬À'öÀ(À(À(-À(DÀ(QÀ(nÀ(tÀ(xÀ(yÀ(»À(ôÀ)À)pÀ)„À)ÓÀ*#À*TÀ*‰À*ØÀ+)À+zÀ+½À,"À,UÀ,¨À,÷À-À-WÀ-ƒÀ-¬À-ÛÀ.1À.„À.¨À.ÒÀ/'À/yÀ/°À/ÉÀ/úÀ0+À0BÀ0WÀ0iÀ0yÀ0‰À0•À0¬À0ºÀ0ûÀ1À1SÀ1lÀ1¥À1îÀ1öÀ2*À2MÀ2SÀ2WÀ2XÀ2}À2©À3À3À3CÀ3IÀ3MÀ3NÀ3ZÀ3ˆÀ3®À3¾À3óÀ4À4@À4dÀ4…À4¬À4ğÀ5À5(À5QÀ5zÀ5‰À5–À5ÅÀ5éÀ6
+À61À6xÀ6ŸÀ6°À6ÙÀ7À7À7À7(À70À7CÀ7MÀ7€À7ÆÀ7şÀ8À8IÀ8uÀ8­À8µÀ8ØÀ8ŞÀ9À9.À9RÀ9vÀ9—À9¾À:À:)À::À:cÀ:ŒÀ:›À:¨À:²À:ÇÀ:ÓÀ:éÀ:ïÀ:ğÀ; À;JÀ;PÀ;TÀ;UÀ;~À;À;½À;ôÀ<À<7À<hÀ<‹À<•À<À<°À<ºÀ<¾À<¿À<ËÀ<áÀ=%À=[À=aÀ=yÀ=}À=~À=ŠÀ=À=´À=øÀ>"À>XÀ>^À>bÀ>cÀ>oÀ>‚À>À>­À>ÈÀ>ÛÀ>åÀ>õÀ?;À?gÀ?oÀ?‚À?ŒÀ?­À?ÆÀ?ëÀ@À@AÀ@nÀ@ƒÀ@¼À@ÖÀ@ÚÀ@ÛÀAÀAWÀAXÀAÀAªÀAÚÀBÀBÀBÀBÀB0ÀB1ÀBTÀBlÀB|ÀBŸÀBÆÀBçÀBúÀCÀCÀCIÀC“ÀCİÀD$ÀD+ÀDZÀDzÀDÍÀDüÀEJÀEoÀE¼ÀFÀFÀF`ÀFµÀFèÀG3ÀGÀGÌÀGíÀH1ÀHYÀHÀH­ÀHèÀI6ÀIWÀI“ÀIÙÀJ(ÀJFÀJÀJ«ÀJùÀK%ÀK_ÀK`ÀKˆÀK¤ÀKÂÀKñÀLÀLÀLYÀLÉÀLÊÀLñÀMÀMMÀMŒÀMÍÀNÀN5ÀNVÀN®ÀNÓÀNôÀNÿÀO%ÀODÀOVÀO^ÀOˆÀO—ÀOŸÀOáÀPÀPÀP&ÀPRÀPÀP¡ÀP¼ÀPÙÀPßÀPàÀQ&ÀQxÀQˆÀQİÀRÀRZÀR{ÀR«ÀRÇÀRÙÀRáÀS ÀSNÀS]ÀSeÀSfÀS½ÀSãÀTÀTDÀTXÀT›ÀT¦ÀTĞÀTØÀTÙÀTóÀUÀUÀULÀU‚ÀUƒÀUÕÀVÀV\ÀV©ÀVÁÀVşÀW4ÀWyÀWœÀWªÀWåÀWîÀX=ÀXLÀXmÀXÀX‡ÀXˆÀXÓÀXñÀYÀYÀYÀY1ÀYWÀYiÀYqÀY©ÀYØÀYŞÀYßÀZÀZ2ÀZuÀZÀZ›ÀZ»ÀZóÀ[5À[?À[À[ÚÀ[úÀ\,À\UÀ\pÀ\¡À\¬À\ÒÀ\âÀ]À]cÀ]´À]¿À]áÀ]ğÀ^;À^À^ÅÀ^üÀ_#À_+À_1À_2À_„À`À`AÀ`À`«À`¬À`ÛÀaÀaYÀaqÀa˜Àa»ÀaÈÀaüÀbjÀb§Àb±ÀbÃÀbËÀbÌÀc6Àc†ÀcÒÀcöÀd%ÀdkÀd¨Àe ÀeFÀezÀe·ÀeÁÀeÉÀfÀf	Àf
+Àf/ÀfbÀf‘Àf¼ÀfåÀg:ÀgTÀgdÀg“ÀgÃÀgõÀhGÀhVÀhƒÀh‹Àh•Àh–ÀhºÀiÀiNÀiÀi°ÀiãÀj.ÀjFÀjkÀjÀj™Àj¿ÀjÑÀjÙÀkÀkGÀkvÀk¥ÀkÅÀkâÀkıÀlÀlÀlRÀl®ÀlŞÀlÿÀm6Àm_ÀmŸÀmİÀmúÀn Àn ÀnYÀnÀnÉÀnÏÀnÿÀoÀoVÀo“Ào›Ào¡ÀoŞÀpÀp2ÀpkÀpoÀppÀp‘Àp’ÀpĞÀqÀqÀqmÀq¼ÀrÀrTÀryÀrÀrºÀrşÀs{ÀsáÀtAÀt}Àt–Àt»ÀtİÀuÀuÀu9Àu™Àu¦ÀuæÀuúÀvÀvOÀviÀvˆÀv°Àv¿ÀvÿÀwÀw!ÀwDÀwnÀw”Àw¸ÀwÔÀwñÀxÀxxÀxÀx«ÀxéÀy.ÀyoÀy«ÀyÁÀyÍÀz%ÀzaÀz’ÀzÀzÃÀzæÀ{"À{SÀ{_À{„À{ÖÀ|À|4À|VÀ|vÀ|—À|ıÀ}=À}SÀ}_À}„À}«À}ŞÀ}ìÀ~À~À~FÀ~¼À~ÉÀÀUÀvÀŒÀ˜ÀÙÀúÀ€ À€\À€mÀ€”À€¶À€öÀ
+À/ÀTÀ{À®À¼ÀÜÀèÀ‚À‚$À‚„À‚‘À‚ÓÀ‚çÀƒÀƒ?ÀƒzÀƒÀƒ™ÀƒÑÀƒåÀ„À„]À„“À„«À„ÓÀ„úÀ… À…9À…AÀ…SÀ…gÀ…À…¸À…¾À…öÀ†À†À†fÀ†|À†›À†œÀ†ÀÀ†íÀ‡NÀ‡À‡ÕÀˆ!ÀˆNÀˆVÀˆ\Àˆ]Àˆ«Àˆ¸ÀˆìÀ‰À‰#À‰?À‰rÀ‰xÀ‰’À‰¿À‰ÅÀ‰ãÀ‰çÀ‰èÀŠÀŠ6ÀŠ]ÀŠ„ÀŠ’ÀŠ˜ÀŠÉÀ‹À‹VÀ‹\À‹]À‹À‹åÀŒÀŒ"ÀŒ&ÀŒ'ÀŒJÀŒoÀŒˆÀŒ¹ÀŒåÀŒùÀÀÀƒÀ„À½ÀúÀ,À6ÀjÀrÀçÀ(À`ÀœÀ¤À¶À¼ÀÀÀÁÀÀ<ÀlÀpÀqÀ´ÀìÀşÀ‘À‘À‘À‘À‘fÀ‘«À‘½À‘ÃÀ’ À’À’À’hÀ’ƒÀ’ºÀ’ÍÀ’ÓÀ’ãÀ“À“+À“‰À“æÀ”4À”[À”|À”‘À”œÀ”¤À”·À”ÁÀ”óÀ•À•!À•(À•pÀ•—À•©À•ÖÀ–À–|À–šÀ–ùÀ—(À—7À—®À—¼À—ÆÀ—ÛÀ—çÀ˜%À˜7À˜TÀ˜À˜ùÀ™NÀ™ÅÀ™ÓÀ™İÀ™òÀ™şÀšÀš,Àš>ÀšBÀšCÀšpÀšvÀš©Àš¯ÀšîÀšôÀ›'À›-À›CÀ›IÀ›lÀ›rÀ›€À›À›ÇÀ›ÏÀ›ÙÀ›ëÀ›ñÀœÀœÀœQÀœtÀœˆÀœ³ÀœËÀœâÀœéÀ0À4À5ÀbÀhÀ¥À«ÀŞÀäÀ+À1ÀzÀ€À–ÀœÀ¿ÀÅÀÓÀïÀŸ#ÀŸ+ÀŸ5ÀŸGÀŸ[ÀŸŒÀŸ¤ÀŸ»ÀŸÂÀ GÀ „À ›À ·À òÀ¡0À¡GÀ¡hÀ¡lÀ¡mÀ¡¹À¢À¢%À¢+À¢iÀ¢oÀ¢®À¢´À¢çÀ¢íÀ£À£	À£,À£2À£@À£ZÀ£’À£šÀ£¤À£¶À£¼À£ÌÀ£ÒÀ¤#À¤TÀ¤hÀ¤²À¤ÊÀ¤ÚÀ¤ñÀ¤øÀ¥^À¥bÀ¥cÀ¥¯À¥şÀ¦À¦!À¦iÀ¦oÀ¦­À¦³À¦úÀ§ À§IÀ§OÀ§eÀ§kÀ§À§”À§¢À§»À§ıÀ¨À¨À¨!À¨5À¨…À¨À¨­À¨ÄÀ¨ËÀ©PÀ©À©¤À©ÀÀ©ûÀª@ÀªjÀª‹ÀªÀªÀªÜÀªéÀªïÀ«(À«.À«mÀ«sÀ«¦À«¬À«ÂÀ«ÈÀ«ëÀ«ñÀ«ÿÀ¬À¬EÀ¬MÀ¬WÀ¬iÀ¬oÀ¬À¬…À¬ĞÀ¬üÀ­À­UÀ­mÀ­}À­”À­›À­°À­êÀ­îÀ­ïÀ®;À®HÀ®NÀ®‘À®—À®ĞÀ®ÖÀ¯À¯#À¯lÀ¯rÀ¯ˆÀ¯À¯±À¯·À¯ÅÀ¯ÙÀ°À°À°%À°7À°KÀ°–À°®À°¾À°ÕÀ°ÜÀ°ñÀ±2À±6À±7À±ˆÀ±ÆÀ±ÌÀ²À²À²RÀ²XÀ²‹À²‘À²§À²­À²ĞÀ²ÖÀ²äÀ³À³YÀ³aÀ³kÀ³}À³ƒÀ³“À³™À³éÀ´À´,À´eÀ´~À´À´µÀ´¼ÀµÀµ#Àµ$ÀµuÀµ³Àµ¹À¶À¶
+À¶KÀ¶QÀ¶˜À¶À¶çÀ¶íÀ·À·	À·,À·2À·@À·]À·¹À·ÁÀ·ËÀ·İÀ·ñÀ¸0À¸IÀ¸iÀ¸€À¸‡À¹À¹IÀ¹cÀ¹À¹ºÀ¹øÀº(ÀºIÀºMÀºNÀº}ÀºƒÀº±Àº·ÀºöÀºüÀ»À»À»;À»AÀ»OÀ»hÀ»†À»©À»èÀ»õÀ¼ À¼À¼À¼$À¼*À¼:À¼@À¼ŒÀ¼¨À¼¼À¼óÀ½MÀ½fÀ½jÀ½kÀ½À½·À½ÇÀ¾<À¾À¾ À¾ªÀ¾½À¾ÁÀ¾ÂÀ¾íÀ¾óÀ¿+À¿1À¿_À¿eÀ¿À¿£À¿ìÀ¿òÀÀÀÀ+ÀÀ1ÀÀ“ÀÀ¥ÀÀ¹ÀÁ#ÀÁÀÂÀÂSÀÂuÀÂ‘ÀÂÌÀÃ
+ÀÃ!ÀÃBÀÃFÀÃGÀÃnÀÃ‰ÀÃ™ÀÃ´ÀÃÇÀÃÑÀÃıÀÄ5ÀÄNÀÄjÀÄzÀÄ–ÀÄ©ÀÄ³ÀÄÖÀÄÚÀÄÛÀÅÀÅ%ÀÅuÀÅ¾ÀÆÀÆÀÆ0ÀÆKÀÆxÀÆyÀÆ›ÀÆÌÀÇÀÇBÀÇSÀÇuÀÇÀÇ³ÀÇ´ÀÇëÀÈ5ÀÈVÀÈaÀÈ‹ÀÈÁÀÈáÀÉÀÉ&ÀÉ0ÀÉfÀÉnÀÉoÀÉ²ÀÉÒÀÉÜÀÉâÀÉÿÀÊÀÊÀÊTÀÊœÀÊ°ÀÊ¶ÀÊïÀÊõÀË4ÀË:ÀËPÀËVÀËyÀËÀËÀË¨ÀË×ÀËúÀÌ=ÀÌJÀÌUÀÌ]ÀÌgÀÌyÀÌÀÌÀÌ•ÀÌåÀÍÀÍ(ÀÍ‘ÀÍºÀÎ1ÀÎMÀÎQÀÎRÀÎÀÎæÀÎúÀÏ ÀÏCÀÏIÀÏ‚ÀÏˆÀÏÀÀÏÆÀĞÀĞÀĞ+ÀĞNÀĞTÀĞÂÀĞÔÀĞèÀÑÀÑéÀÒnÀÒ¯ÀÒÑÀÒíÀÓ(ÀÓmÀÓ—ÀÓ¸ÀÓ¼ÀÓ½ÀÔÀÔ*ÀÔ:ÀÔUÀÔhÀÔrÀÔÀÔ¿ÀÕ'ÀÕfÀÕÁÀÕÚÀÕöÀÖÀÖ"ÀÖ5ÀÖ?ÀÖbÀÖfÀÖgÀÖ·ÀÖèÀÖîÀ×*À×0À×oÀ×uÀ×‹À×‘À×´À×ºÀ×ÈÀ×éÀØÀØoÀØ“ÀØÀØ¦ÀØ°ÀØÂÀØÈÀØÎÀØŞÀØäÀÙ.ÀÙZÀÙnÀÙĞÀÙùÀÚ&ÀÚœÀÚ¸ÀÚ¼ÀÚ½ÀÛ	ÀÛ:ÀÛ@ÀÛ†ÀÛŒÀÛÈÀÛÎÀÜÀÜÀÜUÀÜ[ÀÜqÀÜ”ÀÜšÀİÀİÀİ3ÀİÈÀŞ5ÀŞºÀŞûÀß Àß<ÀßwÀßµÀßåÀàÀà
+ÀàÀàZÀàuÀà…Àà Àà³Àà½ÀàéÀáÀáQÀávÀáÀáÍÀáôÀâÀâÀâ0Àâ6ÀâRÀâSÀâcÀâÀâ’ÀâœÀâ¿ÀâÃÀâÄÀâşÀãÀã5Àã;ÀãKÀãQÀã ÀãëÀä4Àä`ÀätÀäÚÀäõÀåÀå‹ÀåÀåÀåÊÀåĞÀæÀæÀæBÀæHÀæ€Àæ†ÀæÏÀæãÀç€Àç©ÀèÀè›ÀèÜÀéÀéÀéXÀé™Àé½ÀéŞÀéâÀéãÀê&ÀêAÀêdÀêrÀêxÀêˆÀê£Àê¶ÀêÀÀêûÀë'ÀëzÀëÍÀì;ÀìkÀì’ÀìÀÀìÜÀììÀíÀíÀí%Àí;Àí`ÀífÀíjÀíkÀíµÀíîÀíôÀî/Àî5ÀîEÀîKÀî˜Àî«ÀîûÀï*Àï>Àï±ÀïÚÀğÀğ{ÀğÀğ€ÀğÊÀñÀñ	ÀñNÀñTÀñÀñ•ÀñÍÀñÓÀòÀò0ÀòÚÀóÀósÀóøÀô9Àô^ÀôzÀôµÀôöÀõ"ÀõCÀõGÀõHÀõ“Àõ®ÀõæÀöBÀöÀ÷À÷6À÷OÀ÷vÀ÷…À÷À÷ŸÀ÷¥À÷õÀøÀøJÀøfÀøŸÀø£Àø¤ÀøÏÀøÕÀùÀùÀùÀù!ÀùlÀù„Àù–ÀùúÀúÀúNÀúbÀúhÀú¢ÀúâÀúõÀúûÀûÀûMÀûaÀûgÀû¦ÀûªÀû«ÀûüÀüMÀüqÀüwÀü©Àü¯Àü¿ÀüÅÀıÀıPÀı¡ÀıÒÀıæÀş(Àş‡Àş¤Àş¸Àş¾ÀşîÀÿSÀÿgÀÿ©Àÿ¼ÀÿÂÀ $À IÀ œÀ ¯À µÀ ĞÀ ÷ÀÀ1ÀFÀ[À„À™ÀŸÀ£À¤ÀÔÀÚÀÀÀ#À)À`ÀfÀtÀÀ©À±À»ÀÍÀãÀéÀÀ!À/ÀLÀ€ÀˆÀ’À¤À¸ÀçÀÀÀ-À@ÀJÀœÀ·ÀÀhÀŸÀÑÀÙÀæÀÀ<ÀBÀwÀ¬À²ÀÀ#À?ÀRÀ\ÀÀƒÀ„ÀÃÀÉÀûÀÀÀÀ@ÀFÀTÀmÀ¨À°ÀºÀÌÀøÀ	QÀ	qÀ	™À	©À	±À	¾À
+À
+À
+À
+À
+dÀ
+jÀ
+ŸÀ
+ÊÀ
+åÀ
+õÀÀ#À-ÀSÀ€ÀØÀìÀÀ/ÀKÀ^ÀhÀ~À–ÀáÀêÀğÀôÀõÀFÀŠÀÀÊÀ ÀÀ+ÀFÀYÀcÀÀëÀGÀ¾ÀßÀøÀÀ.À6ÀHÀNÀÀ¼ÀïÀÿÀÀ.À8À<À=ÀÀ”ÀäÀ4ÀÀËÀõÀûÀHÀ™À±ÀŞÀ*ÀxÀÀªÀÀNÀÀÎÀÀDÀ—À"À/ÀlÀrÀˆÀĞÀïÀÀAÀGÀHÀ‹ÀÀÀ¤ÀÎÀ<À@ÀAÀ„À¬À×ÀÀHÀLÀMÀ”À¹À¿ÀÏÀÕÀÀVÀŸÀ ÀîÀFÀGÀ‚ÀˆÀÌÀÒÀÀ-ÀOÀwÀ¥ÀÂÀîÀ÷À6À[À™ÀÂÀÜÀ
+ÀÀ$ÀjÀ¦À®À´À¸À¹ÀÙÀßÀ -À qÀ À ¸À ÚÀ!À!HÀ!oÀ!wÀ!}À!À!‚À!®À!¯À!ãÀ"À"À"À"FÀ"qÀ"uÀ"vÀ"—À#À#NÀ#•À#ŞÀ$À$ŒÀ$ À$ÄÀ%À%:À%DÀ%JÀ%—À%›À%œÀ%éÀ&4À&fÀ&À&™À&¡À&§À&¸À&¼À&½À'	À'SÀ'lÀ'À'¹À'ÓÀ'ÛÀ'áÀ'ôÀ'øÀ'ùÀ(À(,À(GÀ(hÀ(¶À)À)À)<À)SÀ)~À)­À)àÀ)şÀ*RÀ*xÀ*²À*ÌÀ*ğÀ+À+2À+YÀ+‰À+©À+ÉÀ+íÀ,"À,¡À,´À,ÅÀ,ÔÀ,áÀ,ìÀ,õÀ,üÀ- À-À-À- À-)À-6À-8À-9À-bÀ-ˆÀ-²À-ÌÀ-ìÀ.À.6À.dÀ.ŸÀ.¿À.äÀ/À/À/TÀ/ŒÀ/«À0À0À0?À0”À0ÀÀ1À1À1#À1$À1HÀ1fÀ1ƒÀ1„À1¥À1¦À1ÇÀ1üÀ2À2À2 À21À2\À2}À2À2‚À2À2ÇÀ2ÈÀ35À3nÀ3†À3“À3«À3ÍÀ3ñÀ3øÀ3üÀ3şÀ3ÿÀ4DÀ4eÀ4}À4šÀ4ÀÀ4ëÀ4ìÀ5>À5\À5…À5°À5ĞÀ6À6
+À6À6À6À6FÀ6ƒÀ6À6©À6ÆÀ6ÚÀ6âÀ6æÀ6çÀ6óÀ7À7(À7CÀ7DÀ7PÀ7‰À7çÀ7ùÀ7ıÀ7ÿÀ8 À8IÀ8nÀ8À8«À8ÑÀ9 À9À9WÀ9tÀ:$À:QÀ:|À:À:ÑÀ:ØÀ:ÜÀ:İÀ:éÀ;ZÀ;~À;À;‹À;¶À;ĞÀ<*À<FÀ<ƒÀ<À<ºÀ<×À<ëÀ<óÀ<÷À<øÀ=À=$À=ZÀ=uÀ=vÀ=‚À=»À>	À>À> À>"À>#À>tÀ>¸À>íÀ>îÀ>ıÀ>şÀ?)À?CÀ?„À?´À?ìÀ@
+À@AÀ@À@ÂÀ@ÃÀAÀAWÀAXÀA‡ÀA³ÀAİÀAïÀA÷ÀAøÀB%ÀBBÀB·ÀCÀC(ÀCbÀC™ÀC»ÀCêÀDÀDÀDÀDÆÀDüÀEÀEÀE ÀE!ÀEAÀE©ÀEŞÀEşÀF+ÀFuÀF«ÀGÀG6ÀG†ÀGàÀHÀHÀH#ÀH”ÀHäÀHåÀI-ÀI.ÀI•ÀI–ÀI´ÀIÚÀIóÀIùÀIıÀIşÀJÀJ.ÀJEÀJrÀJ’ÀJ˜ÀJÄÀK ÀKÀKWÀKÀK¼ÀKçÀKíÀKñÀKòÀLGÀL}ÀL‘ÀL—ÀL¿ÀLèÀLşÀMÀMÀMÀM!ÀM"ÀM3ÀMMÀMvÀM„ÀMŠÀM¬ÀMÃÀMÇÀMÈÀMÚÀMÛÀNÀNÀNjÀN„ÀN°ÀNæÀO?ÀOTÀOZÀO°ÀOÒÀOçÀOíÀPÀP{ÀPÀP”ÀP˜ÀP™ÀP¼ÀP½ÀPÉÀPşÀQÀQÀQÀQ ÀQ]ÀQ¦ÀRÀR*ÀR[ÀRcÀRgÀRhÀRtÀR®ÀRÑÀRÕÀRÖÀRâÀRıÀSÀS#ÀS$ÀS0ÀSOÀSQÀSRÀS—ÀS›ÀSêÀTÀTeÀTfÀT®ÀTùÀUÀUÀU\ÀU£ÀU§ÀUÖÀV8ÀV9ÀVuÀVyÀVÇÀVãÀVçÀWÀWUÀWVÀW¤ÀWÛÀWßÀX.ÀX}ÀXÁÀXÅÀYÀY`ÀY¬ÀYûÀZJÀZaÀZeÀZ²ÀZ×ÀZÛÀ[,À[zÀ[ÁÀ[åÀ[éÀ\4À\ƒÀ\·À\»À\ÏÀ]À][À]_À]·À]ÇÀ^À^5À^;À^ƒÀ^À^ÑÀ^îÀ_À_	À_
+À_XÀ_¨À_çÀ`À`À`\À`bÀ`²À`ÿÀaJÀakÀaqÀa¾ÀbÀb*ÀbWÀbXÀb Àb±Àb·ÀböÀc&Àc'ÀctÀc…Àc‹ÀcÔÀdÀd]ÀdƒÀd›ÀdµÀdòÀeÀe,Àe0Àe1ÀetÀezÀeÊÀeñÀeòÀf)Àf/ÀfcÀf„Àf˜Àf™Àf¥ÀfÍÀfÎÀfÚÀg ÀgÀg<ÀgBÀgFÀgGÀgSÀgnÀg‰ÀgÀgÊÀgÎÀgÏÀgÛÀhÀhÀh9Àh=Àh>ÀhXÀhYÀheÀhxÀhÀhÍÀhãÀhçÀhèÀhôÀi3Ài4ÀiVÀi›Ài±ÀiµÀi¶ÀißÀjÀj)ÀjeÀjÀj¦Àj¶Àj¾Àk ÀkÀk.ÀkSÀk[Àk_Àk`ÀkÀÀkÂ    RoutePopDispositionRouteRouteSettingsPageNavigatorObserverHeroControllerScopeRouteTransitionRecordTransitionDelegateDefaultTransitionDelegate"kDefaultRouteTraversalEdgeBehavior	Navigator_RouteLifecycle_NotAnnounced_RouteEntry_NavigatorObservation_NavigatorPushObservation_NavigatorPopObservation_NavigatorRemoveObservation_NavigatorReplaceObservationNavigatorState_RouteRestorationType_RestorationInformation_NamedRestorationInformation _AnonymousRestorationInformation_HistoryPropertyRestorableRouteFuture iÇ
