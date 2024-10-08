@@ -1,0 +1,117 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f5f9;
+    color: #333;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1c5d99;
+    padding: 20px;
+    color: white;
+}
+
+header h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.hero {
+    text-align: center;
+    padding: 50px;
+    background-color: #fdfdfd;
+    background-image: url('mosque-background.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #1c5d99;
+}
+
+.hero h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.cta-button {
+    padding: 10px 20px;
+    background-color: #1c5d99;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cta-button:hover {
+    background-color: #134a78;
+}
+
+/* Events Section */
+#upcoming-events {
+    padding: 40px;
+    background-color: #fff;
+    text-align: center;
+}
+
+#upcoming-events h3 {
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+.event-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.event-card {
+    background-color: #f1f5f9;
+    padding: 20px;
+    border-radius: 10px;
+    width: 200px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.event-card h4 {
+    font-size: 20px;
+    color: #1c5d99;
+    margin-bottom: 10px;
+}
+
+/* Footer */
+footer {
+    background-color: #1c5d99;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.social-icons a img {
+    width: 24px;
+    margin: 0 10px;
+}
