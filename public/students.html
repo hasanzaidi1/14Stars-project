@@ -159,14 +159,18 @@
                 <li><a href="#">Classes</a></li>
                 <li><a href="students.html">Students</a></li>
                 <li><a href="#">Teachers</a></li>
+                <li><a href="admin-login.html">Admin</a></li>
                 <li><a href="#">Announcements</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <h2>Register a New Student</h2>
+        <button><a href="/logout">Logout</a></button>
+
         <form action="/register" method="POST" id="registration-form">
+            <h2>Register a New Student</h2>
+
             <label for="fname">Student Name:</label>
             <div class="name">
                 <input placeholder="First" type="text" id="fname" name="fname" required>
@@ -202,10 +206,9 @@
 
             <button type="submit">Register</button>
         </form>
+        
     </main>
 
-    <footer>
-        <p>&copy; 2024 Islamic School - All Rights Reserved.</p>
-    </footer>
+    
 </body>
 </html>
