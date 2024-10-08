@@ -109,7 +109,7 @@ footer {
     background-color: #1c5d99;
     color: white;
     text-align: center;
-    padding: 20px;
+    padding: 1px;
     position: relative;
     bottom: 0;
     width: 100%;
@@ -159,15 +159,7 @@ button:hover {
     background-color: #218838;
 }
 
-footer {
-    background-color: #1c5d99;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-}
+
 
 .logout-btn {
     background-color: rgb(189, 5, 5);

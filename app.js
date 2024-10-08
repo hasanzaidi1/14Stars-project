@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser'); // Import cookie-parser
 const app = express();
 
+require('dotenv').config();
+
 // Middleware to parse JSON and URL-encoded data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -24,8 +26,8 @@ app.use(session({
 
 // Dummy admin credentials (replace with a database lookup in production)
 const adminUser = {
-    username: '1',
-    password: '1'
+    username: process.env.user,
+    password: process.env.pass
 };
 
 // Middleware to check if the user is logged in as admin
