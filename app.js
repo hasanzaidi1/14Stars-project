@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser'); // Import cookie-parser
+const { Pool } = require('pg'); // Import pg library for PostgreSQL
 const app = express();
 
 require('dotenv').config();
@@ -23,6 +24,15 @@ app.use(session({
     saveUninitialized: true,
     cookie: { secure: false }  // For production, set 'secure: true' if using HTTPS
 }));
+
+// PostgreSQL connection setup
+const pool = new Pool({
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASS,
+    port: process.env.DB_PORT,
+});
 
 // Dummy admin credentials (replace with a database lookup in production)
 const adminUser = {
@@ -73,30 +83,61 @@ app.get('/students', isAuthenticated, (req, res) => {
 });
 
 // Student registration route (only admins can access)
-app.post('/register', isAuthenticated, (req, res) => {
+app.post('/register', isAuthenticated, async (req, res) => {
     const { 
-        fname, 
-        lname, 
-        age, 
-        grade, 
-        gender, 
-        parent_name, 
-        parent_contact 
+        fname,
+        MI,
+        lname,
+        DOB,
+        st_address,
+        city,
+        state,
+        zip, // Now a text field
+        st_email,
+        st_cell, // Now a text field
+        gender
     } = req.body;
 
-    // Log the student information
     console.log(`
         Student First Name: ${fname}, 
+        Middle Initial: ${MI}, 
         Student Last Name: ${lname}, 
-        Age: ${age}, 
-        Grade: ${grade}, 
-        Gender: ${gender}, 
-        Parent Name: ${parent_name.join(", ")}, 
-        Parent Contacts: ${parent_contact.join(", ")}`);
+        Date of Birth: ${DOB}, 
+        Address: ${st_address}, 
+        City: ${city}, 
+        State: ${state}, 
+        Zip: ${zip}, 
+        Email: ${st_email}, 
+        Cell: ${st_cell}, 
+        Gender: ${gender}`);
 
-    // Save the student data, including multiple parent contacts, to the database
-    res.json({ message: 'Student registered successfully!' });
+    try {
+        const query = `
+            INSERT INTO student ("F_Name", "MI", "L_Name", dob, "st_address", city, state, zip, "st_email", "st_cell", "st_gender")
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+        `;
+        const values = [
+            fname,
+            MI,
+            lname,
+            DOB,
+            st_address,
+            city,
+            state,
+            zip, // Expecting this as a string now
+            st_email,
+            st_cell, // Expecting this as a string now
+            gender
+        ];
+
+        await pool.query(query, values);
+        res.json({ message: 'Student registered successfully!' });
+    } catch (error) {
+        console.error('Error registering student:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 });
+
 
 // Logout route
 app.get('/logout', (req, res) => {
