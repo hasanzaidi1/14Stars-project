@@ -14,17 +14,6 @@
             padding: 0;
         }
 
-        header {
-            background-color: #006600;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        h1, h2 {
-            color: #006600;
-        }
-
         form {
             background-color: #ffffff;
             border: 1px solid #ddd;
@@ -33,6 +22,11 @@
             width: 70%;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
+            display: none; /* Hide forms by default */
+        }
+
+        .active {
+            display: block; /* Show active form */
         }
 
         label {
@@ -112,6 +106,14 @@
         .rem-button:hover {
             background-color: rgb(172, 7, 7);
         }
+        
+        .btn-container {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
     </style>
     <script>
         let parentContactCounter = 0;
@@ -148,6 +150,20 @@
                                 match[3];
             }
         }
+
+        function showForm(formId) {
+            // Hide all forms
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.classList.remove('active');
+            });
+
+            // Show the selected form
+            const activeForm = document.getElementById(formId);
+            if (activeForm) {
+                activeForm.classList.add('active');
+            }
+        }
     </script>
 </head>
 <body>
@@ -155,22 +171,33 @@
         <h1>Student Registration</h1>
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="#">Classes</a></li>
-                <li><a href="students.html">Students</a></li>
-                <li><a href="#">Teachers</a></li>
-                <li><a href="admin-login.html">Admin</a></li>
-                <li><a href="#">Announcements</a></li>
+                <button onclick="window.location.href='/admin.html'">Admin Privilege</button>
+                <button class="logout-btn" onclick="window.location.href='/logout'">Logout</button>
             </ul>
         </nav>
     </header>
-
     <main>
-        <button><a href="/logout">Logout</a></button>
+        <div class="btn-container">
+            <button onclick="showForm('find-student-form')">Find Student</button>
+            <button onclick="showForm('registration-form')">Register Student</button>
+            <button>See All Students</button> <!-- This button can be implemented later -->
+        </div>
+        
+        <!-- Find Student Form -->
+        <form id="find-student-form">
+            <h2>Find Student</h2>
+            <label for="find-fname">First Name:</label>
+            <input type="text" id="find-fname" name="find-fname" placeholder="First Name" required>
 
+            <label for="find-lname">Last Name:</label>
+            <input type="text" id="find-lname" name="find-lname" placeholder="Last Name" required>
+
+            <button type="submit">Find</button>
+        </form>
+        
+        <!-- Registration Form -->
         <form action="/register" method="POST" id="registration-form">
             <h2>Register a New Student</h2>
-
             <label for="fname">Student Name:</label>
             <div class="name">
                 <input placeholder="First" type="text" id="fname" name="fname" required>
@@ -208,7 +235,5 @@
         </form>
         
     </main>
-
-    
 </body>
 </html>

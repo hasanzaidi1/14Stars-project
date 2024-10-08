@@ -1,6 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser'); // Import cookie-parser
 const app = express();
 
 // Middleware to parse JSON and URL-encoded data
@@ -9,6 +10,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve static files like HTML/CSS/JS
 app.use(express.static('public'));
+
+// Cookie parser middleware
+app.use(cookieParser());
 
 // Session middleware
 app.use(session({
@@ -26,25 +30,36 @@ const adminUser = {
 
 // Middleware to check if the user is logged in as admin
 function isAuthenticated(req, res, next) {
-    if (req.session.isAdmin) {
+    console.log('Session:', req.session); // Log session details
+    console.log('Cookies:', req.cookies); // Log cookie details
+
+    if (req.session.isAdmin || req.cookies.username) {
         return next();
     } else {
+        console.log('Not authenticated, redirecting to login.'); // Log redirect action
         res.redirect('/login');  // Redirect to login if not authenticated
     }
 }
 
 // Admin login route
 app.get('/login', (req, res) => {
-    res.sendFile(__dirname + '/public/admin-login.html');  // Updated to serve admin login.html
+    res.sendFile(__dirname + '/public/admin-login.html');  // Serve admin login.html
 });
 
 app.post('/login', (req, res) => {
-    const { username, password } = req.body;
+    const { username, password, remember } = req.body;
 
     // Check if credentials match
     if (username === adminUser.username && password === adminUser.password) {
         req.session.isAdmin = true;  // Set the session to indicate admin is logged in
-        res.redirect('/students');    // Redirect to students.html after successful login
+        console.log('Admin logged in. Session:', req.session); // Log session details after login
+
+        if (remember) {
+            // Set a cookie for 30 days if "Remember Me" is checked
+            res.cookie('username', username, { maxAge: 30 * 24 * 60 * 60 * 1000 }); // 30 days
+        }
+
+        res.redirect('/admin.html');  // Redirect to admin.html after successful login
     } else {
         res.send('Invalid credentials. Please try again.');
     }
@@ -87,6 +102,7 @@ app.get('/logout', (req, res) => {
         if (err) {
             return res.send('Error logging out');
         }
+        res.clearCookie('username');  // Clear the username cookie
         res.redirect('/login');
     });
 });

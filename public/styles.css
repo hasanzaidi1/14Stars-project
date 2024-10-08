@@ -14,6 +14,9 @@ header {
     background-color: #1c5d99;
     padding: 20px;
     color: white;
+    position: relative; /* Ensure the header is positioned correctly */
+    top: 0;
+    z-index: 1000; /* Ensure it stays above other content */
 }
 
 header h1 {
@@ -35,6 +38,7 @@ nav ul li a {
     font-weight: 600;
 }
 
+/* Hero Section */
 .hero {
     text-align: center;
     padding: 50px;
@@ -114,4 +118,57 @@ footer {
 .social-icons a img {
     width: 24px;
     margin: 0 10px;
+}
+
+/* Styles for Student Registration and Admin Login Pages */
+form {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 20px auto;
+    width: 70%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+input[type="text"], input[type="number"], input[type="tel"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+footer {
+    background-color: #1c5d99;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.logout-btn {
+    background-color: rgb(189, 5, 5);
 }

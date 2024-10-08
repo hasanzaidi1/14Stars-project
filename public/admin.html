@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Admin</title>
+    <style>
+        /* Reset some default browser styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        
+
+        .btn-container {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .cta-button {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .cta-button:active {
+            background-color: #004085;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Admin Privilege</h1>
+        <nav>
+            <ul>
+                <button onclick="window.location.href='/admin.html'">Admin Privilege</button>
+                <button class="logout-btn" onclick="window.location.href='/logout'">Logout</button>
+            </ul>
+        </nav>
+    </header>
+    <div class="btn-container">
+        <button class="cta-button" onclick="window.location.href='index.html'">Home</button>
+        <button class="cta-button" onclick="window.location.href='#'">Classes</button>
+        <button class="cta-button" onclick="window.location.href='students.html'">Students</button>
+        <button class="cta-button" onclick="window.location.href='#'">Teachers</button>
+        <button class="cta-button" onclick="window.location.href='#'">Announcements</button>
+    </div>
+</body>
+</html>
