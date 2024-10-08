@@ -14,8 +14,7 @@ app.post('/register', (req, res) => {
         age, 
         grade, 
         gender, 
-        parent_name_f, 
-        parent_name_l, 
+        parent_name, 
         parent_contact 
     } = req.body;
 
@@ -26,8 +25,7 @@ app.post('/register', (req, res) => {
         Age: ${age}, 
         Grade: ${grade}, 
         Gender: ${gender}, 
-        Parent First Names: ${parent_name_f.join(", ")}, 
-        Parent Last Names: ${parent_name_l.join(", ")},
+        Parent Name: ${parent_name.join(", ")}, 
         Parent Contacts: ${parent_contact.join(", ")}`);
 
     // Save the student data, including multiple parent contacts, to the database
