@@ -100,20 +100,37 @@
         .gender-options input {
             margin-left: 5px; /* Space between label and radio button */
         }
+
+        .parent-contact {
+            margin-bottom: 20px; /* Space between parent contacts */
+        }
+
+        .rem-button {
+            background-color: rgb(227, 4, 4);
+        }
+
+        .rem-button:hover {
+            background-color: rgb(172, 7, 7);
+        }
     </style>
     <script>
+        let parentContactCounter = 0;
+
         function addParentContact() {
+            parentContactCounter++; // Increment counter for unique IDs
             // Create a new div for additional parent contact
             const contactDiv = document.createElement('div');
+            contactDiv.className = 'parent-contact';
             contactDiv.innerHTML = `
-                <label for="parent_name">Parent Name:</label>
+                <label for="parent_name_f_${parentContactCounter}">Parent Name:</label>
                 <div class="name">
-                    <input type="text" id="parent_name_f" name="parent_name_f" required placeholder="First">
-                    <input type="text" id="parent_name_l" name="parent_name_l" required placeholder="Last">
+                    <input type="text" id="parent_name_f_${parentContactCounter}" name="parent_name_f[]" required placeholder="First">
+                    <input type="text" id="parent_name_l_${parentContactCounter}" name="parent_name_l[]" required placeholder="Last">
                 </div>
                 
-                <label for="parent_contact">Parent Contact:</label>
-                <input type="tel" id="parent_contact" name="parent_contact" required placeholder="(123) 456-7890" oninput="formatPhoneNumber(this)" title="Phone number format: (123) 456-7890" maxlength="14">
+                <label for="parent_contact_${parentContactCounter}">Parent Contact:</label>
+                <input type="tel" id="parent_contact_${parentContactCounter}" name="parent_contact[]" required placeholder="(123) 456-7890" oninput="formatPhoneNumber(this)" title="Phone number format: (123) 456-7890" maxlength="14">
+                <button type="button" class="rem-button" onclick="removeParentContact(this)">Remove Contact</button>
             `;
             document.getElementById('parent-contacts').appendChild(contactDiv);
         }
@@ -122,6 +139,7 @@
             // Remove the parent contact div
             button.parentElement.remove();
         }
+
         function formatPhoneNumber(input) {
             const cleaned = ('' + input.value).replace(/\D/g, '');
             const match = cleaned.match(/^(\d{0,3})(\d{0,3})(\d{0,4})$/);
@@ -150,7 +168,7 @@
     <main>
         <h2>Register a New Student</h2>
         <form action="/register" method="POST" id="registration-form">
-            <label for="fname lname">Student Name:</label>
+            <label for="fname">Student Name:</label>
             <div class="name">
                 <input placeholder="First" type="text" id="fname" name="fname" required>
                 <input placeholder="Last" type="text" id="lname" name="lname" required>
@@ -174,12 +192,13 @@
             <div id="parent-contacts">
                 <label for="parent_name">Parent Name:</label>
                 <div class="name">
-                    <input type="text" id="parent_name_f" name="parent_name_f" required placeholder="First">
-                    <input type="text" id="parent_name_l" name="parent_name_l" required placeholder="Last">
+                    <input type="text" id="parent_name_f" name="parent_name_f[]" required placeholder="First">
+                    <input type="text" id="parent_name_l" name="parent_name_l[]" required placeholder="Last">
                 </div>
-                
+
                 <label for="parent_contact">Parent Contact:</label>
-                <input type="tel" id="parent_contact" name="parent_contact" required placeholder="(123) 456-7890" oninput="formatPhoneNumber(this)" title="Phone number format: (123) 456-7890" maxlength="14">
+                <input type="tel" id="parent_contact" name="parent_contact[]" required placeholder="(123) 456-7890" oninput="formatPhoneNumber(this)" title="Phone number format: (123) 456-7890" maxlength="14">
+
             </div>
 
             <button type="button" class="add-button" onclick="addParentContact()">Add Another Parent Contact</button>
