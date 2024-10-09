@@ -95,17 +95,6 @@
             margin-left: 5px; /* Space between label and radio button */
         }
 
-        .parent-contact {
-            margin-bottom: 20px; /* Space between parent contacts */
-        }
-
-        .rem-button {
-            background-color: rgb(227, 4, 4);
-        }
-
-        .rem-button:hover {
-            background-color: rgb(172, 7, 7);
-        }
         
         .btn-container {
             margin-top: 30px;
@@ -116,30 +105,42 @@
         }
     </style>
     <script>
-        let parentContactCounter = 0;
+        document.getElementById('findStudentForm').addEventListener('submit', async function (event) {
+    event.preventDefault(); // Prevent default form submission
 
-        function addParentContact() {
-            parentContactCounter++; // Increment counter for unique IDs
-            // Create a new div for additional parent contact
-            const contactDiv = document.createElement('div');
-            contactDiv.className = 'parent-contact';
-            contactDiv.innerHTML = `
-                <label for="parent_name${parentContactCounter}">Parent Name:</label>
-                <div class="name">
-                    <input type="text" id="parent_name${parentContactCounter}" name="parent_name" required placeholder="Full Name">
-                </div>
-                
-                <label for="parent_contact_${parentContactCounter}">Parent Contact:</label>
-                <input type="tel" id="parent_contact_${parentContactCounter}" name="parent_contact[]" required placeholder="(123) 456-7890" oninput="formatPhoneNumber(this)" title="Phone number format: (123) 456-7890" maxlength="14">
-                <button type="button" class="rem-button" onclick="removeParentContact(this)">Remove Contact</button>
-            `;
-            document.getElementById('parent-contacts').appendChild(contactDiv);
-        }
+    const firstName = document.getElementById('find-fname').value;
+    const lastName = document.getElementById('find-lname').value;
 
-        function removeParentContact(button) {
-            // Remove the parent contact div
-            button.parentElement.remove();
-        }
+    const response = await fetch('/find-student', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            'find-fname': firstName,
+            'find-lname': lastName,
+        }),
+    });
+
+    const result = await response.json();
+    displayResults(result);
+});
+
+function displayResults(result) {
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = ''; // Clear previous results
+
+    if (result.students && result.students.length > 0) {
+        result.students.forEach(student => {
+            const studentDiv = document.createElement('div');
+            studentDiv.textContent = `Name: ${student.F_Name} ${student.L_Name}, Email: ${student.st_email}`;
+            resultDiv.appendChild(studentDiv);
+        });
+    } else {
+        resultDiv.textContent = result.message; // Show message if no students found
+    }
+}
+
 
         function formatPhoneNumber(input) {
             const cleaned = ('' + input.value).replace(/\D/g, '');
@@ -184,16 +185,18 @@
         </div>
         
         <!-- Find Student Form -->
-        <form id="find-student-form">
+        <form id="find-student-form" action="/find-student" method="POST">
             <h2>Find Student</h2>
             <label for="find-fname">First Name:</label>
-            <input type="text" id="find-fname" name="find-fname" placeholder="First Name" required>
-
+            <input type="text" id="find-fname" name="find-fname" placeholder="First Name">
+        
             <label for="find-lname">Last Name:</label>
-            <input type="text" id="find-lname" name="find-lname" placeholder="Last Name" required>
-
+            <input type="text" id="find-lname" name="find-lname" placeholder="Last Name">
+        
             <button type="submit">Find</button>
         </form>
+        <div id="results"></div>
+        
         
         <!-- Registration Form -->
         <form action="/register" method="POST" id="registration-form">
@@ -232,18 +235,6 @@
                 <label for="female">Female</label>
                 <input type="radio" id="female" name="gender" value="female" required>
             </div>
-
-            <!-- <div id="parent-contacts">
-                <label for="parent_name">Parent Name:</label>
-                <div class="name">
-                    <input type="text" id="parent_name" name="parent_name[]" required placeholder="Full Name">
-                </div>
-
-                <label for="parent_contact">Parent Contact:</label>
-                <input type="tel" id="parent_contact" name="parent_contact[]" required placeholder="(123) 456-7890" oninput="formatPhoneNumber(this)" title="Phone number format: (123) 456-7890" maxlength="14">
-            </div> -->
-
-            <!-- <button type="button" class="add-button" onclick="addParentContact()">Add Another Parent Contact</button> -->
 
             <button type="submit">Register</button>
         </form>

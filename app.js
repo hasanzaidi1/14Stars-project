@@ -139,6 +139,32 @@ app.post('/register', isAuthenticated, async (req, res) => {
 });
 
 
+app.post('/find-student', isAuthenticated, async (req, res) => {
+    const { 'find-fname': firstName, 'find-lname': lastName } = req.body;
+
+    try {
+        const query = `
+            SELECT * FROM student
+            WHERE "F_Name" ILIKE $1 OR "L_Name" ILIKE $2
+        `;
+        const values = [`%${firstName}%`, `%${lastName}%`]; // Use ILIKE for case-insensitive search
+
+        const result = await pool.query(query, values);
+
+        if (result.rows.length > 0) {
+            // If students are found, send the data back to the client
+            res.json({ message: 'Students found', students: result.rows });
+        } else {
+            res.json({ message: 'No students found' });
+        }
+    } catch (error) {
+        console.error('Error finding student:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+
 // Logout route
 app.get('/logout', (req, res) => {
     req.session.destroy(err => {
