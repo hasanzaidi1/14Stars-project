@@ -134,7 +134,11 @@ app.post('/register', isAuthenticated, async (req, res) => {
         res.json({ message: 'Student registered successfully!' });
     } catch (error) {
         console.error('Error registering student:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        if (error.code === '23505') {  // Unique violation error code
+            res.status(400).json({ error: 'Student already exists.' });
+        } else {
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
     }
 });
 
