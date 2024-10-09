@@ -256,9 +256,8 @@ app.get('/getStudentGuardianData', async (req, res) => {
     try {
         const result = await pool.query(`
             SELECT 
-                s."F_Name" AS student_name,
-                s."L_Name" AS student_last_name,
-                g."g_f_name" AS guardian_name,
+                concat(s."F_Name", ' ', s."MI", ' ',s."L_Name") AS student_name,
+                concat(g."g_f_name", ' ', g."g_mi", ' ', g."g_l_name") AS guardian_name,
                 sg."relationship_type" 
             FROM 
                 student AS s
