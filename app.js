@@ -280,6 +280,101 @@ app.get('/getStudentGuardianData', async (req, res) => {
 });
 
 
+// Get all subjects
+app.get('/api/subjects', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM subject');
+        res.json(result.rows); // Adjust according to your database structure
+    } catch (error) {
+        console.error('Error fetching subjects:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Add a new subject
+app.post('/api/subjects', async (req, res) => {
+    const { subject } = req.body;
+
+    try {
+        const query = 'INSERT INTO subject ("subject") VALUES ($1)';
+        await pool.query(query, [subject]);
+        res.status(201).json({ message: 'Subject added successfully!' });
+    } catch (error) {
+        console.error('Error adding subject:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+
+
+
+
+// Fetch students
+app.get('/getStudentNames', async (req, res) => {
+    try {
+        const students = await pool.query('SELECT St_ID, CONCAT(F_Name, " ", L_Name) AS full_name FROM student');
+        res.json(students.rows);
+    } catch (error) {
+        console.error('Error fetching students:', error);
+        res.status(500).send('Server Error');
+    }
+});
+
+// Fetch levels
+app.get('/getLevels', async (req, res) => {
+    console.log('Fetching levels...');
+    try {
+        const levels = await pool.query('SELECT level_id, level_number FROM level');
+        res.json(levels.rows);
+    } catch (error) {
+        console.error('Error fetching levels:', error);
+        res.status(500).send('Server Error');
+    }
+});
+
+// Function to get full name by student ID
+async function getFullNameByStudentId(studentId) {
+    const query = 'SELECT CONCAT("F_Name", \' \', "L_Name") AS full_name FROM student WHERE "St_ID" = $1';
+    const { rows } = await pool.query(query, [studentId]);
+    return rows[0] ? rows[0].full_name : ''; // Return the full name or an empty string if not found
+}
+
+// Endpoint to assign level to a student
+app.post('/assignLevel', async (req, res) => {
+    const { studentId, levelId } = req.body;
+    console.log('Assigning level:', { studentId, levelId });
+
+    // Fetch the full name
+    const fullName = await getFullNameByStudentId(studentId);
+    console.log('Full name fetched:', fullName);
+
+    const insertQuery = 'INSERT INTO student_level (st_id, level_id, full_name) VALUES ($1, $2, $3) RETURNING *';
+
+    try {
+        const result = await pool.query(insertQuery, [studentId, levelId, fullName]);
+        res.status(201).json(result.rows[0]); // Respond with the newly inserted record
+    } catch (error) {
+        console.error('Error inserting into student_level:', error);
+        res.status(500).send('Error assigning level');
+    }
+});
+
+
+// Endpoint to get assigned levels
+app.get('/getAssignedLevels', async (req, res) => {
+    try {
+        const assignedLevels = await pool.query('SELECT st_id, level_id, full_name FROM student_level');
+        res.json(assignedLevels.rows);
+    } catch (error) {
+        console.error('Error fetching assigned levels:', error);
+        res.status(500).send('Server Error');
+    }
+});
+
+
+
+
 // Logout route
 app.get('/logout', (req, res) => {
     req.session.destroy(err => {
