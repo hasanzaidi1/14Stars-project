@@ -176,6 +176,42 @@ app.get('/all-students', isAuthenticated, async (req, res) => {
 });
 
 
+// Route to handle the form submission
+app.post('/register-guardian', (req, res) => {
+    const { g_f_name, g_mi, g_l_name, g_cell, g_email, g_staddress, g_city, g_state, g_zip, gender } = req.body;
+
+    // Insert data into the guardian table
+    const query = `
+        INSERT INTO guardian (g_f_name, g_mi, g_l_name, g_cell, g_email, g_staddress, g_city, g_state, g_zip, gender)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *;
+    `;
+
+    pool.query(query, [g_f_name, g_mi, g_l_name, g_cell, g_email, g_staddress, g_city, g_state, g_zip, gender], (error, result) => {
+        if (error) {
+            console.error('Error inserting data:', error);
+            res.status(500).send('Error registering guardian');
+        } else {
+            console.log('Guardian registered:', result.rows[0]);
+            res.send('Guardian registered successfully!');
+        }
+    });
+});
+
+
+// Route to get all guardians
+app.get('/all-guardians', (req, res) => {
+    const query = 'SELECT * FROM guardian';
+
+    pool.query(query, (error, result) => {
+        if (error) {
+            console.error('Error fetching guardians:', error);
+            res.status(500).send('Error retrieving guardians');
+        } else {
+            res.json(result.rows);  // Send the guardians data as JSON
+        }
+    });
+});
+
 
 // Logout route
 app.get('/logout', (req, res) => {

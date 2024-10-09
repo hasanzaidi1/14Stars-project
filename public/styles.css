@@ -159,6 +159,20 @@ button:hover {
     background-color: #218838;
 }
 
+.gender-options {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.gender-title {
+    padding-right: 20px;
+}
+
+.gender-options input {
+    margin-left: 5px; /* Space between label and radio button */
+}
 
 
 .logout-btn {
