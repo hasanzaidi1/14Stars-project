@@ -14,6 +14,26 @@
             padding: 0;
         }
 
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav button {
+            margin: 5px;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         form {
             background-color: #ffffff;
             border: 1px solid #ddd;
@@ -35,7 +55,10 @@
             font-weight: bold;
         }
 
-        input[type="text"], input[type="number"], input[type="tel"] {
+        input[type="text"],
+        input[type="number"],
+        input[type="tel"],
+        input[type="date"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 20px;
@@ -67,7 +90,7 @@
             width: 100%;
         }
 
-        .add-button {
+        .btn-container {
             margin-bottom: 20px;
         }
 
@@ -95,7 +118,6 @@
             margin-left: 5px; /* Space between label and radio button */
         }
 
-        
         .btn-container {
             margin-top: 30px;
             display: flex;
@@ -106,49 +128,48 @@
     </style>
     <script>
         document.getElementById('findStudentForm').addEventListener('submit', async function (event) {
-    event.preventDefault(); // Prevent default form submission
+            event.preventDefault(); // Prevent default form submission
 
-    const firstName = document.getElementById('find-fname').value;
-    const lastName = document.getElementById('find-lname').value;
+            const firstName = document.getElementById('find-fname').value;
+            const lastName = document.getElementById('find-lname').value;
 
-    const response = await fetch('/find-student', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            'find-fname': firstName,
-            'find-lname': lastName,
-        }),
-    });
+            const response = await fetch('/find-student', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    'find-fname': firstName,
+                    'find-lname': lastName,
+                }),
+            });
 
-    const result = await response.json();
-    displayResults(result);
-});
-
-function displayResults(result) {
-    const resultDiv = document.getElementById('result');
-    resultDiv.innerHTML = ''; // Clear previous results
-
-    if (result.students && result.students.length > 0) {
-        result.students.forEach(student => {
-            const studentDiv = document.createElement('div');
-            studentDiv.textContent = `Name: ${student.F_Name} ${student.L_Name}, Email: ${student.st_email}`;
-            resultDiv.appendChild(studentDiv);
+            const result = await response.json();
+            displayResults(result);
         });
-    } else {
-        resultDiv.textContent = result.message; // Show message if no students found
-    }
-}
 
+        function displayResults(result) {
+            const resultDiv = document.getElementById('results');
+            resultDiv.innerHTML = ''; // Clear previous results
+
+            if (result.students && result.students.length > 0) {
+                result.students.forEach(student => {
+                    const studentDiv = document.createElement('div');
+                    studentDiv.textContent = `Name: ${student.F_Name} ${student.L_Name}, Email: ${student.st_email}`;
+                    resultDiv.appendChild(studentDiv);
+                });
+            } else {
+                resultDiv.textContent = result.message; // Show message if no students found
+            }
+        }
 
         function formatPhoneNumber(input) {
             const cleaned = ('' + input.value).replace(/\D/g, '');
             const match = cleaned.match(/^(\d{0,3})(\d{0,3})(\d{0,4})$/);
             if (match) {
                 input.value = (match[1] ? '(' + match[1] + ') ' : '') +
-                                (match[2] ? match[2] + '-' : '') +
-                                match[3];
+                              (match[2] ? match[2] + '-' : '') +
+                              match[3];
             }
         }
 
@@ -197,7 +218,6 @@ function displayResults(result) {
         </form>
         <div id="results"></div>
         
-        
         <!-- Registration Form -->
         <form action="/register" method="POST" id="registration-form">
             <h2>Register a New Student</h2>
@@ -222,9 +242,9 @@ function displayResults(result) {
             </div>
             
             <div class="student-contact">
-                <label for="contact">Student Contact</label>
+                <label for="contact">Student Contact:</label>
                 <input type="text" id="st_email" name="st_email" placeholder="Email" required>
-                <input type="number" id="st_cell" name="st_cell" placeholder="Phone Number" maxlength="10" required>
+                <input type="text" id="st_cell" name="st_cell" placeholder="Phone Number" maxlength="10" required>
             </div>
 
             <div class="gender-options">
@@ -240,5 +260,8 @@ function displayResults(result) {
         </form>
         
     </main>
+    <footer>
+        <p>&copy; 2024 Student Registration System</p>
+    </footer>
 </body>
 </html>

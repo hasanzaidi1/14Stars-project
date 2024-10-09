@@ -5,15 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <title>Parent/Guardian</title>
-    <!-- <style>
-        /* Reset some default browser styles */
+    <style>
+        /* Add some basic styling */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
-        
+
+        .hidden {
+            display: none; /* Hide elements with this class */
+        }
 
         .btn-container {
             margin-top: 30px;
@@ -42,7 +44,31 @@
         .cta-button:active {
             background-color: #004085;
         }
-    </style> -->
+
+        /* Form styling */
+        form {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+    </style>
+    <script>
+        function showForm(formId) {
+            // Hide all forms
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.classList.add('hidden'); // Hide forms
+            });
+
+            // Show the selected form
+            const activeForm = document.getElementById(formId);
+            if (activeForm) {
+                activeForm.classList.remove('hidden'); // Show the active form
+            }
+        }
+    </script>
 </head>
 <body>
 
@@ -57,22 +83,35 @@
     </header>
 
     <div class="btn-container">
-        <button onclick="showForm('find-student-form')">Find Guardian</button>
-        <button onclick="showForm('registration-form')">Register Guardian</button>
-        <button>See All Guardians</button> 
+        <button onclick="showForm('find-guardian-form')" class="cta-button">Find Guardian</button>
+        <button onclick="showForm('guardian-registration-form')" class="cta-button">Register Guardian</button>
+        <button class="cta-button">See All Guardians</button> 
     </div>
 
     <!-- Find guardian either by name or student name Form -->
-    <form id="find-student-form">
-        <h2>Find Student</h2>
-        <label for="find-fname">First Name:</label>
-        <input type="text" id="find-fname" name="find-fname" placeholder="First Name">
+    <form id="find-guardian-form" class="hidden"> <!-- Initially hidden -->
+        <h2>Find Guardian</h2>
+        <label for="g_f_name">Guardian First Name:</label>
+        <input type="text" id="g_f_name" name="g_f_name" placeholder="First Name">
 
-        <label for="find-lname">Last Name:</label>
-        <input type="text" id="find-lname" name="find-lname" placeholder="Last Name">
+        <label for="g_l_name">Guardian Last Name:</label>
+        <input type="text" id="g_l_name" name="g_l_name" placeholder="Last Name">
+
+        <h2>OR</h2>
+        <!-- USE parent-student table for this search -->
+        <label for="student-name">Search Guardian By Student:</label>
+        <input type="text" id="stud-name-f" name="stud-name-f" placeholder="Student First Name">
+        <input type="text" id="stud-name-l" name="stud-name-l" placeholder="Student Last Name">
 
         <button type="submit">Find</button>
     </form>
-    
+
+    <!-- Add the guardian registration form here, also initially hidden -->
+    <form id="guardian-registration-form" class="hidden"> <!-- Initially hidden -->
+        <h2>Register Guardian</h2>
+        <!-- Registration form fields go here -->
+        <button type="submit">Register</button>
+    </form>
+
 </body>
 </html>
