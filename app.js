@@ -252,6 +252,30 @@ app.post('/assignGuardian', async (req, res) => {
 });
 
 
+app.get('/getStudentGuardianData', async (req, res) => {
+    try {
+        const result = await pool.query(`
+            SELECT 
+                s."F_Name" AS student_name,
+                s."L_Name" AS student_last_name,
+                g."g_f_name" AS guardian_name,
+                sg."relationship_type" 
+            FROM 
+                student AS s
+            JOIN 
+                student_guardian AS sg ON s."St_ID" = sg."st_id"
+            JOIN 
+                guardian AS g ON sg."g_id" = g."g_id";
+        `);
+        
+        console.log(result.rows); // Check what data is being returned
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error fetching student-guardian data:', error);
+        res.status(500).send('Server Error');
+    }
+});
+
 
 // Logout route
 app.get('/logout', (req, res) => {
