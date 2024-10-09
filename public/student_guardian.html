@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student-Guardian Relationship</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Assign Guardian to Student</h1>
+
+    <form id="assign-guardian-form">
+        <label for="student-select">Select Student:</label>
+        <select id="student-select" name="st_id"></select>
+    
+        <label for="guardian-select">Select Guardian:</label>
+        <select id="guardian-select" name="g_id"></select>
+    
+        <label for="relationship">Relationship:</label>
+        <select name="relationship_type">
+            <option value="Father">Father</option>
+            <option value="Mother">Mother</option>
+            <option value="Friend">Friend</option>
+            <option value="Relative">Relative</option>
+        </select>
+    
+        <button type="submit">Assign Guardian</button>
+    </form>
+    
+
+    <script>
+        async function fetchStudentNames() {
+    const response = await fetch('/getStudentNames');
+    const students = await response.json();
+    const studentSelect = document.getElementById('student-select');
+    
+    students.forEach(student => {
+        const option = document.createElement('option');
+        option.value = student.St_ID; // Assuming this is the ID
+        option.textContent = student.full_name;
+        studentSelect.appendChild(option);
+    });
+}
+
+async function fetchGuardianNames() {
+    const response = await fetch('/getGuardianNames');
+    const guardians = await response.json();
+    const guardianSelect = document.getElementById('guardian-select');
+
+    guardians.forEach(guardian => {
+        const option = document.createElement('option');
+        option.value = guardian.g_id; // Assuming this is the ID
+        option.textContent = guardian.full_name;
+        guardianSelect.appendChild(option);
+    });
+}
+
+// Call these functions on page load
+document.addEventListener('DOMContentLoaded', () => {
+    fetchStudentNames();
+    fetchGuardianNames();
+});
+
+// Form submission handling
+document.getElementById('assign-guardian-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+
+    const response = await fetch('/assignGuardian', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+
+    if (response.ok) {
+        alert('Guardian assigned successfully!');
+    } else {
+        alert('Error assigning guardian');
+    }
+});
+
+    </script>
+</body>
+</html>

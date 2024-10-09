@@ -213,6 +213,46 @@ app.get('/all-guardians', (req, res) => {
 });
 
 
+// API to get concatenated student names
+app.get('/getStudentNames', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT "St_ID", CONCAT("F_Name", \' \', "L_Name") AS full_name FROM public."student"');
+        res.json(result.rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error fetching student names');
+    }
+});
+
+// API to get concatenated guardian names
+app.get('/getGuardianNames', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT g_id, CONCAT(g_f_name, \' \', g_l_name) AS full_name FROM public."guardian"');
+        res.json(result.rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error fetching guardian names');
+    }
+});
+
+
+app.post('/assignGuardian', async (req, res) => {
+    const { st_id, g_id, relationship_type } = req.body;
+
+    try {
+        await pool.query(
+            'INSERT INTO student_guardian (st_id, g_id, relationship_type) VALUES ($1, $2, $3)',
+            [st_id, g_id, relationship_type]
+        );
+        res.status(200).send('Guardian assigned successfully');
+    } catch (err) {
+        console.error('Error assigning guardian:', err); // Log the error
+        res.status(500).send('Error assigning guardian');
+    }
+});
+
+
+
 // Logout route
 app.get('/logout', (req, res) => {
     req.session.destroy(err => {
