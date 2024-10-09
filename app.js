@@ -164,6 +164,18 @@ app.post('/find-student', isAuthenticated, async (req, res) => {
 });
 
 
+// Route to fetch all students
+app.get('/all-students', isAuthenticated, async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM student');
+        res.json(result.rows); // Send all students as JSON
+    } catch (error) {
+        console.error('Error fetching all students:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
 
 // Logout route
 app.get('/logout', (req, res) => {
