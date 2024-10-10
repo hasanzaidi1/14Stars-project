@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser'); // Import cookie-parser
 const { Pool } = require('pg'); // Import pg library for PostgreSQL
 const app = express();
+const cors = require('cors');
+app.use(cors());
 
 require('dotenv').config();
 
