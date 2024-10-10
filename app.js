@@ -262,7 +262,9 @@ app.get('/getStudentGuardianData', async (req, res) => {
             SELECT 
                 concat(s."F_Name", ' ', s."MI", ' ',s."L_Name") AS student_name,
                 concat(g."g_f_name", ' ', g."g_mi", ' ', g."g_l_name") AS guardian_name,
-                sg."relationship_type" 
+                sg."relationship_type",
+                g."g_cell",
+                g.g_email
             FROM 
                 student AS s
             JOIN 
@@ -304,10 +306,6 @@ app.post('/api/subjects', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-
-
-
-
 
 
 // Fetch students
