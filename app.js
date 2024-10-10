@@ -27,11 +27,10 @@ app.use(session({
 
 // PostgreSQL connection setup
 const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'education_center',
-    password: 'privacy714',
-    port: 5432,
+    connectionString: 'postgres://u8tssg8d8qc336:p9bc3e179de2d3565c4884d2fe59af560bfc0472d2c782420da08c2c6a5d047e6@c8m0261h0c7idk.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/dco7j9gvjjfp3s',
+    ssl: {
+        rejectUnauthorized: false // Set this according to your security requirements
+    }
 });
 
 // Dummy admin credentials (replace with a database lookup in production)
