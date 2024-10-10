@@ -27,17 +27,17 @@ app.use(session({
 
 // PostgreSQL connection setup
 const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASS,
-    port: process.env.DB_PORT,
+    user: 'postgres',
+    host: 'localhost',
+    database: 'education_center',
+    password: 'privacy714',
+    port: 5432,
 });
 
 // Dummy admin credentials (replace with a database lookup in production)
 const adminUser = {
-    username: process.env.user,
-    password: process.env.pass
+    username: '1',
+    password: '1'
 };
 
 // Middleware to check if the user is logged in as admin
