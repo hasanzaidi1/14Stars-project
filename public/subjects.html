@@ -11,7 +11,11 @@
     margin: 20px;
 }
 
-h1, h2 {
+header h1 {
+    color: white;
+}
+
+h2 {
     color: #333;
 }
 
@@ -44,13 +48,16 @@ ul {
     </style>
 </head>
 <body>
-    <h1>Subject Management</h1>
-    <nav>
-        <ul>
-            <button onclick="window.location.href='/admin.html'">Back to Admin Page</button>
-            <button class="logout-btn" onclick="window.location.href='/logout'">Logout</button>
-        </ul>
-    </nav>
+    <header>
+        <h1>Subject Management</h1>
+        <nav>
+            <ul>
+                <button onclick="window.location.href='/admin.html'">Back to Admin Page</button>
+                <button class="logout-btn" onclick="window.location.href='/logout'">Logout</button>
+            </ul>
+        </nav>
+    </header>
+    
     <form id="subjectForm">
         <label for="subject">Add Subject:</label>
         <input type="text" id="subject" name="subject" required>
