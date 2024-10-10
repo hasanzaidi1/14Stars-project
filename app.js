@@ -32,6 +32,13 @@ const pool = new Pool({
         rejectUnauthorized: false // Set this according to your security requirements
     }
 });
+pool.connect()
+    .then(client => {
+        console.log("Connected to the database");
+        client.release();
+    })
+    .catch(err => console.error("Database connection error", err.stack));
+
 
 // Dummy admin credentials (replace with a database lookup in production)
 const adminUser = {
