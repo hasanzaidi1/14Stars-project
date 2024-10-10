@@ -373,7 +373,29 @@ app.get('/getAssignedLevels', async (req, res) => {
 });
 
 
+app.post('/register-teacher', async (req, res) => {
+    const { t_f_name, t_mi, t_l_name, t_email, t_phone, gender, t_staddress, t_city, t_state, t_zip } = req.body;
+    console.log('Received teacher registration data:', req.body); // Log received data
 
+    // Validate required fields
+    if (!t_f_name || !t_l_name || !t_email) {
+        return res.status(400).json({ success: false, message: 'Please fill out all required fields.' });
+    }
+
+    const query = `
+        INSERT INTO teachers (t_f_name, t_mi, t_l_name, t_email, t_phone, gender, t_staddress, t_city, t_state, t_zip) 
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`;
+    const values = [t_f_name, t_mi, t_l_name, t_email, t_phone, gender, t_staddress, t_city, t_state, t_zip];
+
+    try {
+        const result = await pool.query(query, values);
+        console.log('New teacher registered:', result.rows[0]); // Log the newly registered teacher
+        return res.json({ success: true, teacher: result.rows[0] });
+    } catch (error) {
+        console.error('Error executing query:', error);
+        return res.status(500).json({ success: false, message: 'Error registering teacher.' });
+    }
+});
 
 // Logout route
 app.get('/logout', (req, res) => {
