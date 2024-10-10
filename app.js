@@ -397,6 +397,21 @@ app.post('/register-teacher', async (req, res) => {
     }
 });
 
+
+app.get('/all-teachers', async (req, res) => {
+    const query = 'SELECT * FROM teachers'; // Query to select all teachers
+    
+    try {
+        const result = await pool.query(query); // Execute the query
+        res.json({ teachers: result.rows }); // Send the result as JSON
+    } catch (error) {
+        console.error('Error fetching teachers:', error);
+        res.status(500).json({ message: 'Error fetching teachers' });
+    }
+});
+
+
+
 // Logout route
 app.get('/logout', (req, res) => {
     req.session.destroy(err => {
