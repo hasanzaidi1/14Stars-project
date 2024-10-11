@@ -207,6 +207,7 @@ app.post('/register', isAuthenticated, async (req, res) => {
         zip, // Now a text field
         st_email,
         st_cell, // Now a text field
+        student_location,
         gender
     } = req.body;
 
@@ -221,12 +222,13 @@ app.post('/register', isAuthenticated, async (req, res) => {
         Zip: ${zip}, 
         Email: ${st_email}, 
         Cell: ${st_cell}, 
+        Location: ${student_location},
         Gender: ${gender}`);
 
     try {
         const query = `
-            INSERT INTO student ("F_Name", "MI", "L_Name", dob, "st_address", city, state, zip, "st_email", "st_cell", "st_gender")
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+            INSERT INTO student ("F_Name", "MI", "L_Name", dob, "st_address", city, state, zip, "st_email", "st_cell", "student_location", "st_gender")
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
         `;
         const values = [
             fname,
@@ -239,6 +241,7 @@ app.post('/register', isAuthenticated, async (req, res) => {
             zip, // Expecting this as a string now
             st_email,
             st_cell, // Expecting this as a string now
+            student_location,
             gender
         ];
 
