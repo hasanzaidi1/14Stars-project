@@ -51,7 +51,7 @@ const adminUser = {
     password: process.env.pass
 };
 
-// ++++++ Teachers Folder handling +++++++++
+// ++++++ Teachers Portal +++++++++
 
 // Dummy teacher credentials (replace with a database lookup in production)
 const teacherUser = {
@@ -104,6 +104,52 @@ app.get('/fetch-teachers', async (req, res) => {
 
 
 // ++++++++++
+
+//  Subs Teachers  
+
+
+app.post('/register-substitute', async (req, res) => {
+    const { sub_f_name, sub_l_name, sub_email, sub_phone } = req.body;
+
+    try {
+        // Check if a substitute with the same email already exists
+        const existingSub = await pool.query('SELECT * FROM substitute WHERE sub_email = $1', [sub_email]);
+
+        if (existingSub.rows.length > 0) {
+            return res.status(400).json({ message: 'Substitute with this email already exists.' });
+        }
+
+        // Insert the new substitute if no existing substitute found
+        const result = await pool.query(
+            'INSERT INTO substitute (sub_f_name, sub_l_name, sub_email, sub_phone) VALUES ($1, $2, $3, $4) RETURNING *',
+            [sub_f_name, sub_l_name, sub_email, sub_phone]
+        );
+
+        res.status(201).json({ substitute: result.rows[0] });
+    } catch (error) {
+        console.error('Error registering substitute:', error);
+        res.status(500).json({ message: 'Error registering substitute' });
+    }
+});
+
+
+
+app.get('/fetch-substitutes', async (req, res) => {
+    const query = 'SELECT sub_f_name, sub_l_name, sub_email, sub_phone FROM substitute;';
+    
+    try {
+        const result = await pool.query(query);
+        res.json({ substitutes: result.rows });
+    } catch (error) {
+        console.error('Error fetching substitutes:', error);
+        res.status(500).json({ message: 'Error fetching substitutes' });
+    }
+});
+
+
+
+// ++++++++++
+
 
 
 // Middleware to check if the user is logged in as admin
