@@ -84,6 +84,25 @@ app.get('/teacher_portal.html', (req, res) => {
 });
 
 
+app.get('/fetch-teachers', async (req, res) => {
+    const query = `
+        SELECT 
+            CONCAT_WS(' ', teachers."t_f_name", teachers."t_mi", teachers."t_l_name") AS full_name,
+            teachers."t_email", 
+            teachers."t_phone" 
+        FROM teachers;
+    `;
+    
+    try {
+        const result = await pool.query(query); // Execute the query
+        res.json({ teachers: result.rows }); // Send the result as JSON
+    } catch (error) {
+        console.error('Error fetching teachers:', error);
+        res.status(500).json({ message: 'Error fetching teachers' });
+    }
+});
+
+
 // ++++++++++
 
 

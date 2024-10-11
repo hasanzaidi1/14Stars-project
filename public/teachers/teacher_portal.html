@@ -106,7 +106,7 @@
         <button class="cta-button" onclick="window.location.href='sub_request.html'">Request Substitute</button>
         <button class="cta-button" onclick="showTable('studentGuardian')">Student-Guardian</button>
         <button class="cta-button" onclick="showTable('studentLevel')">Student-Level</button>
-        <button class="cta-button" onclick="window.location.href='./../all_teachers.html'">Teachers</button>
+        <button class="cta-button" onclick="showTable('teachers')">Teachers</button>
     </div>
 
     <!-- Student-Guardian Table -->
@@ -147,6 +147,17 @@
         <tbody></tbody>
     </table>
 
+    <!-- Teachers Table -->
+    <table id="teachers-table">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
 
     <script>
         // Function to fetch student-guardian data and display it
@@ -178,7 +189,6 @@
             fetch('/getAssignedLevels') // Use your existing route
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data); // Log the data to check its structure
                     const tableBody = document.getElementById('stud-lvl-table').getElementsByTagName('tbody')[0];
                     tableBody.innerHTML = ''; // Clear previous data
 
@@ -196,13 +206,43 @@
                 .catch(error => console.error('Error fetching assigned levels data:', error));
         }
 
+        // Function to fetch teachers data and display it
+        // Function to fetch teachers data and display it
+function fetchTeachersData() {
+    console.log("Fetching Teachers Data..."); // Log when the function is called
+    fetch('/fetch-teachers') // Updated route
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            const tableBody = document.getElementById('teachers-table').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; // Clear previous data
 
-        // Function to show the appropriate table based on button clicked
+            data.teachers.forEach(entry => { // Adjusted to access 'teachers' key
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${entry.full_name || 'N/A'}</td>
+                    <td>${entry.t_email || 'N/A'}</td>
+                    <td>${entry.t_phone || 'N/A'}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+            document.getElementById('teachers-table').style.display = 'table'; // Show the teachers table
+        })
+        .catch(error => console.error('Error fetching teachers data:', error));
+}
+
+
+        // Function to show the selected table
         function showTable(table) {
             // Hide all tables
             document.getElementById('guardian-table').style.display = 'none';
             document.getElementById('classes-table').style.display = 'none';
             document.getElementById('stud-lvl-table').style.display = 'none'; // Hide the student-level table
+            document.getElementById('teachers-table').style.display = 'none'; // Hide the teachers table
 
             // Show specific table based on the argument
             if (table === 'studentGuardian') {
@@ -212,10 +252,10 @@
                 document.getElementById('classes-table').style.display = 'table'; // Show the classes table
             } else if (table === 'studentLevel') {
                 fetchAssignedLevelsData(); // Fetch data for Student-Level table
+            } else if (table === 'teachers') {
+                fetchTeachersData(); // Fetch data for Teachers table
             }
         }
-        
     </script>
-
 </body>
 </html>
