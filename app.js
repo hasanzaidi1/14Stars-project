@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser'); // Import cookie-parser
 const { Pool } = require('pg'); // Import pg library for PostgreSQL
@@ -150,6 +151,50 @@ app.get('/fetch-substitutes', async (req, res) => {
 
 // ++++++++++
 
+
+// +++++ Parents Portal +++++++
+
+// Registration endpoint
+app.post('/register-parent', async (req, res) => {
+    const { username, email, password } = req.body;
+
+    // Hash the password before storing it
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    try {
+        // Insert new guardian into the database
+        await pool.query('INSERT INTO parent_account (username, email, password) VALUES ($1, $2, $3)', [username, email, hashedPassword]);
+        
+        // Redirect to the login page after successful registration
+        res.redirect('/parents/parents_login.html'); // Adjust the path as needed
+    } catch (error) {
+        console.error('Error registering user:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// Parent login endpoint
+app.post('/parent-login', async (req, res) => {
+    const { username, password } = req.body;
+
+    try {
+        // Query the database for the user
+        const result = await pool.query('SELECT * FROM parent_account WHERE username = $1', [username]);
+        const user = result.rows[0]; // Assuming username is unique
+
+        if (user && await bcrypt.compare(password, user.password)) {
+            res.send('Login successful');
+        } else {
+            res.status(401).send('Invalid credentials');
+        }
+    } catch (error) {
+        console.error('Error during login:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
+// +++++++++
 
 
 // Middleware to check if the user is logged in as admin
