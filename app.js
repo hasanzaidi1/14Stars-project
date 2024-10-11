@@ -183,7 +183,7 @@ app.post('/parent-login', async (req, res) => {
         const user = result.rows[0]; // Assuming username is unique
 
         if (user && await bcrypt.compare(password, user.password)) {
-            res.send('Login successful');
+            res.sendFile(path.join(__dirname, 'public', 'parents', 'parents_portal.html')); // Adjust the path as needed
         } else {
             res.status(401).send('Invalid credentials');
         }
