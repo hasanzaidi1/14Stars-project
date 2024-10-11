@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser'); // Import cookie-parser
 const { Pool } = require('pg'); // Import pg library for PostgreSQL
 const app = express();
+const path = require('path');
+
 const cors = require('cors');
 app.use(cors());
 
@@ -48,6 +50,42 @@ const adminUser = {
     username: process.env.user,
     password: process.env.pass
 };
+
+// ++++++ Teachers Folder handling +++++++++
+
+// Dummy teacher credentials (replace with a database lookup in production)
+const teacherUser = {
+    username: process.env.user,
+    password: process.env.pass
+};
+
+app.post('/teacher-login', (req, res) => {
+    const { username, password } = req.body;
+
+    console.log('Received credentials:', { username, password });
+    console.log('Current session state:', req.session);
+
+    if (username === teacherUser.username && password === teacherUser.password) {
+        req.session.isLoggedIn = true;
+        console.log('Login successful, session state:', req.session);
+        return res.redirect('/teachers/teacher_portal.html'); // This should work now
+    } else {
+        console.log('Login failed for:', username);
+        return res.status(401).send('Invalid username or password. Please try again.');
+    }
+});
+
+app.get('/teacher_portal.html', (req, res) => {
+    if (req.session.isLoggedIn) {
+        res.sendFile(path.join(__dirname, 'public', 'teacher.html'));
+    } else {
+        res.redirect('/teacher-login'); // Ensure this route exists
+    }
+});
+
+
+// ++++++++++
+
 
 // Middleware to check if the user is logged in as admin
 function isAuthenticated(req, res, next) {
@@ -417,7 +455,16 @@ app.get('/all-teachers', async (req, res) => {
     }
 });
 
-
+// Logout route teacher
+app.get('/teacher-logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            return res.send('Error logging out');
+        }
+        res.clearCookie('username');  // Clear the username cookie
+        res.redirect('/teachers/teachers.html');
+    });
+});
 
 // Logout route
 app.get('/logout', (req, res) => {
