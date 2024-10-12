@@ -166,7 +166,7 @@ app.post('/register-parent', async (req, res) => {
         await pool.query('INSERT INTO parent_account (username, email, password) VALUES ($1, $2, $3)', [username, email, hashedPassword]);
         
         // Redirect to the login page after successful registration
-        res.redirect('/parents/parents_login.html'); // Adjust the path as needed
+        res.redirect('parents/parents_login.html'); // Adjust the path as needed
     } catch (error) {
         console.error('Error registering user:', error);
         res.status(500).send('Internal Server Error');
@@ -183,7 +183,7 @@ app.post('/parent-login', async (req, res) => {
         const user = result.rows[0]; // Assuming username is unique
 
         if (user && await bcrypt.compare(password, user.password)) {
-            res.sendFile(path.join(__dirname, 'public', 'parents', 'parents_portal.html')); // Adjust the path as needed
+            res.redirect("parents/parents_portal.html")
         } else {
             res.status(401).send('Invalid credentials');
         }
