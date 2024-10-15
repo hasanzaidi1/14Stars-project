@@ -128,6 +128,14 @@
     </style>
     <script>
 
+        function copyAddress() {
+            document.getElementById('parent_st_address').value = document.getElementById('st_address').value;
+            document.getElementById('parent_city').value = document.getElementById('city').value;
+            document.getElementById('parent_state').value = document.getElementById('state').value;
+            document.getElementById('parent_zip').value = document.getElementById('zip').value;
+        }
+
+
         function showForm(formId) {
             // Hide all forms
             const forms = document.querySelectorAll('form');
@@ -161,7 +169,7 @@
         
         
         <!-- Registration Form -->
-        <form action="/register" method="POST" id="registration-form">
+        <form action="/register-from-parent" method="POST" id="registration-form">
             <h2>Register a New Student</h2>
             <label for="fname">Student Name:</label>
             <div class="name">
@@ -203,6 +211,42 @@
                 <label for="female">Female</label>
                 <input type="radio" id="female" name="gender" value="female" required>
             </div>
+            
+            <!-- Parent Info -->
+            <hr>
+            <div class="parent-info">
+                <h3>Parent Information</h3>
+                <div class="parent-name">
+                    <h4>Parent Name:</h4>
+                    <input type="text" name="parent-first-name" placeholder="First Name" required>
+                    <input type="text" name="parent-last-name" placeholder="Last Name" required>
+                </div>
+
+                <label for="relation">Relation:</label>
+                <select id="relation" name="relation" required>
+                    <option value="" disabled selected>Select relation</option>
+                    <option value="mother">Mother</option>
+                    <option value="father">Father</option>
+                    <option value="guardian">Guardian</option>
+                </select>
+
+                <div class="parent-address">
+                    <h4>Parent Address:
+                    <button type="button" onclick="copyAddress()">Use Student Address</button></h4>
+                    <input type="text" id="parent_st_address" name="parent_st_address" placeholder="Street" required>
+                    <input type="text" id="parent_city" name="parent_city" placeholder="City" required>
+                    <input type="text" id="parent_state" name="parent_state" placeholder="State" required>
+                    <input type="number" id="parent_zip" name="parent_zip" placeholder="Zipcode" required>
+                </div>
+                
+                <div class="parent-contact">
+                    <h4>Parent Contact:</h4>
+                    <input type="text" id="parent_cell" name="parent_cell" placeholder="Phone Number" required>
+                    <p style="font-size: 12px; color: #410101; margin-top: 5px;">*Use the same email used for making account.</p>
+                    <input type="text" id="parent_email" name="parent_email" placeholder="Email" required>
+                </div>
+            </div>
+
 
             <button type="submit">Register</button>
         </form>

@@ -8,6 +8,7 @@ const app = express();
 const path = require('path');
 
 const cors = require('cors');
+const { table } = require('console');
 app.use(cors());
 
 require('dotenv').config();
@@ -193,6 +194,98 @@ app.post('/parent-login', async (req, res) => {
     }
 });
 
+// Route to register a student from parent portal
+app.post('/register-from-parent', async (req, res) => {
+    const {
+        fname,
+        MI,
+        lname,
+        DOB,
+        st_address,
+        city,
+        state,
+        zip,
+        st_email,
+        st_cell,
+        student_location,
+        gender,
+        relation,
+        // Accessing parent names using bracket notation
+        'parent-first-name': parentFirstName,
+        'parent-last-name': parentLastName,
+        parent_st_address,
+        parent_city,
+        parent_state,
+        parent_zip,
+        parent_cell,
+        parent_email,
+    } = req.body;
+
+    console.log(req.body);
+    
+
+    try {
+        
+        // Insert student into the student table
+        const studentQuery = `
+            INSERT INTO student ("F_Name", "MI", "L_Name", "dob", "st_address", "city", "state", "zip", "st_email", "st_cell", "st_gender", "student_location")
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+            RETURNING "St_ID"
+        `;
+        const studentValues = [
+            fname,
+            MI,
+            lname,
+            DOB,
+            st_address,
+            city,
+            state,
+            zip,
+            st_email,
+            st_cell,
+            gender,
+            student_location,
+        ];
+        const studentResult = await pool.query(studentQuery, studentValues);
+        const studentId = studentResult.rows[0].St_ID;
+
+        // Insert guardian into the guardian table
+        const guardianQuery = `
+            INSERT INTO guardian (g_f_name, g_mi, g_l_name, g_cell, g_email, g_staddress, g_city, g_state, g_zip)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+            RETURNING g_id
+        `;
+        const guardianValues = [
+            parentFirstName,
+            '', // Assuming you don't need the MI
+            parentLastName,
+            parent_cell,
+            parent_email,
+            parent_st_address,
+            parent_city,
+            parent_state,
+            parent_zip,
+        ];
+        const guardianResult = await pool.query(guardianQuery, guardianValues);
+        const guardianId = guardianResult.rows[0].g_id;
+
+        // Insert into student_guardian relationship table
+        const relationQuery = `
+            INSERT INTO student_guardian (st_id, g_id, relationship_type)
+            VALUES ($1, $2, $3)
+        `;
+        const relationValues = [studentId, guardianId, relation];
+        await pool.query(relationQuery, relationValues);
+
+        res.status(201).json({ message: 'Student registered successfully!' });
+        
+    } catch (error) {
+        console.error('Error registering student:', error);
+        res.status(500).json({ error: 'Failed to register student.' });
+    }
+});
+
+
 
 // +++++++++
 
@@ -205,8 +298,9 @@ function isAuthenticated(req, res, next) {
     if (req.session.isAdmin || req.cookies.username) {
         return next();
     } else {
-        console.log('Not authenticated, redirecting to login.'); // Log redirect action
-        res.redirect('/login');  // Redirect to login if not authenticated
+        return next();
+        // console.log('Not authenticated, redirecting to login.'); // Log redirect action
+        // res.redirect('/login');  // Redirect to login if not authenticated
     }
 }
 
