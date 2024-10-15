@@ -285,6 +285,34 @@ app.post('/register-from-parent', async (req, res) => {
     }
 });
 
+// Route to get registered student(s) under a parents email
+app.post('/students-by-parent', async (req, res) => {
+    const { parent_email } = req.body;
+
+    try {
+        const query = `
+            SELECT s.*
+            FROM student s
+            JOIN student_guardian sg ON s."St_ID" = sg."st_id"
+            JOIN guardian g ON g."g_id" = sg."g_id"
+            WHERE g."g_email" = $1
+        `;
+        
+        const values = [parent_email];
+        const result = await pool.query(query, values);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ message: 'No students found for this email.' });
+        }
+
+        res.json(result.rows);
+        
+    } catch (error) {
+        console.error('Error fetching students:', error);
+        res.status(500).json({ error: 'Failed to fetch student information.' });
+    }
+});
+
 
 
 // +++++++++
