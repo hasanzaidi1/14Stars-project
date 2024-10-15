@@ -179,7 +179,7 @@ app.post('/parent-login', async (req, res) => {
 
     try {
         // Query the database for the user
-        const result = await pool.query('SELECT * FROM parent_account WHERE username = $1', [username]);
+        const result = await pool.query('SELECT * FROM parent_account WHERE username = $1 or email = $1', [username]);
         const user = result.rows[0]; // Assuming username is unique
 
         if (user && await bcrypt.compare(password, user.password)) {
