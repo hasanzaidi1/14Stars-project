@@ -199,8 +199,7 @@ app.post('/parent-login', async (req, res) => {
     }
 });
 
-// Route to register a student from parent portal
-// Route to register a student from parent portal
+// Route to register a student from the parent portal
 app.post('/register-from-parent', async (req, res) => {
     const {
         fname,
