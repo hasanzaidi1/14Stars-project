@@ -256,29 +256,49 @@ app.post('/register-from-parent', async (req, res) => {
 
         // Get the last inserted student ID
         const [studentResult] = await pool.query('SELECT LAST_INSERT_ID() AS St_ID');
-        const studentId = studentResult[0].St_ID; // Extract St_ID from returned row
+        const studentId = studentResult[0].St_ID;
 
-        // Insert guardian into the guardian table
-        const guardianQuery = `
-            INSERT INTO guardian (g_f_name, g_mi, g_l_name, g_cell, g_email, g_staddress, g_city, g_state, g_zip)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+        // Check if guardian already exists
+        const checkGuardianQuery = `
+            SELECT g_id FROM guardian 
+            WHERE g_f_name = ? AND g_l_name = ? AND g_cell = ? AND g_email = ?
         `;
-        const guardianValues = [
+        const checkGuardianValues = [
             parentFirstName,
-            '', // Assuming MI is optional for parent
             parentLastName,
             parent_cell,
             parent_email,
-            parent_st_address,
-            parent_city,
-            parent_state,
-            parent_zip,
         ];
-        await pool.query(guardianQuery, guardianValues);
+        const [existingGuardian] = await pool.query(checkGuardianQuery, checkGuardianValues);
 
-        // Get the last inserted guardian ID
-        const [guardianResult] = await pool.query('SELECT LAST_INSERT_ID() AS g_id');
-        const guardianId = guardianResult[0].g_id; // Extract g_id from returned row
+        let guardianId;
+
+        if (existingGuardian.length > 0) {
+            // Guardian exists, retrieve their ID
+            guardianId = existingGuardian[0].g_id;
+        } else {
+            // Guardian does not exist, insert new guardian
+            const guardianQuery = `
+                INSERT INTO guardian (g_f_name, g_mi, g_l_name, g_cell, g_email, g_staddress, g_city, g_state, g_zip)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+            `;
+            const guardianValues = [
+                parentFirstName,
+                '', // Assuming MI is optional for parent
+                parentLastName,
+                parent_cell,
+                parent_email,
+                parent_st_address,
+                parent_city,
+                parent_state,
+                parent_zip,
+            ];
+            await pool.query(guardianQuery, guardianValues);
+
+            // Get the last inserted guardian ID
+            const [guardianResult] = await pool.query('SELECT LAST_INSERT_ID() AS g_id');
+            guardianId = guardianResult[0].g_id;
+        }
 
         // Insert into student_guardian relationship table
         const relationQuery = `
@@ -295,6 +315,7 @@ app.post('/register-from-parent', async (req, res) => {
         res.status(500).json({ error: 'Failed to register student.' });
     }
 });
+
 
 
 
