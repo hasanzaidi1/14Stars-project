@@ -1,14 +1,14 @@
 const express = require('express');
 const session = require('express-session');
+const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser'); // Import cookie-parser
-const { Pool } = require('pg'); // Import pg library for PostgreSQL
+const cookieParser = require('cookie-parser');
+const mysql = require('mysql2/promise'); // Use mysql2 with promises
 const app = express();
 const path = require('path');
-
 const cors = require('cors');
-app.use(cors());
 
+app.use(cors());
 require('dotenv').config();
 
 // Middleware to parse JSON and URL-encoded data
@@ -29,20 +29,28 @@ app.use(session({
     cookie: { secure: false }  // For production, set 'secure: true' if using HTTPS
 }));
 
-// PostgreSQL connection setup
-const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASS,
-    port: process.env.DB_PORT,
-});
-pool.connect()
-    .then(client => {
-        console.log("Connected to the database");
-        client.release();
-    })
-    .catch(err => console.error("Database connection error", err.stack));
+// Define your database connection details
+const dbConfig = {
+  host: process.env.DB_HOST,         
+  user: process.env.DB_USER,     
+  password: process.env.DB_PASS,  
+  database: process.env.DB_NAME, 
+  port: 3306                
+};
+
+// Create a connection pool for better performance and connection handling
+const pool = mysql.createPool(dbConfig);
+
+// Test the connection
+pool.getConnection()
+  .then(connection => {
+    console.log('Connected to the database');
+    connection.release();
+  })
+  .catch(err => {
+    console.error('Error connecting to the database:', err.message);
+  });
+
 
 
 // Dummy admin credentials (replace with a database lookup in production)
@@ -150,6 +158,209 @@ app.get('/fetch-substitutes', async (req, res) => {
 
 // ++++++++++
 
+// +++++ Parents Portal +++++++
+
+// Registration endpoint
+app.post('/register-parent', async (req, res) => {
+    const { username, email, password } = req.body;
+
+    // Hash the password before storing it
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    try {
+        // Insert new parent into the database
+        await pool.query('INSERT INTO parent_account (username, email, password) VALUES (?, ?, ?)', [username, email, hashedPassword]);
+        
+        // Redirect to the login page after successful registration
+        res.redirect('parents/parents_login.html'); // Adjust the path as needed
+    } catch (error) {
+        console.error('Error registering user:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// Parent login endpoint
+app.post('/parent-login', async (req, res) => {
+    const { username, password } = req.body;
+
+    try {
+        // Query the database for the user
+        const [result] = await pool.query('SELECT * FROM parent_account WHERE username = ? OR email = ?', [username, username]);
+        const user = result[0]; // Assuming username is unique
+
+        if (user && await bcrypt.compare(password, user.password)) {
+            res.redirect("parents/parents_portal.html");
+        } else {
+            res.status(401).send('Invalid credentials');
+        }
+    } catch (error) {
+        console.error('Error during login:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// Route to register a student from the parent portal
+app.post('/register-from-parent', async (req, res) => {
+    const {
+        fname,
+        MI,
+        lname,
+        DOB,
+        st_address,
+        city,
+        state,
+        zip,
+        st_email,
+        st_cell,
+        student_location,
+        gender,
+        relation,
+        'parent-first-name': parentFirstName,
+        'parent-last-name': parentLastName,
+        parent_st_address,
+        parent_city,
+        parent_state,
+        parent_zip,
+        parent_cell,
+        parent_email,
+    } = req.body;
+
+    // Basic validation for required fields
+    if (!fname || !parentFirstName || !parentLastName || !st_email) {
+        return res.status(400).json({ error: 'First name, last name, student email, and parent names are required.' });
+    }
+
+    console.log(req.body); // Keep for debugging (remove in production)
+
+    try {
+        // Insert student into the student table
+        const studentQuery = `
+            INSERT INTO student (F_Name, MI, L_Name, dob, st_address, city, state, zip, st_email, st_cell, st_gender, student_location)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        `;
+        const studentValues = [
+            fname,
+            MI,
+            lname,
+            DOB,
+            st_address,
+            city,
+            state,
+            zip,
+            st_email,
+            st_cell,
+            gender,
+            student_location,
+        ];
+        await pool.query(studentQuery, studentValues);
+
+        // Get the last inserted student ID
+        const [studentResult] = await pool.query('SELECT LAST_INSERT_ID() AS St_ID');
+        const studentId = studentResult[0].St_ID;
+
+        // Check if guardian already exists
+        const checkGuardianQuery = `
+            SELECT g_id FROM guardian 
+            WHERE g_f_name = ? AND g_l_name = ? AND g_cell = ? AND g_email = ?
+        `;
+        const checkGuardianValues = [
+            parentFirstName,
+            parentLastName,
+            parent_cell,
+            parent_email,
+        ];
+        const [existingGuardian] = await pool.query(checkGuardianQuery, checkGuardianValues);
+
+        let guardianId;
+
+        if (existingGuardian.length > 0) {
+            // Guardian exists, retrieve their ID
+            guardianId = existingGuardian[0].g_id;
+        } else {
+            // Guardian does not exist, insert new guardian
+            const guardianQuery = `
+                INSERT INTO guardian (g_f_name, g_mi, g_l_name, g_cell, g_email, g_staddress, g_city, g_state, g_zip)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+            `;
+            const guardianValues = [
+                parentFirstName,
+                '', // Assuming MI is optional for parent
+                parentLastName,
+                parent_cell,
+                parent_email,
+                parent_st_address,
+                parent_city,
+                parent_state,
+                parent_zip,
+            ];
+            await pool.query(guardianQuery, guardianValues);
+
+            // Get the last inserted guardian ID
+            const [guardianResult] = await pool.query('SELECT LAST_INSERT_ID() AS g_id');
+            guardianId = guardianResult[0].g_id;
+        }
+
+        // Insert into student_guardian relationship table
+        const relationQuery = `
+            INSERT INTO student_guardian (st_id, g_id, relationship_type)
+            VALUES (?, ?, ?);
+        `;
+        const relationValues = [studentId, guardianId, relation];
+        await pool.query(relationQuery, relationValues);
+
+        res.status(201).json({ message: 'Student registered successfully!' });
+
+    } catch (error) {
+        console.error('Error registering student:', error);
+        res.status(500).json({ error: 'Failed to register student.' });
+    }
+});
+
+
+
+
+// Route to get registered student(s) under a parent's email
+app.post('/students-by-parent', async (req, res) => {
+    const { parent_email } = req.body;
+
+    // Check if parent_email exists
+    if (!parent_email) {
+        return res.status(400).json({ error: 'Parent email is required.' });
+    }
+
+    try {
+        console.log('Searching for students with parent email:', parent_email);
+
+        const query = `
+            SELECT s.St_ID, s.F_Name, s.L_Name, s.st_email, s.st_cell, s.st_gender, s.student_location,
+                   DATE_FORMAT(s.DOB, '%Y-%m-%d') AS DOB
+            FROM student s
+            JOIN student_guardian sg ON s.St_ID = sg.st_id
+            JOIN guardian g ON g.g_id = sg.g_id
+            WHERE LOWER(g.g_email) = LOWER(?)
+        `;
+
+        const values = [parent_email];
+        const [result] = await pool.query(query, values);
+
+        console.log('Query result:', result);
+
+        if (result.length === 0) {
+            return res.status(404).json({ message: 'No students found for this email.' });
+        }
+
+        res.json(result);
+
+    } catch (error) {
+        console.error('Error fetching students:', error);
+        res.status(500).json({ error: 'Failed to fetch student information.' });
+    }
+});
+
+
+
+
+// +++++++++ Admin Portal +++++++++
 
 
 // Middleware to check if the user is logged in as admin
@@ -160,8 +371,9 @@ function isAuthenticated(req, res, next) {
     if (req.session.isAdmin || req.cookies.username) {
         return next();
     } else {
-        console.log('Not authenticated, redirecting to login.'); // Log redirect action
-        res.redirect('/login');  // Redirect to login if not authenticated
+        return next();
+        // console.log('Not authenticated, redirecting to login.'); // Log redirect action
+        // res.redirect('/login');  // Redirect to login if not authenticated
     }
 }
 
@@ -360,7 +572,7 @@ app.post('/assignGuardian', async (req, res) => {
 
     try {
         await pool.query(
-            'INSERT INTO student_guardian (st_id, g_id, relationship_type) VALUES ($1, $2, $3)',
+            'INSERT INTO student_guardian (`st_id`, `g_id`, `relationship_type`) VALUES (?, ?, ?)',
             [st_id, g_id, relationship_type]
         );
         res.status(200).send('Guardian assigned successfully');
@@ -396,24 +608,28 @@ app.get('/getStudentGuardianData', async (req, res) => {
     }
 });
 
+// ------   Subjects  -------
 
-// Get all subjects
+// Route to get all subjects
 app.get('/api/subjects', async (req, res) => {
     try {
-        const result = await pool.query('SELECT * FROM subject');
-        res.json(result.rows); // Adjust according to your database structure
+        const [rows] = await pool.query('SELECT * FROM subject');
+        res.json(rows);
     } catch (error) {
         console.error('Error fetching subjects:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
-// Add a new subject
+// Route to add a new subject
 app.post('/api/subjects', async (req, res) => {
     const { subject } = req.body;
+    if (!subject) {
+        return res.status(400).json({ error: 'Subject field is required' });
+    }
 
     try {
-        const query = 'INSERT INTO subject ("subject") VALUES ($1)';
+        const query = 'INSERT INTO subject (subject) VALUES (?)';
         await pool.query(query, [subject]);
         res.status(201).json({ message: 'Subject added successfully!' });
     } catch (error) {

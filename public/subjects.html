@@ -70,17 +70,23 @@ ul {
     <script>
         // Function to fetch and display all subjects
         async function fetchSubjects() {
-            const response = await fetch('/api/subjects'); // Make sure this endpoint is created
-            const subjects = await response.json();
-            const subjectList = document.getElementById('subjectList');
-            subjectList.innerHTML = ''; // Clear the existing list
+    try {
+        const response = await fetch('/api/subjects');
+        const subjects = await response.json();
+        console.log('Fetched subjects:', subjects); // Add this line
+        const subjectList = document.getElementById('subjectList');
+        subjectList.innerHTML = '';
 
-            subjects.forEach(subject => {
-                const li = document.createElement('li');
-                li.textContent = subject.subject; // Adjust according to your data structure
-                subjectList.appendChild(li);
-            });
-        }
+        subjects.forEach(subject => {
+            const li = document.createElement('li');
+            li.textContent = subject.subject; // Ensure this matches your database column name
+            subjectList.appendChild(li);
+        });
+    } catch (error) {
+        console.error('Error fetching subjects:', error);
+    }
+}
+
 
         // Function to handle form submission
         document.getElementById('subjectForm').addEventListener('submit', async (event) => {
