@@ -117,7 +117,7 @@
                         studentDiv.classList.add('student-card');
                         studentDiv.innerHTML = `
                             <p><strong>Name:</strong> ${student.F_Name} ${student.L_Name}</p>
-                            <p><strong>DOB:</strong> ${formatDateOfBirth(student.dob)}</p>
+                            <p><strong>DOB:</strong> ${student.DOB ? formatDateOfBirth(student.DOB) : 'N/A'}</p>
                             <p><strong>Email:</strong> ${student.st_email}</p>
                             <p><strong>Phone:</strong> ${student.st_cell}</p>
                         `;
@@ -134,10 +134,17 @@
         });
 
         function formatDateOfBirth(date) {
-            const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-            return new Intl.DateTimeFormat('en-CA', options).format(new Date(date));
+            const parts = date.split('-');
+            let year = parseInt(parts[0], 10);
+
+            // Adjust the year if it is below 1000
+            if (year < 1000) {
+                year += 2000;
+            }
+
+            // Reassemble date in a standard format (YYYY-MM-DD)
+            return `${year}-${parts[1]}-${parts[2]}`;
         }
     </script>
 </body>
-
 </html>

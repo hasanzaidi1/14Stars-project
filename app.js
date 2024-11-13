@@ -227,7 +227,7 @@ app.post('/register-from-parent', async (req, res) => {
     } = req.body;
 
     // Basic validation for required fields
-    if (!fname || !lname || !st_email || !parentFirstName || !parentLastName) {
+    if (!fname || !parentFirstName || !parentLastName || !st_email) {
         return res.status(400).json({ error: 'First name, last name, student email, and parent names are required.' });
     }
 
@@ -300,6 +300,7 @@ app.post('/register-from-parent', async (req, res) => {
 
 
 
+
 // Route to get registered student(s) under a parent's email
 app.post('/students-by-parent', async (req, res) => {
     const { parent_email } = req.body;
@@ -309,23 +310,22 @@ app.post('/students-by-parent', async (req, res) => {
         return res.status(400).json({ error: 'Parent email is required.' });
     }
 
-    // Basic email validation using a regular expression (you can modify this as needed)
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!emailRegex.test(parent_email)) {
-        return res.status(400).json({ error: 'Invalid email format.' });
-    }
-
     try {
+        console.log('Searching for students with parent email:', parent_email);
+
         const query = `
-            SELECT s.St_ID, s.F_Name, s.L_Name, s.st_email, s.st_cell, s.st_gender, s.student_location
+            SELECT s.St_ID, s.F_Name, s.L_Name, s.st_email, s.st_cell, s.st_gender, s.student_location,
+                   DATE_FORMAT(s.DOB, '%Y-%m-%d') AS DOB
             FROM student s
             JOIN student_guardian sg ON s.St_ID = sg.st_id
             JOIN guardian g ON g.g_id = sg.g_id
-            WHERE g.g_email = ?
+            WHERE LOWER(g.g_email) = LOWER(?)
         `;
 
         const values = [parent_email];
         const [result] = await pool.query(query, values);
+
+        console.log('Query result:', result);
 
         if (result.length === 0) {
             return res.status(404).json({ message: 'No students found for this email.' });
@@ -342,7 +342,7 @@ app.post('/students-by-parent', async (req, res) => {
 
 
 
-// +++++++++
+// +++++++++ Admin Portal +++++++++
 
 
 // Middleware to check if the user is logged in as admin
