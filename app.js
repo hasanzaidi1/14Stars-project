@@ -31,10 +31,10 @@ app.use(session({
 
 // Define your database connection details
 const dbConfig = {
-  host: 'localhost',         
-  user: 'root',     
-  password: 'privacy714',  
-  database: 'education_center', 
+  host: process.env.DB_HOST,         
+  user: process.env.DB_USER,     
+  password: process.env.DB_PASS,  
+  database: process.env.DB_NAME, 
   port: 3306                
 };
 
