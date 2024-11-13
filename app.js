@@ -379,7 +379,7 @@ function isAuthenticated(req, res, next) {
 
 // Admin login route
 app.get('/login', (req, res) => {
-    res.sendFile(__dirname + '/public/admin-login.html');  // Serve admin login.html
+    res.sendFile(__dirname + '/public/admin/admin-login.html');  // Serve admin login.html
 });
 
 app.post('/login', (req, res) => {
@@ -395,7 +395,7 @@ app.post('/login', (req, res) => {
             res.cookie('username', username, { maxAge: 30 * 24 * 60 * 60 * 1000 }); // 30 days
         }
 
-        res.redirect('/admin.html');  // Redirect to admin.html after successful login
+        res.redirect('/admin/admin.html');  // Redirect to admin.html after successful login
     } else {
         res.send('Invalid credentials. Please try again.');
     }
