@@ -299,8 +299,6 @@ app.post('/register-from-parent', async (req, res) => {
 
 
 
-
-
 // Route to get registered student(s) under a parent's email
 app.post('/students-by-parent', async (req, res) => {
     const { parent_email } = req.body;
