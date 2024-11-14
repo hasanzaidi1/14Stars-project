@@ -110,8 +110,8 @@ table tr:hover {
         <thead>
             <tr>
                 <th>Student ID</th>
-                <th>Level ID</th>
-                <th>Full Name</th>
+                <th>Student Name</th>
+                <th>Level</th>
             </tr>
         </thead>
         <tbody>
@@ -183,8 +183,8 @@ table tr:hover {
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${record.st_id}</td>
-                        <td>${record.level_id}</td>
                         <td>${record.full_name}</td>
+                        <td>${record.level_number}</td>
                     `;
                     tableBody.appendChild(row);
                 });

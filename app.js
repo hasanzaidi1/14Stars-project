@@ -398,42 +398,43 @@ app.get('/getGuardianNames', async (req, res) => {
 
 // Assign
 
-
+// Assign a guardian to a student
 app.post('/assignGuardian', async (req, res) => {
     const { st_id, g_id, relationship_type } = req.body;
 
     try {
         await pool.query(
-            'INSERT INTO student_guardian (`st_id`, `g_id`, `relationship_type`) VALUES (?, ?, ?)',
+            'INSERT INTO student_guardian (st_id, g_id, relationship_type) VALUES (?, ?, ?)',
             [st_id, g_id, relationship_type]
         );
         res.status(200).send('Guardian assigned successfully');
     } catch (err) {
-        console.error('Error assigning guardian:', err); // Log the error
+        console.error('Error assigning guardian:', err);
         res.status(500).send('Error assigning guardian');
     }
 });
 
 
+// Fetch student-guardian data
 app.get('/getStudentGuardianData', async (req, res) => {
     try {
-        const result = await pool.query(`
+        const [rows] = await pool.query(`
             SELECT 
-                concat(s."F_Name", ' ', s."MI", ' ',s."L_Name") AS student_name,
-                concat(g."g_f_name", ' ', g."g_mi", ' ', g."g_l_name") AS guardian_name,
-                sg."relationship_type",
-                g."g_cell",
+                CONCAT(s.F_Name, ' ', s.MI, ' ', s.L_Name) AS student_name,
+                CONCAT(g.g_f_name, ' ', g.g_mi, ' ', g.g_l_name) AS guardian_name,
+                sg.relationship_type,
+                g.g_cell,
                 g.g_email
             FROM 
                 student AS s
             JOIN 
-                student_guardian AS sg ON s."St_ID" = sg."st_id"
+                student_guardian AS sg ON s.St_ID = sg.st_id
             JOIN 
-                guardian AS g ON sg."g_id" = g."g_id";
+                guardian AS g ON sg.g_id = g.g_id;
         `);
         
-        console.log(result.rows); // Check what data is being returned
-        res.json(result.rows);
+        console.log(rows);
+        res.json(rows);
     } catch (error) {
         console.error('Error fetching student-guardian data:', error);
         res.status(500).send('Server Error');
@@ -486,35 +487,34 @@ app.get('/getStudentNames', async (req, res) => {
 app.get('/getLevels', async (req, res) => {
     console.log('Fetching levels...');
     try {
-        const levels = await pool.query('SELECT level_id, level_number FROM level');
-        res.json(levels.rows);
+        const [rows] = await pool.query('SELECT level_id, level_number FROM level');
+        res.json(rows);
     } catch (error) {
         console.error('Error fetching levels:', error);
         res.status(500).send('Server Error');
     }
 });
 
-// Function to get full name by student ID
+// Get full name by student ID
 async function getFullNameByStudentId(studentId) {
-    const query = 'SELECT CONCAT("F_Name", \' \', "L_Name") AS full_name FROM student WHERE "St_ID" = $1';
-    const { rows } = await pool.query(query, [studentId]);
-    return rows[0] ? rows[0].full_name : ''; // Return the full name or an empty string if not found
+    const query = 'SELECT CONCAT(F_Name, " ", L_Name) AS full_name FROM student WHERE St_ID = ?';
+    const [rows] = await pool.query(query, [studentId]);
+    return rows[0] ? rows[0].full_name : '';
 }
 
-// Endpoint to assign level to a student
+// Assign level to a student
 app.post('/assignLevel', async (req, res) => {
     const { studentId, levelId } = req.body;
     console.log('Assigning level:', { studentId, levelId });
 
-    // Fetch the full name
     const fullName = await getFullNameByStudentId(studentId);
     console.log('Full name fetched:', fullName);
 
-    const insertQuery = 'INSERT INTO student_level (st_id, level_id, full_name) VALUES ($1, $2, $3) RETURNING *';
-
+    const insertQuery = 'INSERT INTO student_level (st_id, level_id, full_name) VALUES (?, ?, ?)';
+    
     try {
-        const result = await pool.query(insertQuery, [studentId, levelId, fullName]);
-        res.status(201).json(result.rows[0]); // Respond with the newly inserted record
+        const [result] = await pool.query(insertQuery, [studentId, levelId, fullName]);
+        res.status(201).json(result);
     } catch (error) {
         console.error('Error inserting into student_level:', error);
         res.status(500).send('Error assigning level');
@@ -522,36 +522,35 @@ app.post('/assignLevel', async (req, res) => {
 });
 
 
-// Endpoint to get assigned levels
+// Get assigned levels
 app.get('/getAssignedLevels', async (req, res) => {
     try {
-        const assignedLevels = await pool.query('SELECT st_id, level_id, full_name FROM student_level');
-        res.json(assignedLevels.rows);
+        const [rows] = await pool.query('SELECT student.st_id, level.level_number, full_name FROM student_level JOIN level ON student_level.level_id = level.level_id JOIN student ON student_level.st_id = student.St_ID');
+        res.json(rows);
     } catch (error) {
         console.error('Error fetching assigned levels:', error);
         res.status(500).send('Server Error');
     }
 });
 
-
+// Register a new teacher
 app.post('/register-teacher', async (req, res) => {
     const { t_f_name, t_mi, t_l_name, t_email, t_phone, gender, t_staddress, t_city, t_state, t_zip } = req.body;
-    console.log('Received teacher registration data:', req.body); // Log received data
+    console.log('Received teacher registration data:', req.body);
 
-    // Validate required fields
     if (!t_f_name || !t_l_name || !t_email) {
         return res.status(400).json({ success: false, message: 'Please fill out all required fields.' });
     }
 
     const query = `
         INSERT INTO teachers (t_f_name, t_mi, t_l_name, t_email, t_phone, gender, t_staddress, t_city, t_state, t_zip) 
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`;
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     const values = [t_f_name, t_mi, t_l_name, t_email, t_phone, gender, t_staddress, t_city, t_state, t_zip];
 
     try {
-        const result = await pool.query(query, values);
-        console.log('New teacher registered:', result.rows[0]); // Log the newly registered teacher
-        return res.json({ success: true, teacher: result.rows[0] });
+        const [result] = await pool.query(query, values);
+        console.log('New teacher registered:', result);
+        return res.json({ success: true, teacher: result });
     } catch (error) {
         console.error('Error executing query:', error);
         return res.status(500).json({ success: false, message: 'Error registering teacher.' });
@@ -559,12 +558,13 @@ app.post('/register-teacher', async (req, res) => {
 });
 
 
+// Fetch all teachers
 app.get('/all-teachers', async (req, res) => {
-    const query = 'SELECT * FROM teachers'; // Query to select all teachers
+    const query = 'SELECT * FROM teachers';
     
     try {
-        const result = await pool.query(query); // Execute the query
-        res.json({ teachers: result.rows }); // Send the result as JSON
+        const [rows] = await pool.query(query);
+        res.json({ teachers: rows });
     } catch (error) {
         console.error('Error fetching teachers:', error);
         res.status(500).json({ message: 'Error fetching teachers' });
