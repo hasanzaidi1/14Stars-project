@@ -12,8 +12,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
-        
 
         .btn-container {
             margin-top: 30px;
@@ -42,6 +40,32 @@
         .cta-button:active {
             background-color: #004085;
         }
+
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        /* Hide the table by default */
+        #substitute-requests-table {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -54,18 +78,116 @@
             </ul>
         </nav>
     </header>
+
     <div class="btn-container">
         <button class="cta-button" onclick="window.location.href='/index.html'">Home</button>
         <button class="cta-button" onclick="window.location.href='#'">Classes</button>
         <button class="cta-button" onclick="window.location.href='students.html'">Students</button>
+        <button class="cta-button" onclick="window.location.href='student_level.html'">Student-Level</button>
+        <hr>
         <button class="cta-button" onclick="window.location.href='guardian.html'">Parent<br>/Guardian</button>
         <button class="cta-button" onclick="window.location.href='student_guardian.html'">Student-Guardian</button>
-        <button class="cta-button" onclick="window.location.href='student_level.html'">Student-Level</button>
+        <hr>
         <button class="cta-button" onclick="window.location.href='teacher_table.html'">Teachers</button>
-        <button class="cta-button" onclick="window.location.href='/Substitute/register_substitutes.html'">Substitute Teachers</button>
+        <button class="cta-button" onclick="window.location.href='/substitute/register_substitutes.html'">Substitute Teachers</button>
+        <button class="cta-button" onclick="toggleSubstituteRequests()">Substitute Requests</button>
+        <hr>
         <button class="cta-button" onclick="window.location.href='#'">Announcements</button>
         <button class="cta-button" onclick="window.location.href='subjects.html'">Subjects</button>
         <button class="cta-button" onclick="window.location.href='#'">Teacher-Class</button>
     </div>
+
+    <!-- Table to display substitute requests -->
+    <div id="substitute-requests-table">
+        <h2>Substitute Requests</h2>
+        <table id="substitute-requests">
+            <thead>
+                <tr>
+                    <th>Teacher Name</th>
+                    <th>Teacher Email</th>
+                    <th>Reason</th>
+                    <th>Date</th>
+                    <th>Created Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Substitute requests will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Function to toggle the visibility of the substitute requests table
+        function toggleSubstituteRequests() {
+            const tableContainer = document.getElementById('substitute-requests-table');
+            // Toggle the display between 'none' and 'block'
+            if (tableContainer.style.display === 'none' || tableContainer.style.display === '') {
+                tableContainer.style.display = 'block';  // Show the table
+                loadSubstituteRequests(); // Fetch and load data
+            } else {
+                tableContainer.style.display = 'none'; // Hide the table
+            }
+        }
+
+        // Function to load substitute requests from the server based on the date filter
+        async function loadSubstituteRequests(dateFilter) {
+    try {
+        const response = await fetch('/fetch-substitute-requests?date=' + dateFilter);
+        if (response.ok) {
+            const data = await response.json();
+            const requests = data.substituteRequests;
+
+            // Get the table body element
+            const tbody = document.querySelector('#substitute-requests tbody');
+
+            // Clear the table first
+            tbody.innerHTML = '';
+
+            // Insert each request into the table
+            requests.forEach(request => {
+                const row = document.createElement('tr');
+
+                const teacherName = document.createElement('td');
+                teacherName.textContent = request.teacher_name;
+                row.appendChild(teacherName);
+
+                const teacherEmail = document.createElement('td');
+                teacherEmail.textContent = request.teacher_email;
+                row.appendChild(teacherEmail);
+
+                const reason = document.createElement('td');
+                reason.textContent = request.reason;
+                row.appendChild(reason);
+
+                const date = document.createElement('td');
+                date.textContent = formatDate(request.date); // Format the date here
+                row.appendChild(date);
+
+                // Split created_at into a date column only
+                const createdDate = document.createElement('td');
+                createdDate.textContent = formatDate(request.created_at); // Format the created date
+                row.appendChild(createdDate);
+
+                tbody.appendChild(row);
+            });
+        } else {
+            console.error('Failed to fetch substitute requests:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error fetching substitute requests:', error);
+    }
+}
+
+        // Function to format the date to yyyy-mm-dd (without time)
+        function formatDate(dateString) {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Adding leading zero to month
+    const day = String(date.getDate()).padStart(2, '0'); // Adding leading zero to day
+    return `${year}-${month}-${day}`; // Return in yyyy-mm-dd format
+}
+
+
+    </script>
 </body>
 </html>

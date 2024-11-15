@@ -571,6 +571,50 @@ app.get('/all-teachers', async (req, res) => {
     }
 });
 
+// +++++++ Substitute Teachers +++++++
+
+// Substitute Request Routes
+app.post('/submit-substitute-request', async (req, res) => {
+    const { teacher_name, teacher_email, reason, date } = req.body;
+    
+    if (!teacher_name || !teacher_email || !reason || !date) {
+        return res.status(400).json({ message: 'All fields are required.' });
+    }
+
+    try {
+        const [existingRequest] = await pool.query(
+            'SELECT * FROM substitute_requests WHERE teacher_email = ? AND date = ?',
+            [teacher_email, date]
+        );
+
+        if (existingRequest.length > 0) {
+            return res.status(400).json({ message: 'A substitute request for this date already exists.' });
+        }
+
+        const [result] = await pool.query(
+            'INSERT INTO substitute_requests (teacher_name, teacher_email, reason, date) VALUES (?, ?, ?, ?)',
+            [teacher_name, teacher_email, reason, date]
+        );
+
+        res.status(201).json({ message: 'Substitute request submitted successfully.' });
+    } catch (error) {
+        console.error('Error submitting substitute request:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+// Fetch substitute requests (optional)
+app.get('/fetch-substitute-requests', async (req, res) => {
+    try {
+        const [rows] = await pool.query('SELECT teacher_name, teacher_email, reason, date, created_at FROM substitute_requests');
+        res.json({ substituteRequests: rows });
+    } catch (error) {
+        console.error('Error fetching substitute requests:', error);
+        res.status(500).json({ message: 'Error fetching substitute requests' });
+    }
+});
+
+
 // Logout route teacher
 app.get('/teacher-logout', (req, res) => {
     req.session.destroy(err => {
