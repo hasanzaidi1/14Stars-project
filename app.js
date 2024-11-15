@@ -502,18 +502,28 @@ async function getFullNameByStudentId(studentId) {
     return rows[0] ? rows[0].full_name : '';
 }
 
-// Assign level to a student
+// Route to assign level to a student
 app.post('/assignLevel', async (req, res) => {
-    const { studentId, levelId } = req.body;
-    console.log('Assigning level:', { studentId, levelId });
+    const { studentId, levelId, subjectId } = req.body;
+    console.log('Assigning level:', { studentId, levelId, subjectId });
 
-    const fullName = await getFullNameByStudentId(studentId);
-    console.log('Full name fetched:', fullName);
-
-    const insertQuery = 'INSERT INTO student_level (st_id, level_id, full_name) VALUES (?, ?, ?)';
-    
     try {
-        const [result] = await pool.query(insertQuery, [studentId, levelId, fullName]);
+        // Fetch full name of student based on studentId
+        const fullName = await getFullNameByStudentId(studentId);
+        console.log('Full name fetched:', fullName);
+
+        // Fetch subject name based on subjectId
+        const [subjectRows] = await pool.query('SELECT subject FROM subject WHERE subject_id = ?', [subjectId]);
+        const subjectName = subjectRows[0] ? subjectRows[0].subject : null;
+
+        if (!subjectName) {
+            return res.status(400).send('Invalid subject ID');
+        }
+
+        // Insert into student_level table
+        const insertQuery = 'INSERT INTO student_level (st_id, level_id, full_name, subject) VALUES (?, ?, ?, ?)';
+        const [result] = await pool.query(insertQuery, [studentId, levelId, fullName, subjectName]);
+        
         res.status(201).json(result);
     } catch (error) {
         console.error('Error inserting into student_level:', error);
@@ -521,11 +531,10 @@ app.post('/assignLevel', async (req, res) => {
     }
 });
 
-
 // Get assigned levels
 app.get('/getAssignedLevels', async (req, res) => {
     try {
-        const [rows] = await pool.query('SELECT student.st_id, level.level_number, full_name FROM student_level JOIN level ON student_level.level_id = level.level_id JOIN student ON student_level.st_id = student.St_ID');
+        const [rows] = await pool.query('SELECT student.st_id, level.level_number, full_name, subject FROM student_level JOIN level ON student_level.level_id = level.level_id JOIN student ON student_level.st_id = student.St_ID');
         res.json(rows);
     } catch (error) {
         console.error('Error fetching assigned levels:', error);
