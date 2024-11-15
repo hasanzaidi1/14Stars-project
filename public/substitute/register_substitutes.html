@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="./../styles.css">
     <title>Register Substitute</title>
     <style>
-        /* Add some basic styling */
+        /* Basic Styling */
         * {
             margin: 0;
             padding: 0;
@@ -14,7 +14,7 @@
         }
 
         .hidden {
-            display: none; /* Hide elements with this class */
+            display: none;
         }
 
         .btn-container {
@@ -45,7 +45,6 @@
             background-color: #004085;
         }
 
-        /* Form styling */
         form {
             margin-top: 20px;
             padding: 20px;
@@ -81,12 +80,19 @@
             background-color: #218838;
         }
 
-        /* Table styling */
-        table {
+        /* Table Styling */
+        .table-container {
+            margin-top: 30px;
             width: 100%;
+            overflow-x: auto;
+            text-align: center;
+        }
+
+        table {
+            width: 80%;
+            margin: 0 auto;
             border-collapse: collapse;
-            margin-top: 20px;
-            display: none; /* Initially hidden */
+            display: none; /* Hidden by default */
         }
 
         th, td {
@@ -115,8 +121,8 @@
         <nav>
             <ul>
                 <button onclick="showSubs()">Show All Subs</button>
-                <button onclick="window.location.href='/admin.html'">Admin Privilege</button>
-                <button class="logout-btn" onclick="window.location.href='/logout'">Logout</button>
+                <button onclick="window.location.href='/admin/admin.html'">Admin Privilege</button>
+                <button class="logout-btn" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
             </ul>
         </nav>
     </header>
@@ -140,21 +146,25 @@
         </form>
     </div>
     
-    <!-- Table to display all substitutes -->
-    <table id="subs-table">
-        <thead>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-            </tr>
-        </thead>
-        <tbody id="subs-tbody">
-        </tbody>
-    </table>
+    <!-- Table Container for Substitutes -->
+    <div class="table-container">
+        <table id="subs-table">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                </tr>
+            </thead>
+            <tbody id="subs-tbody">
+                <!-- Data will be dynamically populated here -->
+            </tbody>
+        </table>
+    </div>
 
 <script>
+    // Submit form data
     document.getElementById('substitute-form').addEventListener('submit', async function(e) {
         e.preventDefault();
         
@@ -185,29 +195,42 @@
         }
     });
 
-    // Function to fetch and display all substitutes
+    // Fetch and display all substitutes
     async function showSubs() {
         try {
             const response = await fetch('/fetch-substitutes');
             const result = await response.json();
 
-            const table = document.getElementById('subs-table');
-            const tbody = document.getElementById('subs-tbody');
-            tbody.innerHTML = ''; // Clear the table body
+            if (response.ok) {
+                const table = document.getElementById('subs-table');
+                const tbody = document.getElementById('subs-tbody');
+                tbody.innerHTML = ''; // Clear existing rows
 
-            result.substitutes.forEach(sub => {
-                const row = `<tr>
-                    <td>${sub.sub_f_name}</td>
-                    <td>${sub.sub_l_name}</td>
-                    <td>${sub.sub_email}</td>
-                    <td>${sub.sub_phone}</td>
-                </tr>`;
-                tbody.innerHTML += row;
-            });
+                if (result.substitutes && result.substitutes.length > 0) {
+                    result.substitutes.forEach(sub => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${sub.sub_f_name}</td>
+                            <td>${sub.sub_l_name}</td>
+                            <td>${sub.sub_email}</td>
+                            <td>${sub.sub_phone}</td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                } else {
+                    const noDataRow = document.createElement('tr');
+                    noDataRow.innerHTML = '<td colspan="4">No substitutes found</td>';
+                    tbody.appendChild(noDataRow);
+                }
 
-            table.style.display = 'block'; // Show the table
+                // Show the table after loading data
+                table.style.display = 'table';
+            } else {
+                console.error('Error fetching substitutes:', result);
+                alert('An error occurred while fetching substitutes.');
+            }
         } catch (error) {
-            console.error('Error fetching substitutes:', error);
+            console.error('Error:', error);
             alert('An error occurred while fetching substitutes.');
         }
     }

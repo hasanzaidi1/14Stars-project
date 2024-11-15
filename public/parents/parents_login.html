@@ -21,10 +21,11 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh; /* Full height for centering */
+            height: 100vh;
             padding: 20px;
         }
 
+        /* Header styles */
         header {
             width: 100%;
             background-color: #007bff;
@@ -33,10 +34,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: fixed; /* Make the header fixed */
-            top: 0; /* Position at the top */
-            left: 0; /* Align to the left */
-            z-index: 1000; /* Ensure it stays above other content */
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
         }
 
         .logo h1 {
@@ -61,8 +62,52 @@
             background-color: #0056b3;
         }
 
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 30px;
+            height: 4px;
+            background-color: white;
+            border-radius: 5px;
+        }
+
+        /* Navigation menu styling for smaller screens */
+        nav ul {
+            display: flex;
+        }
+
+        /* Media Queries for smaller screens */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                width: 100%;
+                text-align: center;
+                background-color: #007bff;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                padding: 20px 0;
+                flex-direction: column;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+                margin-left: auto;
+            }
+        }
+
         h2 {
-            margin: 70px 0 20px; /* Adjusted margin to avoid overlap */
+            margin: 70px 0 20px;
             font-size: 2em;
             color: #343a40;
         }
@@ -140,13 +185,19 @@
         <div class="logo">
             <h1>14 Stars</h1>
         </div>
+        <!-- Hamburger button for small screens -->
+        <div class="hamburger" id="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
         <nav>
-            <ul>
-                <li><a href="./../index.html">Home</a></li>
+            <ul id="nav-list">
+                <li><a href="/index.html">Home</a></li>
                 <li><a href="#">Classes</a></li>
                 <li><a href="#">Parents</a></li>
-                <li><a href="./../teachers/teachers.html">Teachers</a></li>
-                <li><a href="./../admin-login.html">Admin</a></li>
+                <li><a href="/teachers/teachers.html">Teachers</a></li>
+                <li><a href="/admin/admin-login.html">Admin</a></li>
                 <li><a href="#">Announcements</a></li>
             </ul>
         </nav>
@@ -174,26 +225,41 @@
     </div>
 
     <script>
-        const toggleLink = document.getElementById('toggleLink');
+        // Toggle hamburger menu
+        const hamburger = document.getElementById("hamburger");
+        const navList = document.getElementById("nav-list");
+
+        hamburger.addEventListener("click", () => {
+            navList.classList.toggle("active");
+        });
+
+        // Handle form toggle
         const loginForm = document.getElementById('loginForm');
         const registrationForm = document.getElementById('registrationForm');
         const formTitle = document.getElementById('formTitle');
         const toggleText = document.getElementById('toggleText');
 
-        toggleLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (loginForm.style.display === 'none') {
-                loginForm.style.display = 'flex';
-                registrationForm.style.display = 'none';
-                formTitle.textContent = 'Parent Login';
-                toggleText.innerHTML = 'Need an account? <a href="#" id="toggleLink">Register</a>';
-            } else {
-                loginForm.style.display = 'none';
-                registrationForm.style.display = 'flex';
-                formTitle.textContent = 'Parent Registration';
-                toggleText.innerHTML = 'Already have an account? <a href="parents_login.html" id="toggleLink">Login</a>';
-            }
-        });
+        const setupToggleListener = () => {
+            const toggleLink = document.getElementById('toggleLink');
+            toggleLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (loginForm.style.display === 'none') {
+                    loginForm.style.display = 'flex';
+                    registrationForm.style.display = 'none';
+                    formTitle.textContent = 'Parent Login';
+                    toggleText.innerHTML = 'Need an account? <a href="#" id="toggleLink">Register</a>';
+                } else {
+                    loginForm.style.display = 'none';
+                    registrationForm.style.display = 'flex';
+                    formTitle.textContent = 'Parent Registration';
+                    toggleText.innerHTML = 'Already have an account? <a href="#" id="toggleLink">Login</a>';
+                }
+                setupToggleListener(); // Re-attach listener to new link
+            });
+        };
+
+        // Initialize toggle listener
+        setupToggleListener();
     </script>
 </body>
 </html>

@@ -88,6 +88,41 @@
                 font-size: 14px; /* Smaller font on small screens */
             }
         }
+
+        /* Style for the substitute request form */
+        .substitute-form {
+            display: none; /* Hidden by default */
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .substitute-form input,
+        .substitute-form select,
+        .substitute-form button {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .substitute-form button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .substitute-form button:hover {
+            background-color: #0056b3;
+        }
+
+        .substitute-form button:active {
+            background-color: #004085;
+        }
     </style>
 </head>
 <body>
@@ -103,10 +138,30 @@
     <div class="btn-container">
         <button class="cta-button" onclick="window.location.href='./../index.html'">Home</button>
         <button class="cta-button" onclick="showTable('classes')">Classes</button>
-        <button class="cta-button" onclick="window.location.href='sub_request.html'">Request Substitute</button>
+        <button class="cta-button" onclick="toggleSubstituteForm()">Request Substitute</button>
         <button class="cta-button" onclick="showTable('studentGuardian')">Student-Guardian</button>
         <button class="cta-button" onclick="showTable('studentLevel')">Student-Level</button>
         <button class="cta-button" onclick="showTable('teachers')">Teachers</button>
+    </div>
+
+    <!-- Substitute Request Form -->
+    <div id="substitute-form" class="substitute-form">
+        <h2>Request a Substitute</h2>
+        <form action="/submit-substitute-request" method="POST">
+            <label for="teacher-name">Teacher Name:</label>
+            <input type="text" id="teacher-name" name="teacher_name" required>
+            
+            <label for="teacher-email">Teacher Email:</label>
+            <input type="text" id="teacher-email" name="teacher_email" required>
+
+            <label for="reason">Reason for Substitute:</label>
+            <textarea id="reason" name="reason" rows="4"></textarea>
+            
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+            
+            <button type="submit">Submit Request</button>
+        </form>
     </div>
 
     <!-- Student-Guardian Table -->
@@ -161,6 +216,13 @@
     </table>
 
     <script>
+
+        // Toggle the visibility of the substitute form
+        function toggleSubstituteForm() {
+            const form = document.getElementById('substitute-form');
+            form.style.display = (form.style.display === 'none' || form.style.display === '') ? 'block' : 'none';
+        }
+
         // Function to fetch student-guardian data and display it
         function fetchStudentGuardianData() {
             fetch('/getStudentGuardianData') // Use your existing route
@@ -198,7 +260,7 @@
                         row.innerHTML = `
                             <td>${entry.st_id || 'N/A'}</td>
                             <td>${entry.full_name || 'N/A'}</td>
-                            <td>${entry.level_id || 'N/A'}</td> <!-- Use level_id if this is what you intended -->
+                            <td>${entry.level_number || 'N/A'}</td> <!-- Use level_id if this is what you intended -->
                         `;
                         tableBody.appendChild(row);
                     });
@@ -208,8 +270,7 @@
         }
 
         // Function to fetch teachers data and display it
-        // Function to fetch teachers data and display it
-function fetchTeachersData() {
+        function fetchTeachersData() {
     console.log("Fetching Teachers Data..."); // Log when the function is called
     fetch('/fetch-teachers') // Updated route
         .then(response => {
@@ -236,14 +297,13 @@ function fetchTeachersData() {
         .catch(error => console.error('Error fetching teachers data:', error));
 }
 
-
         // Function to show the selected table
         function showTable(table) {
             // Hide all tables
             document.getElementById('guardian-table').style.display = 'none';
             document.getElementById('classes-table').style.display = 'none';
-            document.getElementById('stud-lvl-table').style.display = 'none'; // Hide the student-level table
-            document.getElementById('teachers-table').style.display = 'none'; // Hide the teachers table
+            document.getElementById('stud-lvl-table').style.display = 'none';
+            document.getElementById('teachers-table').style.display = 'none';
 
             // Show specific table based on the argument
             if (table === 'studentGuardian') {
