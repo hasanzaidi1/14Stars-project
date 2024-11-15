@@ -21,11 +21,11 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh; /* Full height for centering */
+            height: 100vh;
             padding: 20px;
         }
 
-        /* Remove margin above header */
+        /* Header styles */
         header {
             width: 100%;
             background-color: #007bff;
@@ -34,10 +34,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: fixed; /* Make the header fixed */
-            top: 0; /* Position at the top */
-            left: 0; /* Align to the left */
-            z-index: 1000; /* Ensure it stays above other content */
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
         }
 
         .logo h1 {
@@ -62,8 +62,52 @@
             background-color: #0056b3;
         }
 
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 30px;
+            height: 4px;
+            background-color: white;
+            border-radius: 5px;
+        }
+
+        /* Navigation menu styling for smaller screens */
+        nav ul {
+            display: flex;
+        }
+
+        /* Media Queries for smaller screens */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                width: 100%;
+                text-align: center;
+                background-color: #007bff;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                padding: 20px 0;
+                flex-direction: column;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+                margin-left: auto;
+            }
+        }
+
         h2 {
-            margin: 70px 0 20px; /* Adjusted margin to avoid overlap */
+            margin: 70px 0 20px;
             font-size: 2em;
             color: #343a40;
         }
@@ -86,7 +130,8 @@
         }
 
         input[type="text"],
-        input[type="password"] {
+        input[type="password"],
+        input[type="email"] {
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -94,7 +139,8 @@
         }
 
         input[type="text"]:focus,
-        input[type="password"]:focus {
+        input[type="password"]:focus,
+        input[type="email"]:focus {
             border-color: #007bff;
             outline: none;
         }
@@ -118,6 +164,20 @@
         button:active {
             background-color: #004085;
         }
+
+        .toggle-form {
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+
+        .toggle-form a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .toggle-form a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -125,8 +185,14 @@
         <div class="logo">
             <h1>14 Stars</h1>
         </div>
+        <!-- Hamburger button for small screens -->
+        <div class="hamburger" id="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
         <nav>
-            <ul>
+            <ul id="nav-list">
                 <li><a href="/index.html">Home</a></li>
                 <li><a href="#">Classes</a></li>
                 <li><a href="/parents/parents_login.html">Parents</a></li>
@@ -136,7 +202,7 @@
             </ul>
         </nav>
     </header>
-    <h2>Admin Login</h2>
+    <h2 id="formTitle">Admin Login</h2>
     <form action="/login" method="POST">
         <input type="text" name="username" placeholder="Username" required>
         <input type="password" name="password" placeholder="Password" required>
@@ -144,4 +210,13 @@
     </form>
     
 </body>
+<script>
+    // Toggle hamburger menu
+    const hamburger = document.getElementById("hamburger");
+        const navList = document.getElementById("nav-list");
+
+        hamburger.addEventListener("click", () => {
+            navList.classList.toggle("active");
+        });
+</script>
 </html>
