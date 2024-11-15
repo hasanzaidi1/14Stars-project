@@ -106,7 +106,7 @@ app.post('/register-substitute', async (req, res) => {
             'INSERT INTO substitute (sub_f_name, sub_l_name, sub_email, sub_phone) VALUES (?, ?, ?, ?)',
             [sub_f_name, sub_l_name, sub_email, sub_phone]
         );
-        const [newSub] = await pool.query('SELECT * FROM substitute WHERE id = LAST_INSERT_ID()');
+        const [newSub] = await pool.query('SELECT * FROM substitute WHERE substitute_id = LAST_INSERT_ID()');
         res.status(201).json({ substitute: newSub[0] });
     } catch (error) {
         console.error('Error:', error);
