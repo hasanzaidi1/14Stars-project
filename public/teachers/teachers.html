@@ -25,7 +25,7 @@
             padding: 20px;
         }
 
-        /* Remove margin above header */
+        /* Header styles */
         header {
             width: 100%;
             background-color: #007bff;
@@ -60,6 +60,50 @@
 
         nav ul li a:hover {
             background-color: #0056b3;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 30px;
+            height: 4px;
+            background-color: white;
+            border-radius: 5px;
+        }
+
+        /* Navigation menu styling for smaller screens */
+        nav ul {
+            display: flex;
+        }
+
+        /* Media Queries for smaller screens */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                width: 100%;
+                text-align: center;
+                background-color: #007bff;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                padding: 20px 0;
+                flex-direction: column;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+                margin-left: auto;
+            }
         }
 
         h2 {
@@ -125,8 +169,14 @@
         <div class="logo">
             <h1>14 Stars</h1>
         </div>
+        <!-- Hamburger button for small screens -->
+        <div class="hamburger" id="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
         <nav>
-            <ul>
+            <ul id="nav-list">
                 <li><a href="./../index.html">Home</a></li>
                 <li><a href="#">Classes</a></li>
                 <li><a href="./../parents/parents_login.html">Parents</a></li>
@@ -142,6 +192,15 @@
         <input type="password" name="password" placeholder="Password" required>
         <button type="submit">Login</button>
     </form>
-    
+
+    <script>
+        // JavaScript to toggle the navigation menu
+        const hamburger = document.getElementById("hamburger");
+        const navList = document.getElementById("nav-list");
+
+        hamburger.addEventListener("click", () => {
+            navList.classList.toggle("active");
+        });
+    </script>
 </body>
 </html>

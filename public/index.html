@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Welcome to 14 Stars Islamic School, where we empower students through knowledge and Islamic values.">
     <title>Islamic School Dashboard</title>
     <link rel="stylesheet" href="../styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
@@ -12,16 +13,22 @@
         <div class="logo">
             <h1>14 Stars</h1>
         </div>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Classes</a></li>
-                <li><a href="/parents/parents_login.html">Parents</a></li>
-                <li><a href="/teachers/teachers.html">Teachers</a></li>
-                <li><a href="/admin/admin-login.html">Admin</a></li>
-                <li><a href="#">Announcements</a></li>
+        <nav role="navigation">
+            <!-- Hamburger button for small screens -->
+            <div class="hamburger" id="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <ul id="nav-list" role="menu">
+                <li role="menuitem"><a href="#">Home</a></li>
+                <li role="menuitem"><a href="#">Classes</a></li>
+                <li role="menuitem"><a href="/parents/parents_login.html">Parents</a></li>
+                <li role="menuitem"><a href="/teachers/teachers.html">Teachers</a></li>
+                <li role="menuitem"><a href="/admin/admin-login.html">Admin</a></li>
+                <li role="menuitem"><a href="#">Announcements</a></li>
             </ul>
-        </nav>        
+        </nav>
     </header>
 
     <section class="hero">
@@ -54,6 +61,15 @@
         <p>&copy; 2024 Islamic School - All Rights Reserved.</p>
     </footer>
 
-    <script src="app.js"></script>
+    <script>
+        // JavaScript to toggle the navigation menu
+        const hamburger = document.getElementById("hamburger");
+        const navList = document.getElementById("nav-list");
+
+        hamburger.addEventListener("click", () => {
+            navList.classList.toggle("active");
+        });
+    </script>
+    <script src="app.js" defer></script>
 </body>
 </html>
