@@ -628,6 +628,16 @@ app.post('/submit-substitute-request', async (req, res) => {
     }
 });
 
+app.get('/fetch-substitutes', async (req, res) => {
+    try {
+        const [rows] = await pool.query('SELECT sub_f_name, sub_l_name, sub_email, sub_phone FROM substitute');
+        res.json({ substitutes: rows });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ message: 'Error fetching substitutes' });
+    }
+});
+
 // Fetch substitute requests (optional)
 app.get('/fetch-substitute-requests', async (req, res) => {
     try {
