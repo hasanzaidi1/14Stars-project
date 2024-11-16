@@ -66,6 +66,29 @@
         #substitute-requests-table {
             display: none;
         }
+
+        /* Styling for the text entry fields */
+        .text-entry {
+            width: 100%;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        /* Style for the submit button */
+        .submit-btn {
+            padding: 5px 15px;
+            font-size: 14px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
 <body>
@@ -108,6 +131,8 @@
                     <th>Reason</th>
                     <th>Date</th>
                     <th>Created Date</th>
+                    <th>Satisfied By</th> <!-- Text Entry column -->
+                    <th>Action</th> <!-- Submit button column -->
                 </tr>
             </thead>
             <tbody>
@@ -120,30 +145,24 @@
         // Function to toggle the visibility of the substitute requests table
         function toggleSubstituteRequests() {
             const tableContainer = document.getElementById('substitute-requests-table');
-            // Toggle the display between 'none' and 'block'
             if (tableContainer.style.display === 'none' || tableContainer.style.display === '') {
-                tableContainer.style.display = 'block';  // Show the table
-                loadSubstituteRequests(); // Fetch and load data
+                tableContainer.style.display = 'block';
+                loadSubstituteRequests();
             } else {
-                tableContainer.style.display = 'none'; // Hide the table
+                tableContainer.style.display = 'none';
             }
         }
 
-        // Function to load substitute requests from the server based on the date filter
-        async function loadSubstituteRequests(dateFilter) {
+        async function loadSubstituteRequests() {
     try {
-        const response = await fetch('/fetch-substitute-requests?date=' + dateFilter);
+        const response = await fetch('/fetch-substitute-requests');
         if (response.ok) {
             const data = await response.json();
             const requests = data.substituteRequests;
 
-            // Get the table body element
             const tbody = document.querySelector('#substitute-requests tbody');
-
-            // Clear the table first
             tbody.innerHTML = '';
 
-            // Insert each request into the table
             requests.forEach(request => {
                 const row = document.createElement('tr');
 
@@ -160,13 +179,29 @@
                 row.appendChild(reason);
 
                 const date = document.createElement('td');
-                date.textContent = formatDate(request.date); // Format the date here
+                date.textContent = formatDate(request.date);
                 row.appendChild(date);
 
-                // Split created_at into a date column only
                 const createdDate = document.createElement('td');
-                createdDate.textContent = formatDate(request.created_at); // Format the created date
+                createdDate.textContent = formatDate(request.created_at);
                 row.appendChild(createdDate);
+
+                const satisfiedByCell = document.createElement('td');
+                const textInput = document.createElement('input');
+                textInput.type = 'text';
+                textInput.classList.add('text-entry');
+                textInput.placeholder = 'Enter name';
+                satisfiedByCell.appendChild(textInput);
+                row.appendChild(satisfiedByCell);
+
+                // Add submit button
+                const actionCell = document.createElement('td');
+                const submitButton = document.createElement('button');
+                submitButton.textContent = 'Enter';
+                submitButton.classList.add('submit-btn');
+                submitButton.onclick = () => submitSatisfiedBy(request.id, request.teacher_email, textInput.value);
+                actionCell.appendChild(submitButton);
+                row.appendChild(actionCell);
 
                 tbody.appendChild(row);
             });
@@ -178,16 +213,42 @@
     }
 }
 
-        // Function to format the date to yyyy-mm-dd (without time)
-        function formatDate(dateString) {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Adding leading zero to month
-    const day = String(date.getDate()).padStart(2, '0'); // Adding leading zero to day
-    return `${year}-${month}-${day}`; // Return in yyyy-mm-dd format
+// Function to submit the 'Satisfied By' value
+async function submitSatisfiedBy(requestId, teacherEmail, satisfiedBy) {
+    if (!satisfiedBy) {
+        alert('Please enter a name!');
+        return;
+    }
+
+    try {
+        const response = await fetch('/update-satisfied-by', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ request_id: requestId, teacher_email: teacherEmail, satisfied_by: satisfiedBy }),  // Pass request_id, teacher_email, and satisfied_by
+        });
+
+        if (response.ok) {
+            alert('Successfully updated!');
+            loadSubstituteRequests(); // Reload requests to reflect the update
+        } else {
+            const message = await response.text();
+            console.error('Failed to update:', message);
+        }
+    } catch (error) {
+        console.error('Error updating satisfied by:', error);
+    }
 }
 
-
+        // Function to format the date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
     </script>
 </body>
 </html>
