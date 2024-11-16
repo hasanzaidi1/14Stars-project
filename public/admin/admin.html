@@ -160,7 +160,10 @@
                 const tbody = document.querySelector('#substitute-requests tbody');
                 tbody.innerHTML = '';
 
-                data.substituteRequests.forEach(request => {
+                // Sort requests by most recent date
+                const sortedRequests = data.substituteRequests.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                sortedRequests.forEach(request => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${request.teacher_name}</td>
