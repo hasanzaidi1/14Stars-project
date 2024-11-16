@@ -106,7 +106,7 @@ app.post('/register-substitute', async (req, res) => {
             'INSERT INTO substitute (sub_f_name, sub_l_name, sub_email, sub_phone) VALUES (?, ?, ?, ?)',
             [sub_f_name, sub_l_name, sub_email, sub_phone]
         );
-        const [newSub] = await pool.query('SELECT * FROM substitute WHERE sub_id = ?', [result.insertId]);
+        const [newSub] = await pool.query('SELECT * FROM substitute WHERE substitute_id = ?', [result.insertId]);
         res.status(201).json({ substitute: newSub });
     } catch (error) {
         console.error('Error registering substitute:', error);
@@ -127,18 +127,16 @@ app.get('/fetch-substitute-requests', async (req, res) => {
 
 // Update the 'Satisfied By' field for a substitute request
 app.post('/update-satisfied-by', async (req, res) => {
-    const { teacher_email, satisfied_by } = req.body;
-    console.log('Updating satisfied by:', { teacher_email, satisfied_by });
+    const { teacher_email, satisfied_by,  date} = req.body;
+    console.log('Updating satisfied by:', { teacher_email, satisfied_by, date });
     try {
-        await pool.query('UPDATE substitute_requests SET satisfied_by = ? WHERE teacher_email = ?', [satisfied_by, teacher_email]);
+        await pool.query('UPDATE substitute_requests SET satisfied_by = ? WHERE teacher_email = ?;', [satisfied_by, teacher_email, date]);   //Add date to WHERE clause
         res.status(200).send('Successfully updated');
     } catch (error) {
         console.error('Error updating satisfied by:', error);
         res.status(500).send('Internal server error');
     }
 });
-
-
 
 // Parent Routes
 app.post('/register-parent', async (req, res) => {
