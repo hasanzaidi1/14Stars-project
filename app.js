@@ -117,20 +117,25 @@ app.post('/register-substitute', async (req, res) => {
 // Fetch all substitute requests
 app.get('/fetch-substitute-requests', async (req, res) => {
     try {
-        const [requests] = await pool.query('SELECT * FROM substitute_requests');
-        res.json({ substituteRequests: requests });
+        const [rows] = await pool.query(
+            'SELECT id, teacher_name, teacher_email, reason, date, created_at, satisfied_by FROM substitute_requests'
+        );
+
+        res.status(200).json({ substituteRequests: rows });
     } catch (error) {
         console.error('Error fetching substitute requests:', error);
-        res.status(500).json({ message: 'Internal server error' });
+        res.status(500).send('Internal server error');
     }
 });
 
-// Update the 'Satisfied By' field for a substitute request
+// Update Satisfied By
 app.post('/update-satisfied-by', async (req, res) => {
-    const { teacher_email, satisfied_by,  date} = req.body;
-    console.log('Updating satisfied by:', { teacher_email, satisfied_by, date });
+    const { request_id, teacher_email, satisfied_by } = req.body;
     try {
-        await pool.query('UPDATE substitute_requests SET satisfied_by = ? WHERE teacher_email = ?;', [satisfied_by, teacher_email, date]);   //Add date to WHERE clause
+        await pool.query(
+            'UPDATE substitute_requests SET satisfied_by = ? WHERE id = ? AND teacher_email = ?',
+            [satisfied_by, request_id, teacher_email]
+        );
         res.status(200).send('Successfully updated');
     } catch (error) {
         console.error('Error updating satisfied by:', error);
@@ -600,7 +605,7 @@ app.get('/all-teachers', async (req, res) => {
 app.post('/submit-substitute-request', async (req, res) => {
     const { teacher_name, teacher_email, reason, date } = req.body;
     
-    if (!teacher_name || !teacher_email || !reason || !date) {
+    if (!teacher_name || !teacher_email || !date) {
         return res.status(400).json({ message: 'All fields are required.' });
     }
 

@@ -153,93 +153,69 @@
             }
         }
 
-async function loadSubstituteRequests() {
-    try {
-        const response = await fetch('/fetch-substitute-requests');
-        if (response.ok) {
-            const data = await response.json();
-            const requests = data.substituteRequests;
+        async function loadSubstituteRequests() {
+            try {
+                const response = await fetch('/fetch-substitute-requests');
+                const data = await response.json();
+                const tbody = document.querySelector('#substitute-requests tbody');
+                tbody.innerHTML = '';
 
-            const tbody = document.querySelector('#substitute-requests tbody');
-            tbody.innerHTML = '';
-
-            requests.forEach(request => {
-                const row = document.createElement('tr');
-
-                const teacherName = document.createElement('td');
-                teacherName.textContent = request.teacher_name;
-                row.appendChild(teacherName);
-
-                const teacherEmail = document.createElement('td');
-                teacherEmail.textContent = request.teacher_email;
-                row.appendChild(teacherEmail);
-
-                const reason = document.createElement('td');
-                reason.textContent = request.reason;
-                row.appendChild(reason);
-
-                const date = document.createElement('td');
-                date.textContent = formatDate(request.date);
-                row.appendChild(date);
-
-                const createdDate = document.createElement('td');
-                createdDate.textContent = formatDate(request.created_at);
-                row.appendChild(createdDate);
-
-                const satisfiedByCell = document.createElement('td');
-                const textInput = document.createElement('input');
-                textInput.type = 'text';
-                textInput.classList.add('text-entry');
-                textInput.placeholder = 'Enter name';
-                satisfiedByCell.appendChild(textInput);
-                row.appendChild(satisfiedByCell);
-
-                // Add submit button
-                const actionCell = document.createElement('td');
-                const submitButton = document.createElement('button');
-                submitButton.textContent = 'Enter';
-                submitButton.classList.add('submit-btn');
-                submitButton.onclick = () => submitSatisfiedBy(request.id, request.teacher_email, textInput.value);
-                actionCell.appendChild(submitButton);
-                row.appendChild(actionCell);
-
-                tbody.appendChild(row);
-            });
-        } else {
-            console.error('Failed to fetch substitute requests:', response.statusText);
+                data.substituteRequests.forEach(request => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${request.teacher_name}</td>
+                        <td>${request.teacher_email}</td>
+                        <td>${request.reason}</td>
+                        <td>${formatDate(request.date)}</td>
+                        <td>${formatDate(request.created_at)}</td>
+                        <td>
+                            ${
+                                request.satisfied_by
+                                    ? `<span>${request.satisfied_by}</span>`
+                                    : `<input type="text" class="text-entry" placeholder="Enter Substitute Name" />`
+                            }
+                        </td>
+                        <td>
+                            ${
+                                request.satisfied_by
+                                    ? `<span>Already Satisfied</span>`
+                                    : `<button class="submit-btn" onclick="submitSatisfiedBy(${request.id}, '${request.teacher_email}', this)">Enter</button>`
+                            }
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error fetching requests:', error);
+            }
         }
-    } catch (error) {
-        console.error('Error fetching substitute requests:', error);
-    }
-}
 
-// Function to submit the 'Satisfied By' value
-async function submitSatisfiedBy(requestId, teacherEmail, satisfiedBy) {
-    if (!satisfiedBy) {
-        alert('Please enter a name!');
-        return;
-    }
+        async function submitSatisfiedBy(requestId, teacherEmail, button) {
+            const input = button.closest('tr').querySelector('.text-entry');
+            const satisfiedBy = input.value;
 
-    try {
-        const response = await fetch('/update-satisfied-by', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ request_id: requestId, teacher_email: teacherEmail, satisfied_by: satisfiedBy }),  // Pass request_id, teacher_email, and satisfied_by
-        });
+            if (!satisfiedBy) {
+                alert('Please enter a name!');
+                return;
+            }
 
-        if (response.ok) {
-            alert('Successfully updated!');
-            loadSubstituteRequests(); // Reload requests to reflect the update
-        } else {
-            const message = await response.text();
-            console.error('Failed to update:', message);
+            try {
+                const response = await fetch('/update-satisfied-by', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ request_id: requestId, teacher_email: teacherEmail, satisfied_by: satisfiedBy }),
+                });
+
+                if (response.ok) {
+                    alert('Successfully updated!');
+                    await loadSubstituteRequests();
+                } else {
+                    console.error('Failed to update');
+                }
+            } catch (error) {
+                console.error('Error updating:', error);
+            }
         }
-    } catch (error) {
-        console.error('Error updating satisfied by:', error);
-    }
-}
 
         // Function to format the date
         function formatDate(dateString) {
