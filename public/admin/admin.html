@@ -89,6 +89,13 @@
         .submit-btn:hover {
             background-color: #218838;
         }
+        /* Added margin and padding to the <hr> tag to space it out */
+        hr {
+            margin-top: 20px;  /* Adds space above */
+            margin-bottom: 20px; /* Adds space below */
+            width: 100%; /* Ensures full width */
+            border: 1px solid #ddd;  /* Makes it a light gray line */
+        }
     </style>
 </head>
 <body>
@@ -104,7 +111,9 @@
 
     <div class="btn-container">
         <button class="cta-button" onclick="window.location.href='/index.html'">Home</button>
+        <hr>
         <button class="cta-button" onclick="window.location.href='#'">Classes</button>
+        <button class="cta-button" onclick="window.location.href='subjects.html'">Subjects</button>
         <button class="cta-button" onclick="window.location.href='students.html'">Students</button>
         <button class="cta-button" onclick="window.location.href='student_level.html'">Student-Level</button>
         <hr>
@@ -114,10 +123,9 @@
         <button class="cta-button" onclick="window.location.href='teacher_table.html'">Teachers</button>
         <button class="cta-button" onclick="window.location.href='/substitute/register_substitutes.html'">Substitute Teachers</button>
         <button class="cta-button" onclick="toggleSubstituteRequests()">Substitute Requests</button>
+        <button class="cta-button" onclick="window.location.href='#'">Teacher-Class</button>
         <hr>
         <button class="cta-button" onclick="window.location.href='#'">Announcements</button>
-        <button class="cta-button" onclick="window.location.href='subjects.html'">Subjects</button>
-        <button class="cta-button" onclick="window.location.href='#'">Teacher-Class</button>
     </div>
 
     <!-- Table to display substitute requests -->
