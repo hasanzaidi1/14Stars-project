@@ -521,6 +521,20 @@ async function getFullNameByStudentId(studentId) {
     return rows[0] ? rows[0].full_name : '';
 }
 
+function determineSchoolYear(assignmentDate) {
+    const date = new Date(assignmentDate); // Parse the assignment date
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // getMonth() returns 0-11, so add 1
+
+    if (month >= 7) {
+        // After July 1st, school year starts this year
+        return `${year}-${year + 1}`;
+    } else {
+        // Before July 1st, school year starts last year
+        return `${year - 1}-${year}`;
+    }
+}
+
 // Route to assign level to a student
 app.post('/assignLevel', async (req, res) => {
     const { studentId, levelId, subjectId } = req.body;
@@ -533,27 +547,51 @@ app.post('/assignLevel', async (req, res) => {
 
         // Fetch subject name based on subjectId
         const [subjectRows] = await pool.query('SELECT subject FROM subject WHERE subject_id = ?', [subjectId]);
-        const subjectName = subjectRows[0] ? subjectRows[0].subject : null;
+        const subjectName = subjectRows[0]?.subject;
 
         if (!subjectName) {
             return res.status(400).send('Invalid subject ID');
         }
 
+        // Determine the school year
+        const assignmentDate = new Date();
+        const schoolYear = determineSchoolYear(assignmentDate);
+
         // Insert into student_level table
-        const insertQuery = 'INSERT INTO student_level (st_id, level_id, full_name, subject) VALUES (?, ?, ?, ?)';
-        const [result] = await pool.query(insertQuery, [studentId, levelId, fullName, subjectName]);
-        
-        res.status(201).json(result);
+        const insertQuery = `
+            INSERT INTO student_level (st_id, level_id, full_name, subject, school_year) 
+            VALUES (?, ?, ?, ?, ?)
+        `;
+        const [result] = await pool.query(insertQuery, [studentId, levelId, fullName, subjectName, schoolYear]);
+
+        res.status(201).json({
+            message: 'Level assigned successfully',
+            assignedLevelId: result.insertId,
+        });
     } catch (error) {
         console.error('Error inserting into student_level:', error);
         res.status(500).send('Error assigning level');
     }
 });
 
-// Get assigned levels
+// Route to get assigned levels
 app.get('/getAssignedLevels', async (req, res) => {
     try {
-        const [rows] = await pool.query('SELECT student.st_id, level.level_number, full_name, subject FROM student_level JOIN level ON student_level.level_id = level.level_id JOIN student ON student_level.st_id = student.St_ID');
+        const query = `
+            SELECT 
+                student.st_id, 
+                level.level_number, 
+                student_level.full_name, 
+                student_level.subject, 
+                student_level.school_year 
+            FROM 
+                student_level 
+            JOIN 
+                level ON student_level.level_id = level.level_id 
+            JOIN 
+                student ON student_level.st_id = student.st_id
+        `;
+        const [rows] = await pool.query(query);
         res.json(rows);
     } catch (error) {
         console.error('Error fetching assigned levels:', error);
