@@ -50,14 +50,14 @@ pool.getConnection()
 
 // Admin credentials
 const adminUser = {
-    username: process.env.user,
-    password: process.env.pass
+    username: 'admin',
+    password: 'admin@14'
 };
 
 // Teacher credentials
 const teacherUser = {
-    username: process.env.user,
-    password: process.env.pass
+    username: 'teacher',
+    password: 't@14'
 };
 
 // Teacher Routes
