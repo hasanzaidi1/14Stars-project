@@ -1,8 +1,8 @@
 ```
 14Stars-project/
-├── config/
-│   └── dbConfig.js
-├── controllers/
+├── config/                     # Configuration files
+│   └── dbConfig.js             # Database configuration
+├── controllers/                # Route controllers
 │   ├── adminController.js
 │   ├── authController.js
 │   ├── parentController.js
@@ -10,16 +10,16 @@
 │   ├── substituteController.js
 │   ├── teacherController.js
 │   └── subjectController.js
-├── middlewares/
+├── middlewares/                # Custom middleware functions
 │   └── authMiddleware.js
-├── models/
+├── models/                     # Database models
 │   ├── adminModel.js
 │   ├── parentModel.js
 │   ├── studentModel.js
 │   ├── substituteModel.js
 │   ├── teacherModel.js
 │   └── subjectModel.js
-├── routes/
+├── routes/                     # Express route definitions
 │   ├── adminRoutes.js
 │   ├── authRoutes.js
 │   ├── parentRoutes.js
@@ -27,11 +27,17 @@
 │   ├── substituteRoutes.js
 │   ├── teacherRoutes.js
 │   └── subjectRoutes.js
-├── public/
+├── public/                     # Static files (CSS, JS, HTML)
 │   ├── css/
 │   ├── js/
 │   └── html/
-├── .env
-├── app.js
-└── package.json
+├── tests/                      # Test files (optional)
+│   ├── auth.test.js
+│   ├── student.test.js
+│   └── teacher.test.js
+├── utils/                      # Utility functions (optional)
+│   └── helpers.js              # Helper functions used across the app
+├── .env                        # Environment variables
+├── app.js                      # Main application file
+└── package.json                # Project metadata and dependencies
 ```
