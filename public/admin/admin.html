@@ -66,6 +66,71 @@
         #substitute-requests-table {
             display: none;
         }
+
+        /* Make table scrollable on small screens */
+        @media screen and (max-width: 768px) {
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            th, td {
+                text-align: center;
+            }
+
+            .text-entry {
+                font-size: 14px;
+                padding: 3px;
+            }
+
+            .submit-btn {
+                font-size: 12px;
+                padding: 3px 10px;
+            }
+        }
+
+        /* Adjust button sizes and spacing for smaller screens */
+        @media screen and (max-width: 576px) {
+            .cta-button {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+
+            .btn-container {
+                gap: 10px;
+            }
+        }
+
+        /* Styling for the text entry fields */
+        .text-entry {
+            width: 100%;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        /* Style for the submit button */
+        .submit-btn {
+            padding: 5px 15px;
+            font-size: 14px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #218838;
+        }
+        /* Added margin and padding to the <hr> tag to space it out */
+        hr {
+            margin-top: 20px;  /* Adds space above */
+            margin-bottom: 20px; /* Adds space below */
+            width: 100%; /* Ensures full width */
+            border: 1px solid #ddd;  /* Makes it a light gray line */
+        }
     </style>
 </head>
 <body>
@@ -81,7 +146,9 @@
 
     <div class="btn-container">
         <button class="cta-button" onclick="window.location.href='/index.html'">Home</button>
+        <hr>
         <button class="cta-button" onclick="window.location.href='#'">Classes</button>
+        <button class="cta-button" onclick="window.location.href='subjects.html'">Subjects</button>
         <button class="cta-button" onclick="window.location.href='students.html'">Students</button>
         <button class="cta-button" onclick="window.location.href='student_level.html'">Student-Level</button>
         <hr>
@@ -91,10 +158,9 @@
         <button class="cta-button" onclick="window.location.href='teacher_table.html'">Teachers</button>
         <button class="cta-button" onclick="window.location.href='/substitute/register_substitutes.html'">Substitute Teachers</button>
         <button class="cta-button" onclick="toggleSubstituteRequests()">Substitute Requests</button>
+        <button class="cta-button" onclick="window.location.href='#'">Teacher-Class</button>
         <hr>
         <button class="cta-button" onclick="window.location.href='#'">Announcements</button>
-        <button class="cta-button" onclick="window.location.href='subjects.html'">Subjects</button>
-        <button class="cta-button" onclick="window.location.href='#'">Teacher-Class</button>
     </div>
 
     <!-- Table to display substitute requests -->
@@ -108,6 +174,8 @@
                     <th>Reason</th>
                     <th>Date</th>
                     <th>Created Date</th>
+                    <th>Satisfied By</th> <!-- Text Entry column -->
+                    <th>Action</th> <!-- Submit button column -->
                 </tr>
             </thead>
             <tbody>
@@ -120,74 +188,115 @@
         // Function to toggle the visibility of the substitute requests table
         function toggleSubstituteRequests() {
             const tableContainer = document.getElementById('substitute-requests-table');
-            // Toggle the display between 'none' and 'block'
             if (tableContainer.style.display === 'none' || tableContainer.style.display === '') {
-                tableContainer.style.display = 'block';  // Show the table
-                loadSubstituteRequests(); // Fetch and load data
+                tableContainer.style.display = 'block';
+                loadSubstituteRequests();
             } else {
-                tableContainer.style.display = 'none'; // Hide the table
+                tableContainer.style.display = 'none';
             }
         }
 
-        // Function to load substitute requests from the server based on the date filter
-        async function loadSubstituteRequests(dateFilter) {
-    try {
-        const response = await fetch('/fetch-substitute-requests?date=' + dateFilter);
-        if (response.ok) {
-            const data = await response.json();
-            const requests = data.substituteRequests;
+        async function loadSubstituteRequests() {
+            try {
+                const response = await fetch('/fetch-substitute-requests');
+                const data = await response.json();
+                const tbody = document.querySelector('#substitute-requests tbody');
+                tbody.innerHTML = '';
 
-            // Get the table body element
-            const tbody = document.querySelector('#substitute-requests tbody');
+                // Get the upcoming Saturday date (if today is already Saturday, it will be today's date)
+                const saturdayDate = getUpcomingSaturday();
 
-            // Clear the table first
-            tbody.innerHTML = '';
+                // Sort the requests: requests for the upcoming Saturday come first, then others
+                data.substituteRequests.sort((a, b) => {
+                    const dateA = new Date(a.date);
+                    const dateB = new Date(b.date);
+                    if (isSameDay(dateA, saturdayDate)) return -1; // Request for Saturday should come first
+                    if (isSameDay(dateB, saturdayDate)) return 1; // Request for Saturday should come first
+                    return dateB - dateA; // Otherwise, sort by most recent (latest first)
+                });
 
-            // Insert each request into the table
-            requests.forEach(request => {
-                const row = document.createElement('tr');
-
-                const teacherName = document.createElement('td');
-                teacherName.textContent = request.teacher_name;
-                row.appendChild(teacherName);
-
-                const teacherEmail = document.createElement('td');
-                teacherEmail.textContent = request.teacher_email;
-                row.appendChild(teacherEmail);
-
-                const reason = document.createElement('td');
-                reason.textContent = request.reason;
-                row.appendChild(reason);
-
-                const date = document.createElement('td');
-                date.textContent = formatDate(request.date); // Format the date here
-                row.appendChild(date);
-
-                // Split created_at into a date column only
-                const createdDate = document.createElement('td');
-                createdDate.textContent = formatDate(request.created_at); // Format the created date
-                row.appendChild(createdDate);
-
-                tbody.appendChild(row);
-            });
-        } else {
-            console.error('Failed to fetch substitute requests:', response.statusText);
+                data.substituteRequests.forEach(request => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${request.teacher_name}</td>
+                        <td>${request.teacher_email}</td>
+                        <td>${request.reason}</td>
+                        <td>${formatDate(request.date)}</td>
+                        <td>${formatDate(request.created_at)}</td>
+                        <td>
+                            ${
+                                request.satisfied_by
+                                    ? `<span>${request.satisfied_by}</span>`
+                                    : `<input type="text" class="text-entry" placeholder="Enter Substitute Name" />`
+                            }
+                        </td>
+                        <td>
+                            ${
+                                request.satisfied_by
+                                    ? `<span>Already Satisfied</span>`
+                                    : `<button class="submit-btn" onclick="submitSatisfiedBy(${request.id}, '${request.teacher_email}', this)">Enter</button>`
+                            }
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error fetching requests:', error);
+            }
         }
-    } catch (error) {
-        console.error('Error fetching substitute requests:', error);
-    }
-}
 
-        // Function to format the date to yyyy-mm-dd (without time)
+        // Function to get the upcoming Saturday
+        function getUpcomingSaturday() {
+            const today = new Date();
+            const dayOfWeek = today.getDay();
+            const daysUntilSaturday = (6 - dayOfWeek + 7) % 7; // 6 is Saturday (0 is Sunday)
+            const upcomingSaturday = new Date(today);
+            upcomingSaturday.setDate(today.getDate() + daysUntilSaturday);
+            return upcomingSaturday;
+        }
+
+        // Function to check if two dates are the same day
+        function isSameDay(date1, date2) {
+            return date1.getFullYear() === date2.getFullYear() &&
+                date1.getMonth() === date2.getMonth() &&
+                date1.getDate() === date2.getDate();
+        }
+
+        async function submitSatisfiedBy(requestId, teacherEmail, button) {
+            const input = button.closest('tr').querySelector('.text-entry');
+            const satisfiedBy = input.value;
+
+            if (!satisfiedBy) {
+                alert('Please enter a name!');
+                return;
+            }
+
+            try {
+                const response = await fetch('/update-satisfied-by', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ request_id: requestId, teacher_email: teacherEmail, satisfied_by: satisfiedBy }),
+                });
+
+                if (response.ok) {
+                    alert('Successfully updated!');
+                    await loadSubstituteRequests();
+                } else {
+                    console.error('Failed to update');
+                }
+            } catch (error) {
+                console.error('Error updating:', error);
+            }
+        }
+
+        // Function to format the date
         function formatDate(dateString) {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Adding leading zero to month
-    const day = String(date.getDate()).padStart(2, '0'); // Adding leading zero to day
-    return `${year}-${month}-${day}`; // Return in yyyy-mm-dd format
-}
-
-
+            const date = new Date(dateString);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
     </script>
 </body>
 </html>

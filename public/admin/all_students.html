@@ -11,16 +11,47 @@
             background-color: #f4f4f9;
             color: #333;
             margin: 0;
-            padding: 0;
         }
         header {
             text-align: center;
             margin-bottom: 20px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav button {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        nav button:hover {
+            background-color: #004085;
+        }
+        nav button:active {
+            background-color: #003366;
+        }
+        main {
+            padding: 10px;
+        }
+        .table-container {
+            width: 100%;
+            overflow-x: auto; /* Allow scrolling for small screens */
+            margin: 0 auto;
         }
         table {
-            width: 80%;
-            margin: 20px auto;
+            width: 100%;
+            margin: 20px 0;
             border-collapse: collapse;
+            background-color: white;
         }
         th, td {
             border: 1px solid #ddd;
@@ -29,6 +60,18 @@
         }
         th {
             background-color: #f2f2f2;
+        }
+        @media screen and (max-width: 768px) {
+            header h1 {
+                font-size: 18px;
+            }
+            nav button {
+                font-size: 14px;
+                padding: 8px 15px;
+            }
+            th, td {
+                font-size: 14px;
+            }
         }
     </style>
     <script>
@@ -70,7 +113,7 @@
                 });
             } else {
                 const row = document.createElement('tr');
-                row.innerHTML = '<td colspan="11">No students found.</td>';
+                row.innerHTML = '<td colspan="12">No students found.</td>';
                 tableBody.appendChild(row);
             }
         }
@@ -87,27 +130,29 @@
         </nav>
     </header>
     <main>
-        <table>
-            <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Middle Initial</th>
-                    <th>Last Name</th>
-                    <th>Date of Birth</th>
-                    <th>Address</th>
-                    <th>City</th>
-                    <th>State</th>
-                    <th>Zip</th>
-                    <th>Email</th>
-                    <th>Phone Number</th>
-                    <th>Location</th>
-                    <th>Gender</th>
-                </tr>
-            </thead>
-            <tbody id="studentTableBody">
-                <!-- Student data will be inserted here -->
-            </tbody>
-        </table>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Middle Initial</th>
+                        <th>Last Name</th>
+                        <th>Date of Birth</th>
+                        <th>Address</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Zip</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Location</th>
+                        <th>Gender</th>
+                    </tr>
+                </thead>
+                <tbody id="studentTableBody">
+                    <!-- Student data will be inserted here -->
+                </tbody>
+            </table>
+        </div>
     </main>
 </body>
 </html>

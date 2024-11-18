@@ -50,14 +50,14 @@ pool.getConnection()
 
 // Admin credentials
 const adminUser = {
-    username: process.env.user,
-    password: process.env.pass
+    username: 'admin',
+    password: 'admin@14'
 };
 
 // Teacher credentials
 const teacherUser = {
-    username: process.env.user,
-    password: process.env.pass
+    username: 'teacher',
+    password: 't@14'
 };
 
 // Teacher Routes
@@ -106,21 +106,40 @@ app.post('/register-substitute', async (req, res) => {
             'INSERT INTO substitute (sub_f_name, sub_l_name, sub_email, sub_phone) VALUES (?, ?, ?, ?)',
             [sub_f_name, sub_l_name, sub_email, sub_phone]
         );
-        const [newSub] = await pool.query('SELECT * FROM substitute WHERE substitute_id = LAST_INSERT_ID()');
-        res.status(201).json({ substitute: newSub[0] });
+        const [newSub] = await pool.query('SELECT * FROM substitute WHERE substitute_id = ?', [result.insertId]);
+        res.status(201).json({ substitute: newSub });
     } catch (error) {
-        console.error('Error:', error);
-        res.status(500).json({ message: 'Error registering substitute' });
+        console.error('Error registering substitute:', error);
+        res.status(500).json({ message: 'Internal server error' });
     }
 });
 
-app.get('/fetch-substitutes', async (req, res) => {
+// Fetch all substitute requests
+app.get('/fetch-substitute-requests', async (req, res) => {
     try {
-        const [rows] = await pool.query('SELECT sub_f_name, sub_l_name, sub_email, sub_phone FROM substitute');
-        res.json({ substitutes: rows });
+        const [rows] = await pool.query(
+            'SELECT id, teacher_name, teacher_email, reason, date, created_at, satisfied_by FROM substitute_requests'
+        );
+
+        res.status(200).json({ substituteRequests: rows });
     } catch (error) {
-        console.error('Error:', error);
-        res.status(500).json({ message: 'Error fetching substitutes' });
+        console.error('Error fetching substitute requests:', error);
+        res.status(500).send('Internal server error');
+    }
+});
+
+// Update Satisfied By
+app.post('/update-satisfied-by', async (req, res) => {
+    const { request_id, teacher_email, satisfied_by } = req.body;
+    try {
+        await pool.query(
+            'UPDATE substitute_requests SET satisfied_by = ? WHERE id = ? AND teacher_email = ?',
+            [satisfied_by, request_id, teacher_email]
+        );
+        res.status(200).send('Successfully updated');
+    } catch (error) {
+        console.error('Error updating satisfied by:', error);
+        res.status(500).send('Internal server error');
     }
 });
 
@@ -502,6 +521,20 @@ async function getFullNameByStudentId(studentId) {
     return rows[0] ? rows[0].full_name : '';
 }
 
+function determineSchoolYear(assignmentDate) {
+    const date = new Date(assignmentDate); // Parse the assignment date
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // getMonth() returns 0-11, so add 1
+
+    if (month >= 7) {
+        // After July 1st, school year starts this year
+        return `${year}-${year + 1}`;
+    } else {
+        // Before July 1st, school year starts last year
+        return `${year - 1}-${year}`;
+    }
+}
+
 // Route to assign level to a student
 app.post('/assignLevel', async (req, res) => {
     const { studentId, levelId, subjectId } = req.body;
@@ -514,27 +547,51 @@ app.post('/assignLevel', async (req, res) => {
 
         // Fetch subject name based on subjectId
         const [subjectRows] = await pool.query('SELECT subject FROM subject WHERE subject_id = ?', [subjectId]);
-        const subjectName = subjectRows[0] ? subjectRows[0].subject : null;
+        const subjectName = subjectRows[0]?.subject;
 
         if (!subjectName) {
             return res.status(400).send('Invalid subject ID');
         }
 
+        // Determine the school year
+        const assignmentDate = new Date();
+        const schoolYear = determineSchoolYear(assignmentDate);
+
         // Insert into student_level table
-        const insertQuery = 'INSERT INTO student_level (st_id, level_id, full_name, subject) VALUES (?, ?, ?, ?)';
-        const [result] = await pool.query(insertQuery, [studentId, levelId, fullName, subjectName]);
-        
-        res.status(201).json(result);
+        const insertQuery = `
+            INSERT INTO student_level (st_id, level_id, full_name, subject, school_year) 
+            VALUES (?, ?, ?, ?, ?)
+        `;
+        const [result] = await pool.query(insertQuery, [studentId, levelId, fullName, subjectName, schoolYear]);
+
+        res.status(201).json({
+            message: 'Level assigned successfully',
+            assignedLevelId: result.insertId,
+        });
     } catch (error) {
         console.error('Error inserting into student_level:', error);
         res.status(500).send('Error assigning level');
     }
 });
 
-// Get assigned levels
+// Route to get assigned levels
 app.get('/getAssignedLevels', async (req, res) => {
     try {
-        const [rows] = await pool.query('SELECT student.st_id, level.level_number, full_name, subject FROM student_level JOIN level ON student_level.level_id = level.level_id JOIN student ON student_level.st_id = student.St_ID');
+        const query = `
+            SELECT 
+                student.st_id, 
+                level.level_number, 
+                student_level.full_name, 
+                student_level.subject, 
+                student_level.school_year 
+            FROM 
+                student_level 
+            JOIN 
+                level ON student_level.level_id = level.level_id 
+            JOIN 
+                student ON student_level.st_id = student.st_id
+        `;
+        const [rows] = await pool.query(query);
         res.json(rows);
     } catch (error) {
         console.error('Error fetching assigned levels:', error);
@@ -586,7 +643,7 @@ app.get('/all-teachers', async (req, res) => {
 app.post('/submit-substitute-request', async (req, res) => {
     const { teacher_name, teacher_email, reason, date } = req.body;
     
-    if (!teacher_name || !teacher_email || !reason || !date) {
+    if (!teacher_name || !teacher_email || !date) {
         return res.status(400).json({ message: 'All fields are required.' });
     }
 
@@ -609,6 +666,16 @@ app.post('/submit-substitute-request', async (req, res) => {
     } catch (error) {
         console.error('Error submitting substitute request:', error);
         res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+app.get('/fetch-substitutes', async (req, res) => {
+    try {
+        const [rows] = await pool.query('SELECT sub_f_name, sub_l_name, sub_email, sub_phone FROM substitute');
+        res.json({ substitutes: rows });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ message: 'Error fetching substitutes' });
     }
 });
 
