@@ -44,7 +44,7 @@
 
 1. config/dbConfig.js
 
-```
+```javascript
 const mysql = require('mysql2/promise');
 require('dotenv').config();
 
@@ -60,12 +60,12 @@ const dbConfig = {
 };
 
 const pool = mysql.createPool(dbConfig);
-
 module.exports = pool;
+
 ```
 
 2. controllers/authController.js
-```
+```javascript
 const bcrypt = require('bcrypt');
 const pool = require('../config/dbConfig');
 
@@ -87,7 +87,7 @@ module.exports = authController;
 ```
 
 3. controllers/studentController.js
-```
+```javascript
 const pool = require('../config/dbConfig');
 
 const studentController = {
@@ -111,7 +111,7 @@ module.exports = studentController;
 ```
 
 4. middlewares/authMiddleware.js
-```
+```javascript
 const authMiddleware = (req, res, next) => {
     if (req.session.isLoggedIn) {
         return next();
@@ -123,7 +123,7 @@ module.exports = authMiddleware;
 ```
 
 5. models/studentModel.js
-```
+```javascript
 const pool = require('../config/dbConfig');
 
 const studentModel = {
@@ -146,7 +146,7 @@ module.exports = studentModel;
 ```
 
 6. routes/authRoutes.js
-```
+```javascript
 const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
@@ -158,7 +158,7 @@ module.exports = router;
 ```
 
 7. routes/studentRoutes.js
-```
+```javascript
 const express = require('express');
 const router = express.Router();
 const studentController = require('../controllers/studentController');
@@ -171,7 +171,7 @@ module.exports = router;
 ```
 
 8. app.js
-```
+```javascript
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
@@ -203,7 +203,7 @@ app.listen(PORT, () => {
 ```
 
 9. utils/helpers.js (optional)
-```
+```javascript
 const formatResponse = (data, message) => {
     return {
         success: true,
