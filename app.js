@@ -7,6 +7,7 @@ const mysql = require('mysql2/promise');
 const app = express();
 const path = require('path');
 const cors = require('cors');
+const pool = require('./config/dbConfig.js');
 
 app.use(cors());
 require('dotenv').config();
@@ -22,31 +23,6 @@ app.use(session({
     saveUninitialized: true,
     cookie: { secure: false }
 }));
-
-// Database configuration
-const dbConfig = {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME,
-    port: 3306,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-};
-
-// Create connection pool
-const pool = mysql.createPool(dbConfig);
-
-// Test database connection
-pool.getConnection()
-    .then(connection => {
-        console.log('Connected to the database');
-        connection.release();
-    })
-    .catch(err => {
-        console.error('Error connecting to the database:', err.message);
-    });
 
 // Admin credentials
 const adminUser = {
