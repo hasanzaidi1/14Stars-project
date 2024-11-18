@@ -46,11 +46,47 @@
         }
 
         table {
-            width: 80%;
+            width: 90%;
             margin: 0 auto;
             border-collapse: collapse;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             background-color: white;
+        }
+
+
+        /* Make table scrollable on small screens */
+        @media screen and (max-width: 768px) {
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            th, td {
+                text-align: center;
+            }
+
+            .text-entry {
+                font-size: 14px;
+                padding: 3px;
+            }
+
+            .submit-btn {
+                font-size: 12px;
+                padding: 3px 10px;
+            }
+        }
+
+        /* Adjust button sizes and spacing for smaller screens */
+        @media screen and (max-width: 576px) {
+            .cta-button {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+
+            .btn-container {
+                gap: 10px;
+            }
         }
 
         th, td {

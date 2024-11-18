@@ -8,17 +8,23 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
         }
 
         h1 {
             text-align: center;
             margin-top: 20px;
+            font-size: 24px;
         }
 
         table {
-            width: 90%;
-            margin: 20px auto;
+            width: 100%;
             border-collapse: collapse;
+            margin: 20px auto;
+            overflow-x: auto;
+            display: block;
         }
 
         th, td {
@@ -58,6 +64,48 @@
 
         .cta-button:hover {
             background-color: #0056b3;
+        }
+
+        /* Media query for smaller screens */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 20px;
+            }
+
+            table {
+                font-size: 14px;
+                width: 100%; /* Ensure the table takes full width */
+            }
+
+            th, td {
+                padding: 8px;
+            }
+
+            .cta-button {
+                font-size: 14px;
+                padding: 8px 16px;
+                width: 120px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 18px;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 6px;
+            }
+
+            .cta-button {
+                font-size: 12px;
+                padding: 6px 12px;
+                width: 100px;
+            }
         }
     </style>
 </head>

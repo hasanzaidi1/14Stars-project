@@ -12,7 +12,7 @@ header {
     justify-content: space-between;
     align-items: center;
     background-color: #1c5d99;
-    padding: 20px;
+    padding: 15px;
     color: white;
     position: relative; /* Ensure the header is positioned correctly */
     top: 0;
@@ -20,7 +20,7 @@ header {
 }
 
 header h1 {
-    font-size: 24px;
+    font-size: 20px;
     margin: 0;
 }
 
@@ -29,7 +29,7 @@ nav ul {
     padding: 0;
     margin: 0;
     display: flex;
-    gap: 20px;
+    gap: 15px;
 }
 
 nav ul li a {
@@ -41,7 +41,7 @@ nav ul li a {
 /* Hero Section */
 .hero {
     text-align: center;
-    padding: 50px;
+    padding: 30px;
     background-color: #fdfdfd;
     background-image: url('mosque-background.jpg');
     background-size: cover;
@@ -50,17 +50,17 @@ nav ul li a {
 }
 
 .hero h2 {
-    font-size: 36px;
-    margin-bottom: 20px;
+    font-size: 28px;
+    margin-bottom: 15px;
 }
 
 .hero p {
-    font-size: 18px;
-    margin-bottom: 30px;
+    font-size: 16px;
+    margin-bottom: 20px;
 }
 
 .cta-button {
-    padding: 10px 20px;
+    padding: 10px 15px;
     background-color: #1c5d99;
     color: white;
     border: none;
@@ -74,34 +74,35 @@ nav ul li a {
 
 /* Events Section */
 #upcoming-events {
-    padding: 40px;
+    padding: 20px;
     background-color: #fff;
     text-align: center;
 }
 
 #upcoming-events h3 {
-    font-size: 28px;
-    margin-bottom: 30px;
+    font-size: 24px;
+    margin-bottom: 20px;
 }
 
 .event-list {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    flex-wrap: wrap; /* Ensures cards wrap on smaller screens */
+    gap: 15px;
 }
 
 .event-card {
     background-color: #f1f5f9;
-    padding: 20px;
+    padding: 15px;
     border-radius: 10px;
-    width: 200px;
+    width: 180px; /* Adjusted for mobile */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .event-card h4 {
-    font-size: 20px;
+    font-size: 18px;
     color: #1c5d99;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 /* Footer */
@@ -109,38 +110,38 @@ footer {
     background-color: #1c5d99;
     color: white;
     text-align: center;
-    padding: 1px;
+    padding: 10px;
     position: relative;
     bottom: 0;
     width: 100%;
 }
 
 .social-icons a img {
-    width: 24px;
-    margin: 0 10px;
+    width: 20px; /* Adjusted for mobile */
+    margin: 0 8px;
 }
 
-/* Styles for Student Registration and Admin Login Pages */
+/* Styles for Forms */
 form {
     background-color: #ffffff;
     border: 1px solid #ddd;
-    padding: 20px;
-    margin: 20px auto;
-    width: 70%;
+    padding: 15px;
+    margin: 15px auto;
+    width: 90%; /* Adjusted for mobile */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
 
 label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     font-weight: bold;
 }
 
 input[type="text"], input[type="number"], input[type="tel"], input[type="password"] {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
+    padding: 8px;
+    margin-bottom: 15px;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
@@ -148,11 +149,11 @@ input[type="text"], input[type="number"], input[type="tel"], input[type="passwor
 button {
     background-color: #28a745;
     color: white;
-    padding: 10px 20px;
+    padding: 10px 15px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 button:hover {
@@ -164,17 +165,51 @@ button:hover {
     gap: 10px;
     align-items: center;
     padding-bottom: 10px;
+    flex-wrap: wrap; /* Makes it mobile-friendly */
 }
 
 .gender-title {
-    padding-right: 20px;
+    padding-right: 10px;
+    font-size: 14px;
 }
 
 .gender-options input {
     margin-left: 5px; /* Space between label and radio button */
 }
 
-
 .logout-btn {
     background-color: rgb(189, 5, 5);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header {
+        text-align: center;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .hero h2 {
+        font-size: 24px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+    .cta-button {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+
+    .event-card {
+        width: 100%; /* Make event cards take full width on small screens */
+    }
+
+    footer {
+        font-size: 14px;
+    }
 }
