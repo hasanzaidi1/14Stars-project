@@ -1,0 +1,43 @@
+.
+├── README.md
+├── app.js
+├── config
+│   └── dbConfig.js
+├── controllers
+│   └── teacherController.js
+├── directory_structure.txt
+├── models
+│   └── teacherModel.js
+├── package-lock.json
+├── package.json
+├── public
+│   ├── admin
+│   │   ├── admin-login.html
+│   │   ├── admin.html
+│   │   ├── all_guardians.html
+│   │   ├── all_student_guardian_table.html
+│   │   ├── all_students.html
+│   │   ├── all_teachers.html
+│   │   ├── guardian.html
+│   │   ├── student_guardian.html
+│   │   ├── student_level.html
+│   │   ├── students.html
+│   │   ├── styles.css
+│   │   ├── subjects.html
+│   │   └── teacher_table.html
+│   ├── index.html
+│   ├── parents
+│   │   ├── parents_login.html
+│   │   ├── parents_portal.html
+│   │   ├── student_registration.html
+│   │   └── view_students.html
+│   ├── styles.css
+│   ├── substitute
+│   │   └── register_substitutes.html
+│   └── teachers
+│       ├── teacher_portal.html
+│       └── teachers.html
+└── utils
+    └── helpers.js
+
+10 directories, 31 files
