@@ -16,7 +16,7 @@ require('dotenv').config();
 // Middleware setup
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'));
+app.use(express.static('public_html'));
 app.use(cookieParser());
 app.use(session({
     secret: 'your_secret_key',
@@ -49,7 +49,7 @@ app.post('/teacher-login', (req, res) => {
 
 app.get('/teacher_portal.html', (req, res) => {
     if (req.session.isLoggedIn) {
-        res.sendFile(path.join(__dirname, 'public', 'teacher.html'));
+        res.sendFile(path.join(__dirname, 'public_html', 'teacher.html'));
     } else {
         res.redirect('/teacher-login');
     }
