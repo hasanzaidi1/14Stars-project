@@ -38,7 +38,7 @@ app.use(
 // Middleware setup
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'));
+app.use(express.static('public_html'));
 app.use(cookieParser());
 app.use(session({
     secret: 'your_secret_key',
@@ -308,6 +308,29 @@ app.post('/register', isAuthenticated, async (req, res) => {
         fname, MI, lname, DOB, st_address, city, state, zip,
         st_email, st_cell, student_location, gender
     } = req.body;
+
+    // Validate required fields
+    const requiredFields = [
+        { name: 'First Name', value: fname },
+        { name: 'Last Name', value: lname },
+        { name: 'Date of Birth', value: DOB },
+        { name: 'Email', value: st_email },
+        { name: 'Phone Number', value: st_cell },
+        { name: 'Student Location', value: student_location },
+    ];
+
+    const validationError = helpers.validateRequiredFields(requiredFields);
+    if (validationError) {
+        return helpers.sendErrorResponse(res, validationError, 400);
+    }
+
+    // Additional validations
+    if (!helpers.isValidEmail(st_email)) {
+        return helpers.sendErrorResponse(res, 'Invalid email address', 400);
+    }
+    if (!helpers.isValidPhoneNumber(st_cell)) {
+        return helpers.sendErrorResponse(res, 'Invalid phone number format', 400);
+    }
 
     try {
         const [result] = await pool.query(
