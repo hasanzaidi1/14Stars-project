@@ -3,13 +3,37 @@ const session = require('express-session');
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const mysql = require('mysql2/promise');
-const app = express();
 const path = require('path');
 const cors = require('cors');
+const pool = require('./config/dbConfig'); // Import the database connection pool
 
+const app = express();
+
+// Middleware
 app.use(cors());
-require('dotenv').config();
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET || 'defaultsecret',
+        resave: false,
+        saveUninitialized: true,
+        cookie: { secure: true }, // Set to true if using HTTPS
+    })
+);
+
+// Test database connection
+(async () => {
+    try {
+        const connection = await pool.getConnection();
+        console.log('Connected to the database');
+        connection.release();
+    } catch (err) {
+        console.error('Error connecting to the database:', err.message);
+    }
+})();
+
 
 // Middleware setup
 app.use(bodyParser.json());
@@ -23,30 +47,8 @@ app.use(session({
     cookie: { secure: false }
 }));
 
-// Database configuration
-const dbConfig = {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME,
-    port: 3306,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-};
 
-// Create connection pool
-const pool = mysql.createPool(dbConfig);
 
-// Test database connection
-pool.getConnection()
-    .then(connection => {
-        console.log('Connected to the database');
-        connection.release();
-    })
-    .catch(err => {
-        console.error('Error connecting to the database:', err.message);
-    });
 
 // Admin credentials
 const adminUser = {
