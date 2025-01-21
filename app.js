@@ -3,15 +3,37 @@ const session = require('express-session');
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const mysql = require('mysql2/promise');
-const app = express();
 const path = require('path');
 const cors = require('cors');
-const pool = require('./config/dbConfig.js');
-const helpers = require('./utils/helpers');
+const pool = require('./config/dbConfig'); // Import the database connection pool
 
+const app = express();
+
+// Middleware
 app.use(cors());
-require('dotenv').config();
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET || 'defaultsecret',
+        resave: false,
+        saveUninitialized: true,
+        cookie: { secure: true }, // Set to true if using HTTPS
+    })
+);
+
+// Test database connection
+(async () => {
+    try {
+        const connection = await pool.getConnection();
+        console.log('Connected to the database');
+        connection.release();
+    } catch (err) {
+        console.error('Error connecting to the database:', err.message);
+    }
+})();
+
 
 // Middleware setup
 app.use(bodyParser.json());
@@ -24,6 +46,9 @@ app.use(session({
     saveUninitialized: true,
     cookie: { secure: false }
 }));
+
+
+
 
 // Admin credentials
 const adminUser = {
@@ -49,7 +74,7 @@ app.post('/teacher-login', (req, res) => {
 
 app.get('/teacher_portal.html', (req, res) => {
     if (req.session.isLoggedIn) {
-        res.sendFile(path.join(__dirname, 'public_html', 'teacher.html'));
+        res.sendFile(path.join(__dirname, 'public', 'teacher.html'));
     } else {
         res.redirect('/teacher-login');
     }
