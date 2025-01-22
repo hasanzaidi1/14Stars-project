@@ -1,4 +1,3 @@
-const pool = require('../config/dbConfig');
 const path = require('path');
 
 class AdminController {

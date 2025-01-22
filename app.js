@@ -9,6 +9,7 @@ const pool = require('./config/dbConfig'); // Import the database connection poo
 const helpers = require('./utils/helpers'); // Import helper functions
 const teacherRoutes = require('./routes/teacherRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const parentRoutes = require('./routes/parentRoutes');
 
 
 const app = express();
@@ -55,6 +56,7 @@ app.use(session({
 
 app.use('/teachers', teacherRoutes);
 app.use('/admins', adminRoutes);
+app.use('/parents', parentRoutes);
 
 
 // Substitute Teachers Routes
@@ -106,40 +108,6 @@ app.post('/update-satisfied-by', async (req, res) => {
     }
 });
 
-// Parent Routes
-app.post('/register-parent', async (req, res) => {
-    const { username, email, password } = req.body;
-    try {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        await pool.query(
-            'INSERT INTO parent_account (username, email, password) VALUES (?, ?, ?)',
-            [username, email, hashedPassword]
-        );
-        res.redirect('parents/parents_login.html');
-    } catch (error) {
-        console.error('Error:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
-
-app.post('/parent-login', async (req, res) => {
-    const { username, password } = req.body;
-    try {
-        const [rows] = await pool.query(
-            'SELECT * FROM parent_account WHERE username = ? OR email = ?',
-            [username, username]
-        );
-        const user = rows[0];
-        if (user && await bcrypt.compare(password, user.password)) {
-            res.redirect("parents/parents_portal.html");
-        } else {
-            res.status(401).send('Invalid credentials');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
 
 app.post('/register-from-parent', async (req, res) => {
     const {
