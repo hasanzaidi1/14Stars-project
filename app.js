@@ -6,6 +6,9 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const cors = require('cors');
 const pool = require('./config/dbConfig'); // Import the database connection pool
+const helpers = require('./utils/helpers'); // Import helper functions
+const teacherRoutes = require('./routes/teacherRoutes');
+
 
 const app = express();
 
@@ -56,45 +59,9 @@ const adminUser = {
     password: 'admin@14'
 };
 
-// Teacher credentials
-const teacherUser = {
-    username: 'teacher',
-    password: 't@14'
-};
 
-// Teacher Routes
-app.post('/teacher-login', (req, res) => {
-    const { username, password } = req.body;
-    if (username === teacherUser.username && password === teacherUser.password) {
-        req.session.isLoggedIn = true;
-        return res.redirect('/teachers/teacher_portal.html');
-    }
-    return res.status(401).send('Invalid credentials');
-});
+app.use('/teachers', teacherRoutes);
 
-app.get('/teacher_portal.html', (req, res) => {
-    if (req.session.isLoggedIn) {
-        res.sendFile(path.join(__dirname, 'public', 'teacher.html'));
-    } else {
-        res.redirect('/teacher-login');
-    }
-});
-
-app.get('/fetch-teachers', async (req, res) => {
-    try {
-        const [rows] = await pool.query(`
-            SELECT 
-                CONCAT_WS(' ', t_f_name, t_mi, t_l_name) AS full_name,
-                t_email, 
-                t_phone 
-            FROM teachers
-        `);
-        res.json({ teachers: rows });
-    } catch (error) {
-        console.error('Error fetching teachers:', error);
-        res.status(500).json({ message: 'Error fetching teachers' });
-    }
-});
 
 // Substitute Teachers Routes
 app.post('/register-substitute', async (req, res) => {
@@ -624,43 +591,6 @@ app.get('/getAssignedLevels', async (req, res) => {
     }
 });
 
-// Register a new teacher
-app.post('/register-teacher', async (req, res) => {
-    const { t_f_name, t_mi, t_l_name, t_email, t_phone, gender, t_staddress, t_city, t_state, t_zip } = req.body;
-    console.log('Received teacher registration data:', req.body);
-
-    if (!t_f_name || !t_l_name || !t_email) {
-        return res.status(400).json({ success: false, message: 'Please fill out all required fields.' });
-    }
-
-    const query = `
-        INSERT INTO teachers (t_f_name, t_mi, t_l_name, t_email, t_phone, gender, t_staddress, t_city, t_state, t_zip) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-    const values = [t_f_name, t_mi, t_l_name, t_email, t_phone, gender, t_staddress, t_city, t_state, t_zip];
-
-    try {
-        const [result] = await pool.query(query, values);
-        console.log('New teacher registered:', result);
-        return res.json({ success: true, teacher: result });
-    } catch (error) {
-        console.error('Error executing query:', error);
-        return res.status(500).json({ success: false, message: 'Error registering teacher.' });
-    }
-});
-
-
-// Fetch all teachers
-app.get('/all-teachers', async (req, res) => {
-    const query = 'SELECT * FROM teachers';
-    
-    try {
-        const [rows] = await pool.query(query);
-        res.json({ teachers: rows });
-    } catch (error) {
-        console.error('Error fetching teachers:', error);
-        res.status(500).json({ message: 'Error fetching teachers' });
-    }
-});
 
 // +++++++ Substitute Teachers +++++++
 
@@ -716,27 +646,6 @@ app.get('/fetch-substitute-requests', async (req, res) => {
 });
 
 
-// Logout route teacher
-app.get('/teacher-logout', (req, res) => {
-    req.session.destroy(err => {
-        if (err) {
-            return res.send('Error logging out');
-        }
-        res.clearCookie('username');  // Clear the username cookie
-        res.redirect('/teachers/teachers.html');
-    });
-});
-
-// Logout route
-app.get('/logout', (req, res) => {
-    req.session.destroy(err => {
-        if (err) {
-            return res.send('Error logging out');
-        }
-        res.clearCookie('username');  // Clear the username cookie
-        res.redirect('/login');
-    });
-});
 
 // Start the server
 const PORT = process.env.PORT || 3001;

@@ -158,7 +158,7 @@
 
     <script>
         // Fetch all teachers data from the server
-        fetch('/all-teachers')
+        fetch('/teachers/all')
             .then(response => response.json())
             .then(data => {
                 const tableBody = document.querySelector('#teachers-table tbody');
