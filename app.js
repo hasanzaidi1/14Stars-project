@@ -8,6 +8,7 @@ const cors = require('cors');
 const pool = require('./config/dbConfig'); // Import the database connection pool
 const helpers = require('./utils/helpers'); // Import helper functions
 const teacherRoutes = require('./routes/teacherRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 
 
 const app = express();
@@ -52,15 +53,8 @@ app.use(session({
 
 
 
-
-// Admin credentials
-const adminUser = {
-    username: 'admin',
-    password: 'admin@14'
-};
-
-
 app.use('/teachers', teacherRoutes);
+app.use('/admins', adminRoutes);
 
 
 // Substitute Teachers Routes
@@ -256,18 +250,7 @@ function isAuthenticated(req, res, next) {
     return next();
 }
 
-app.post('/login', (req, res) => {
-    const { username, password, remember } = req.body;
-    if (username === adminUser.username && password === adminUser.password) {
-        req.session.isAdmin = true;
-        if (remember) {
-            res.cookie('username', username, { maxAge: 30 * 24 * 60 * 60 * 1000 });
-        }
-        res.redirect('/admin/admin.html');
-    } else {
-        res.send('Invalid credentials');
-    }
-});
+
 
 // Student registration (admin)
 app.post('/register', isAuthenticated, async (req, res) => {
