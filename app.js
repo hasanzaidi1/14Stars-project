@@ -10,6 +10,7 @@ const helpers = require('./utils/helpers'); // Import helper functions
 const teacherRoutes = require('./routes/teacherRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const parentRoutes = require('./routes/parentRoutes');
+const subRoutes = require('./routes/substituteRoutes');
 
 
 const app = express();
