@@ -11,6 +11,7 @@ const teacherRoutes = require('./routes/teacherRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const parentRoutes = require('./routes/parentRoutes');
 const subRoutes = require('./routes/substituteRoutes');
+const substituteRequestRoutes = require('./routes/substituteRequestRoutes');
 
 
 const app = express();
@@ -58,56 +59,8 @@ app.use(session({
 app.use('/teachers', teacherRoutes);
 app.use('/admins', adminRoutes);
 app.use('/parents', parentRoutes);
-
-
-// Substitute Teachers Routes
-app.post('/register-substitute', async (req, res) => {
-    const { sub_f_name, sub_l_name, sub_email, sub_phone } = req.body;
-    try {
-        const [existing] = await pool.query('SELECT * FROM substitute WHERE sub_email = ?', [sub_email]);
-        if (existing.length > 0) {
-            return res.status(400).json({ message: 'Substitute already exists' });
-        }
-        const [result] = await pool.query(
-            'INSERT INTO substitute (sub_f_name, sub_l_name, sub_email, sub_phone) VALUES (?, ?, ?, ?)',
-            [sub_f_name, sub_l_name, sub_email, sub_phone]
-        );
-        const [newSub] = await pool.query('SELECT * FROM substitute WHERE substitute_id = ?', [result.insertId]);
-        res.status(201).json({ substitute: newSub });
-    } catch (error) {
-        console.error('Error registering substitute:', error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-});
-
-// Fetch all substitute requests
-app.get('/fetch-substitute-requests', async (req, res) => {
-    try {
-        const [rows] = await pool.query(
-            'SELECT id, teacher_name, teacher_email, reason, date, created_at, satisfied_by FROM substitute_requests'
-        );
-
-        res.status(200).json({ substituteRequests: rows });
-    } catch (error) {
-        console.error('Error fetching substitute requests:', error);
-        res.status(500).send('Internal server error');
-    }
-});
-
-// Update Satisfied By
-app.post('/update-satisfied-by', async (req, res) => {
-    const { request_id, teacher_email, satisfied_by } = req.body;
-    try {
-        await pool.query(
-            'UPDATE substitute_requests SET satisfied_by = ? WHERE id = ? AND teacher_email = ?',
-            [satisfied_by, request_id, teacher_email]
-        );
-        res.status(200).send('Successfully updated');
-    } catch (error) {
-        console.error('Error updating satisfied by:', error);
-        res.status(500).send('Internal server error');
-    }
-});
+app.use('/substitute', subRoutes);
+app.use('/substitute-requests', substituteRequestRoutes);
 
 
 app.post('/register-from-parent', async (req, res) => {
@@ -542,61 +495,6 @@ app.get('/getAssignedLevels', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
-
-
-// +++++++ Substitute Teachers +++++++
-
-// Substitute Request Routes
-app.post('/submit-substitute-request', async (req, res) => {
-    const { teacher_name, teacher_email, reason, date } = req.body;
-    
-    if (!teacher_name || !teacher_email || !date) {
-        return res.status(400).json({ message: 'All fields are required.' });
-    }
-
-    try {
-        const [existingRequest] = await pool.query(
-            'SELECT * FROM substitute_requests WHERE teacher_email = ? AND date = ?',
-            [teacher_email, date]
-        );
-
-        if (existingRequest.length > 0) {
-            return res.status(400).json({ message: 'A substitute request for this date already exists.' });
-        }
-
-        const [result] = await pool.query(
-            'INSERT INTO substitute_requests (teacher_name, teacher_email, reason, date) VALUES (?, ?, ?, ?)',
-            [teacher_name, teacher_email, reason, date]
-        );
-
-        res.status(201).json({ message: 'Substitute request submitted successfully.' });
-    } catch (error) {
-        console.error('Error submitting substitute request:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
-});
-
-app.get('/fetch-substitutes', async (req, res) => {
-    try {
-        const [rows] = await pool.query('SELECT sub_f_name, sub_l_name, sub_email, sub_phone FROM substitute');
-        res.json({ substitutes: rows });
-    } catch (error) {
-        console.error('Error:', error);
-        res.status(500).json({ message: 'Error fetching substitutes' });
-    }
-});
-
-// Fetch substitute requests (optional)
-app.get('/fetch-substitute-requests', async (req, res) => {
-    try {
-        const [rows] = await pool.query('SELECT teacher_name, teacher_email, reason, date, created_at FROM substitute_requests');
-        res.json({ substituteRequests: rows });
-    } catch (error) {
-        console.error('Error fetching substitute requests:', error);
-        res.status(500).json({ message: 'Error fetching substitute requests' });
-    }
-});
-
 
 
 // Start the server

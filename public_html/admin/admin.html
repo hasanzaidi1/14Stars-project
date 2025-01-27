@@ -198,7 +198,7 @@
 
         async function loadSubstituteRequests() {
             try {
-                const response = await fetch('/fetch-substitute-requests');
+                const response = await fetch('/substitute-requests/fetch');
                 const data = await response.json();
                 const tbody = document.querySelector('#substitute-requests tbody');
                 tbody.innerHTML = '';
@@ -272,7 +272,7 @@
             }
 
             try {
-                const response = await fetch('/update-satisfied-by', {
+                const response = await fetch('/substitute-requests/update', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ request_id: requestId, teacher_email: teacherEmail, satisfied_by: satisfiedBy }),
