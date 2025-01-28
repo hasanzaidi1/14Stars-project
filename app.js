@@ -156,8 +156,6 @@ function isAuthenticated(req, res, next) {
     return next();
 }
 
-
-
 // Student registration (admin)
 app.post('/register', isAuthenticated, async (req, res) => {
     const {
@@ -313,7 +311,6 @@ app.post('/assignGuardian', async (req, res) => {
         res.status(500).send('Error assigning guardian');
     }
 });
-
 
 // Fetch student-guardian data
 app.get('/getStudentGuardianData', async (req, res) => {
