@@ -180,7 +180,7 @@
 
         async function fetchSubjects() {
             try {
-                const response = await fetch('/api/subjects'); // Ensure the URL matches the backend route
+                const response = await fetch('/subjects/fetch'); // Ensure the URL matches the backend route
                 const subjects = await response.json();
                 const subjectSelect = document.getElementById('subject-select');
 

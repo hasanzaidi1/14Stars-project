@@ -50,7 +50,7 @@
         // Function to fetch and display all subjects
         async function fetchSubjects() {
     try {
-        const response = await fetch('/api/subjects');
+        const response = await fetch('/subjects/fetch');
         const subjects = await response.json();
         console.log('Fetched subjects:', subjects); // Add this line
         const subjectList = document.getElementById('subjectList');
@@ -75,7 +75,7 @@
             const subjectValue = subjectInput.value;
 
             // Make a POST request to add a new subject
-            await fetch('/api/subjects', {
+            await fetch('/subjects/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

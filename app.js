@@ -12,23 +12,7 @@ const adminRoutes = require('./routes/adminRoutes');
 const parentRoutes = require('./routes/parentRoutes');
 const subRoutes = require('./routes/substituteRoutes');
 const substituteRequestRoutes = require('./routes/substituteRequestRoutes');
-
-
-const app = express();
-
-// Middleware
-app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(cookieParser());
-app.use(
-    session({
-        secret: process.env.SESSION_SECRET || 'defaultsecret',
-        resave: false,
-        saveUninitialized: true,
-        cookie: { secure: true }, // Set to true if using HTTPS
-    })
-);
+const subjectRoutes = require('./routes/subjectRoutes');
 
 // Test database connection
 (async () => {
@@ -41,6 +25,7 @@ app.use(
     }
 })();
 
+const app = express();
 
 // Middleware setup
 app.use(bodyParser.json());
@@ -54,13 +39,12 @@ app.use(session({
     cookie: { secure: false }
 }));
 
-
-
 app.use('/teachers', teacherRoutes);
 app.use('/admins', adminRoutes);
 app.use('/parents', parentRoutes);
 app.use('/substitute', subRoutes);
 app.use('/substitute-requests', substituteRequestRoutes);
+app.use('/subjects', subjectRoutes);
 
 
 app.post('/register-from-parent', async (req, res) => {
@@ -356,37 +340,6 @@ app.get('/getStudentGuardianData', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
-
-// ------   Subjects  -------
-
-// Route to get all subjects
-app.get('/api/subjects', async (req, res) => {
-    try {
-        const [rows] = await pool.query('SELECT * FROM subject');
-        res.json(rows);
-    } catch (error) {
-        console.error('Error fetching subjects:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
-// Route to add a new subject
-app.post('/api/subjects', async (req, res) => {
-    const { subject } = req.body;
-    if (!subject) {
-        return res.status(400).json({ error: 'Subject field is required' });
-    }
-
-    try {
-        const query = 'INSERT INTO subject (subject) VALUES (?)';
-        await pool.query(query, [subject]);
-        res.status(201).json({ message: 'Subject added successfully!' });
-    } catch (error) {
-        console.error('Error adding subject:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
 
 // Fetch students
 app.get('/getStudentNames', async (req, res) => {
