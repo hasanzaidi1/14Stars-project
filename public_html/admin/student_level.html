@@ -160,7 +160,7 @@
         // Fetch levels and populate the select dropdown
         async function fetchLevels() {
             try {
-                const response = await fetch('/getLevels');
+                const response = await fetch('/levels/');
                 const levels = await response.json();
                 const levelSelect = document.getElementById('level-select');
 
@@ -201,7 +201,7 @@
         // Fetch assigned levels and populate the table
         async function fetchAssignedLevels() {
             try {
-                const response = await fetch('/getAssignedLevels');
+                const response = await fetch('/student-levels/fetch');
                 const assignedLevels = await response.json();
                 const tableBody = document.getElementById('student-level-table').querySelector('tbody');
 
@@ -233,7 +233,7 @@
             const subjectId = document.getElementById('subject-select').value; // Get the subject
 
             try {
-                const response = await fetch('/assignLevel', {
+                const response = await fetch('/student-levels/assign', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

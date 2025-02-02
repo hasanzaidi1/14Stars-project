@@ -13,6 +13,8 @@ const parentRoutes = require('./routes/parentRoutes');
 const subRoutes = require('./routes/substituteRoutes');
 const substituteRequestRoutes = require('./routes/substituteRequestRoutes');
 const subjectRoutes = require('./routes/subjectRoutes');
+const levelRoutes = require('./routes/levelRoutes');
+const studentLevelRoutes = require('./routes/studentLevelRoutes');
 
 // Test database connection
 (async () => {
@@ -45,6 +47,8 @@ app.use('/parents', parentRoutes);
 app.use('/substitute', subRoutes);
 app.use('/substitute-requests', substituteRequestRoutes);
 app.use('/subjects', subjectRoutes);
+app.use('/levels', levelRoutes);
+app.use('/student-levels', studentLevelRoutes);
 
 
 app.post('/register-from-parent', async (req, res) => {
@@ -349,106 +353,12 @@ app.get('/getStudentNames', async (req, res) => {
     }
 });
 
-// Fetch levels
-app.get('/getLevels', async (req, res) => {
-    console.log('Fetching levels...');
-    try {
-        const [rows] = await pool.query('SELECT level_id, level_number FROM level');
-        res.json(rows);
-    } catch (error) {
-        console.error('Error fetching levels:', error);
-        res.status(500).send('Server Error');
-    }
-});
 
-// Get full name by student ID
-async function getFullNameByStudentId(studentId) {
-    const query = 'SELECT CONCAT(F_Name, " ", L_Name) AS full_name FROM student WHERE St_ID = ?';
-    const [rows] = await pool.query(query, [studentId]);
-    return rows[0] ? rows[0].full_name : '';
-}
 
-function determineSchoolYear(assignmentDate) {
-    const date = new Date(assignmentDate); // Parse the assignment date
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1; // getMonth() returns 0-11, so add 1
-
-    if (month >= 7) {
-        // After July 1st, school year starts this year
-        return `${year}-${year + 1}`;
-    } else {
-        // Before July 1st, school year starts last year
-        return `${year - 1}-${year}`;
-    }
-}
-
-// Route to assign level to a student
-app.post('/assignLevel', async (req, res) => {
-    const { studentId, levelId, subjectId } = req.body;
-    console.log('Assigning level:', { studentId, levelId, subjectId });
-
-    try {
-        // Fetch full name of student based on studentId
-        const fullName = await getFullNameByStudentId(studentId);
-        console.log('Full name fetched:', fullName);
-
-        // Fetch subject name based on subjectId
-        const [subjectRows] = await pool.query('SELECT subject FROM subject WHERE subject_id = ?', [subjectId]);
-        const subjectName = subjectRows[0]?.subject;
-
-        if (!subjectName) {
-            return res.status(400).send('Invalid subject ID');
-        }
-
-        // Determine the school year
-        const assignmentDate = new Date();
-        const schoolYear = determineSchoolYear(assignmentDate);
-
-        // Insert into student_level table
-        const insertQuery = `
-            INSERT INTO student_level (st_id, level_id, full_name, subject, school_year) 
-            VALUES (?, ?, ?, ?, ?)
-        `;
-        const [result] = await pool.query(insertQuery, [studentId, levelId, fullName, subjectName, schoolYear]);
-
-        res.status(201).json({
-            message: 'Level assigned successfully',
-            assignedLevelId: result.insertId,
-        });
-    } catch (error) {
-        console.error('Error inserting into student_level:', error);
-        res.status(500).send('Error assigning level');
-    }
-});
-
-// Route to get assigned levels
-app.get('/getAssignedLevels', async (req, res) => {
-    try {
-        const query = `
-            SELECT 
-                student.st_id, 
-                level.level_number, 
-                student_level.full_name, 
-                student_level.subject, 
-                student_level.school_year 
-            FROM 
-                student_level 
-            JOIN 
-                level ON student_level.level_id = level.level_id 
-            JOIN 
-                student ON student_level.st_id = student.st_id
-        `;
-        const [rows] = await pool.query(query);
-        res.json(rows);
-    } catch (error) {
-        console.error('Error fetching assigned levels:', error);
-        res.status(500).send('Server Error');
-    }
-});
 
 
 // Start the server
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 30000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
