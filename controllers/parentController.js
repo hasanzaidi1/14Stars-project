@@ -33,12 +33,11 @@ class ParentController {
         }
     }
 
+    // Login parent
     async login(req, res) {
-        const { username, password } = req.body;
+        const { email, password } = req.body;
         try {
-            // Find the parent by username or email
-            const parent = await Parent.findParent(username);  // Don't pass password here
-    
+            const parent = await Parent.findParent(email);
             if (!parent) {
                 return res.status(401).json({
                     success: false,
