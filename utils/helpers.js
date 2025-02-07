@@ -59,10 +59,43 @@ function isAuthenticated(req, res, next) {
     return next();
 }
 
+/**
+ * Fetches the full name of a student by their ID.
+ * @param {number} studentId - The ID of the student.
+ * @returns {string} - The full name of the student.
+ */
+async function getFullNameByStudentId(studentId) {
+    const query = 'SELECT CONCAT(F_Name, " ", L_Name) AS full_name FROM student WHERE St_ID = ?';
+    const [rows] = await pool.query(query, [studentId]);
+    return rows[0] ? rows[0].full_name : '';
+}
+
+/**
+ * Determines the school year based on the assignment date.
+ * @param {string} assignmentDate - The date of the assignment.
+ * @returns {string} - The school year in the format YYYY-YYYY.
+ */
+function determineSchoolYear(assignmentDate) {
+    const date = new Date(assignmentDate); // Parse the assignment date
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // getMonth() returns 0-11, so add 1
+
+    if (month >= 7) {
+        // After July 1st, school year starts this year
+        return `${year}-${year + 1}`;
+    } else {
+        // Before July 1st, school year starts last year
+        return `${year - 1}-${year}`;
+    }
+}
+
+
 module.exports = {
     validateRequiredFields,
     sendErrorResponse,
     isValidEmail,
     isValidPhoneNumber,
-    isAuthenticated
+    isAuthenticated,
+    getFullNameByStudentId,
+    determineSchoolYear
 };

@@ -130,7 +130,7 @@
         <nav>
             <ul>
                 <button onclick="window.location.href='/teachers/teacher_portal.html'">Teacher Portal</button>
-                <button class="logout-btn" onclick="window.location.href='/teacher-logout'">Logout</button>
+                <button class="logout-btn" onclick="window.location.href='/teachers/teacher-logout'">Logout</button>
             </ul>
         </nav>
     </header>
@@ -146,7 +146,7 @@
     <!-- Substitute Request Form -->
     <div id="substitute-form" class="substitute-form">
         <h2>Request a Substitute</h2>
-        <form action="/submit-substitute-request" method="POST">
+        <form action="/substitute-requests/submit" method="POST">
             <label for="teacher-name">Teacher Name:</label>
             <input type="text" id="teacher-name" name="teacher_name" required>
             

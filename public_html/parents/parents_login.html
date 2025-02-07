@@ -206,15 +206,16 @@
     <h2 id="formTitle">Parent Login</h2>
     
     <!-- Login Form -->
-    <form id="loginForm" action="/parent-login" method="POST">
-        <input type="text" name="username" placeholder="Username Or Email" required>
+    <form id="loginForm" action="/parents/login" method="POST">
+        <input type="text" name="email" placeholder="Email" required>
         <input type="password" name="password" placeholder="Password" required>
         <button type="submit">Login</button>
     </form>
     
     <!-- Registration Form -->
-    <form id="registrationForm" action="/register-parent" method="POST" style="display: none;">
-        <input type="text" name="username" placeholder="Username" required>
+    <form id="registrationForm" action="/parents/register" method="POST" style="display: none;">
+        <input type="text" name="f_name" placeholder="First Name (parent)" required>
+        <input type="text" name="l_name" placeholder="Last Name (parent)" required>
         <input type="email" name="email" placeholder="Email" required>
         <input type="password" name="password" placeholder="Password" required>
         <button type="submit">Register</button>

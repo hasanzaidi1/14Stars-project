@@ -139,7 +139,7 @@
         <nav>
             <ul>
                 <button onclick="window.location.href='/admin/admin.html'">Admin Privilege</button>
-                <button class="logout-btn" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
+                <button class="logout-btn" onclick="window.location.href='/admins/logout'">Logout</button>
             </ul>
         </nav>
     </header>
@@ -149,6 +149,7 @@
         <hr>
         <button class="cta-button" onclick="window.location.href='#'">Classes</button>
         <button class="cta-button" onclick="window.location.href='subjects.html'">Subjects</button>
+        <button class="cta-button" onclick="window.location.href='levels.html'">Levels</button>
         <button class="cta-button" onclick="window.location.href='students.html'">Students</button>
         <button class="cta-button" onclick="window.location.href='student_level.html'">Student-Level</button>
         <hr>
@@ -198,7 +199,7 @@
 
         async function loadSubstituteRequests() {
             try {
-                const response = await fetch('/fetch-substitute-requests');
+                const response = await fetch('/substitute-requests/fetch');
                 const data = await response.json();
                 const tbody = document.querySelector('#substitute-requests tbody');
                 tbody.innerHTML = '';
@@ -272,7 +273,7 @@
             }
 
             try {
-                const response = await fetch('/update-satisfied-by', {
+                const response = await fetch('/substitute-requests/update', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ request_id: requestId, teacher_email: teacherEmail, satisfied_by: satisfiedBy }),

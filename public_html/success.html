@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Success</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #message { margin-top: 20px; color: green; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <h1>Registration Status</h1>
+
+    <!-- Placeholder for the success message -->
+    <div id="message"></div>
+
+    <script>
+        // Grab the message from the query string and display it
+        const urlParams = new URLSearchParams(window.location.search);
+        const message = urlParams.get('message');
+        
+        if (message) {
+            // Decode the message and display it in the 'message' div
+            document.getElementById("message").innerText = decodeURIComponent(message);
+        }
+    </script>
+</body>
+</html>

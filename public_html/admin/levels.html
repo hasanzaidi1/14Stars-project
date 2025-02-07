@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Levels Management</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+    <style>
+        ul, h2 {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        form {
+            width: 50%;
+            justify-content: center;
+        }
+
+        input {
+            width: 50%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Level Management</h1>
+        <nav>
+            <ul>
+                <button onclick="window.location.href='/admin/admin.html'">Back to Admin Page</button>
+                <button class="logout-btn" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Add New Level</h2>
+            <form id="add-level-form" action="/levels/" method="POST">
+                <input type="text" id="level" name="level" placeholder="Level Number" required>
+                <button type="submit">Add Level</button>
+            </form>
+        </section>
+        <section>
+            <h2>Existing Levels</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Level Number</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="levels-list">
+                    <!-- Levels will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <script>
+        // Function to fetch and display all levels
+        async function fetchLevels() {
+            try {
+                const response = await fetch('/levels/');
+                const levels = await response.json();
+                console.log('Fetched levels:', levels); // For debugging
+                const levelsList = document.getElementById('levels-list');
+                levelsList.innerHTML = '';
+
+                levels.forEach(level => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${level.level_number}</td>
+                        <td>
+                            <button onclick="editLevel('${level.id}')">Edit</button>
+                            <button onclick="deleteLevel('${level.id}')">Delete</button>
+                        </td>
+                    `;
+                    levelsList.appendChild(tr);
+                });
+            } catch (error) {
+                console.error('Error fetching levels:', error);
+            }
+        }
+
+        function editLevel(id) {
+            // Implement edit functionality
+        }
+
+        function deleteLevel(id) {
+            // Implement delete functionality
+        }
+
+        // Fetch levels when the page loads
+        window.onload = fetchLevels;
+    </script>
+</body>
+</html>
