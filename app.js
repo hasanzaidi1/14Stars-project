@@ -61,17 +61,27 @@ app.post('/register-from-parent', async (req, res) => {
         parent_cell, parent_email
     } = req.body;
 
-    if (!fname || !parentFirstName || !parentLastName || !st_email) {
+    // ✅ **Validation: Required Fields**
+    if (!fname || !lname || !DOB || !st_email || !parentFirstName || !parentLastName || !relation) {
         return res.status(400).json({ error: 'Missing required fields' });
     }
 
+    const connection = await pool.getConnection();
+    
     try {
-        // Start transaction
-        const connection = await pool.getConnection();
         await connection.beginTransaction();
 
-        try {
-            // Insert student
+        // ✅ **Check if student already exists**
+        const [existingStudent] = await connection.query(
+            `SELECT St_ID FROM student WHERE F_Name = ? AND L_Name = ? AND dob = ?`,
+            [fname, lname, DOB]
+        );
+
+        let studentId;
+        if (existingStudent.length > 0) {
+            studentId = existingStudent[0].St_ID;
+        } else {
+            // ✅ **Insert Student**
             const [studentResult] = await connection.query(
                 `INSERT INTO student (F_Name, MI, L_Name, dob, st_address, city, 
                     state, zip, st_email, st_cell, st_gender, student_location)
@@ -79,49 +89,69 @@ app.post('/register-from-parent', async (req, res) => {
                 [fname, MI, lname, DOB, st_address, city, state, zip,
                     st_email, st_cell, gender, student_location]
             );
-
-            // Check if guardian exists
-            const [existingGuardian] = await connection.query(
-                `SELECT g_id FROM guardian 
-                WHERE g_f_name = ? AND g_l_name = ? AND g_cell = ? AND g_email = ?`,
-                [parentFirstName, parentLastName, parent_cell, parent_email]
-            );
-
-            let guardianId;
-            if (existingGuardian.length > 0) {
-                guardianId = existingGuardian[0].g_id;
-            } else {
-                // Insert new guardian
-                const [guardianResult] = await connection.query(
-                    `INSERT INTO guardian (g_f_name, g_mi, g_l_name, g_cell, g_email, 
-                        g_staddress, g_city, g_state, g_zip)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-                    [parentFirstName, '', parentLastName, parent_cell, parent_email,
-                        parent_st_address, parent_city, parent_state, parent_zip]
-                );
-                guardianId = guardianResult.insertId;
-            }
-
-            // Insert student-guardian relationship
-            await connection.query(
-                `INSERT INTO student_guardian (st_id, g_id, relationship_type)
-                VALUES (?, ?, ?)`,
-                [studentResult.insertId, guardianId, relation]
-            );
-
-            await connection.commit();
-            res.status(201).json({ message: 'Registration successful' });
-        } catch (error) {
-            await connection.rollback();
-            throw error;
-        } finally {
-            connection.release();
+            studentId = studentResult.insertId;
         }
+
+        // ✅ **Check if guardian already exists**
+        let guardianId;
+        const [existingGuardian] = await connection.query(
+            `SELECT g_id FROM guardian 
+            WHERE g_f_name = ? AND g_l_name = ? AND g_cell = ? AND g_email = ?`,
+            [parentFirstName, parentLastName, parent_cell, parent_email]
+        );
+
+        if (existingGuardian.length > 0) {
+            guardianId = existingGuardian[0].g_id;
+        } else {
+            // ✅ **Insert new Guardian**
+            const [guardianResult] = await connection.query(
+                `INSERT INTO guardian (g_f_name, g_mi, g_l_name, g_cell, g_email, 
+                    g_staddress, g_city, g_state, g_zip)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                [parentFirstName, '', parentLastName, parent_cell, parent_email,
+                    parent_st_address, parent_city, parent_state, parent_zip]
+            );
+            guardianId = guardianResult.insertId;
+        }
+
+        // ✅ **Check existing student-guardian relationships**
+        const [existingRelationships] = await connection.query(
+            `SELECT relationship_type FROM student_guardian WHERE st_id = ?`,
+            [studentId]
+        );
+
+        // **Convert existing relationships into a Set for quick lookup**
+        const existingRelations = new Set(existingRelationships.map(row => row.relationship_type.toLowerCase()));
+
+        // ✅ **Enforce guardian type limits (One Mother, One Father, One Guardian)**
+        if ((relation.toLowerCase() === "mother" && existingRelations.has("mother")) ||
+            (relation.toLowerCase() === "father" && existingRelations.has("father")) ||
+            (relation.toLowerCase() === "guardian" && existingRelations.has("guardian"))) {
+            connection.release();
+            return res.status(400).json({ error: `A ${relation} is already assigned to this student.` });
+        }
+
+        // ✅ **Insert Student-Guardian Relationship**
+        await connection.query(
+            `INSERT INTO student_guardian (st_id, g_id, relationship_type)
+            VALUES (?, ?, ?)`,
+            [studentId, guardianId, relation]
+        );
+
+        // ✅ **Commit transaction**
+        await connection.commit();
+        res.status(201).json({ message: 'Registration successful' });
+
     } catch (error) {
+        await connection.rollback();
         console.error('Error:', error);
         res.status(500).json({ error: 'Registration failed' });
+    } finally {
+        connection.release();
     }
 });
+
+
 
 // Student lookup by parent email
 app.post('/students-by-parent', async (req, res) => {
