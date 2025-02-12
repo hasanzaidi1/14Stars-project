@@ -7,7 +7,7 @@ const authMiddleware = require('../middlewares/authMiddleware');
 router.post('/login', parentController.login);
 router.post('/register', parentController.register);
 router.get('/logout', parentController.logout);
-router.get('/registerStudent', parentController.registerStudent);
+router.post('/register-from-parent', parentController.registerStudent);
 
 
 module.exports = router;

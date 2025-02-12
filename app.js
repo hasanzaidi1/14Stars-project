@@ -349,28 +349,34 @@ app.post('/assignGuardian', async (req, res) => {
 // Fetch student-guardian data
 app.get('/getStudentGuardianData', async (req, res) => {
     try {
-        const [rows] = await pool.query(`
+        const query = `
             SELECT 
-                CONCAT(s.F_Name, ' ', s.MI, ' ', s.L_Name) AS student_name,
-                CONCAT(g.g_f_name, ' ', g.g_mi, ' ', g.g_l_name) AS guardian_name,
+                s.St_ID, 
+                CONCAT(s.F_Name, ' ', s.L_Name) AS student_name,
+                CONCAT(g.g_f_name, ' ', g.g_l_name) AS guardian_name,
                 sg.relationship_type,
                 g.g_cell,
                 g.g_email
-            FROM 
-                student AS s
-            JOIN 
-                student_guardian AS sg ON s.St_ID = sg.st_id
-            JOIN 
-                guardian AS g ON sg.g_id = g.g_id;
-        `);
-        
-        console.log(rows);
+            FROM student s
+            LEFT JOIN student_guardian sg ON s.St_ID = sg.st_id
+            LEFT JOIN guardian g ON sg.g_id = g.g_id
+            ORDER BY s.St_ID;
+        `;
+
+        const [rows] = await pool.execute(query);
+
+        if (!rows.length) {
+            return res.json([]);
+        }
+
         res.json(rows);
     } catch (error) {
         console.error('Error fetching student-guardian data:', error);
-        res.status(500).send('Server Error');
+        res.status(500).json({ error: 'Failed to fetch student-guardian data' });
     }
 });
+
+
 
 // Fetch students
 app.get('/getStudentNames', async (req, res) => {

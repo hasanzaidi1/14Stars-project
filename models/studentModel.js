@@ -27,9 +27,10 @@ class Student {
 
     // Check if student already exists
     static async doesExist(fname, lname, DOB) {
-        const query = 'SELECT * FROM student WHERE (F_Name = ? AND L_Name = ? AND dob = ?)';
+        const query = `SELECT St_ID FROM student WHERE F_Name = ? AND L_Name = ? AND DOB = ?`;
         const [rows] = await pool.execute(query, [fname, lname, DOB]);
-        return rows;
+        
+        return rows.length > 0; // ✅ Returns true if student exists, false otherwise
     }
 }
 

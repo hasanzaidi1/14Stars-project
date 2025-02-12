@@ -127,6 +127,30 @@
         }
     </style>
     <script>
+        document.getElementById("registration-form").addEventListener("submit", async function(event) {
+            event.preventDefault(); // Prevent page refresh
+
+            const formData = new FormData(this); // Get form data
+
+            try {
+                const response = await fetch("/parents/register-from-parent", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert("✅ Registration successful!");
+                    this.reset(); // Clear form on success
+                } else {
+                    alert("❌ Error: " + result.error);
+                }
+            } catch (error) {
+                console.error("❌ Server error:", error);
+                alert("❌ Failed to submit form. Try again.");
+            }
+        });
 
         function copyAddress() {
             document.getElementById('parent_st_address').value = document.getElementById('st_address').value;
@@ -169,7 +193,7 @@
         
         
         <!-- Registration Form -->
-        <form action="/register-from-parent" method="POST" id="registration-form">
+        <form action="/parents/register-from-parent" method="POST" id="registration-form">
             <h2>Register a New Student</h2>
             <label for="fname">Student Name:</label>
             <div class="name">
