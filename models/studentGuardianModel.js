@@ -13,7 +13,5 @@ class StudentGuardian {
             throw new Error('Error inserting student guardian data into the database');
         }
     }
-
-    
 }
 module.exports = StudentGuardian;
