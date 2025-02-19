@@ -8,6 +8,7 @@ router.post('/login', parentController.login);
 router.post('/register', parentController.register);
 router.get('/logout', parentController.logout);
 router.post('/register-from-parent', parentController.registerStudent);
+router.post('/students', parentController.getStudentsByParentEmail);
 
 
 module.exports = router;

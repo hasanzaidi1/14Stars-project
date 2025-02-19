@@ -111,6 +111,32 @@ class ParentController {
             res.status(500).send('Internal Server Error');
         }
     }
+
+    // **Get All Students of a Parent (Guardian)**
+    async getStudents(req, res) {
+        const parentId = req.session.parentId; // Get parent ID from session
+
+        try {
+            const students = await Parent.findStudents(parentId);
+            res.json(students);
+        } catch (error) {
+            console.error('Error getting students:', error);
+            res.status(500).send('Internal Server Error');
+        }
+    }
+
+    // Get all students by parents email
+    async getStudentsByParentEmail(req, res) {
+        const { parent_email } = req.body;
+
+        try {
+            const students = await Student.findByParentEmail(parent_email);
+            res.json(students);
+        } catch (error) {
+            console.error('Error getting students by email:', error);
+            res.status(500).send('Internal Server Error');
+        }
+    }
 }
 
 module.exports = new ParentController();
