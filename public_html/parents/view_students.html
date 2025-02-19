@@ -133,18 +133,24 @@
             }
         });
 
-        function formatDateOfBirth(date) {
-            const parts = date.split('-');
-            let year = parseInt(parts[0], 10);
+        function formatDateOfBirth(dateString) {
+            if (!dateString) return 'N/A';
 
-            // Adjust the year if it is below 1000
-            if (year < 1000) {
-                year += 2000;
+            // Ensure it's a valid date
+            const dob = new Date(dateString);
+            if (isNaN(dob.getTime())) {
+                console.error('Invalid DOB:', dateString);
+                return 'Invalid Date';
             }
 
-            // Reassemble date in a standard format (YYYY-MM-DD)
-            return `${year}-${parts[1]}-${parts[2]}`;
+            // Extract the correct parts (Year-Month-Day)
+            const year = dob.getUTCFullYear(); // Use UTC to avoid time zone shifts
+            const month = String(dob.getUTCMonth() + 1).padStart(2, '0'); // Ensure two-digit month
+            const day = String(dob.getUTCDate()).padStart(2, '0'); // Ensure two-digit day
+
+            return `${year}-${month}-${day}`;
         }
+
     </script>
 </body>
 </html>
