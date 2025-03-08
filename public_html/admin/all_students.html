@@ -76,7 +76,7 @@
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
-            const response = await fetch('/all-students');
+            const response = await fetch('/admins/all');
             const students = await response.json();
             displayStudents(students);
         });

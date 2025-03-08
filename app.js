@@ -16,16 +16,7 @@ const subjectRoutes = require('./routes/subjectRoutes');
 const levelRoutes = require('./routes/levelRoutes');
 const studentLevelRoutes = require('./routes/studentLevelRoutes');
 
-// Test database connection
-(async () => {
-    try {
-        const connection = await pool.getConnection();
-        console.log('Connected to the database');
-        connection.release();
-    } catch (err) {
-        console.error('Error connecting to the database:', err.message);
-    }
-})();
+
 
 const app = express();
 
@@ -49,7 +40,6 @@ app.use('/substitute-requests', substituteRequestRoutes);
 app.use('/subjects', subjectRoutes);
 app.use('/levels', levelRoutes);
 app.use('/student-levels', studentLevelRoutes);
-
 
 
 // Admin Routes

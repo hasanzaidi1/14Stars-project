@@ -1,4 +1,8 @@
 const path = require('path');
+const helpers = require('../utils/helpers');
+const StudentModel = require('../models/studentModel');
+const AdminModel = require('../models/adminModel');
+
 
 class AdminController {
     async login(req, res) {
@@ -20,6 +24,53 @@ class AdminController {
             return res.status(401).sendFile(path.join(__dirname, '../public_html/invalid-credentials.html'));
         }
     }
+
+    async registerStudent(req, res) {
+        const { fname, MI, lname, DOB, st_address, city, state, zip, st_email, st_cell, student_location, gender } = req.body;
+
+        // Validate required fields
+        const requiredFields = [
+            { name: 'First Name', value: fname },
+            { name: 'Last Name', value: lname },
+            { name: 'Date of Birth', value: DOB },
+            { name: 'Email', value: st_email },
+            { name: 'Phone Number', value: st_cell },
+            { name: 'Student Location', value: student_location },
+        ];
+        
+        const validationError = helpers.validateRequiredFields(requiredFields);
+        if (validationError) return helpers.sendErrorResponse(res, validationError, 400);
+
+        // Additional validations 
+        // if (!helpers.isValidEmail(st_email)) return helpers.sendErrorResponse(res, 'Invalid email address', 400);
+        // if (!helpers.isValidPhoneNumber(st_cell)) return helpers.sendErrorResponse(res, 'Invalid phone number format', 400);
+
+        const result = await AdminModel.registerStudent({ fname, MI, lname, DOB, st_address, city, state, zip, st_email, st_cell, student_location, gender });
+
+        if (result.success) {
+            res.json({ message: result.message });
+        } else {
+            res.status(400).json({ error: result.error });
+        }
+    };
+
+    async getAllStudents (req, res) {
+        const students = await AdminModel.getAllStudents();
+        if (students.success === false) {
+            res.status(500).json({ error: students.error });
+        } else {
+            res.json(students);
+        }
+    };
+    
+    async getStudentById (req, res) {
+        const { id } = req.params;
+        const student = await AdminModel.getStudentById(id);
+        if (!student) {
+            return res.status(404).json({ error: 'Student not found' });
+        }
+        res.json(student);
+    };
 
     async logout(req, res) {
         if (req.session) {
