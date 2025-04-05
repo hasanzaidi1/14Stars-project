@@ -1,4 +1,4 @@
-const { getAllLevels } = require('../models/levelModel');
+const { getAllLevels, addLevel } = require('../models/levelModel');
 
 const fetchLevels = async (req, res) => {
     console.log('Fetching levels...');
@@ -11,16 +11,16 @@ const fetchLevels = async (req, res) => {
     }
 };
 
-const addLevel = async (req, res) => {
+const add = async (req, res) => {
     console.log('Request body:', req.body); // Debugging
 
-    const { level_number } = req.body;
-    if (!level_number) {
+    const { level } = req.body;
+    if (!level) {
         return res.status(400).json({ error: 'Level number is required' });
     }
 
     try {
-        await addLevel({ level_number });
+        await addLevel(level);
         res.status(201).json({ message: 'Level added successfully!' });
     } catch (error) {
         console.error('Error adding level:', error.message);
@@ -29,4 +29,4 @@ const addLevel = async (req, res) => {
 };
 
 
-module.exports = { fetchLevels, addLevel };
+module.exports = { fetchLevels, add };

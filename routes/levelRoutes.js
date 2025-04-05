@@ -1,8 +1,8 @@
 const express = require('express');
-const { fetchLevels, addLevel } = require('../controllers/levelController');
+const { fetchLevels, add } = require('../controllers/levelController');
 const router = express.Router();
 
 router.get('/', fetchLevels);
-router.post('/', addLevel);
+router.post('/', add);
 
 module.exports = router;

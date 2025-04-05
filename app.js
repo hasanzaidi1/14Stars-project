@@ -50,55 +50,6 @@ function isAuthenticated(req, res, next) {
     return next();
 }
 
-// Student registration (admin)
-app.post('/register', isAuthenticated, async (req, res) => {
-    const {
-        fname, MI, lname, DOB, st_address, city, state, zip,
-        st_email, st_cell, student_location, gender
-    } = req.body;
-
-    // Validate required fields
-    const requiredFields = [
-        { name: 'First Name', value: fname },
-        { name: 'Last Name', value: lname },
-        { name: 'Date of Birth', value: DOB },
-        { name: 'Email', value: st_email },
-        { name: 'Phone Number', value: st_cell },
-        { name: 'Student Location', value: student_location },
-    ];
-
-    const validationError = helpers.validateRequiredFields(requiredFields);
-    if (validationError) {
-        return helpers.sendErrorResponse(res, validationError, 400);
-    }
-
-    // Additional validations
-    if (!helpers.isValidEmail(st_email)) {
-        return helpers.sendErrorResponse(res, 'Invalid email address', 400);
-    }
-    if (!helpers.isValidPhoneNumber(st_cell)) {
-        return helpers.sendErrorResponse(res, 'Invalid phone number format', 400);
-    }
-
-    try {
-        const [result] = await pool.query(
-            `INSERT INTO student (F_Name, MI, L_Name, dob, st_address, city,
-                state, zip, st_email, st_cell, student_location, st_gender)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-            [fname, MI, lname, DOB, st_address, city, state, zip,
-                st_email, st_cell, student_location, gender]
-        );
-        res.json({ message: 'Student registered successfully!' });
-    } catch (error) {
-        console.error('Error:', error);
-        if (error.code === 'ER_DUP_ENTRY') {
-            res.status(400).json({ error: 'Student already exists' });
-        } else {
-            res.status(500).json({ error: 'Internal Server Error' });
-        }
-    }
-});
-
 // Find student
 app.post('/find-student', isAuthenticated, async (req, res) => {
     const { 'find-fname': firstName, 'find-lname': lastName } = req.body;
