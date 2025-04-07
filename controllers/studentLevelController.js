@@ -1,14 +1,14 @@
 const {
-    getSubjectName,
     assignStudentLevel,
     getAssignedLevels,
 } = require('../models/levelModel');
+
+const { getSubjectName } = require('../models/subjectModel');
 
 const { getFullNameByStudentId, determineSchoolYear } = require('../utils/helpers');
 
 const assignLevel = async (req, res) => {
     const { studentId, levelId, subjectId } = req.body;
-    console.log('Assigning level:', { studentId, levelId, subjectId });
 
     try {
         // Fetch full name

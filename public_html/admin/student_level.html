@@ -201,7 +201,7 @@
         // Fetch assigned levels and populate the table
         async function fetchAssignedLevels() {
             try {
-                const response = await fetch('/student-levels/fetch');
+                const response = await fetch('/student-levels/assigned');
                 const assignedLevels = await response.json();
                 const tableBody = document.getElementById('student-level-table').querySelector('tbody');
 

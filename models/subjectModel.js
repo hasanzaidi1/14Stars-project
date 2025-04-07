@@ -29,7 +29,24 @@ const addSubject = async (subject) => {
     }
 };
 
+/**
+ * Get the name of a subject by its ID.
+ * @param {number} subjectId - The ID of the subject.
+ * @returns {Promise<string>} Resolves to the subject name.
+ */
+const getSubjectName = async (subjectId) => {   
+    try {
+        const query = 'SELECT subject FROM subject WHERE subject_id = ?';
+        const [rows] = await pool.query(query, [subjectId]);
+        return rows[0] ? rows[0].subject : null; // Return null if not found
+    } catch (error) {
+        console.error('Database error while fetching subject name:', error);
+        throw error; // Re-throw to let the controller handle it
+    }
+}
+
 module.exports = {
     getAllSubjects,
     addSubject,
+    getSubjectName
 };
