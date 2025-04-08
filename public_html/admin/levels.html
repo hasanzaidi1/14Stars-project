@@ -15,6 +15,7 @@
         form {
             width: 50%;
             justify-content: center;
+            margin: auto;
         }
 
         input {
@@ -38,6 +39,11 @@
             padding: 12px;
             text-align: left;
         }
+
+        #form-feedback {
+            text-align: center;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -50,14 +56,17 @@
             </ul>
         </nav>
     </header>
+
     <main>
         <section>
             <h2>Add New Level</h2>
-            <form id="add-level-form" action="/levels/" method="POST">
+            <form id="add-level-form">
                 <input type="text" id="level" name="level" placeholder="Level Number" required>
                 <button type="submit">Add Level</button>
+                <p id="form-feedback"></p>
             </form>
         </section>
+
         <section>
             <h2>Existing Levels</h2>
             <table>
@@ -73,13 +82,13 @@
             </table>
         </section>
     </main>
+
     <script>
-        // Function to fetch and display all levels
+        // Fetch and display all levels
         async function fetchLevels() {
             try {
                 const response = await fetch('/levels/');
                 const levels = await response.json();
-                console.log('Fetched levels:', levels); // For debugging
                 const levelsList = document.getElementById('levels-list');
                 levelsList.innerHTML = '';
 
@@ -99,15 +108,50 @@
             }
         }
 
+        // Handle form submission without leaving the page
+        document.getElementById('add-level-form').addEventListener('submit', async function(e) {
+            e.preventDefault(); // Stop the page from reloading
+
+            const level = document.getElementById('level').value;
+            const feedback = document.getElementById('form-feedback');
+
+            try {
+                const response = await fetch('/levels/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ level })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    feedback.style.color = 'green';
+                    feedback.textContent = result.message || 'Level added successfully!';
+                    document.getElementById('add-level-form').reset();
+                    fetchLevels(); // Reload levels list
+                } else {
+                    feedback.style.color = 'red';
+                    feedback.textContent = result.message || 'Error adding level.';
+                }
+            } catch (error) {
+                feedback.style.color = 'red';
+                feedback.textContent = 'Server error. Please try again.';
+                console.error('Error submitting form:', error);
+            }
+        });
+
+        // Stub functions (to be implemented)
         function editLevel(id) {
-            // Implement edit functionality
+            alert(`Edit Level ID: ${id}`); // Placeholder
         }
 
         function deleteLevel(id) {
-            // Implement delete functionality
+            alert(`Delete Level ID: ${id}`); // Placeholder
         }
 
-        // Fetch levels when the page loads
+        // Load levels on page load
         window.onload = fetchLevels;
     </script>
 </body>

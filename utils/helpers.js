@@ -1,4 +1,4 @@
-// utils/helpers.js
+const pool = require('../config/dbConfig'); // Import the pool using require
 
 /**
  * Validates required fields in a request body.

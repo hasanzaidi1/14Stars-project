@@ -128,25 +128,21 @@
     </style>
     <script>
         document.getElementById('findStudentForm').addEventListener('submit', async function (event) {
-            event.preventDefault(); // Prevent default form submission
+    event.preventDefault(); // Prevent default form submission
 
-            const firstName = document.getElementById('find-fname').value;
-            const lastName = document.getElementById('find-lname').value;
+    const firstName = document.getElementById('find-fname').value;
+    const lastName = document.getElementById('find-lname').value;
 
-            const response = await fetch('/find-student', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    'find-fname': firstName,
-                    'find-lname': lastName,
-                }),
-            });
+    const response = await fetch(`/admin/studByName?fname=${firstName}&lname=${lastName}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
 
-            const result = await response.json();
-            displayResults(result);
-        });
+    const result = await response.json();
+    displayResults(result);
+});
 
         function displayResults(result) {
             const resultDiv = document.getElementById('results');
@@ -206,13 +202,13 @@
         </div>
         
         <!-- Find Student Form -->
-        <form id="find-student-form" action="/find-student" method="POST">
+        <form id="find-student-form" action="/admins/studByName" method="GET">
             <h2>Find Student</h2>
             <label for="find-fname">First Name:</label>
-            <input type="text" id="find-fname" name="find-fname" placeholder="First Name">
+            <input type="text" id="find-fname" name="fname" placeholder="First Name">
         
             <label for="find-lname">Last Name:</label>
-            <input type="text" id="find-lname" name="find-lname" placeholder="Last Name">
+            <input type="text" id="find-lname" name="lname" placeholder="Last Name">
         
             <button type="submit">Find</button>
         </form>

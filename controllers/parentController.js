@@ -30,7 +30,8 @@ class ParentController {
     async login(req, res) {
         const { email, password } = req.body;
         try {
-            const parent = await Parent.findParent(email);
+            console.log('Logging in parent:', email, password);
+            const parent = await Parent.findByEmail(email);
             if (!parent) {
                 return res.status(401).json({ success: false, message: 'Invalid email or password' });
             }

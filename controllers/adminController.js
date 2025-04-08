@@ -86,6 +86,31 @@ class AdminController {
             res.redirect('/admin/admin-login.html'); // No session, go to login
         }
     }
+
+    async getStudByName(req, res) {
+        try {
+            const { fname, lname } = req.query; // ✅ Use req.query for GET requests
+    
+            console.log("Received query parameters:", { fname, lname });
+    
+            if (!fname && !lname) {
+                return res.status(400).json({ error: "First name or last name is required" });
+            }
+    
+            const students = await AdminModel.getStudByName(fname, lname);
+    
+            if (students.success === false) {
+                return res.status(500).json({ error: students.error });
+            }
+    
+            res.json(students);
+        } catch (error) {
+            console.error('Error in getStudByName:', error);
+            res.status(500).json({ error: "Internal Server Error" });
+        }
+    }
+    
+
 }
 
 

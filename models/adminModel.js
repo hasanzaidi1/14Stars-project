@@ -1,8 +1,4 @@
-const { pool } = require('../config/dbConfig');
-const { helpers } = require('../utils/helpers.js');
-
-
-console.log('Database Pool Object:', pool);
+const pool = require('../config/dbConfig');
 
 const AdminModel = {
     
@@ -31,7 +27,6 @@ const AdminModel = {
         }
     },
 
-
     // Get student by ID
     async getStudentById(studentId) {
         try {
@@ -52,7 +47,28 @@ const AdminModel = {
             console.error('Database Error:', error);
             return { success: false, error: 'Internal Server Error' };
         }
+    },
+
+    async getStudByName(firstName, lastName) {
+        try {
+            if (!firstName && !lastName) {
+                return { success: false, error: "First name or last name must be provided" };
+            }
+    
+            const query = `SELECT * FROM student WHERE F_Name LIKE ? OR L_Name LIKE ?`;
+            const values = [`%${firstName || ''}%`, `%${lastName || ''}%`];
+
+            console.log("Query:", query);
+            console.log("Values:", values);
+
+            const [students] = await pool.query(query, values);
+            return { success: true, students };
+        } catch (error) {
+            console.error('Database Error:', error);
+            return { success: false, error: 'Internal Server Error' };
+        }
     }
+    
 };
 
 module.exports = AdminModel;

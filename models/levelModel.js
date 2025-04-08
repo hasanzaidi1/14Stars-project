@@ -5,7 +5,6 @@ const getAllLevels = async () => {
     return rows;
 };
 
-
 const assignStudentLevel = async (studentId, levelId, fullName, subjectName, schoolYear) => {
     const query = `
         INSERT INTO student_level (st_id, level_id, full_name, subject, school_year) 
