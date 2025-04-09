@@ -26,6 +26,34 @@ class StudentController {
             res.status(500).json({ message: 'Internal server error' });
         }
     }
+
+    // Find student by name
+    async findStudent(req, res) {
+        const { fname, lname,  } = req.body;
+
+        try {
+            const student = await Student.findByName(fname, lname);
+
+            res.json({
+                message: student.length > 0 ? 'Student found' : 'No student found',
+                student: student
+            });
+        } catch (error) {
+            console.error('Error:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+
+    // Get all students
+    async getAll(req, res) {
+        try {
+            const students = await Student.getAllStudents();
+            res.json(students);
+        } catch (error) {
+            console.error('Error:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
 }
 
 module.exports = new StudentController();

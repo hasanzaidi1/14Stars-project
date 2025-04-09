@@ -89,7 +89,6 @@ function determineSchoolYear(assignmentDate) {
     }
 }
 
-
 module.exports = {
     validateRequiredFields,
     sendErrorResponse,

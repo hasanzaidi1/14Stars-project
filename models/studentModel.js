@@ -1,6 +1,13 @@
 const pool = require('../config/dbConfig');
 
 class Student {
+    // Get all students
+    static async getAllStudents() {
+        const query = 'SELECT * FROM student';
+        const [rows] = await pool.execute(query);
+        return rows;
+    }
+
     // Create a new student in the database
     static async registerStudent(fname, 
         MI,

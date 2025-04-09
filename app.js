@@ -15,7 +15,7 @@ const substituteRequestRoutes = require('./routes/substituteRequestRoutes');
 const subjectRoutes = require('./routes/subjectRoutes');
 const levelRoutes = require('./routes/levelRoutes');
 const studentLevelRoutes = require('./routes/studentLevelRoutes');
-
+const studentRoutes = require('./routes/studentRoutes');
 
 
 const app = express();
@@ -40,6 +40,7 @@ app.use('/substitute-requests', substituteRequestRoutes);
 app.use('/subjects', subjectRoutes);
 app.use('/levels', levelRoutes);
 app.use('/student-levels', studentLevelRoutes);
+app.use('/students', studentRoutes)
 
 
 // Admin Routes
@@ -139,8 +140,6 @@ app.get('/getGuardianNames', async (req, res) => {
     }
 });
 
-// Assign
-
 // Assign a guardian to a student
 app.post('/assignGuardian', async (req, res) => {
     const { st_id, g_id, relationship_type } = req.body;
@@ -187,8 +186,6 @@ app.get('/getStudentGuardianData', async (req, res) => {
     }
 });
 
-
-
 // Fetch students
 app.get('/getStudentNames', async (req, res) => {
     try {
@@ -199,7 +196,6 @@ app.get('/getStudentNames', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
-
 
 // Start the server
 const PORT = process.env.PORT || 30000;

@@ -64,7 +64,6 @@ class TeacherController {
         }
     }
  
-
     // Get all teachers from the database
     async getTeachers(req, res) {
         try {

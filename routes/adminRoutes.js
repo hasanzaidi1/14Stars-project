@@ -8,7 +8,6 @@ const helpers = require('../utils/helpers');
 router.post('/login', adminController.login);
 router.post('/register', adminController.registerStudent);
 router.get('/all', adminController.getAllStudents);
-router.get('/:id', adminController.getStudentById);
 router.get('/studByName', adminController.getStudByName);
 // router.post('/register-teacher', authMiddleware.isAdmin, adminController.registerTeacher);
 // router.post('/register-parent', authMiddleware.isAuthenticated, adminController.registerParent);

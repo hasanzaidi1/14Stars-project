@@ -197,6 +197,7 @@
                 <th>Student ID</th>
                 <th>Student Name</th>
                 <th>Level</th>
+                <th>Subject</th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -248,7 +249,7 @@
 
         // Function to fetch assigned levels data and display it
         function fetchAssignedLevelsData() {
-            fetch('/getAssignedLevels') // Use your existing route
+            fetch('/student-levels/assigned') // Use your existing route
                 .then(response => response.json())
                 .then(data => {
                     const tableBody = document.getElementById('stud-lvl-table').getElementsByTagName('tbody')[0];
@@ -259,7 +260,8 @@
                         row.innerHTML = `
                             <td>${entry.st_id || 'N/A'}</td>
                             <td>${entry.full_name || 'N/A'}</td>
-                            <td>${entry.level_number || 'N/A'}</td> <!-- Use level_id if this is what you intended -->
+                            <td>${entry.level_number || 'N/A'}</td> 
+                            <td>${entry.subject || 'N/A'}</td>
                         `;
                         tableBody.appendChild(row);
                     });
@@ -271,7 +273,7 @@
         // Function to fetch teachers data and display it
         function fetchTeachersData() {
     console.log("Fetching Teachers Data..."); // Log when the function is called
-    fetch('/fetch-teachers') // Updated route
+    fetch('/teachers/all') // Updated route
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
@@ -309,10 +311,26 @@
                 fetchStudentGuardianData(); // Fetch data for Student-Guardian table
             } else if (table === 'classes') {
                 // Implement fetching for classes if needed
+                // clear out the previous opened table or form
+                document.getElementById('guardian-table').style.display = 'none';
+                document.getElementById('stud-lvl-table').style.display = 'none';
+                document.getElementById('teachers-table').style.display = 'none';
                 document.getElementById('classes-table').style.display = 'table'; // Show the classes table
             } else if (table === 'studentLevel') {
+                // Fetch data for Student-Level table
+                // clear out the previous opened table or form  
+                document.getElementById('guardian-table').style.display = 'none';
+                document.getElementById('classes-table').style.display = 'none';
+                document.getElementById('teachers-table').style.display = 'none';
+
                 fetchAssignedLevelsData(); // Fetch data for Student-Level table
             } else if (table === 'teachers') {
+                // Fetch data for Teachers table
+                // clear out the previous opened table or form
+                document.getElementById('guardian-table').style.display = 'none';
+                document.getElementById('classes-table').style.display = 'none';
+                document.getElementById('stud-lvl-table').style.display = 'none';   
+                
                 fetchTeachersData(); // Fetch data for Teachers table
             }
         }
