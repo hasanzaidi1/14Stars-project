@@ -32,6 +32,10 @@
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
+        .highlight-row {
+            background-color: #fff3cd; /* soft yellow */
+        }
+
         .cta-button:hover {
             background-color: #0056b3;
             transform: scale(1.05);
@@ -170,11 +174,11 @@
         <table id="substitute-requests">
             <thead>
                 <tr>
+                    <th>Created Date</th>
                     <th>Teacher Name</th>
                     <th>Teacher Email</th>
                     <th>Reason</th>
-                    <th>Date</th>
-                    <th>Created Date</th>
+                    <th>Date Requeseted</th>
                     <th>Satisfied By</th> <!-- Text Entry column -->
                     <th>Action</th> <!-- Submit button column -->
                 </tr>
@@ -217,13 +221,22 @@
                 });
 
                 data.substituteRequests.forEach(request => {
+                    const requestDate = new Date(request.date);
+                    const today = new Date();
+                    // Strip time for fair comparison
+                    today.setHours(0, 0, 0, 0);
+                    requestDate.setHours(0, 0, 0, 0);
                     const row = document.createElement('tr');
+                    // Highlight only if not satisfied AND the date is today or future
+                    if (!request.satisfied_by && requestDate >= today) {
+                        row.classList.add('highlight-row');
+                    }
                     row.innerHTML = `
+                        <td>${formatDate(request.created_at)}</td>
                         <td>${request.teacher_name}</td>
                         <td>${request.teacher_email}</td>
                         <td>${request.reason}</td>
                         <td>${formatDate(request.date)}</td>
-                        <td>${formatDate(request.created_at)}</td>
                         <td>
                             ${
                                 request.satisfied_by
