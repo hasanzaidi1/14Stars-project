@@ -54,6 +54,17 @@ class StudentController {
             res.status(500).json({ error: 'Internal Server Error' });
         }
     }
+
+    // Get all students full name
+    async getFullName(req, res) {
+        try {
+            const students = await Student.getAllFullName();
+            res.json(students);
+        } catch (error) {
+            console.error('Error:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
 }
 
 module.exports = new StudentController();

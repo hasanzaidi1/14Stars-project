@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const Parent = require('../models/parentModel');
 const StudentGuardian = require('../models/studentGuardianModel');
 const Student = require('../models/studentModel');
+const helper = require('../utils/helpers');
 
 class ParentController {
     // **Register a New Parent**
@@ -66,18 +67,33 @@ class ParentController {
     }
 
     // **Register a New Student (with Guardian Relationship)**
+    // **Register a New Student (with Guardian Relationship)**
     async registerStudent(req, res) {
         const {
             fname, MI, lname, DOB, st_address, city, state, zip,
             st_email, st_cell, student_location, gender,
-            "parent-first-name": parentFName, "parent-last-name": parentLName, relation,
+            "parent-first-name": parentFName,
+            "parent-MI": parentMI,
+            "parent-last-name": parentLName,
+            relation,
             parent_st_address, parent_city, parent_state, parent_zip,
-            parent_cell, parent_email
+            parent_cell, parent_email,
+            parent_gender
         } = req.body;
 
-        console.log('Received relation:', relation);
-
-        const parentId = req.session.parentId; // Get parent ID from session
+        const guardianData = helper.cleanData({
+            g_f_name: parentFName,
+            g_mi: parentMI,
+            g_l_name: parentLName,
+            g_cell: parent_cell,
+            g_email: parent_email,
+            g_staddress: parent_st_address,
+            g_city: parent_city,
+            g_state: parent_state,
+            g_zip: parent_zip,
+            gender: parent_gender
+        });
+        
 
         try {
             // **Check if student already exists**
@@ -95,23 +111,31 @@ class ParentController {
                 guardianId = guardianExists.g_id;
             } else {
                 // **Insert new guardian**
-                const guardianResult = await Parent.registerGuardian(parentFName, parentLName, parent_cell, parent_email, parent_st_address, parent_city, parent_state, parent_zip);
-                guardianId = guardianResult.insertId;
+                await Parent.registerGuardian(guardianData);
+
+                // Get inserted guardian's ID
+                const newGuardian = await Parent.findGuardian(parentFName, parentLName, parent_cell, parent_email);
+                guardianId = newGuardian.g_id;
             }
 
             // **Insert new student**
-            const studentResult = await Student.registerStudent(fname, MI, lname, DOB, st_address, city, state, zip, st_email, st_cell, student_location, gender);
+            const studentResult = await Student.registerStudent(
+                fname, MI, lname, DOB, st_address, city, state, zip,
+                st_email, st_cell, student_location, gender
+            );
             const studentId = studentResult.insertId;
 
             // **Insert relationship in student_guardian table**
             await StudentGuardian.createStudentGuardian(guardianId, studentId, relation);
 
-            res.redirect('/parents/parents_portal.html'); // Redirect to parent portal after successful registration
+            // ✅ Redirect after successful registration
+            res.redirect('/parents/parents_portal.html');
         } catch (error) {
             console.error('Error registering student:', error);
             res.status(500).send('Internal Server Error');
         }
     }
+
 
     // **Get All Students of a Parent (Guardian)**
     async getStudents(req, res) {
@@ -138,6 +162,19 @@ class ParentController {
             res.status(500).send('Internal Server Error');
         }
     }
+
+    // **Get Guardian Names**
+    async getGuardianNames(req, res) {
+        try {
+            const guardianNames = await Parent.getGuardianNames();
+            res.json(guardianNames);
+        } catch (error) {
+            console.error('Error getting guardian names:', error);
+            res.status(500).send('Internal Server Error');
+        }
+    }
+
+
 }
 
 module.exports = new ParentController();

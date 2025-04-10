@@ -40,20 +40,71 @@ class ParentModel {
     }
 
     // **Register a new Guardian in the database table: guardian**
-    static async registerGuardian(parentFName, parentLName, parent_cell, parent_email, parent_st_address, parent_city, parent_state, parent_zip) {
-        const query = `INSERT INTO guardian (g_f_name, g_l_name, g_cell, g_email, g_staddress, g_city, g_state, g_zip) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-        const values = [parentFName, parentLName, parent_cell, parent_email, parent_st_address, parent_city, parent_state, parent_zip];
-
+    static async registerGuardian(guardianData) {
         try {
-            const [result] = await pool.query(query, values);  // Correct usage of pool.query for MySQL
-            return result; // MySQL returns result in the form of an array
-        } catch (error) {
-            console.error('Error inserting guardian:', error);
-            throw new Error('Error inserting guardian into the database');
-        }
-
-    }
+            const {
+                g_f_name,
+                g_mi,
+                g_l_name,
+                g_cell,
+                g_email,
+                g_staddress,
+                g_city,
+                g_state,
+                g_zip,
+                gender
+            } = guardianData;
     
+            const query = `
+                INSERT INTO guardian 
+                (g_f_name, g_mi, g_l_name, g_cell, g_email, g_staddress, g_city, g_state, g_zip, gender) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            `;
+    
+            const values = [
+                g_f_name,
+                g_mi,
+                g_l_name,
+                g_cell,
+                g_email,
+                g_staddress,
+                g_city,
+                g_state,
+                g_zip,
+                gender
+            ];
+    
+            const [result] = await pool.execute(query, values);
+            return { success: true, message: 'Guardian registered successfully!' };
+        } catch (err) {
+            console.error("Error registering guardian:", err);
+            throw err;
+        }
+    } 
+
+    // **Get All Guardians**
+    static async getAllGuardians() {
+        try {
+            const query = 'SELECT * FROM guardian';
+            const [rows] = await pool.query(query);
+            return rows;
+        } catch (error) {
+            console.error('Error fetching guardians:', error);
+            throw error;
+        }
+    }
+
+    // **Get full names of all guardians**
+    static async getGuardianNames() {
+        try {
+            const query = 'SELECT g_id, CONCAT(g_f_name, " ",g_l_name) AS full_name FROM guardian';
+            const [rows] = await pool.query(query);
+            return rows;
+        } catch (error) {
+            console.error('Error fetching guardian names:', error);
+            throw error;
+        }
+    }
 }
 
 module.exports = ParentModel;

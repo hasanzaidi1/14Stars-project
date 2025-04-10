@@ -76,6 +76,13 @@ class Student {
         const [rows] = await pool.execute(query, [email]);
         return rows;
     }
+
+    // Get all students full name
+    static async getAllFullName() {
+        const query = 'SELECT St_ID, CONCAT(F_Name, " ", MI, " ", L_Name) AS full_name FROM student';
+        const [rows] = await pool.execute(query);
+        return rows;
+    }
 }
 
 module.exports = Student;

@@ -8,6 +8,7 @@ router.post('/register', studentController.register); // Example: Registering a 
 router.post('/find', studentController.findStudent); // Find student by first or last name
 // Get all students
 router.get('/all', studentController.getAll); // Get all students
-
+// Get student full Name
+router.get('/fullName', studentController.getFullName); // Get student full name
 
 module.exports = router;

@@ -225,7 +225,7 @@
 
         // Function to fetch student-guardian data and display it
         function fetchStudentGuardianData() {
-            fetch('/getStudentGuardianData') // Use your existing route
+            fetch('/admins/getStudentGuardianData') // Use your existing route
                 .then(response => response.json())
                 .then(data => {
                     const tableBody = document.getElementById('guardian-table').getElementsByTagName('tbody')[0];
