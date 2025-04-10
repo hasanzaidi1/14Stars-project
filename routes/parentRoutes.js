@@ -9,6 +9,7 @@ router.post('/register', parentController.register);
 router.get('/logout', parentController.logout);
 router.post('/register-from-parent', parentController.registerStudent);
 router.post('/students', parentController.getStudentsByParentEmail);
+router.get('/guardianNames', parentController.getGuardianNames);
 
 
 module.exports = router;

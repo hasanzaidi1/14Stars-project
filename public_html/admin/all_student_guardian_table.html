@@ -98,8 +98,7 @@
     <script>
         async function fetchStudentGuardianData() {
             try {
-                const response = await fetch('/getStudentGuardianData');
-                
+                const response = await fetch('/admins/getStudentGuardianData');
                 // Check if the response is ok
                 if (!response.ok) {
                     throw new Error('Network response was not ok');

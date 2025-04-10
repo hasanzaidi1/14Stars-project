@@ -138,7 +138,7 @@
 
     <script>
         // Fetch the guardians data from the backend
-        fetch('/all-guardians')
+        fetch('/admins/all-guardians')
             .then(response => response.json())
             .then(data => {
                 const tableBody = document.getElementById('guardian-table').getElementsByTagName('tbody')[0];

@@ -139,7 +139,7 @@
         // Fetch students and populate the select dropdown
         async function fetchStudents() {
             try {
-                const response = await fetch('/getStudentNames');
+                const response = await fetch('/students/fullName');
                 const students = await response.json();
                 const studentSelect = document.getElementById('student-select');
 

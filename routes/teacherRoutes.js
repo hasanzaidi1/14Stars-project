@@ -11,7 +11,6 @@ router.get('/teacher-logout', teacherController.logout);
 // Implement authentication middleware to protect these routes
 // router.post('/register', authMiddleware.isAuthenticated, teacherController.registerTeacher);
 router.post('/register', teacherController.registerTeacher);
-// router.get('/all', authMiddleware.isAuthenticated, teacherController.getTeachers);
 router.get('/all', teacherController.getTeachers);
 
 // Teacher portal route

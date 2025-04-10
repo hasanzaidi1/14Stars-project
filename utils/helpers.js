@@ -65,7 +65,7 @@ function isAuthenticated(req, res, next) {
  * @returns {string} - The full name of the student.
  */
 async function getFullNameByStudentId(studentId) {
-    const query = 'SELECT CONCAT(F_Name, " ", L_Name) AS full_name FROM student WHERE St_ID = ?';
+    const query = 'SELECT CONCAT(F_Name, " ", MI, " ", L_Name) AS full_name FROM student WHERE St_ID = ?';
     const [rows] = await pool.query(query, [studentId]);
     return rows[0] ? rows[0].full_name : '';
 }
@@ -89,6 +89,13 @@ function determineSchoolYear(assignmentDate) {
     }
 }
 
+function cleanData(data) {
+    const cleaned = {};
+    for (const key in data) {
+        cleaned[key] = data[key] !== undefined ? data[key] : null;
+    }
+    return cleaned;
+}
 
 module.exports = {
     validateRequiredFields,
@@ -97,5 +104,6 @@ module.exports = {
     isValidPhoneNumber,
     isAuthenticated,
     getFullNameByStudentId,
-    determineSchoolYear
+    determineSchoolYear,
+    cleanData
 };

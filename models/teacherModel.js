@@ -40,6 +40,10 @@ class Teacher {
                 t_zip
             FROM teachers`;
         const [rows] = await pool.query(query);
+        let full_name = rows.map(row => row.t_f_name + " " + row.t_l_name);
+        rows.forEach((row, index) => {
+            row.full_name = full_name[index];
+        });
         return rows;
     }
 

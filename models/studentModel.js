@@ -1,6 +1,13 @@
 const pool = require('../config/dbConfig');
 
 class Student {
+    // Get all students
+    static async getAllStudents() {
+        const query = 'SELECT * FROM student';
+        const [rows] = await pool.execute(query);
+        return rows;
+    }
+
     // Create a new student in the database
     static async registerStudent(fname, 
         MI,
@@ -67,6 +74,13 @@ class Student {
         const query = `SELECT * FROM student
             WHERE St_ID IN (SELECT st_id FROM student_guardian WHERE g_id IN (SELECT g_id FROM guardian WHERE g_email = ?))`;
         const [rows] = await pool.execute(query, [email]);
+        return rows;
+    }
+
+    // Get all students full name
+    static async getAllFullName() {
+        const query = 'SELECT St_ID, CONCAT(F_Name, " ", MI, " ", L_Name) AS full_name FROM student';
+        const [rows] = await pool.execute(query);
         return rows;
     }
 }

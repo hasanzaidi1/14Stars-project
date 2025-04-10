@@ -67,7 +67,89 @@ const AdminModel = {
             console.error('Database Error:', error);
             return { success: false, error: 'Internal Server Error' };
         }
+    },
+
+    // Assign a guardian to a student
+    async assignGuardian(st_id, g_id, relationship_type) {
+        try {
+            const [result] = await pool.query(
+                `INSERT INTO student_guardian (st_id, g_id, relationship_type) VALUES (?, ?, ?)`,
+                [st_id, g_id, relationship_type]
+            );
+            return result;
+        } catch (error) {
+            console.error('Database Error:', error);
+            throw error;
+        }
+    },
+
+    // Get all getStudentGuardianData
+    async getStudentGuardianData() {
+        try {
+            const query = `
+                SELECT 
+                    s.St_ID, 
+                    CONCAT(s.F_Name, ' ', s.L_Name) AS student_name,
+                    CONCAT(g.g_f_name, ' ', g.g_l_name) AS guardian_name,
+                    sg.relationship_type,
+                    g.g_cell,
+                    g.g_email
+                FROM student s
+                LEFT JOIN student_guardian sg ON s.St_ID = sg.st_id
+                LEFT JOIN guardian g ON sg.g_id = g.g_id
+                ORDER BY s.St_ID;
+            `;
+
+            const [rows] = await pool.execute(query);
+            return rows;
+        } catch (error) {
+            console.error('Error fetching student-guardian data:', error);
+            throw error;
+        }
     }
+    
+    // // Register Parent/Guardian
+    // async registerParent(guardianData) {
+    //     try {
+    //         const {
+    //             g_f_name,
+    //             g_mi,
+    //             g_l_name,
+    //             g_cell,
+    //             g_email,
+    //             g_staddress,
+    //             g_city,
+    //             g_state,
+    //             g_zip,
+    //             gender
+    //         } = guardianData;
+    
+    //         const query = `
+    //             INSERT INTO guardian 
+    //             (g_f_name, g_mi, g_l_name, g_cell, g_email, g_staddress, g_city, g_state, g_zip, gender) 
+    //             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    //         `;
+    
+    //         const values = [
+    //             g_f_name,
+    //             g_mi,
+    //             g_l_name,
+    //             g_cell,
+    //             g_email,
+    //             g_staddress,
+    //             g_city,
+    //             g_state,
+    //             g_zip,
+    //             gender
+    //         ];
+    
+    //         const [result] = await pool.execute(query, values);
+    //         return result;
+    //     } catch (err) {
+    //         console.error("Error registering guardian:", err);
+    //         throw err;
+    //     }
+    // },
     
 };
 
