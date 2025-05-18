@@ -133,3 +133,13 @@ CREATE TABLE `teachers` (
   PRIMARY KEY (`t_id`),
   UNIQUE KEY `t_email` (`t_email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ++++++++++++++++++ NEW QUERY NEEDS TO IMPLEMENTED ON THE VPS  ++++++++++++++++++
+CREATE TABLE term (
+    term_id INT AUTO_INCREMENT PRIMARY KEY,
+    term_name VARCHAR(100) NOT NULL,
+    school_year VARCHAR(20) NOT NULL,
+    UNIQUE (term_name, school_year)
+);
+-- END OF NEW QUERY
+

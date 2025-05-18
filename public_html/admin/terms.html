@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Terms Management</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    ul, h2 {
+      list-style-type: none;
+      padding: 0;
+      text-align: center;
+    }
+
+    form {
+      width: 50%;
+      justify-content: center;
+      margin: auto;
+    }
+
+    input {
+      width: 50%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      box-sizing: border-box;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    table, th, td {
+      border: 1px solid black;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+    }
+
+    #form-feedback {
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Terms Management</h1>
+    <nav>
+      <ul>
+        <button onclick="window.location.href='/admin/admin.html'">Back to Admin Page</button>
+        <button class="logout-btn" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>Add New Term</h2>
+      <form id="term-form">
+        <input type="text" id="termName" name="termName" placeholder="Enter term name (e.g., Fall)" required>
+        <button type="submit">Add Term</button>
+        <div id="form-feedback"></div>
+      </form>
+    </section>
+
+    <section>
+      <h2>Existing Terms</h2>
+      <table id="terms-table">
+        <thead>
+          <tr>
+            <th>Term Name</th>
+            <th>School Year</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Term entries will appear here -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById('term-form');
+    const tableBody = document.querySelector('#terms-table tbody');
+    const feedback = document.getElementById('form-feedback');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const termName = document.getElementById('termName').value.trim();
+      if (!termName) {
+        feedback.textContent = 'Please enter a valid term name.';
+        feedback.style.color = 'red';
+        return;
+      }
+
+      // Calculate current school year
+      const now = new Date();
+      const startYear = now.getMonth() >= 6 ? now.getFullYear() : now.getFullYear() - 1;
+      const endYear = startYear + 1;
+      const schoolYear = `${startYear}-${endYear}`;
+
+      // Add term to table
+      // const row = document.createElement('tr');
+      // row.innerHTML = `<td>${termName}</td><td>${schoolYear}</td>`;
+      // tableBody.appendChild(row);
+
+      // Submit form data
+      
+    // Show feedback
+      feedback.textContent = `Term "${termName}" added for ${schoolYear}.`;
+      feedback.style.color = 'green';
+      form.reset();
+    });
+  </script>
+</body>
+</html>

@@ -16,6 +16,7 @@ const subjectRoutes = require('./routes/subjectRoutes');
 const levelRoutes = require('./routes/levelRoutes');
 const studentLevelRoutes = require('./routes/studentLevelRoutes');
 const studentRoutes = require('./routes/studentRoutes');
+const termRoutes = require('./routes/termRoutes');
 
 
 const app = express();
@@ -41,6 +42,7 @@ app.use('/subjects', subjectRoutes);
 app.use('/levels', levelRoutes);
 app.use('/student-levels', studentLevelRoutes);
 app.use('/students', studentRoutes)
+app.use('/terms', termRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 30000;
