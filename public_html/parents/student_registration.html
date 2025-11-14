@@ -120,20 +120,28 @@
             const form = document.getElementById('registration-form');
             form.addEventListener('submit', async (event) => {
                 event.preventDefault();
+                if (!form.reportValidity()) {
+                    return;
+                }
                 const formData = new FormData(form);
+                const payload = Object.fromEntries(formData.entries());
 
                 try {
                     const response = await fetch('/parents/register-from-parent', {
                         method: 'POST',
-                        body: formData
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(payload),
+                        credentials: 'same-origin'
                     });
 
-                    const result = await response.json();
-                    if (response.ok) {
-                        alert('Registration successful!');
+                    const result = await response.json().catch(() => ({}));
+                    if (response.ok && result.success) {
+                        alert(result.message || 'Registration successful!');
                         form.reset();
                     } else {
-                        alert('Error: ' + (result.error || 'Unable to register student.'));
+                        alert(result.message || result.error || 'Unable to register student.');
                     }
                 } catch (error) {
                     console.error('Server error', error);

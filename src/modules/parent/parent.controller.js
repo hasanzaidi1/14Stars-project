@@ -68,10 +68,9 @@ class ParentController {
     }
 
     // **Register a New Student (with Guardian Relationship)**
-    // **Register a New Student (with Guardian Relationship)**
     async registerStudent(req, res) {
         if (!req.session.isParent || !req.session.parentEmail) {
-            return res.status(401).json({ message: 'Parent authentication required' });
+            return res.status(401).json({ success: false, message: 'Parent authentication required' });
         }
         const {
             fname, MI, lname, DOB, st_address, city, state, zip,
@@ -86,6 +85,30 @@ class ParentController {
         } = req.body;
         const parentEmail = req.session.parentEmail;
 
+        const requiredFieldError = helper.validateRequiredFields([
+            { name: 'Student first name', value: fname },
+            { name: 'Student last name', value: lname },
+            { name: 'Date of birth', value: DOB },
+            { name: 'Student address', value: st_address },
+            { name: 'Student city', value: city },
+            { name: 'Student state', value: state },
+            { name: 'Student zip', value: zip },
+            { name: 'Student location', value: student_location },
+            { name: 'Student gender', value: gender },
+            { name: 'Guardian first name', value: parentFName },
+            { name: 'Guardian last name', value: parentLName },
+            { name: 'Guardian address', value: parent_st_address },
+            { name: 'Guardian city', value: parent_city },
+            { name: 'Guardian state', value: parent_state },
+            { name: 'Guardian zip', value: parent_zip },
+            { name: 'Guardian phone number', value: parent_cell },
+            { name: 'Relationship', value: relation }
+        ]);
+
+        if (requiredFieldError) {
+            return res.status(400).json({ success: false, message: requiredFieldError });
+        }
+
         const guardianData = helper.cleanData({
             g_f_name: parentFName,
             g_mi: parentMI,
@@ -98,14 +121,27 @@ class ParentController {
             g_zip: parent_zip,
             gender: parent_gender
         });
-        
+        const studentData = helper.cleanData({
+            fname,
+            MI,
+            lname,
+            DOB,
+            st_address,
+            city,
+            state,
+            zip,
+            st_email,
+            st_cell,
+            student_location,
+            gender
+        });
 
         try {
             // **Check if student already exists**
-            const studentExists = await Student.doesExist(fname, lname, DOB);
+            const studentExists = await Student.doesExist(studentData.fname, studentData.lname, studentData.DOB);
             if (studentExists) {
                 console.log('Student already exists:', studentExists);
-                return res.status(400).json({ message: 'Student already exists' });
+                return res.status(409).json({ success: false, message: 'Student already exists' });
             }
 
             // **Check if guardian (parent) already exists**
@@ -125,19 +161,37 @@ class ParentController {
 
             // **Insert new student**
             const studentResult = await Student.registerStudent(
-                fname, MI, lname, DOB, st_address, city, state, zip,
-                st_email, st_cell, student_location, gender
+                studentData.fname,
+                studentData.MI,
+                studentData.lname,
+                studentData.DOB,
+                studentData.st_address,
+                studentData.city,
+                studentData.state,
+                studentData.zip,
+                studentData.st_email,
+                studentData.st_cell,
+                studentData.student_location,
+                studentData.gender
             );
             const studentId = studentResult.insertId;
 
             // **Insert relationship in student_guardian table**
             await StudentGuardian.createStudentGuardian(guardianId, studentId, relation);
 
-            // ✅ Redirect after successful registration
-            res.redirect('/parents/parents_portal');
+            // ✅ Return JSON response for the portal AJAX request
+            return res.status(201).json({
+                success: true,
+                guardianId,
+                studentId,
+                message: 'Student registered successfully'
+            });
         } catch (error) {
             console.error('Error registering student:', error);
-            res.status(500).send('Internal Server Error');
+            return res.status(500).json({
+                success: false,
+                message: 'Failed to register student. Please try again.'
+            });
         }
     }
 
