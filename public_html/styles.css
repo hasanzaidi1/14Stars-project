@@ -3,15 +3,16 @@
 :root {
     --primary-color: #1c5d99;
     --primary-dark: #134a78;
-    --secondary-color: #f1f5f9;
+    --secondary-color: #f5f7fb;
     --accent-color: #f59e0b;
     --success-color: #1f9d55;
     --danger-color: #d90429;
-    --text-color: #1f2937;
+    --text-color: #0f172a;
     --muted-text: #64748b;
     --surface-color: #ffffff;
     --border-color: #d6dee8;
     --shadow-soft: 0px 12px 24px rgba(15, 23, 42, 0.08);
+    --focus-ring: 0 0 0 3px rgba(28, 93, 153, 0.25);
 }
 
 *,
@@ -24,7 +25,7 @@ body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: var(--secondary-color);
+    background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
     color: var(--text-color);
     min-height: 100vh;
     line-height: 1.5;
@@ -34,7 +35,7 @@ main {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1.5rem 3rem;
+    padding: 1rem 1.5rem 3rem;
 }
 
 section {
@@ -87,6 +88,7 @@ header {
     position: relative;
     top: 0;
     z-index: 1000;
+    box-shadow: var(--shadow-soft);
 }
 
 header h1 {
@@ -100,6 +102,7 @@ nav ul {
     padding: 0;
     display: flex;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 nav ul li a {
@@ -111,6 +114,85 @@ nav ul li a {
 
 nav ul li a:hover {
     opacity: 0.85;
+}
+
+.page-eyebrow {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    color: var(--muted-text);
+    margin: 0 0 0.25rem;
+}
+
+.page-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.75rem;
+}
+
+.btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.panel {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    box-shadow: var(--shadow-soft);
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+}
+
+.panel--narrow {
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.panel--flush {
+    padding: 0;
+    overflow: hidden;
+}
+
+.panel-body {
+    padding: 1.75rem 2rem;
+}
+
+.panel--flush .panel-body {
+    padding: 1.75rem 2rem;
+}
+
+.panel-footer {
+    padding: 1rem 2rem 1.5rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.text-muted {
+    color: var(--muted-text);
+}
+
+.is-hidden {
+    display: none !important;
+}
+
+.card {
+    background-color: var(--secondary-color);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1rem 1.25rem;
+    margin-top: 1rem;
+}
+
+.card--muted {
+    color: var(--muted-text);
 }
 
 .hero {
@@ -143,12 +225,14 @@ button,
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.75rem 1.5rem;
+    gap: 0.35rem;
+    padding: 0.85rem 1.75rem;
     border-radius: 999px;
     border: none;
     cursor: pointer;
     font-size: 1rem;
     font-weight: 600;
+    letter-spacing: 0.01em;
     background-color: var(--primary-color);
     color: #fff;
     transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
@@ -159,7 +243,24 @@ button:hover,
 .btn:hover {
     background-color: var(--primary-dark);
     transform: translateY(-1px);
-    box-shadow: 0 8px 18px rgba(28, 93, 153, 0.2);
+    box-shadow: 0 10px 24px rgba(28, 93, 153, 0.3);
+}
+
+.cta-button:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
+button:disabled,
+.btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+    box-shadow: none;
 }
 
 .btn--secondary {
@@ -223,19 +324,30 @@ button:hover,
 .data-table-wrapper {
     overflow-x: auto;
     background-color: var(--surface-color);
-    border-radius: 12px;
+    border-radius: 16px;
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow-soft);
 }
 
 table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     font-size: 0.95rem;
+    background-color: var(--surface-color);
+}
+
+table caption {
+    caption-side: top;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--muted-text);
+    padding: 1rem;
 }
 
 thead {
-    background-color: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
     color: #fff;
 }
 
@@ -246,8 +358,33 @@ td {
     border-bottom: 1px solid var(--border-color);
 }
 
+th {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f8fafc;
+}
+
 tbody tr:hover {
-    background-color: #edf2fb;
+    background-color: #e4ecfb;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.table-actions button {
+    padding: 0.45rem 1rem;
+    font-size: 0.85rem;
 }
 
 .status-pill {
@@ -311,7 +448,12 @@ select:focus,
 textarea:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(28, 93, 153, 0.15);
+    box-shadow: var(--focus-ring);
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--muted-text);
 }
 
 .gender-options {
@@ -327,6 +469,17 @@ textarea:focus {
     color: var(--muted-text);
 }
 
+.student-name {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.student-name input {
+    flex: 1 1 160px;
+    min-width: 140px;
+}
+
 .badge,
 .chip {
     display: inline-flex;
@@ -336,6 +489,22 @@ textarea:focus {
     background-color: rgba(28, 93, 153, 0.12);
     color: var(--primary-color);
     font-size: 0.85rem;
+}
+
+.chip--neutral {
+    background-color: rgba(100, 116, 139, 0.12);
+    color: var(--muted-text);
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
 }
 
 footer {
@@ -421,5 +590,23 @@ footer {
     td,
     tr {
         font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 600px) {
+    th,
+    td {
+        padding: 10px 12px;
+    }
+
+    .table-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .cta-button,
+    button,
+    .btn {
+        width: 100%;
     }
 }

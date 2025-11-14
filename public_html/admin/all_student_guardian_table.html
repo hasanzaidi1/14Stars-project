@@ -5,95 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student-Guardian Table</title>
     <link rel="stylesheet" href="../styles.css">
-    <style>
-        /* Make table scrollable on small screens */
-        @media screen and (max-width: 768px) {
-            table {
-                display: block;
-                overflow-x: auto;
-                white-space: nowrap;
-            }
-
-            th, td {
-                text-align: center;
-            }
-
-            .text-entry {
-                font-size: 14px;
-                padding: 3px;
-            }
-
-            .submit-btn {
-                font-size: 12px;
-                padding: 3px 10px;
-            }
-        }
-
-        /* Adjust button sizes and spacing for smaller screens */
-        @media screen and (max-width: 576px) {
-            .cta-button {
-                font-size: 16px;
-                padding: 10px 20px;
-            }
-
-            .btn-container {
-                gap: 10px;
-            }
-        }
-        
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th, td {
-            padding: 10px;
-            border: 1px solid #ccc;
-            text-align: left;
-        }
-
-        th {
-            background-color: #28a745;
-            color: white;
-        }
-
-    </style>
 </head>
 <body>
-    <nav>
-        <ul>
-            <button onclick="window.location.href='/admin/student_guardian.html'">Back to Assign Guardian</button>
-            <button class="logout-btn" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
-        </ul>
-    </nav>
-    <h1>Guardian-Student Relationships</h1>
-    <table id="guardian-table">
-        <thead>
-            <tr>
-                <th>Student Name</th>
-                <th>Guardian Name</th>
-                <th>Relationship</th>
-                <th>Phone Num</th>
-                <th>Email</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Rows will be added here dynamically -->
-        </tbody>
-    </table>
+    <header class="page-header">
+        <div>
+            <p class="page-eyebrow">Admin Portal</p>
+            <h1>Guardian-Student Relationships</h1>
+        </div>
+        <div class="page-actions">
+            <button type="button" class="btn btn--secondary" onclick="window.location.href='/admin/student_guardian.html'">Assign Guardian</button>
+            <button type="button" class="btn btn--danger" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
+        </div>
+    </header>
+    <main>
+        <section class="panel panel--flush">
+            <div class="panel-body">
+                <p class="text-muted">Review the guardians assigned to each student along with their contact details.</p>
+                <div class="data-table-wrapper">
+                    <table id="guardian-table">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Guardian Name</th>
+                                <th>Relationship</th>
+                                <th>Phone Number</th>
+                                <th>Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <script>
         async function fetchStudentGuardianData() {
