@@ -1,37 +1,57 @@
 14Stars-project/
-├── config/                     # Configuration files
-│   └── dbConfig.js             # Database configuration
-├── controllers/                # Route controllers
-│   ├── adminController.js
-│   ├── authController.js
-│   ├── parentController.js
-│   ├── studentController.js
-│   ├── substituteController.js
-│   ├── teacherController.js
-│   └── subjectController.js
-├── middlewares/                # Custom middleware functions
-│   └── authMiddleware.js
-├── models/                     # Database models
-│   ├── adminModel.js
-│   ├── parentModel.js
-│   ├── studentModel.js
-│   ├── substituteModel.js
-│   ├── teacherModel.js
-│   └── subjectModel.js
-├── routes/                     # Express route definitions
-│   ├── adminRoutes.js
-│   ├── authRoutes.js
-│   ├── parentRoutes.js
-│   ├── studentRoutes.js
-│   ├── substituteRoutes.js
-│   ├── teacherRoutes.js
-│   └── subjectRoutes.js
-├── public/                     # Static files (CSS, JS, HTML)
-│   ├── css/
-│   ├── js/
-│   └── html/
-├── utils/                      # Utility functions (optional)
-│   └── helpers.js              # Helper functions used across the app
-├── .env                        # Environment variables
-├── app.js                      # Main application file
-└── package.json                # Project metadata and dependencies
+├── src/
+│   ├── app.js                          # Express bootstrapper
+│   ├── config/
+│   │   ├── dbConfig.js
+│   │   └── schema.sql
+│   ├── middlewares/
+│   │   └── authMiddleware.js
+│   ├── modules/                        # Feature modules (MVC per domain)
+│   │   ├── admin/
+│   │   │   ├── admin.controller.js
+│   │   │   ├── admin.model.js
+│   │   │   └── admin.routes.js
+│   │   ├── parent/
+│   │   │   ├── parent.controller.js
+│   │   │   ├── parent.model.js
+│   │   │   └── parent.routes.js
+│   │   ├── student/
+│   │   │   ├── student.controller.js
+│   │   │   ├── student.model.js
+│   │   │   └── student.routes.js
+│   │   ├── teacher/
+│   │   │   ├── teacher.controller.js
+│   │   │   ├── teacher.model.js
+│   │   │   └── teacher.routes.js
+│   │   ├── subject/
+│   │   │   ├── subject.controller.js
+│   │   │   ├── subject.model.js
+│   │   │   └── subject.routes.js
+│   │   ├── level/
+│   │   │   ├── level.controller.js
+│   │   │   ├── level.model.js
+│   │   │   └── level.routes.js
+│   │   ├── student-level/
+│   │   │   ├── student-level.controller.js
+│   │   │   └── student-level.routes.js
+│   │   ├── term/
+│   │   │   ├── term.controller.js
+│   │   │   ├── term.model.js
+│   │   │   └── term.routes.js
+│   │   ├── substitute/
+│   │   │   ├── substitute.controller.js
+│   │   │   ├── substitute.model.js
+│   │   │   └── substitute.routes.js
+│   │   ├── substitute-request/
+│   │   │   ├── substitute-request.controller.js
+│   │   │   ├── substitute-request.model.js
+│   │   │   └── substitute-request.routes.js
+│   │   └── guardian/
+│   │       └── student-guardian.model.js
+│   └── utils/
+│       └── helpers.js
+├── public_html/                       # Static HTML/CSS/JS
+├── README.md
+├── package.json
+├── package-lock.json
+└── .env (local)

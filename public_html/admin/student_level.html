@@ -3,129 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <title>Assign Level to Student</title>
-    <style>
-        /* General styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-        }
-
-        form {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            width: 60%;
-        }
-
-        label {
-            display: block;
-            margin: 10px 0 5px;
-        }
-
-        /* Select and button styles */
-        select {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        button {
-            background-color: #4CAF50; /* Green */
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        /* Table styles */
-        h2 {
-            text-align: center;
-        }
-        
-        table {
-            width: 80%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            margin: 0 auto;  /* Horizontally center the table */
-        }
-
-        table th, table td {
-            padding: 10px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-
-        table th {
-            background-color: #4CAF50; /* Green */
-            color: white;
-        }
-
-        table tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        table tr:hover {
-            background-color: #ddd;
-        }
-
-        /* Responsive styles */
-        @media (max-width: 600px) {
-            select, button {
-                font-size: 14px;
-            }
-        }
-    </style>
 </head>
 <body>
-    <header>
-        <h1>Assign Level to Student</h1>
-        <ul>
-            <button onclick="window.location.href='/admin/admin.html'">Admin Privilege</button>
-            <button class="logout-btn" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
-        </ul>
+    <header class="page-header">
+        <div>
+            <p class="page-eyebrow">Admin Portal</p>
+            <h1>Assign Level to Student</h1>
+        </div>
+        <div class="page-actions">
+            <button type="button" class="btn btn--secondary" onclick="window.location.href='/admin/admin.html'">Admin Dashboard</button>
+            <button type="button" class="btn btn--danger" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
+        </div>
     </header>
-    <form id="assignment-form">
-        <label for="student-select">Select Student:</label>
-        <select id="student-select"></select>
 
-        <label for="level-select">Select Level:</label>
-        <select id="level-select"></select>
+    <main>
+        <section class="panel panel--narrow">
+            <h2>Assignment Details</h2>
+            <p class="text-muted">Select a student, level, and subject to create a new assignment record.</p>
+            <form id="assignment-form">
+                <label for="student-select">Select Student</label>
+                <select id="student-select" required></select>
 
-        <label for="subject-select">Select Subject:</label>
-        <select id="subject-select">
-            <!-- Default option that remains static -->
-            <option value="">Select a Subject</option>
-        </select>
-        <button type="submit">Assign Level</button>
-    </form>
+                <label for="level-select">Select Level</label>
+                <select id="level-select" required></select>
 
-    <h2>Assigned Levels</h2>
-    <table id="student-level-table">
-        <thead>
-            <tr>
-                <th>Student ID</th>
-                <th>Student Name</th>
-                <th>Level</th>
-                <th>Subject</th>
-                <th>School Year</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Rows will be populated here -->
-        </tbody>
-    </table>
+                <label for="subject-select">Select Subject</label>
+                <select id="subject-select" required>
+                    <option value="">Select a Subject</option>
+                </select>
+                <button type="submit">Assign Level</button>
+            </form>
+        </section>
+
+        <section class="panel panel--flush">
+            <div class="panel-body">
+                <h2>Assigned Levels</h2>
+                <div class="data-table-wrapper">
+                    <table id="student-level-table">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Student Name</th>
+                                <th>Level</th>
+                                <th>Subject</th>
+                                <th>School Year</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <script>
         // Fetch students, levels, subjects, and assigned levels when the page loads
