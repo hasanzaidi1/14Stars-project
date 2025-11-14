@@ -93,6 +93,15 @@ Teacher accounts are now created directly from the Teacher portal or the admin d
 > ```
 > Existing teacher rows remain unchanged; account records are independent of the legacy `teachers` table.
 
+> **Migration note (student grades):** run this SQL to add grade tracking to assignments:
+> ```sql
+> ALTER TABLE student_level
+>   ADD COLUMN midterm_grade DECIMAL(5,2) NULL AFTER school_year,
+>   ADD COLUMN final_grade DECIMAL(5,2) NULL AFTER midterm_grade,
+>   ADD COLUMN average_grade DECIMAL(5,2) NULL AFTER final_grade;
+> ```
+> The admin portal now reads/writes these columns, and the teacher portal displays them.
+
 ### Sample `.env`
 ```
 PORT=30000
@@ -111,7 +120,7 @@ LOG_LEVEL=info
 ## Database Entities
 `config/schema.sql` builds the following core tables:
 - `student`, `guardian`, and the bridge table `student_guardian` (plus `parent_account` for parent logins).
-- Teaching metadata: `subject`, `level`, `student_level`, and `term`.
+- Teaching metadata: `subject`, `level`, `student_level` (with `midterm_grade`, `final_grade`, and `average_grade`), and `term`.
 - `teacher_accounts` for login credentials plus the legacy `teachers` directory used by admins.
 - Substitute operations: `substitute` and `substitute_requests`.
 - Auth state persistence: the `sessions` table stores Express sessions in MySQL.
@@ -169,8 +178,9 @@ The Express routers are mounted in `app.js`. All endpoints accept/return JSON un
 ### Subjects, Levels, and Assignments
 - `POST /subjects/add` / `GET /subjects/fetch` – mutate/read the `subject` catalog.
 - `POST /levels` / `GET /levels` – create or list levels.
-- `POST /student-levels/assign` – assign a student + subject combination to a level. Uses helpers to generate the `school_year`.
-- `GET /student-levels/assigned` – list all placements.
+- `POST /student-levels/assign` – assign a student + subject combination to a level (grades are entered later, once the assignment exists).
+- `GET /student-levels/assigned` – list all placements, including grade fields for midterm/final/average.
+- `PUT /student-levels/assigned` – update an assignment’s level/subject/school year and/or any of the grade fields (grades are edited from the Student Levels admin table after the record is created).
 
 ### Terms (`/terms`)
 - `POST /terms` – create a term (`term_name`, `school_year`).

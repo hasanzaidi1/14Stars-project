@@ -50,6 +50,22 @@
                 </select>
                 <label for="assignment-school-year">School Year (optional for edits)</label>
                 <input type="text" id="assignment-school-year" placeholder="e.g., 2024-2025">
+
+                <div id="grade-edit-fields" class="stack is-hidden">
+                    <p class="text-muted">Grades can only be recorded for existing assignments.</p>
+                    <div class="grid grid--2col">
+                        <div>
+                            <label for="midterm-grade">Midterm Grade</label>
+                            <input type="number" id="midterm-grade" min="0" max="100" step="0.01" placeholder="0-100">
+                        </div>
+                        <div>
+                            <label for="final-grade">Final Grade</label>
+                            <input type="number" id="final-grade" min="0" max="100" step="0.01" placeholder="0-100">
+                        </div>
+                    </div>
+                    <label for="average-grade">Average Grade</label>
+                    <input type="number" id="average-grade" min="0" max="100" step="0.01" placeholder="Auto-calculated when both grades are set">
+                </div>
                 <div class="form-actions">
                     <button type="submit" class="btn">Save Assignment</button>
                     <button type="button" class="btn btn--ghost is-hidden" id="assignment-cancel-edit">Cancel Edit</button>
@@ -69,6 +85,9 @@
                                 <th>Level</th>
                                 <th>Subject</th>
                                 <th>School Year</th>
+                                <th>Midterm</th>
+                                <th>Final</th>
+                                <th>Average</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -88,6 +107,10 @@
         const assignmentForm = document.getElementById('assignment-form');
         const cancelEditBtn = document.getElementById('assignment-cancel-edit');
         const schoolYearInput = document.getElementById('assignment-school-year');
+        const gradeEditFields = document.getElementById('grade-edit-fields');
+        const midtermGradeInput = document.getElementById('midterm-grade');
+        const finalGradeInput = document.getElementById('final-grade');
+        const averageGradeInput = document.getElementById('average-grade');
         const tableBody = document.getElementById('student-level-table').querySelector('tbody');
 
         let subjectsCache = [];
@@ -101,6 +124,8 @@
         });
 
         cancelEditBtn.addEventListener('click', endEditAssignment);
+        midtermGradeInput.addEventListener('input', syncAverageGrade);
+        finalGradeInput.addEventListener('input', syncAverageGrade);
 
         assignmentForm.addEventListener('submit', async (event) => {
             event.preventDefault();
@@ -174,7 +199,7 @@
 
             if (!records.length) {
                 const row = document.createElement('tr');
-                row.innerHTML = '<td colspan="6">No assignments found.</td>';
+                row.innerHTML = '<td colspan="9">No assignments found.</td>';
                 tableBody.appendChild(row);
                 return;
             }
@@ -187,6 +212,9 @@
                     <td>${record.level_number}</td>
                     <td>${record.subject}</td>
                     <td>${record.school_year || ''}</td>
+                    <td>${formatGrade(record.midterm_grade)}</td>
+                    <td>${formatGrade(record.final_grade)}</td>
+                    <td>${formatGrade(record.average_grade)}</td>
                 `;
 
                 const actionsCell = document.createElement('td');
@@ -209,6 +237,11 @@
                 row.appendChild(actionsCell);
                 tableBody.appendChild(row);
             });
+        }
+
+        function formatGrade(value) {
+            if (value === null || value === undefined) return '';
+            return Number(value).toFixed(2);
         }
 
         async function createAssignment() {
@@ -236,6 +269,7 @@
 
                 alert('Level assigned successfully!');
                 assignmentForm.reset();
+                averageGradeInput.value = '';
                 fetchAssignedLevels();
             } catch (error) {
                 console.error('Error assigning level:', error);
@@ -247,7 +281,10 @@
                 studentId: record.st_id,
                 originalLevelId: record.level_id,
                 originalSubject: record.subject,
-                schoolYear: record.school_year || ''
+                schoolYear: record.school_year || '',
+                midtermGrade: record.midterm_grade ?? '',
+                finalGrade: record.final_grade ?? '',
+                averageGrade: record.average_grade ?? ''
             };
 
             studentSelect.value = record.st_id;
@@ -256,7 +293,12 @@
             const subjectMatch = subjectsCache.find(subject => subject.subject === record.subject);
             subjectSelect.value = subjectMatch ? subjectMatch.subject_id : '';
             schoolYearInput.value = record.school_year || '';
+            midtermGradeInput.value = record.midterm_grade ?? '';
+            finalGradeInput.value = record.final_grade ?? '';
+            averageGradeInput.value = record.average_grade ?? '';
+            syncAverageGrade();
             cancelEditBtn.classList.remove('is-hidden');
+            gradeEditFields.classList.remove('is-hidden');
             assignmentForm.scrollIntoView({ behavior: 'smooth' });
         }
 
@@ -264,7 +306,12 @@
             editingAssignment = null;
             studentSelect.disabled = false;
             schoolYearInput.value = '';
+            midtermGradeInput.value = '';
+            finalGradeInput.value = '';
+            averageGradeInput.value = '';
+            syncAverageGrade();
             cancelEditBtn.classList.add('is-hidden');
+            gradeEditFields.classList.add('is-hidden');
             assignmentForm.reset();
         }
 
@@ -274,24 +321,49 @@
             const newLevelId = Number(levelSelect.value);
             const newSubjectId = Number(subjectSelect.value);
             const subjectName = subjectsCache.find(subject => subject.subject_id === newSubjectId)?.subject;
-
             const payload = {
                 studentId: editingAssignment.studentId,
                 originalLevelId: editingAssignment.originalLevelId,
                 originalSubject: editingAssignment.originalSubject
             };
 
+            let hasChanges = false;
+
             if (newLevelId && newLevelId !== editingAssignment.originalLevelId) {
                 payload.levelId = newLevelId;
+                hasChanges = true;
             }
             if (subjectName && subjectName !== editingAssignment.originalSubject) {
                 payload.subject = subjectName;
+                hasChanges = true;
             }
-            if (schoolYearInput.value.trim()) {
-                payload.schoolYear = schoolYearInput.value.trim();
+            const normalizedSchoolYear = schoolYearInput.value.trim();
+            if (normalizedSchoolYear && normalizedSchoolYear !== editingAssignment.schoolYear) {
+                payload.schoolYear = normalizedSchoolYear;
+                hasChanges = true;
+            } else if (!normalizedSchoolYear && editingAssignment.schoolYear) {
+                payload.schoolYear = '';
+                hasChanges = true;
             }
 
-            if (Object.keys(payload).length === 3) {
+            const normalizeGradeForComparison = (inputEl, existingValueKey, payloadKey) => {
+                const rawValue = inputEl.value.trim();
+                const existing = editingAssignment[existingValueKey];
+                const normalizedInput = rawValue === '' ? '' : Number(rawValue).toString();
+                const normalizedExisting = existing === '' || existing === null || existing === undefined
+                    ? ''
+                    : Number(existing).toString();
+                if (normalizedInput !== normalizedExisting) {
+                    payload[payloadKey] = rawValue;
+                    hasChanges = true;
+                }
+            };
+
+            normalizeGradeForComparison(midtermGradeInput, 'midtermGrade', 'midtermGrade');
+            normalizeGradeForComparison(finalGradeInput, 'finalGrade', 'finalGrade');
+            normalizeGradeForComparison(averageGradeInput, 'averageGrade', 'averageGrade');
+
+            if (!hasChanges) {
                 alert('No changes to save.');
                 return;
             }
@@ -340,6 +412,17 @@
                 fetchAssignedLevels();
             } catch (error) {
                 console.error('Error deleting assignment:', error);
+            }
+        }
+
+        function syncAverageGrade() {
+            if (gradeEditFields.classList.contains('is-hidden')) {
+                return;
+            }
+            const midterm = parseFloat(midtermGradeInput.value);
+            const final = parseFloat(finalGradeInput.value);
+            if (!Number.isNaN(midterm) && !Number.isNaN(final)) {
+                averageGradeInput.value = ((midterm + final) / 2).toFixed(2);
             }
         }
     </script>

@@ -100,6 +100,9 @@
                             <th>Student Name</th>
                             <th>Level</th>
                             <th>Subject</th>
+                            <th>Midterm</th>
+                            <th>Final</th>
+                            <th>Average</th>
                         </tr>
                     </thead>
                     <tbody id="stud-lvl-table"></tbody>
@@ -184,6 +187,9 @@
                             <td>${entry.full_name || 'N/A'}</td>
                             <td>${entry.level_number || 'N/A'}</td> 
                             <td>${entry.subject || 'N/A'}</td>
+                            <td>${formatGrade(entry.midterm_grade)}</td>
+                            <td>${formatGrade(entry.final_grade)}</td>
+                            <td>${formatGrade(entry.average_grade)}</td>
                         `;
                         tableBody.appendChild(row);
                     });
@@ -249,6 +255,11 @@
                 console.error('Error fetching teacher identity:', error);
                 emailInput.removeAttribute('readonly');
             }
+        }
+
+        function formatGrade(value) {
+            if (value === null || value === undefined) return '';
+            return Number(value).toFixed(2);
         }
 
         function showTable(table) {

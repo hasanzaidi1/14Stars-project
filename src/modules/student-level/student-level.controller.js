@@ -9,8 +9,29 @@ const { getSubjectName } = require('../subject/subject.model');
 
 const { getFullNameByStudentId, determineSchoolYear } = require('../../utils/helpers');
 
+const parseGradeField = (label, rawValue) => {
+    if (rawValue === undefined) {
+        return undefined;
+    }
+    if (rawValue === null || rawValue === '') {
+        return null;
+    }
+    const value = Number(rawValue);
+    if (Number.isNaN(value)) {
+        const err = new Error(`${label} must be a valid number.`);
+        err.statusCode = 400;
+        throw err;
+    }
+    if (value < 0 || value > 100) {
+        const err = new Error(`${label} must be between 0 and 100.`);
+        err.statusCode = 400;
+        throw err;
+    }
+    return Number(value.toFixed(2));
+};
+
 const assignLevel = async (req, res) => {
-    const { studentId, levelId, subjectId } = req.body;
+    const { studentId, levelId, subjectId, midtermGrade, finalGrade, averageGrade } = req.body;
 
     try {
         // Fetch full name
@@ -21,16 +42,29 @@ const assignLevel = async (req, res) => {
         const subjectName = await getSubjectName(subjectId);
         if (!subjectName) return res.status(400).send('Invalid subject ID');
 
-        // Determine school year
         const schoolYear = determineSchoolYear(new Date());
 
-        // Insert into student_level
-        const assignedLevelId = await assignStudentLevel(studentId, levelId, fullName, subjectName, schoolYear);
+        const midterm = parseGradeField('Midterm grade', midtermGrade);
+        const final = parseGradeField('Final grade', finalGrade);
+        let average = parseGradeField('Average grade', averageGrade);
+
+        if (average === undefined && midterm !== undefined && midterm !== null && final !== undefined && final !== null) {
+            average = Number(((midterm + final) / 2).toFixed(2));
+        }
+
+        const assignedLevelId = await assignStudentLevel(
+            studentId,
+            levelId,
+            fullName,
+            subjectName,
+            schoolYear,
+            { midtermGrade: midterm, finalGrade: final, averageGrade: average }
+        );
 
         res.status(201).json({ message: 'Level assigned successfully', assignedLevelId });
     } catch (error) {
         console.error('Error assigning level:', error.message);
-        res.status(500).send('Error assigning level');
+        res.status(error.statusCode || 500).send(error.statusCode ? error.message : 'Error assigning level');
     }
 };
 
@@ -45,7 +79,17 @@ const fetchAssignedLevels = async (req, res) => {
 };
 
 const updateAssignment = async (req, res) => {
-    const { studentId, originalLevelId, originalSubject, levelId, subject, schoolYear } = req.body;
+    const {
+        studentId,
+        originalLevelId,
+        originalSubject,
+        levelId,
+        subject,
+        schoolYear,
+        midtermGrade,
+        finalGrade,
+        averageGrade
+    } = req.body;
 
     if (!studentId || !originalLevelId || !originalSubject) {
         return res.status(400).json({ message: 'Student id, current level id, and subject are required' });
@@ -55,6 +99,23 @@ const updateAssignment = async (req, res) => {
     if (levelId !== undefined) updates.levelId = levelId;
     if (subject !== undefined) updates.subject = subject;
     if (schoolYear !== undefined) updates.schoolYear = schoolYear;
+
+    try {
+        const midterm = parseGradeField('Midterm grade', midtermGrade);
+        const final = parseGradeField('Final grade', finalGrade);
+        let average = parseGradeField('Average grade', averageGrade);
+
+        if (midterm !== undefined) updates.midtermGrade = midterm;
+        if (final !== undefined) updates.finalGrade = final;
+        if (average === undefined && midterm !== undefined && midterm !== null && final !== undefined && final !== null) {
+            average = Number(((midterm + final) / 2).toFixed(2));
+        }
+        if (average !== undefined) {
+            updates.averageGrade = average;
+        }
+    } catch (error) {
+        return res.status(error.statusCode || 400).json({ message: error.message });
+    }
 
     if (!Object.keys(updates).length) {
         return res.status(400).json({ message: 'No new values provided' });
