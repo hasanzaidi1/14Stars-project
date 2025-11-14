@@ -3,97 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="/styles.css">
     <title>Teacher Registration</title>
-    <style>
-        .message {
-            position: fixed; /* Positioning fixed so it stays at the bottom */
-            bottom: 0; /* Attach to the bottom of the page */
-            left: 0; 
-            width: 100%; /* Full width to cover the entire bottom */
-            padding: 1rem; /* Add some padding */
-            text-align: center; /* Center text inside */
-            z-index: 1000; /* Ensure it's on top of other content */
-        }
-        
-        .success-message {
-            color: white;
-            background-color: green;
-            border: 1px solid darkgreen;
-        }
-        
-        .error-message {
-            color: white;
-            background-color: red;
-            border: 1px solid darkred;
-        }
-    </style>
-    
 </head>
 <body>
-    <header>
-        <h1>Teacher Registration</h1>
-        <nav>
-            <ul>
-                <button onclick="window.location.href='/admin/all_teachers.html'">See All Teachers</button>
-                <button onclick="window.location.href='/admin/admin.html'">Admin Privilege</button>
-                <button class="logout-btn" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
-            </ul>
+    <header class="site-header">
+        <a class="brand-mark" href="/admin/admin.html">14 Stars Admin</a>
+        <button class="nav-toggle" type="button" data-nav-toggle data-target="primary-nav" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <nav class="nav-links" id="primary-nav">
+            <a class="nav-link" href="/admin/admin.html">Dashboard</a>
+            <a class="nav-link" href="/admin/students.html">Students</a>
+            <a class="nav-link" href="/admin/guardian.html">Guardians</a>
+            <a class="nav-link is-active" href="/admin/teacher_table.html">Teachers</a>
+            <a class="nav-link" href="/admin/subjects.html">Subjects</a>
+            <a class="nav-link" href="/admin/levels.html">Levels</a>
+            <a class="nav-link" href="/admin/terms.html">Terms</a>
+            <a class="nav-link" href="/substitute/register_substitutes.html">Substitutes</a>
+            <button class="btn btn--danger" type="button" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
         </nav>
     </header>
 
-    <!-- Success/Error Message Containers -->
-    <div id="message-container" class="message"></div>
+    <main class="stack">
+        <section class="page-header">
+            <div>
+                <p class="page-eyebrow">Admin Portal</p>
+                <h1>Register Teachers</h1>
+                <p class="text-muted">Collect contact details and staff assignments.</p>
+            </div>
+            <div class="page-actions">
+                <button class="btn btn--ghost" onclick="window.location.href='/admin/all_teachers.html'">See All Teachers</button>
+            </div>
+        </section>
 
-    <!-- Registration Form -->
-    <form id="teacher-registration-form">
-        <label for="t_f_name">First Name:</label>
-        <input type="text" id="t_f_name" name="t_f_name" required>
+        <section class="panel panel--narrow stack">
+            <div id="message-container" class="message is-hidden"></div>
+            <form id="teacher-registration-form" class="stack">
+                <label for="t_f_name">First Name</label>
+                <input type="text" id="t_f_name" name="t_f_name" required>
 
-        <label for="t_mi">Middle Initial:</label>
-        <input type="text" id="t_mi" name="t_mi">
+                <label for="t_mi">Middle Initial</label>
+                <input type="text" id="t_mi" name="t_mi">
 
-        <label for="t_l_name">Last Name:</label>
-        <input type="text" id="t_l_name" name="t_l_name" required>
+                <label for="t_l_name">Last Name</label>
+                <input type="text" id="t_l_name" name="t_l_name" required>
 
-        <label for="t_email">Email:</label>
-        <input type="email" id="t_email" name="t_email" required>
+                <label for="t_email">Email</label>
+                <input type="email" id="t_email" name="t_email" required>
 
-        <label for="t_phone">Phone:</label>
-        <input type="text" id="t_phone" name="t_phone">
+                <label for="t_phone">Phone</label>
+                <input type="text" id="t_phone" name="t_phone">
 
-        <label for="gender">Gender:</label>
-        <div>
-            <input type="radio" id="male" name="gender" value="Male" required>
-            <label for="male">Male</label>
+                <div class="gender-options">
+                    <span class="gender-title">Gender</span>
+                    <label for="male">Male</label>
+                    <input type="radio" id="male" name="gender" value="Male" required>
+                    <label for="female">Female</label>
+                    <input type="radio" id="female" name="gender" value="Female" required>
+                </div>
 
-            <input type="radio" id="female" name="gender" value="Female" required>
-            <label for="female">Female</label>
-        </div>
+                <label for="t_staddress">Street Address</label>
+                <input type="text" id="t_staddress" name="t_staddress">
+                <input type="text" id="t_city" name="t_city" placeholder="City">
+                <input type="text" id="t_state" name="t_state" placeholder="State">
+                <input type="text" id="t_zip" name="t_zip" placeholder="ZIP Code">
 
-        <label for="t_staddress">Street Address:</label>
-        <input type="text" id="t_staddress" name="t_staddress">
-
-        <label for="t_city">City:</label>
-        <input type="text" id="t_city" name="t_city">
-
-        <label for="t_state">State:</label>
-        <input type="text" id="t_state" name="t_state">
-
-        <label for="t_zip">ZIP Code:</label>
-        <input type="text" id="t_zip" name="t_zip">
-
-        <button type="submit">Register</button>
-    </form>
+                <button class="btn" type="submit">Register</button>
+            </form>
+        </section>
+    </main>
 
     <script>
         const form = document.getElementById('teacher-registration-form');
         const messageContainer = document.getElementById('message-container');
 
         form.addEventListener('submit', async (event) => {
-            event.preventDefault(); // Prevent default form submission
+            event.preventDefault();
 
-            // Gather form data
             const formData = {
                 t_f_name: document.getElementById('t_f_name').value,
                 t_mi: document.getElementById('t_mi').value,
@@ -108,7 +93,6 @@
             };
 
             try {
-                // Send POST request
                 const response = await fetch('/teachers/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -116,23 +100,21 @@
                 });
 
                 const data = await response.json();
+                messageContainer.textContent = data.message || (response.ok ? 'Teacher registered successfully!' : 'Registration failed.');
+                messageContainer.className = 'message ' + (response.ok && data.success ? 'message--success' : 'message--error');
+                messageContainer.classList.remove('is-hidden');
 
-                // Update UI based on server response
                 if (response.ok && data.success) {
-                    messageContainer.textContent = data.message || 'Teacher registered successfully!';
-                    messageContainer.className = 'message success-message';
-                } else {
-                    messageContainer.textContent = data.message || 'Registration failed. Please try again.';
-                    messageContainer.className = 'message error-message';
+                    form.reset();
                 }
-                messageContainer.style.display = 'block'; // Show the message container
             } catch (error) {
                 console.error('Error:', error);
                 messageContainer.textContent = 'An unexpected error occurred. Please try again.';
-                messageContainer.className = 'message error-message';
-                messageContainer.style.display = 'block'; // Show the error message
+                messageContainer.className = 'message message--error';
+                messageContainer.classList.remove('is-hidden');
             }
         });
     </script>
+    <script src="/scripts/ui.js" defer></script>
 </body>
 </html>

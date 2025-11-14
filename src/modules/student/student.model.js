@@ -32,6 +32,50 @@ class Student {
         }
     }
 
+    // Update an existing student
+    static async updateStudent(studentId, updates) {
+        const columnMap = {
+            fname: 'F_Name',
+            MI: 'MI',
+            lname: 'L_Name',
+            dob: 'dob',
+            st_address: 'st_address',
+            city: 'city',
+            state: 'state',
+            zip: 'zip',
+            st_email: 'st_email',
+            st_cell: 'st_cell',
+            student_location: 'student_location',
+            st_gender: 'st_gender',
+            gender: 'st_gender'
+        };
+
+        const fields = [];
+        const values = [];
+
+        for (const [key, column] of Object.entries(columnMap)) {
+            if (updates[key] !== undefined) {
+                fields.push(`${column} = ?`);
+                values.push(updates[key]);
+            }
+        }
+
+        if (!fields.length) {
+            return { affectedRows: 0 };
+        }
+
+        const query = `UPDATE student SET ${fields.join(', ')} WHERE St_ID = ?`;
+        const [result] = await pool.execute(query, [...values, studentId]);
+        return result;
+    }
+
+    // Delete a student
+    static async deleteStudent(studentId) {
+        const query = 'DELETE FROM student WHERE St_ID = ?';
+        const [result] = await pool.execute(query, [studentId]);
+        return result;
+    }
+
     // Check if student already exists
     static async doesExist(fname, lname, DOB) {
         const query = `SELECT St_ID FROM student WHERE F_Name = ? AND L_Name = ? AND DOB = ?`;

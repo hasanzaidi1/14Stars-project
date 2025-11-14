@@ -1,4 +1,4 @@
-const { getAllSubjects, addSubject } = require('./subject.model');
+const { getAllSubjects, addSubject, updateSubject, deleteSubject } = require('./subject.model');
 
 /**
  * Fetch all subjects.
@@ -39,4 +39,37 @@ const createSubject = async (req, res) => {
 module.exports = {
     addSubject: createSubject,
     fetchSubjects: fetchAllSubjects,
+    updateSubject: async (req, res) => {
+        const { id } = req.params;
+        const { subject } = req.body;
+
+        if (!subject) {
+            return res.status(400).json({ error: 'Subject field is required.' });
+        }
+
+        try {
+            const result = await updateSubject(id, subject);
+            if (!result.affectedRows) {
+                return res.status(404).json({ error: 'Subject not found' });
+            }
+            res.json({ message: 'Subject updated successfully!' });
+        } catch (error) {
+            console.error('Error updating subject:', error);
+            res.status(500).json({ error: 'Unable to update subject. Please try again later.' });
+        }
+    },
+    deleteSubject: async (req, res) => {
+        const { id } = req.params;
+
+        try {
+            const result = await deleteSubject(id);
+            if (!result.affectedRows) {
+                return res.status(404).json({ error: 'Subject not found' });
+            }
+            res.json({ message: 'Subject deleted successfully!' });
+        } catch (error) {
+            console.error('Error deleting subject:', error);
+            res.status(500).json({ error: 'Unable to delete subject. Please try again later.' });
+        }
+    }
 };

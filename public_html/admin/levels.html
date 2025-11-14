@@ -4,87 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Levels Management</title>
-    <link rel="stylesheet" href="../styles.css"> <!-- Link to your CSS file -->
-    <style>
-        ul, h2 {
-            list-style-type: none;
-            padding: 0;
-            text-align: center;
-        }
-
-        form {
-            width: 50%;
-            justify-content: center;
-            margin: auto;
-        }
-
-        input {
-            width: 50%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            box-sizing: border-box;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-
-        table, th, td {
-            border: 1px solid black;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-        }
-
-        #form-feedback {
-            text-align: center;
-            margin-top: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <header>
-        <h1>Level Management</h1>
-        <nav>
-            <ul>
-                <button onclick="window.location.href='/admin/admin.html'">Back to Admin Page</button>
-                <button class="logout-btn" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
-            </ul>
+    <header class="site-header">
+        <a class="brand-mark" href="/admin/admin.html">14 Stars Admin</a>
+        <button class="nav-toggle" type="button" data-nav-toggle data-target="primary-nav" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <nav class="nav-links" id="primary-nav">
+            <a class="nav-link" href="/admin/admin.html">Dashboard</a>
+            <a class="nav-link" href="/admin/students.html">Students</a>
+            <a class="nav-link" href="/admin/guardian.html">Guardians</a>
+            <a class="nav-link" href="/admin/teacher_table.html">Teachers</a>
+            <a class="nav-link" href="/admin/subjects.html">Subjects</a>
+            <a class="nav-link is-active" href="/admin/levels.html">Levels</a>
+            <a class="nav-link" href="/admin/terms.html">Terms</a>
+            <a class="nav-link" href="/substitute/register_substitutes.html">Substitutes</a>
+            <button class="btn btn--danger" type="button" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
         </nav>
     </header>
 
-    <main>
-        <section>
+    <main class="stack">
+        <section class="page-header">
+            <div>
+                <p class="page-eyebrow">Curriculum</p>
+                <h1>Level Management</h1>
+                <p class="text-muted">Create level numbers and keep the full list up to date.</p>
+            </div>
+        </section>
+
+        <section class="panel panel--narrow stack">
             <h2>Add New Level</h2>
-            <form id="add-level-form">
-                <input type="text" id="level" name="level" placeholder="Level Number" required>
-                <button type="submit">Add Level</button>
-                <p id="form-feedback"></p>
+            <form id="add-level-form" class="stack">
+                <label for="level">Level Number</label>
+                <input type="text" id="level" name="level" placeholder="e.g., Level 4" required>
+                <div id="form-feedback" class="text-muted"></div>
+                <button class="btn" type="submit">Add Level</button>
             </form>
         </section>
 
-        <section>
-            <h2>Existing Levels</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Level Number</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="levels-list">
-                    <!-- Levels will be dynamically inserted here -->
-                </tbody>
-            </table>
+        <section class="panel panel--flush">
+            <div class="panel-body">
+                <h2>Existing Levels</h2>
+                <div class="data-table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Level Number</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="levels-list"></tbody>
+                    </table>
+                </div>
+            </div>
         </section>
     </main>
 
     <script>
-        // Fetch and display all levels
         async function fetchLevels() {
             try {
                 const response = await fetch('/levels/');
@@ -94,13 +70,27 @@
 
                 levels.forEach(level => {
                     const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td>${level.level_number}</td>
-                        <td>
-                            <button onclick="editLevel('${level.id}')">Edit</button>
-                            <button onclick="deleteLevel('${level.id}')">Delete</button>
-                        </td>
-                    `;
+                    const levelCell = document.createElement('td');
+                    levelCell.textContent = level.level_number;
+
+                    const actionsCell = document.createElement('td');
+                    actionsCell.className = 'table-actions';
+                    const editBtn = document.createElement('button');
+                    editBtn.type = 'button';
+                    editBtn.className = 'btn btn--ghost';
+                    editBtn.textContent = 'Edit';
+                    editBtn.addEventListener('click', () => editLevel(level.level_id, level.level_number));
+
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.type = 'button';
+                    deleteBtn.className = 'btn btn--danger';
+                    deleteBtn.textContent = 'Delete';
+                    deleteBtn.addEventListener('click', () => deleteLevel(level.level_id));
+
+                    actionsCell.appendChild(editBtn);
+                    actionsCell.appendChild(deleteBtn);
+                    tr.appendChild(levelCell);
+                    tr.appendChild(actionsCell);
                     levelsList.appendChild(tr);
                 });
             } catch (error) {
@@ -108,51 +98,79 @@
             }
         }
 
-        // Handle form submission without leaving the page
         document.getElementById('add-level-form').addEventListener('submit', async function(e) {
-            e.preventDefault(); // Stop the page from reloading
-
+            e.preventDefault();
             const level = document.getElementById('level').value;
             const feedback = document.getElementById('form-feedback');
 
             try {
                 const response = await fetch('/levels/', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ level })
                 });
 
                 const result = await response.json();
+                feedback.textContent = result.message || (response.ok ? 'Level added successfully!' : 'Error adding level.');
+                feedback.style.color = response.ok ? 'var(--success-500)' : 'var(--danger-500)';
 
                 if (response.ok) {
-                    feedback.style.color = 'green';
-                    feedback.textContent = result.message || 'Level added successfully!';
-                    document.getElementById('add-level-form').reset();
-                    fetchLevels(); // Reload levels list
-                } else {
-                    feedback.style.color = 'red';
-                    feedback.textContent = result.message || 'Error adding level.';
+                    this.reset();
+                    fetchLevels();
                 }
             } catch (error) {
-                feedback.style.color = 'red';
+                feedback.style.color = 'var(--danger-500)';
                 feedback.textContent = 'Server error. Please try again.';
                 console.error('Error submitting form:', error);
             }
         });
 
-        // Stub functions (to be implemented)
-        function editLevel(id) {
-            alert(`Edit Level ID: ${id}`); // Placeholder
+        async function editLevel(id, currentValue) {
+            const newValue = prompt('Enter the new level number', currentValue);
+            if (newValue === null) return;
+            const parsedValue = parseInt(newValue, 10);
+            if (Number.isNaN(parsedValue)) {
+                alert('Please enter a valid number');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/levels/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ level: parsedValue })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.error || 'Unable to update level');
+                    return;
+                }
+
+                fetchLevels();
+            } catch (error) {
+                console.error('Error updating level:', error);
+            }
         }
 
-        function deleteLevel(id) {
-            alert(`Delete Level ID: ${id}`); // Placeholder
+        async function deleteLevel(id) {
+            if (!confirm('Delete this level?')) return;
+
+            try {
+                const response = await fetch(`/levels/${id}`, { method: 'DELETE' });
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.error || 'Unable to delete level');
+                    return;
+                }
+                fetchLevels();
+            } catch (error) {
+                console.error('Error deleting level:', error);
+            }
         }
 
-        // Load levels on page load
         window.onload = fetchLevels;
     </script>
+    <script src="/scripts/ui.js" defer></script>
 </body>
 </html>

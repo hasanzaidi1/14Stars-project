@@ -3,10 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="/styles.css">
     <title>All Guardians</title>
 </head>
 <body>
+    <header class="site-header">
+        <a class="brand-mark" href="/admin/admin.html">14 Stars Admin</a>
+        <button class="nav-toggle" type="button" data-nav-toggle data-target="primary-nav" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <nav class="nav-links" id="primary-nav">
+            <a class="nav-link" href="/admin/admin.html">Dashboard</a>
+            <a class="nav-link" href="/admin/students.html">Students</a>
+            <a class="nav-link is-active" href="/admin/guardian.html">Guardians</a>
+            <a class="nav-link" href="/admin/teacher_table.html">Teachers</a>
+            <a class="nav-link" href="/admin/subjects.html">Subjects</a>
+            <a class="nav-link" href="/admin/levels.html">Levels</a>
+            <a class="nav-link" href="/admin/terms.html">Terms</a>
+            <a class="nav-link" href="/substitute/register_substitutes.html">Substitutes</a>
+            <button class="btn btn--danger" type="button" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
+        </nav>
+    </header>
     <header class="page-header">
         <div>
             <p class="page-eyebrow">Admin Portal</p>
@@ -37,6 +52,7 @@
                                 <th>State</th>
                                 <th>ZIP</th>
                                 <th>Gender</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -49,37 +65,198 @@
                 <a href="/admin/guardian.html" class="btn btn--secondary">Back to Guardian Tools</a>
             </div>
         </section>
+
+        <section class="panel panel--narrow stack is-hidden" id="edit-guardian-panel">
+            <div>
+                <p class="page-eyebrow">Edit</p>
+                <h2>Edit Guardian</h2>
+            </div>
+            <form id="edit-guardian-form" class="stack">
+                <label for="edit-g-first">First Name</label>
+                <input type="text" id="edit-g-first" required>
+
+                <label for="edit-g-mi">Middle Initial</label>
+                <input type="text" id="edit-g-mi">
+
+                <label for="edit-g-last">Last Name</label>
+                <input type="text" id="edit-g-last" required>
+
+                <label for="edit-g-cell">Cell</label>
+                <input type="text" id="edit-g-cell" required>
+
+                <label for="edit-g-email">Email</label>
+                <input type="email" id="edit-g-email">
+
+                <label for="edit-g-address">Street Address</label>
+                <input type="text" id="edit-g-address" required>
+                <input type="text" id="edit-g-city" placeholder="City" required>
+                <input type="text" id="edit-g-state" placeholder="State" required>
+                <input type="text" id="edit-g-zip" placeholder="ZIP" required>
+
+                <div class="gender-options">
+                    <span class="gender-title">Gender</span>
+                    <label for="edit-gender-m">Male</label>
+                    <input type="radio" id="edit-gender-m" name="edit-guardian-gender" value="Male">
+                    <label for="edit-gender-f">Female</label>
+                    <input type="radio" id="edit-gender-f" name="edit-guardian-gender" value="Female">
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn" type="submit">Save Changes</button>
+                    <button class="btn btn--ghost" type="button" id="cancel-edit-guardian">Cancel</button>
+                </div>
+            </form>
+        </section>
     </main>
 
     <script>
-        // Fetch the guardians data from the backend
-        fetch('/admins/all-guardians')
-            .then(response => response.json())
-            .then(data => {
-                const tableBody = document.getElementById('guardian-table').getElementsByTagName('tbody')[0];
+        const guardianTableBody = document.getElementById('guardian-table').querySelector('tbody');
+        const editPanel = document.getElementById('edit-guardian-panel');
+        const editForm = document.getElementById('edit-guardian-form');
+        let guardiansCache = [];
+        let editingGuardianId = null;
 
-                data.forEach(guardian => {
-                    const row = document.createElement('tr');
+        document.addEventListener('DOMContentLoaded', loadGuardians);
+        document.getElementById('cancel-edit-guardian').addEventListener('click', closeEditForm);
 
-                    row.innerHTML = `
-                        <td>${guardian.g_id}</td>
-                        <td>${guardian.g_f_name}</td>
-                        <td>${guardian.g_mi || ''}</td>
-                        <td>${guardian.g_l_name || ''}</td>
-                        <td>${guardian.g_cell || ''}</td>
-                        <td>${guardian.g_email || ''}</td>
-                        <td>${guardian.g_staddress || ''}</td>
-                        <td>${guardian.g_city || ''}</td>
-                        <td>${guardian.g_state || ''}</td>
-                        <td>${guardian.g_zip || ''}</td>
-                        <td>${guardian.gender || ''}</td>
-                    `;
+        editForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            if (!editingGuardianId) return;
 
-                    tableBody.appendChild(row);
+            const payload = {
+                g_f_name: document.getElementById('edit-g-first').value.trim(),
+                g_mi: document.getElementById('edit-g-mi').value.trim(),
+                g_l_name: document.getElementById('edit-g-last').value.trim(),
+                g_cell: document.getElementById('edit-g-cell').value.trim(),
+                g_email: document.getElementById('edit-g-email').value.trim(),
+                g_staddress: document.getElementById('edit-g-address').value.trim(),
+                g_city: document.getElementById('edit-g-city').value.trim(),
+                g_state: document.getElementById('edit-g-state').value.trim(),
+                g_zip: document.getElementById('edit-g-zip').value.trim(),
+                gender: editForm.querySelector('input[name="edit-guardian-gender"]:checked')?.value
+            };
+
+            try {
+                const response = await fetch(`/parents/${editingGuardianId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
                 });
-            })
-            .catch(error => console.error('Error fetching guardian data:', error));
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.message || 'Unable to update guardian');
+                    return;
+                }
+
+                alert('Guardian updated successfully');
+                closeEditForm();
+                await loadGuardians();
+            } catch (error) {
+                console.error('Error updating guardian:', error);
+                alert('Unexpected error updating guardian');
+            }
+        });
+
+        async function loadGuardians() {
+            try {
+                const response = await fetch('/admins/all-guardians');
+                guardiansCache = await response.json();
+                renderGuardians();
+            } catch (error) {
+                console.error('Error fetching guardian data:', error);
+            }
+        }
+
+        function renderGuardians() {
+            guardianTableBody.innerHTML = '';
+
+            if (!guardiansCache.length) {
+                guardianTableBody.innerHTML = '<tr><td colspan="12">No guardians found.</td></tr>';
+                return;
+            }
+
+            guardiansCache.forEach(guardian => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${guardian.g_id}</td>
+                    <td>${guardian.g_f_name || ''}</td>
+                    <td>${guardian.g_mi || ''}</td>
+                    <td>${guardian.g_l_name || ''}</td>
+                    <td>${guardian.g_cell || ''}</td>
+                    <td>${guardian.g_email || ''}</td>
+                    <td>${guardian.g_staddress || ''}</td>
+                    <td>${guardian.g_city || ''}</td>
+                    <td>${guardian.g_state || ''}</td>
+                    <td>${guardian.g_zip || ''}</td>
+                    <td>${guardian.gender || ''}</td>
+                    <td class="table-actions">
+                        <button class="btn btn--ghost" type="button" data-action="edit" data-id="${guardian.g_id}">Edit</button>
+                        <button class="btn btn--danger" type="button" data-action="delete" data-id="${guardian.g_id}">Delete</button>
+                    </td>
+                `;
+                guardianTableBody.appendChild(row);
+            });
+
+            guardianTableBody.querySelectorAll('button[data-action="edit"]').forEach(button => {
+                button.addEventListener('click', () => {
+                    const guardian = guardiansCache.find(g => String(g.g_id) === button.dataset.id);
+                    if (guardian) openEditForm(guardian);
+                });
+            });
+
+            guardianTableBody.querySelectorAll('button[data-action="delete"]').forEach(button => {
+                button.addEventListener('click', () => deleteGuardian(button.dataset.id));
+            });
+        }
+
+        function openEditForm(guardian) {
+            editingGuardianId = guardian.g_id;
+            document.getElementById('edit-g-first').value = guardian.g_f_name || '';
+            document.getElementById('edit-g-mi').value = guardian.g_mi || '';
+            document.getElementById('edit-g-last').value = guardian.g_l_name || '';
+            document.getElementById('edit-g-cell').value = guardian.g_cell || '';
+            document.getElementById('edit-g-email').value = guardian.g_email || '';
+            document.getElementById('edit-g-address').value = guardian.g_staddress || '';
+            document.getElementById('edit-g-city').value = guardian.g_city || '';
+            document.getElementById('edit-g-state').value = guardian.g_state || '';
+            document.getElementById('edit-g-zip').value = guardian.g_zip || '';
+
+            const genderValue = guardian.gender || '';
+            editForm.querySelectorAll('input[name="edit-guardian-gender"]').forEach(input => {
+                input.checked = input.value.toLowerCase() === genderValue?.toLowerCase();
+            });
+
+            editPanel.classList.remove('is-hidden');
+            editPanel.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function closeEditForm() {
+            editingGuardianId = null;
+            editForm.reset();
+            editPanel.classList.add('is-hidden');
+        }
+
+        async function deleteGuardian(guardianId) {
+            if (!confirm('Remove this guardian?')) return;
+
+            try {
+                const response = await fetch(`/parents/${guardianId}`, { method: 'DELETE' });
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.message || 'Unable to delete guardian');
+                    return;
+                }
+
+                alert('Guardian removed successfully');
+                await loadGuardians();
+            } catch (error) {
+                console.error('Error deleting guardian:', error);
+                alert('Unexpected error deleting guardian');
+            }
+        }
     </script>
+    <script src="/scripts/ui.js" defer></script>
 
 </body>
 </html>

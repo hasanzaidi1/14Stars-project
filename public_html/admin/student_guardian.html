@@ -3,115 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student-Guardian Relationship</title>
-    <link rel="stylesheet" href="../styles.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background-color: #f4f4f4;
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        form {
-            max-width: 400px;
-            margin: 0 auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        label {
-            display: block;
-            margin: 15px 0 5px;
-            font-weight: bold;
-        }
-
-        select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #28a745;
-            border: none;
-            border-radius: 4px;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            margin: 10px 0; /* Add margin for spacing */
-        }
-
-        button:hover {
-            background-color: #218838;
-        }
-
-        button:disabled {
-            background-color: #6c757d;
-            cursor: not-allowed;
-        }
-
-
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-            display: flex;
-            justify-content: space-around; /* Space buttons evenly */
-        }
-    </style>
+    <title>Student & Guardian Assignment</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    
-    <header>
-        <nav>
-            <ul>
-                <li><button onclick="window.location.href='/admin/admin.html'">Admin Privilege</button></li>
-                <li><button class="logout-btn" onclick="window.location.href='/admin/admin-login.html'">Logout</button></li>
-                <li><button onclick="window.location.href='/admin/all_student_guardian_table.html'">See Guardian-Student Table</button></li>
-            </ul>
+    <header class="site-header">
+        <a class="brand-mark" href="/admin/admin.html">14 Stars Admin</a>
+        <button class="nav-toggle" type="button" data-nav-toggle data-target="primary-nav" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <nav class="nav-links" id="primary-nav">
+            <a class="nav-link" href="/admin/admin.html">Dashboard</a>
+            <a class="nav-link" href="/admin/students.html">Students</a>
+            <a class="nav-link is-active" href="/admin/guardian.html">Guardians</a>
+            <a class="nav-link" href="/admin/teacher_table.html">Teachers</a>
+            <a class="nav-link" href="/admin/subjects.html">Subjects</a>
+            <a class="nav-link" href="/admin/levels.html">Levels</a>
+            <a class="nav-link" href="/admin/terms.html">Terms</a>
+            <a class="nav-link" href="/substitute/register_substitutes.html">Substitutes</a>
+            <button class="btn btn--danger" type="button" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
         </nav>
     </header>
-    
-    <h1>Assign Guardian to Student</h1>
 
-    <form id="assign-guardian-form">
-        <label for="student-select">Select Student:</label>
-        <select id="student-select" name="st_id"></select>
-    
-        <label for="guardian-select">Select Guardian:</label>
-        <select id="guardian-select" name="g_id"></select>
-    
-        <label for="relationship">Relationship:</label>
-        <select name="relationship_type">
-            <option value="Father">Father</option>
-            <option value="Mother">Mother</option>
-            <option value="Friend">Friend</option>
-            <option value="Relative">Relative</option>
-        </select>
-    
-        <button type="submit">Assign Guardian</button>
-    </form>
+    <main class="stack">
+        <section class="page-header">
+            <div>
+                <p class="page-eyebrow">Guardian Management</p>
+                <h1>Assign guardian to student</h1>
+                <p class="text-muted">Link students to their parent or guardian for communication updates.</p>
+            </div>
+            <div class="page-actions">
+                <button class="btn btn--ghost" type="button" onclick="window.location.href='/admin/all_student_guardian_table.html'">View Table</button>
+            </div>
+        </section>
+
+        <section class="panel panel--narrow stack">
+            <form id="assign-guardian-form" class="stack">
+                <label for="student-select">Select Student</label>
+                <select id="student-select" name="st_id" required></select>
+
+                <label for="guardian-select">Select Guardian</label>
+                <select id="guardian-select" name="g_id" required></select>
+
+                <label for="relationship">Relationship</label>
+                <select id="relationship" name="relationship_type" required>
+                    <option value="Father">Father</option>
+                    <option value="Mother">Mother</option>
+                    <option value="Relative">Relative</option>
+                    <option value="Guardian">Guardian</option>
+                </select>
+
+                <button class="btn" type="submit">Assign Guardian</button>
+            </form>
+        </section>
+    </main>
 
     <script>
         async function fetchStudentNames() {
             const response = await fetch('/students/fullName');
             const students = await response.json();
             const studentSelect = document.getElementById('student-select');
-    
+            studentSelect.innerHTML = '';
+
             students.forEach(student => {
                 const option = document.createElement('option');
-                option.value = student.St_ID; // Assuming this is the ID
+                option.value = student.St_ID;
                 option.textContent = student.full_name;
                 studentSelect.appendChild(option);
             });
@@ -121,22 +75,21 @@
             const response = await fetch('/parents/guardianNames');
             const guardians = await response.json();
             const guardianSelect = document.getElementById('guardian-select');
+            guardianSelect.innerHTML = '';
 
             guardians.forEach(guardian => {
                 const option = document.createElement('option');
-                option.value = guardian.g_id; // Assuming this is the ID
+                option.value = guardian.g_id;
                 option.textContent = guardian.full_name;
                 guardianSelect.appendChild(option);
             });
         }
 
-        // Call these functions on page load
         document.addEventListener('DOMContentLoaded', () => {
             fetchStudentNames();
             fetchGuardianNames();
         });
 
-        // Form submission handling
         document.getElementById('assign-guardian-form').addEventListener('submit', async (event) => {
             event.preventDefault();
             const formData = new FormData(event.target);
@@ -155,5 +108,6 @@
             }
         });
     </script>
+    <script src="/scripts/ui.js" defer></script>
 </body>
 </html>

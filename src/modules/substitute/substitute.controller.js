@@ -29,3 +29,42 @@ exports.fetchSubstitutes = async (req, res) => {
         res.status(500).json({ message: 'Error fetching substitutes' });
     }
 };
+
+exports.updateSubstitute = async (req, res) => {
+    const { id } = req.params;
+    const updates = req.body || {};
+
+    if (!id) {
+        return res.status(400).json({ message: 'Substitute ID is required' });
+    }
+
+    try {
+        const result = await Substitute.update(id, updates);
+        if (!result.affectedRows) {
+            return res.status(404).json({ message: 'Substitute not found or unchanged' });
+        }
+        res.json({ message: 'Substitute updated successfully' });
+    } catch (error) {
+        console.error('Error updating substitute:', error);
+        res.status(500).json({ message: 'Error updating substitute' });
+    }
+};
+
+exports.deleteSubstitute = async (req, res) => {
+    const { id } = req.params;
+
+    if (!id) {
+        return res.status(400).json({ message: 'Substitute ID is required' });
+    }
+
+    try {
+        const result = await Substitute.delete(id);
+        if (!result.affectedRows) {
+            return res.status(404).json({ message: 'Substitute not found' });
+        }
+        res.json({ message: 'Substitute removed successfully' });
+    } catch (error) {
+        console.error('Error deleting substitute:', error);
+        res.status(500).json({ message: 'Error deleting substitute' });
+    }
+};

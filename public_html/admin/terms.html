@@ -1,121 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Terms Management</title>
-  <link rel="stylesheet" href="../styles.css" />
-  <style>
-    ul, h2 {
-      list-style-type: none;
-      padding: 0;
-      text-align: center;
-    }
-
-    form {
-      width: 50%;
-      justify-content: center;
-      margin: auto;
-    }
-
-    input {
-      width: 50%;
-      padding: 12px 20px;
-      margin: 8px 0;
-      box-sizing: border-box;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-    }
-
-    table, th, td {
-      border: 1px solid black;
-    }
-
-    th, td {
-      padding: 12px;
-      text-align: left;
-    }
-
-    #form-feedback {
-      text-align: center;
-      margin-top: 10px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms Management</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <header>
-    <h1>Terms Management</h1>
-    <nav>
-      <ul>
-        <button onclick="window.location.href='/admin/admin.html'">Back to Admin Page</button>
-        <button class="logout-btn" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
-      </ul>
-    </nav>
-  </header>
+    <header class="site-header">
+        <a class="brand-mark" href="/admin/admin.html">14 Stars Admin</a>
+        <button class="nav-toggle" type="button" data-nav-toggle data-target="primary-nav" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <nav class="nav-links" id="primary-nav">
+            <a class="nav-link" href="/admin/admin.html">Dashboard</a>
+            <a class="nav-link" href="/admin/students.html">Students</a>
+            <a class="nav-link" href="/admin/guardian.html">Guardians</a>
+            <a class="nav-link" href="/admin/teacher_table.html">Teachers</a>
+            <a class="nav-link" href="/admin/subjects.html">Subjects</a>
+            <a class="nav-link" href="/admin/levels.html">Levels</a>
+            <a class="nav-link is-active" href="/admin/terms.html">Terms</a>
+            <a class="nav-link" href="/substitute/register_substitutes.html">Substitutes</a>
+            <button class="btn btn--danger" type="button" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
+        </nav>
+    </header>
 
-  <main>
-    <section>
-      <h2>Add New Term</h2>
-      <form id="term-form">
-        <input type="text" id="termName" name="termName" placeholder="Enter term name (e.g., Fall)" required>
-        <button type="submit">Add Term</button>
-        <div id="form-feedback"></div>
-      </form>
-    </section>
+    <main class="stack">
+        <section class="page-header">
+            <div>
+                <p class="page-eyebrow">Academic Calendar</p>
+                <h1>Terms Management</h1>
+                <p class="text-muted">Log terms and the school year they belong to.</p>
+            </div>
+        </section>
 
-    <section>
-      <h2>Existing Terms</h2>
-      <table id="terms-table">
-        <thead>
-          <tr>
-            <th>Term Name</th>
-            <th>School Year</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Term entries will appear here -->
-        </tbody>
-      </table>
-    </section>
-  </main>
+        <section class="panel panel--narrow stack">
+            <h2>Add New Term</h2>
+            <form id="term-form" class="stack">
+                <label for="termName">Term Name</label>
+                <input type="text" id="termName" name="termName" placeholder="e.g., Fall" required>
+                <div id="form-feedback" class="text-muted"></div>
+                <button class="btn" type="submit">Add Term</button>
+            </form>
+        </section>
 
-  <script>
-    const form = document.getElementById('term-form');
-    const tableBody = document.querySelector('#terms-table tbody');
-    const feedback = document.getElementById('form-feedback');
+        <section class="panel panel--flush">
+            <div class="panel-body">
+                <h2>Existing Terms</h2>
+                <div class="data-table-wrapper">
+                    <table id="terms-table">
+                        <thead>
+                            <tr>
+                                <th>Term Name</th>
+                                <th>School Year</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
 
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
+    <script>
+        const form = document.getElementById('term-form');
+        const tableBody = document.querySelector('#terms-table tbody');
+        const feedback = document.getElementById('form-feedback');
 
-      const termName = document.getElementById('termName').value.trim();
-      if (!termName) {
-        feedback.textContent = 'Please enter a valid term name.';
-        feedback.style.color = 'red';
-        return;
-      }
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const termName = document.getElementById('termName').value.trim();
 
-      // Calculate current school year
-      const now = new Date();
-      const startYear = now.getMonth() >= 6 ? now.getFullYear() : now.getFullYear() - 1;
-      const endYear = startYear + 1;
-      const schoolYear = `${startYear}-${endYear}`;
+            if (!termName) {
+                feedback.textContent = 'Please enter a valid term name.';
+                feedback.style.color = 'var(--danger-500)';
+                return;
+            }
 
-      // Add term to table
-      // const row = document.createElement('tr');
-      // row.innerHTML = `<td>${termName}</td><td>${schoolYear}</td>`;
-      // tableBody.appendChild(row);
+            const now = new Date();
+            const startYear = now.getMonth() >= 6 ? now.getFullYear() : now.getFullYear() - 1;
+            const schoolYear = `${startYear}-${startYear + 1}`;
 
-      // Submit form data
-      
-    // Show feedback
-      feedback.textContent = `Term "${termName}" added for ${schoolYear}.`;
-      feedback.style.color = 'green';
-      form.reset();
-    });
-  </script>
+            try {
+                const response = await fetch('/terms', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ term_name: termName, school_year: schoolYear })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    feedback.textContent = error.message || 'Unable to add term.';
+                    feedback.style.color = 'var(--danger-500)';
+                    return;
+                }
+
+                feedback.textContent = `Term "${termName}" added for ${schoolYear}.`;
+                feedback.style.color = 'var(--success-500)';
+                form.reset();
+                await loadTerms();
+            } catch (error) {
+                console.error('Error adding term:', error);
+                feedback.textContent = 'Server error. Please try again.';
+                feedback.style.color = 'var(--danger-500)';
+            }
+        });
+
+        async function loadTerms() {
+            try {
+                const response = await fetch('/terms');
+                const terms = await response.json();
+                renderTerms(terms);
+            } catch (error) {
+                console.error('Error fetching terms:', error);
+            }
+        }
+
+        function renderTerms(terms) {
+            tableBody.innerHTML = '';
+
+            if (!terms.length) {
+                const emptyRow = document.createElement('tr');
+                emptyRow.innerHTML = '<td colspan="3">No terms recorded.</td>';
+                tableBody.appendChild(emptyRow);
+                return;
+            }
+
+            terms.forEach(term => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${term.term_name}</td>
+                    <td>${term.school_year}</td>
+                `;
+
+                const actionsCell = document.createElement('td');
+                actionsCell.className = 'table-actions';
+                const editBtn = document.createElement('button');
+                editBtn.type = 'button';
+                editBtn.className = 'btn btn--ghost';
+                editBtn.textContent = 'Edit';
+                editBtn.addEventListener('click', () => editTerm(term.term_id, term.term_name, term.school_year));
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.type = 'button';
+                deleteBtn.className = 'btn btn--danger';
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', () => deleteTerm(term.term_id));
+
+                actionsCell.appendChild(editBtn);
+                actionsCell.appendChild(deleteBtn);
+                row.appendChild(actionsCell);
+                tableBody.appendChild(row);
+            });
+        }
+
+        async function editTerm(id, termName, schoolYear) {
+            const newName = prompt('Term name', termName);
+            if (!newName) return;
+            const newSchoolYear = prompt('School year', schoolYear);
+            if (!newSchoolYear) return;
+
+            try {
+                const response = await fetch(`/terms/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ term_name: newName, school_year: newSchoolYear })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.message || 'Unable to update term');
+                    return;
+                }
+
+                await loadTerms();
+            } catch (error) {
+                console.error('Error updating term:', error);
+            }
+        }
+
+        async function deleteTerm(id) {
+            if (!confirm('Delete this term?')) return;
+
+            try {
+                const response = await fetch(`/terms/${id}`, { method: 'DELETE' });
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.message || 'Unable to delete term');
+                    return;
+                }
+                await loadTerms();
+            } catch (error) {
+                console.error('Error deleting term:', error);
+            }
+        }
+
+        loadTerms();
+    </script>
+    <script src="/scripts/ui.js" defer></script>
 </body>
 </html>

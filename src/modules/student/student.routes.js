@@ -11,4 +11,10 @@ router.get('/all', studentController.getAll); // Get all students
 // Get student full Name
 router.get('/fullName', studentController.getFullName); // Get student full name
 
+// Update student
+router.put('/:id', studentController.update);
+
+// Delete student
+router.delete('/:id', studentController.remove);
+
 module.exports = router;

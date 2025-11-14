@@ -20,7 +20,7 @@ class AdminController {
                     maxAge: 30 * 24 * 60 * 60 * 1000 
                 });
             }
-            res.redirect('/admin/admin.html');
+            res.redirect('/admin/admin');
         }
 
         return res.status(401).sendFile(path.resolve('public_html/invalid-credentials.html'));
@@ -143,11 +143,11 @@ class AdminController {
                     res.status(500).send('Failed to log out');
                 } else {
                     res.clearCookie('connect.sid');
-                    res.redirect('/admin/admin-login.html'); // Redirect to login page
+                    res.redirect('/admin/admin-login'); // Redirect to login page
                 }
             });
         } else {
-            res.redirect('/admin/admin-login.html'); // No session, go to login
+            res.redirect('/admin/admin-login'); // No session, go to login
         }
     }
 
@@ -193,6 +193,52 @@ class AdminController {
         } catch (error) {
             console.error('Error fetching student-guardian data:', error);
             res.status(500).json({ error: 'Failed to fetch student-guardian data' });
+        }
+    }
+
+    async updateStudentGuardian(req, res) {
+        const { studentId, guardianId, newGuardianId, relationship_type } = req.body;
+
+        if (!studentId || !guardianId) {
+            return res.status(400).json({ error: 'Student and guardian ids are required' });
+        }
+
+        const updates = {};
+        if (newGuardianId !== undefined) updates.newGuardianId = newGuardianId;
+        if (relationship_type !== undefined) updates.relationship_type = relationship_type;
+
+        if (!Object.keys(updates).length) {
+            return res.status(400).json({ error: 'No changes provided' });
+        }
+
+        try {
+            const result = await AdminModel.updateStudentGuardian(studentId, guardianId, updates);
+            if (!result.affectedRows) {
+                return res.status(404).json({ error: 'Relationship not found or unchanged' });
+            }
+            res.json({ message: 'Student-guardian relationship updated successfully' });
+        } catch (error) {
+            console.error('Error updating student-guardian relationship:', error);
+            res.status(500).json({ error: 'Failed to update student-guardian relationship' });
+        }
+    }
+
+    async deleteStudentGuardian(req, res) {
+        const { studentId, guardianId } = req.body;
+
+        if (!studentId || !guardianId) {
+            return res.status(400).json({ error: 'Student and guardian ids are required' });
+        }
+
+        try {
+            const result = await AdminModel.deleteStudentGuardian(studentId, guardianId);
+            if (!result.affectedRows) {
+                return res.status(404).json({ error: 'Relationship not found' });
+            }
+            res.json({ message: 'Student-guardian relationship removed successfully' });
+        } catch (error) {
+            console.error('Error deleting student-guardian relationship:', error);
+            res.status(500).json({ error: 'Failed to delete student-guardian relationship' });
         }
     }
 

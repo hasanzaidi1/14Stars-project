@@ -29,6 +29,28 @@ const addSubject = async (subject) => {
     }
 };
 
+const updateSubject = async (subjectId, subject) => {
+    try {
+        const query = 'UPDATE subject SET subject = ? WHERE subject_id = ?';
+        const [result] = await pool.query(query, [subject, subjectId]);
+        return result;
+    } catch (error) {
+        console.error('Database error while updating subject:', error);
+        throw error;
+    }
+};
+
+const deleteSubject = async (subjectId) => {
+    try {
+        const query = 'DELETE FROM subject WHERE subject_id = ?';
+        const [result] = await pool.query(query, [subjectId]);
+        return result;
+    } catch (error) {
+        console.error('Database error while deleting subject:', error);
+        throw error;
+    }
+};
+
 /**
  * Get the name of a subject by its ID.
  * @param {number} subjectId - The ID of the subject.
@@ -48,5 +70,7 @@ const getSubjectName = async (subjectId) => {
 module.exports = {
     getAllSubjects,
     addSubject,
-    getSubjectName
+    getSubjectName,
+    updateSubject,
+    deleteSubject
 };

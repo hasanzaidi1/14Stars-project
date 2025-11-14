@@ -24,6 +24,47 @@ class TermController {
             res.status(500).json({ message: 'Internal server error' });
         }
     }
+
+    // Update an existing term
+    static async updateTerm(req, res) {
+        const { id } = req.params;
+        const termData = req.body || {};
+
+        if (!id) {
+            return res.status(400).json({ message: 'Term ID is required' });
+        }
+
+        try {
+            const result = await TermModel.update(id, termData);
+            if (!result.affectedRows) {
+                return res.status(404).json({ message: 'Term not found' });
+            }
+            res.json({ message: 'Term updated successfully' });
+        } catch (error) {
+            console.error('Error updating term:', error);
+            res.status(500).json({ message: 'Internal server error' });
+        }
+    }
+
+    // Delete a term
+    static async deleteTerm(req, res) {
+        const { id } = req.params;
+
+        if (!id) {
+            return res.status(400).json({ message: 'Term ID is required' });
+        }
+
+        try {
+            const result = await TermModel.delete(id);
+            if (!result.affectedRows) {
+                return res.status(404).json({ message: 'Term not found' });
+            }
+            res.json({ message: 'Term deleted successfully' });
+        } catch (error) {
+            console.error('Error deleting term:', error);
+            res.status(500).json({ message: 'Internal server error' });
+        }
+    }
 }
 
 module.exports = TermController; // Export the controller

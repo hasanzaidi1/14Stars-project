@@ -8,6 +8,8 @@ Backend service for the 14 Stars Education Center. It exposes RESTful APIs and s
 - Subject, level, and term catalogs used to organize instruction and reporting.
 - Substitute onboarding plus submission and tracking of substitute requests (including "satisfied by" updates).
 - JSON + HTML delivery: `/public_html` hosts the portals, while JSON APIs live under `/admins`, `/teachers`, `/parents`, etc.
+- Structured request logging (per-request IDs + daily log files) paired with a persistent MySQL-backed session store.
+- Pretty URLs for static portals: navigate without `.html` extensions and the server automatically resolves the right file.
 
 ## Tech Stack
 - Node.js + Express 4
@@ -66,8 +68,10 @@ Each domain module keeps its controller, model, and router colocated, which make
 | `DB_HOST`, `DB_USER`, `DB_PASS`, `DB_NAME` | MySQL connection settings used by `mysql2`. |
 | `ADMIN_USERNAME`, `ADMIN_PASSWORD` | Credentials for `/admins/login`. |
 | `TEACHER_USERNAME`, `TEACHER_PASSWORD` | Credentials for `/teachers/teacher-login`. |
-
-> Tip: the session secret in `src/app.js` is currently hard-coded; update it or move it into the `.env` file when deploying.
+| `SESSION_SECRET` | Required. Secret used to sign session cookies. |
+| `SESSION_COOKIE_NAME` | Optional. Name of the session cookie (`14stars.sid` by default). |
+| `SESSION_TTL_MINUTES` | Optional. Session lifetime; defaults to 240 minutes (4 hours). |
+| `LOG_LEVEL` | Optional. One of `error`, `warn`, `info`, or `debug`. Defaults to `info`. |
 
 ### Sample `.env`
 ```
@@ -80,6 +84,10 @@ ADMIN_USERNAME=admin
 ADMIN_PASSWORD=change-me
 TEACHER_USERNAME=teacher
 TEACHER_PASSWORD=change-me
+SESSION_SECRET=replace-me
+SESSION_COOKIE_NAME=14stars.sid
+SESSION_TTL_MINUTES=240
+LOG_LEVEL=info
 ```
 
 ## Database Entities
@@ -87,6 +95,7 @@ TEACHER_PASSWORD=change-me
 - `student`, `guardian`, and the bridge table `student_guardian` (plus `parent_account` for parent logins).
 - Teaching metadata: `subject`, `level`, `student_level`, and `term`.
 - Substitute operations: `substitute` and `substitute_requests`.
+- Auth state persistence: the `sessions` table stores Express sessions in MySQL.
 
 ## API Overview
 The Express routers are mounted in `app.js`. All endpoints accept/return JSON unless noted.
@@ -147,8 +156,11 @@ The Express routers are mounted in `app.js`. All endpoints accept/return JSON un
 
 ## Development Notes
 - Static HTML resides in `public_html`; Express is configured with `app.use(express.static('public_html'))`.
+- All portal links can omit `.html` extensions. Direct `.html` requests are permanently redirected to their extensionless versions.
 - Feature modules live in `src/modules/<domain>` and bundle their controller/model/routes together so you can reuse those pieces in tests, CLIs, or future services without digging through unrelated folders.
 - `utils/helpers.js` centralizes validation helpers, school-year computation, and DB utilities reused by multiple controllers.
+- Sessions are stored server-side inside the MySQL `sessions` table and automatically cleaned up.
+- Structured request/exception logs are appended to `logs/<YYYY-MM-DD>.log`; adjust verbosity with `LOG_LEVEL`.
 - No automated tests exist yet (`npm test` is a placeholder). Add Jest or another runner before extending mission-critical code.
 - When modifying database tables, update both the schema file _and_ any dependent model/controller validation logic to keep the API stable.
 

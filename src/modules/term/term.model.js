@@ -26,6 +26,21 @@ class Term {
         const [rows] = await pool.query(query);
         return rows;
     }
+
+    // Update a term
+    static async update(termId, termData) {
+        const query = 'UPDATE term SET term_name = ?, school_year = ? WHERE term_id = ?';
+        const values = [termData.term_name, termData.school_year, termId];
+        const [result] = await pool.query(query, values);
+        return result;
+    }
+
+    // Delete a term
+    static async delete(termId) {
+        const query = 'DELETE FROM term WHERE term_id = ?';
+        const [result] = await pool.query(query, [termId]);
+        return result;
+    }
 }
 
 module.exports = Term; // Export the Term class

@@ -4,9 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student-Guardian Table</title>
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+    <header class="site-header">
+        <a class="brand-mark" href="/admin/admin.html">14 Stars Admin</a>
+        <button class="nav-toggle" type="button" data-nav-toggle data-target="primary-nav" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <nav class="nav-links" id="primary-nav">
+            <a class="nav-link" href="/admin/admin.html">Dashboard</a>
+            <a class="nav-link" href="/admin/students.html">Students</a>
+            <a class="nav-link is-active" href="/admin/guardian.html">Guardians</a>
+            <a class="nav-link" href="/admin/teacher_table.html">Teachers</a>
+            <a class="nav-link" href="/admin/subjects.html">Subjects</a>
+            <a class="nav-link" href="/admin/levels.html">Levels</a>
+            <a class="nav-link" href="/admin/terms.html">Terms</a>
+            <a class="nav-link" href="/substitute/register_substitutes.html">Substitutes</a>
+            <button class="btn btn--danger" type="button" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
+        </nav>
+    </header>
     <header class="page-header">
         <div>
             <p class="page-eyebrow">Admin Portal</p>
@@ -25,11 +40,13 @@
                     <table id="guardian-table">
                         <thead>
                             <tr>
+                                <th>Student ID</th>
                                 <th>Student Name</th>
                                 <th>Guardian Name</th>
                                 <th>Relationship</th>
                                 <th>Phone Number</th>
                                 <th>Email</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -39,47 +56,201 @@
                 </div>
             </div>
         </section>
+
+        <section class="panel panel--narrow stack is-hidden" id="edit-student-guardian-panel">
+            <div>
+                <p class="page-eyebrow">Edit</p>
+                <h2>Edit Assignment</h2>
+                <p id="edit-student-label" class="text-muted"></p>
+            </div>
+            <form id="student-guardian-edit-form" class="stack">
+                <label for="edit-guardian-select">Guardian</label>
+                <select id="edit-guardian-select" required></select>
+
+                <label for="edit-relationship">Relationship</label>
+                <select id="edit-relationship" required>
+                    <option value="Father">Father</option>
+                    <option value="Mother">Mother</option>
+                    <option value="Relative">Relative</option>
+                    <option value="Guardian">Guardian</option>
+                </select>
+
+                <div class="form-actions">
+                    <button class="btn" type="submit">Save Changes</button>
+                    <button class="btn btn--ghost" type="button" id="cancel-student-guardian-edit">Cancel</button>
+                </div>
+            </form>
+        </section>
     </main>
 
     <script>
+        const tableBody = document.getElementById('guardian-table').getElementsByTagName('tbody')[0];
+        const editPanel = document.getElementById('edit-student-guardian-panel');
+        const editForm = document.getElementById('student-guardian-edit-form');
+        const guardianSelect = document.getElementById('edit-guardian-select');
+        const relationshipSelect = document.getElementById('edit-relationship');
+        const editStudentLabel = document.getElementById('edit-student-label');
+        const cancelEditButton = document.getElementById('cancel-student-guardian-edit');
+
+        let guardianOptions = [];
+        let assignments = [];
+        let editingRecord = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadGuardians();
+            fetchStudentGuardianData();
+        });
+
+        cancelEditButton.addEventListener('click', closeEditPanel);
+
+        editForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            if (!editingRecord) return;
+
+            const payload = {
+                studentId: editingRecord.St_ID,
+                guardianId: editingRecord.g_id,
+                newGuardianId: guardianSelect.value,
+                relationship_type: relationshipSelect.value
+            };
+
+            try {
+                const response = await fetch('/admins/student-guardian', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.error || 'Unable to update assignment');
+                    return;
+                }
+
+                closeEditPanel();
+                fetchStudentGuardianData();
+            } catch (error) {
+                console.error('Error updating student-guardian data:', error);
+            }
+        });
+
+        async function loadGuardians() {
+            try {
+                const response = await fetch('/parents/guardianNames');
+                guardianOptions = await response.json();
+                populateGuardianSelect();
+            } catch (error) {
+                console.error('Error loading guardian names:', error);
+            }
+        }
+
+        function populateGuardianSelect() {
+            guardianSelect.innerHTML = '';
+            guardianOptions.forEach(option => {
+                const node = document.createElement('option');
+                node.value = option.g_id;
+                node.textContent = option.full_name;
+                guardianSelect.appendChild(node);
+            });
+        }
+
         async function fetchStudentGuardianData() {
             try {
                 const response = await fetch('/admins/getStudentGuardianData');
-                // Check if the response is ok
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                
-                const data = await response.json();
-                const tableBody = document.getElementById('guardian-table').getElementsByTagName('tbody')[0];
-    
-                // Clear existing rows if needed
-                tableBody.innerHTML = ''; 
-    
-                // Populate the table with data
-                data.forEach(row => {
-                    const newRow = tableBody.insertRow();
-                    const studentCell = newRow.insertCell(0);
-                    const guardianCell = newRow.insertCell(1);
-                    const relationshipCell = newRow.insertCell(2);
-                    const cellNum = newRow.insertCell(3);
-                    const email = newRow.insertCell(4)
-    
-                    studentCell.textContent = row.student_name;
-                    guardianCell.textContent = row.guardian_name;
-                    relationshipCell.textContent = row.relationship_type;
-                    cellNum.textContent = row.g_cell;
-                    email.textContent = row.g_email;
-                });
+                assignments = await response.json();
+                renderAssignments();
             } catch (error) {
                 console.error('Error fetching student-guardian data:', error);
                 alert('Failed to fetch data. Please check the console for more details.');
             }
         }
-    
-        // Call the function to fetch data on page load
-        window.onload = fetchStudentGuardianData;
+
+        function renderAssignments() {
+            tableBody.innerHTML = '';
+
+            if (!assignments.length) {
+                const row = document.createElement('tr');
+                row.innerHTML = '<td colspan="6">No assignments found.</td>';
+                tableBody.appendChild(row);
+                return;
+            }
+
+            assignments.forEach(record => {
+                const newRow = tableBody.insertRow();
+                newRow.insertCell(0).textContent = record.St_ID;
+                newRow.insertCell(1).textContent = record.student_name;
+                newRow.insertCell(2).textContent = record.guardian_name || '—';
+                newRow.insertCell(3).textContent = record.relationship_type || '—';
+                newRow.insertCell(4).textContent = record.g_cell || '—';
+                newRow.insertCell(5).textContent = record.g_email || '—';
+
+                const actionsCell = newRow.insertCell(6);
+                actionsCell.className = 'table-actions';
+
+                if (!record.g_id) {
+                    actionsCell.textContent = 'No guardian assigned';
+                    return;
+                }
+
+                const editBtn = document.createElement('button');
+                editBtn.type = 'button';
+                editBtn.className = 'btn btn--ghost';
+                editBtn.textContent = 'Edit';
+                editBtn.addEventListener('click', () => openEditPanel(record));
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.type = 'button';
+                deleteBtn.className = 'btn btn--danger';
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', () => deleteAssignment(record));
+
+                actionsCell.appendChild(editBtn);
+                actionsCell.appendChild(deleteBtn);
+            });
+        }
+
+        function openEditPanel(record) {
+            editingRecord = record;
+            editStudentLabel.textContent = `Student: ${record.student_name}`;
+            guardianSelect.value = record.g_id;
+            relationshipSelect.value = record.relationship_type || 'Guardian';
+            editPanel.classList.remove('is-hidden');
+            editPanel.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function closeEditPanel() {
+            editingRecord = null;
+            editPanel.classList.add('is-hidden');
+            editForm.reset();
+            populateGuardianSelect();
+        }
+
+        async function deleteAssignment(record) {
+            if (!confirm('Remove this guardian assignment?')) return;
+
+            try {
+                const response = await fetch('/admins/student-guardian', {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ studentId: record.St_ID, guardianId: record.g_id })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.error || 'Unable to delete assignment');
+                    return;
+                }
+
+                fetchStudentGuardianData();
+            } catch (error) {
+                console.error('Error deleting assignment:', error);
+            }
+        }
     </script>
+    <script src="/scripts/ui.js" defer></script>
     
 </body>
 </html>

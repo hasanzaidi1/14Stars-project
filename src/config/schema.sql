@@ -143,3 +143,10 @@ CREATE TABLE term (
 );
 -- END OF NEW QUERY
 
+-- Table structure for table `sessions`
+CREATE TABLE IF NOT EXISTS `sessions` (
+  `session_id` varchar(128) NOT NULL,
+  `expires` bigint unsigned NOT NULL,
+  `data` text NOT NULL,
+  PRIMARY KEY (`session_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

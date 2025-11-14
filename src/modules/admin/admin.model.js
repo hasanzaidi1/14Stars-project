@@ -89,6 +89,7 @@ const AdminModel = {
             const query = `
                 SELECT 
                     s.St_ID, 
+                    sg.g_id,
                     CONCAT(s.F_Name, ' ', s.L_Name) AS student_name,
                     CONCAT(g.g_f_name, ' ', g.g_l_name) AS guardian_name,
                     sg.relationship_type,
@@ -106,8 +107,36 @@ const AdminModel = {
             console.error('Error fetching student-guardian data:', error);
             throw error;
         }
+    },
+
+    async updateStudentGuardian(studentId, guardianId, updates) {
+        const fields = [];
+        const values = [];
+
+        if (updates.newGuardianId) {
+            fields.push('g_id = ?');
+            values.push(updates.newGuardianId);
+        }
+        if (updates.relationship_type !== undefined) {
+            fields.push('relationship_type = ?');
+            values.push(updates.relationship_type);
+        }
+
+        if (!fields.length) {
+            return { affectedRows: 0 };
+        }
+
+        const query = `UPDATE student_guardian SET ${fields.join(', ')} WHERE st_id = ? AND g_id = ?`;
+        const [result] = await pool.query(query, [...values, studentId, guardianId]);
+        return result;
+    },
+
+    async deleteStudentGuardian(studentId, guardianId) {
+        const query = 'DELETE FROM student_guardian WHERE st_id = ? AND g_id = ?';
+        const [result] = await pool.query(query, [studentId, guardianId]);
+        return result;
     }
-    
+
     // // Register Parent/Guardian
     // async registerParent(guardianData) {
     //     try {

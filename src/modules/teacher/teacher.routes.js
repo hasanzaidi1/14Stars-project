@@ -13,9 +13,11 @@ router.get('/teacher-logout', teacherController.logout);
 // router.post('/register', authMiddleware.isAuthenticated, teacherController.registerTeacher);
 router.post('/register', teacherController.registerTeacher);
 router.get('/all', teacherController.getTeachers);
+router.put('/:id', teacherController.updateTeacher);
+router.delete('/:id', teacherController.deleteTeacher);
 
 // Teacher portal route
-router.get('/teacher_portal.html', authMiddleware.isTeacher, (req, res) => {
+router.get('/teacher_portal', authMiddleware.isTeacher, (req, res) => {
     res.sendFile(path.resolve('public_html/teachers/teacher_portal.html'));
 });
 
