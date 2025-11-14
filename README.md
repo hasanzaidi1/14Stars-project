@@ -67,11 +67,31 @@ Each domain module keeps its controller, model, and router colocated, which make
 | `PORT` | Optional. Defaults to `30000`. |
 | `DB_HOST`, `DB_USER`, `DB_PASS`, `DB_NAME` | MySQL connection settings used by `mysql2`. |
 | `ADMIN_USERNAME`, `ADMIN_PASSWORD` | Credentials for `/admins/login`. |
-| `TEACHER_USERNAME`, `TEACHER_PASSWORD` | Credentials for `/teachers/teacher-login`. |
 | `SESSION_SECRET` | Required. Secret used to sign session cookies. |
 | `SESSION_COOKIE_NAME` | Optional. Name of the session cookie (`14stars.sid` by default). |
 | `SESSION_TTL_MINUTES` | Optional. Session lifetime; defaults to 240 minutes (4 hours). |
 | `LOG_LEVEL` | Optional. One of `error`, `warn`, `info`, or `debug`. Defaults to `info`. |
+
+Teacher accounts are now created directly from the Teacher portal or the admin dashboard; each record stores its own hashed password in MySQL, so no environment variables are required for those logins.
+
+> **Migration note:** run the following SQL on the active schema to add dedicated teacher accounts:
+> ```sql
+> ALTER TABLE teachers DROP COLUMN IF EXISTS password_hash;
+> CREATE TABLE IF NOT EXISTS teacher_accounts (
+>   account_id INT AUTO_INCREMENT PRIMARY KEY,
+>   first_name VARCHAR(255) NOT NULL,
+>   last_name VARCHAR(255) NOT NULL,
+>   email VARCHAR(255) NOT NULL UNIQUE,
+>   phone VARCHAR(50),
+>   password_hash VARCHAR(255) NOT NULL,
+>   created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
+> ) ENGINE=InnoDB;
+> ALTER TABLE teacher_accounts
+>   ADD CONSTRAINT fk_teacher_accounts_email
+>   FOREIGN KEY (email) REFERENCES teachers(t_email)
+>   ON DELETE CASCADE;
+> ```
+> Existing teacher rows remain unchanged; account records are independent of the legacy `teachers` table.
 
 ### Sample `.env`
 ```
@@ -82,8 +102,6 @@ DB_PASS=supersecret
 DB_NAME=admin14stars_education_center
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD=change-me
-TEACHER_USERNAME=teacher
-TEACHER_PASSWORD=change-me
 SESSION_SECRET=replace-me
 SESSION_COOKIE_NAME=14stars.sid
 SESSION_TTL_MINUTES=240
@@ -94,6 +112,7 @@ LOG_LEVEL=info
 `config/schema.sql` builds the following core tables:
 - `student`, `guardian`, and the bridge table `student_guardian` (plus `parent_account` for parent logins).
 - Teaching metadata: `subject`, `level`, `student_level`, and `term`.
+- `teacher_accounts` for login credentials plus the legacy `teachers` directory used by admins.
 - Substitute operations: `substitute` and `substitute_requests`.
 - Auth state persistence: the `sessions` table stores Express sessions in MySQL.
 
@@ -116,10 +135,19 @@ The Express routers are mounted in `app.js`. All endpoints accept/return JSON un
 ### Teacher (`/teachers`)
 | Method & Path | Description |
 | --- | --- |
-| `POST /teacher-login` + `GET /teacher-logout` | Session login/logout with env-configured credentials. |
-| `POST /register` | Adds a teacher; prevents duplicate emails. |
+| `POST /teacher-login` + `GET /teacher-logout` | Session login/logout backed by the `teachers` table (email + password). |
+| `POST /register` | Creates a login for an existing teacher, enforcing email + name matches against the admin-maintained roster. |
+| `POST /profiles` | Admin-only route that creates/updates the roster entry in `teachers` (no password). |
+| `GET /me` | Returns the logged-in teacher's account metadata (used by portal autofill). |
 | `GET /all` | Fetches every teacher (adds a `full_name` field). |
 | `GET /teacher_portal.html` | Protected static portal (served after login). |
+
+> Teachers must already appear in the admin-managed `teachers` roster (matching first name, last name, and email) before they can self-create a portal login. Admins can seed both the roster and account via the dashboard; teachers registering themselves will be blocked until their profile exists.
+
+#### Teacher onboarding & portal workflow
+1. **Admin adds the roster profile** – Via `/admin/teacher_table.html`, the admin submits first name, last name, and email (plus optional contact info). The form POSTs to `POST /teachers/profiles`, which stores the record in the legacy `teachers` table. Admins never touch passwords.
+2. **Teacher creates the portal account** – From `/teachers/teachers`, the teacher enters the exact first name, last name, and email that the admin used, plus their chosen password. `POST /teachers/register` validates the match, hashes the password, and inserts the account into `teacher_accounts`.
+3. **Teacher logs in & requests substitutes** – After logging in, `GET /teachers/me` is called by the portal JS to auto-populate the substitute request form with the authenticated email (read-only) and display name. Every substitute form submission now carries the verified email, eliminating typos.
 
 ### Parent (`/parents`)
 | Method & Path | Description |

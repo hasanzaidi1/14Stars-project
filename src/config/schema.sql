@@ -134,6 +134,23 @@ CREATE TABLE `teachers` (
   UNIQUE KEY `t_email` (`t_email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Dedicated teacher accounts table (stores credentials + account info only)
+CREATE TABLE `teacher_accounts` (
+  `account_id` int NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `phone` varchar(50) DEFAULT NULL,
+  `password_hash` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`account_id`),
+  UNIQUE KEY `email` (`email`),
+  CONSTRAINT `fk_teacher_accounts_email`
+    FOREIGN KEY (`email`)
+    REFERENCES `teachers` (`t_email`)
+    ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- ++++++++++++++++++ NEW QUERY NEEDS TO IMPLEMENTED ON THE VPS  ++++++++++++++++++
 CREATE TABLE term (
     term_id INT AUTO_INCREMENT PRIMARY KEY,

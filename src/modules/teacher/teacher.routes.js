@@ -9,10 +9,10 @@ router.post('/teacher-login', teacherController.login);
 router.get('/teacher-logout', teacherController.logout);
 
 // Teacher management routes
-// Implement authentication middleware to protect these routes
-// router.post('/register', authMiddleware.isAuthenticated, teacherController.registerTeacher);
 router.post('/register', teacherController.registerTeacher);
+router.post('/profiles', authMiddleware.isAdmin, teacherController.addTeacherProfile);
 router.get('/all', teacherController.getTeachers);
+router.get('/me', authMiddleware.isTeacher, teacherController.getCurrentTeacher);
 router.put('/:id', teacherController.updateTeacher);
 router.delete('/:id', teacherController.deleteTeacher);
 

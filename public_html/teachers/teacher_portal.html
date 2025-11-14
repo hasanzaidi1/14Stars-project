@@ -44,7 +44,7 @@
                 <input type="text" id="teacher-name" name="teacher_name" required>
 
                 <label for="teacher-email">Teacher Email</label>
-                <input type="text" id="teacher-email" name="teacher_email" required>
+                <input type="email" id="teacher-email" name="teacher_email" readonly required>
 
                 <label for="reason">Reason for Substitute</label>
                 <textarea id="reason" name="reason" rows="4"></textarea>
@@ -125,6 +125,10 @@
     </main>
 
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            populateTeacherIdentity();
+        });
+
         const sections = {
             guardian: document.getElementById('guardian-table-section'),
             classes: document.getElementById('classes-table-section'),
@@ -217,6 +221,36 @@
 }
 
         // Function to show the selected table
+        async function populateTeacherIdentity() {
+            const emailInput = document.getElementById('teacher-email');
+            const nameInput = document.getElementById('teacher-name');
+            if (!emailInput) {
+                return;
+            }
+
+            try {
+                const response = await fetch('/teachers/me', { credentials: 'same-origin' });
+                if (!response.ok) {
+                    throw new Error('Unable to load teacher identity');
+                }
+                const data = await response.json();
+                if (data.success) {
+                    emailInput.value = data.email || '';
+                    if (nameInput && (!nameInput.value || nameInput.value.trim() === '')) {
+                        const fullName = [data.first_name, data.last_name].filter(Boolean).join(' ').trim();
+                        if (fullName) {
+                            nameInput.value = fullName;
+                        }
+                    }
+                } else {
+                    emailInput.removeAttribute('readonly');
+                }
+            } catch (error) {
+                console.error('Error fetching teacher identity:', error);
+                emailInput.removeAttribute('readonly');
+            }
+        }
+
         function showTable(table) {
             hideAllSections();
 

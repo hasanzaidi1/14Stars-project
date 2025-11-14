@@ -17,7 +17,7 @@ class Teacher {
             teacherData.t_staddress, 
             teacherData.t_city, 
             teacherData.t_state, 
-            teacherData.t_zip,
+            teacherData.t_zip
         ];
         const [result] = await pool.query(query, values);
         return result;
@@ -64,6 +64,9 @@ class Teacher {
     // Update teacher details (e.g., phone or address) by their ID
     static async updateById(t_id, updates) {
         const fields = Object.keys(updates).map(field => `${field} = ?`).join(', ');
+        if (!fields) {
+            return false;
+        }
         const values = Object.values(updates);
         const query = `UPDATE teachers SET ${fields} WHERE t_id = ?`;
         const [result] = await pool.query(query, [...values, t_id]);
