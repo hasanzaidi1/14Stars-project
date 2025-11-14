@@ -9,7 +9,7 @@ class TeacherController {
             req.session.isLoggedIn = true;
             req.session.isTeacher = true;
 
-            return res.redirect('/teachers/teacher_portal.html');
+            return res.redirect('/teachers/teacher_portal');
         }
 
         return res.status(401).sendFile(path.resolve('public_html/invalid-credentials.html'));
@@ -83,7 +83,7 @@ class TeacherController {
                 return res.send('Error logging out');
             }
             res.clearCookie('username');
-            res.redirect('/teachers/teachers.html');
+            res.redirect('/teachers/teachers');
         });
     }
 }

@@ -15,7 +15,7 @@ router.post('/register', teacherController.registerTeacher);
 router.get('/all', teacherController.getTeachers);
 
 // Teacher portal route
-router.get('/teacher_portal.html', authMiddleware.isTeacher, (req, res) => {
+router.get('/teacher_portal', authMiddleware.isTeacher, (req, res) => {
     res.sendFile(path.resolve('public_html/teachers/teacher_portal.html'));
 });
 

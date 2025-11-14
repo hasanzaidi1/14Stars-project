@@ -20,7 +20,7 @@ class ParentController {
             const hashedPassword = await bcrypt.hash(password, 10);
             await Parent.createParent(f_name, l_name, email, hashedPassword);
 
-            res.redirect('/parents/parents_login.html'); // Redirect to login page after successful registration
+            res.redirect('/parents/parents_login'); // Redirect to login page after successful registration
         } catch (error) {
             console.error('Error during parent registration:', error);
             res.status(500).send('Internal Server Error');
@@ -48,7 +48,7 @@ class ParentController {
             req.session.isParent = true;
             req.session.parentId = parent.p_id;
 
-            res.redirect('/parents/parents_portal.html'); // Redirect to portal
+            res.redirect('/parents/parents_portal'); // Redirect to portal
         } catch (error) {
             console.error('Error logging in parent:', error);
             res.status(500).json({ success: false, message: 'Error logging in parent. Please try again.' });
@@ -62,7 +62,7 @@ class ParentController {
                 console.error('Error destroying session:', error);
                 return res.status(500).send('Internal Server Error');
             }
-            res.redirect('/parents/parents_login.html'); // Redirect to login page after logout
+            res.redirect('/parents/parents_login'); // Redirect to login page after logout
         });
     }
 
@@ -129,7 +129,7 @@ class ParentController {
             await StudentGuardian.createStudentGuardian(guardianId, studentId, relation);
 
             // ✅ Redirect after successful registration
-            res.redirect('/parents/parents_portal.html');
+            res.redirect('/parents/parents_portal');
         } catch (error) {
             console.error('Error registering student:', error);
             res.status(500).send('Internal Server Error');
