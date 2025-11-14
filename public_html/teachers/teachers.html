@@ -18,7 +18,7 @@
         </nav>
     </header>
 
-    <main class="page-fill">
+    <main class="page-fill stack">
         <section class="panel panel--narrow stack" style="max-width: 480px;">
             <div>
                 <p class="page-eyebrow">Teacher Portal</p>
@@ -26,11 +26,41 @@
                 <p class="text-muted">Sign in to view rosters, class assignments, and substitute requests.</p>
             </div>
             <form action="/teachers/teacher-login" method="POST" class="stack">
-                <label class="sr-only" for="teacher-username">Username</label>
-                <input id="teacher-username" type="text" name="username" placeholder="Username" required>
-                <label class="sr-only" for="teacher-password">Password</label>
-                <input id="teacher-password" type="password" name="password" placeholder="Password" required>
+                <label class="sr-only" for="teacher-login-email">Email</label>
+                <input id="teacher-login-email" type="email" name="email" placeholder="Email" required>
+                <label class="sr-only" for="teacher-login-password">Password</label>
+                <input id="teacher-login-password" type="password" name="password" placeholder="Password" required>
                 <button class="btn" type="submit">Login</button>
+            </form>
+        </section>
+
+        <section class="panel panel--narrow stack" style="max-width: 640px;">
+            <div>
+                <p class="page-eyebrow">No account yet?</p>
+                <h2>Create a Teacher Account</h2>
+                <p class="text-muted">Register once to manage your class data and substitute requests.</p>
+            </div>
+            <div id="teacher-register-message" class="message is-hidden"></div>
+            <form id="teacher-self-register" class="stack">
+                <label for="reg_t_f_name">First Name</label>
+                <input type="text" id="reg_t_f_name" name="t_f_name" required>
+
+                <label for="reg_t_l_name">Last Name</label>
+                <input type="text" id="reg_t_l_name" name="t_l_name" required>
+
+                <label for="reg_t_email">Email</label>
+                <input type="email" id="reg_t_email" name="t_email" required placeholder="you@email.com">
+
+                <label for="reg_t_phone">Phone</label>
+                <input type="text" id="reg_t_phone" name="t_phone" placeholder="(555) 555-5555">
+
+                <label for="reg_password">Password</label>
+                <input type="password" id="reg_password" name="password" placeholder="At least 8 characters" required minlength="8">
+
+                <label for="reg_confirm_password">Confirm Password</label>
+                <input type="password" id="reg_confirm_password" name="confirm_password" placeholder="Re-enter password" required minlength="8">
+
+                <button class="btn" type="submit">Create Account</button>
             </form>
         </section>
     </main>
@@ -39,6 +69,46 @@
         <p>&copy; 2024 14 Stars Islamic School.</p>
     </footer>
 
+    <script>
+        const registerForm = document.getElementById('teacher-self-register');
+        const registerMessage = document.getElementById('teacher-register-message');
+
+        registerForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            if (!registerForm.reportValidity()) {
+                return;
+            }
+            const payload = {
+                t_f_name: document.getElementById('reg_t_f_name').value,
+                t_l_name: document.getElementById('reg_t_l_name').value,
+                t_email: document.getElementById('reg_t_email').value,
+                t_phone: document.getElementById('reg_t_phone').value,
+                password: document.getElementById('reg_password').value,
+                confirm_password: document.getElementById('reg_confirm_password').value
+            };
+
+            try {
+                const response = await fetch('/teachers/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await response.json();
+                registerMessage.textContent = data.message || (response.ok ? 'Registered successfully! You can log in now.' : 'Registration failed.');
+                registerMessage.className = 'message ' + (response.ok && data.success ? 'message--success' : 'message--error');
+                registerMessage.classList.remove('is-hidden');
+
+                if (response.ok && data.success) {
+                    registerForm.reset();
+                }
+            } catch (error) {
+                console.error('Error registering teacher:', error);
+                registerMessage.textContent = 'Unexpected error. Please try again.';
+                registerMessage.className = 'message message--error';
+                registerMessage.classList.remove('is-hidden');
+            }
+        });
+    </script>
     <script src="/scripts/ui.js" defer></script>
 </body>
 </html>
