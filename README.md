@@ -18,16 +18,28 @@ Backend service for the 14 Stars Education Center. It exposes RESTful APIs and s
 ## Project Structure
 ```
 14Stars-project/
-├── app.js                # Express bootstrapper and route registration
-├── config/               # Database pool + schema script
-├── controllers/          # Request handlers per domain (admin, parent, teacher…)
-├── middlewares/          # Session guards
-├── models/               # One file per table
-├── public_html/          # Static portals served via express.static
-├── routes/               # Express routers wired in app.js
-├── utils/                # Shared helpers (validation, date helpers)
-└── README.md
+├── src/
+│   ├── app.js                # Express bootstrapper and route registration
+│   ├── config/               # Database pool + schema script
+│   ├── middlewares/          # Session guards
+│   ├── modules/              # Feature-specific MVC bundles (controller/model/routes)
+│   │   ├── admin/
+│   │   ├── parent/
+│   │   ├── student/
+│   │   ├── teacher/
+│   │   ├── subject/
+│   │   ├── level/
+│   │   ├── student-level/
+│   │   ├── term/
+│   │   ├── substitute/
+│   │   └── substitute-request/
+│   └── utils/                # Shared helpers (validation, date + path utilities)
+├── public_html/              # Static portals served via express.static
+├── README.md
+└── package.json
 ```
+
+Each domain module keeps its controller, model, and router colocated, which makes the business logic reusable (import the controller/model anywhere) and keeps cross-module contracts explicit.
 
 ## Getting Started
 1. **Install dependencies**
@@ -55,7 +67,7 @@ Backend service for the 14 Stars Education Center. It exposes RESTful APIs and s
 | `ADMIN_USERNAME`, `ADMIN_PASSWORD` | Credentials for `/admins/login`. |
 | `TEACHER_USERNAME`, `TEACHER_PASSWORD` | Credentials for `/teachers/teacher-login`. |
 
-> Tip: the session secret in `app.js` is currently hard-coded; update it or move it into the `.env` file when deploying.
+> Tip: the session secret in `src/app.js` is currently hard-coded; update it or move it into the `.env` file when deploying.
 
 ### Sample `.env`
 ```
@@ -135,6 +147,7 @@ The Express routers are mounted in `app.js`. All endpoints accept/return JSON un
 
 ## Development Notes
 - Static HTML resides in `public_html`; Express is configured with `app.use(express.static('public_html'))`.
+- Feature modules live in `src/modules/<domain>` and bundle their controller/model/routes together so you can reuse those pieces in tests, CLIs, or future services without digging through unrelated folders.
 - `utils/helpers.js` centralizes validation helpers, school-year computation, and DB utilities reused by multiple controllers.
 - No automated tests exist yet (`npm test` is a placeholder). Add Jest or another runner before extending mission-critical code.
 - When modifying database tables, update both the schema file _and_ any dependent model/controller validation logic to keep the API stable.
