@@ -3,165 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="/styles.css">
     <title>Register Substitute</title>
-    <style>
-        /* Basic Styling */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .btn-container {
-            margin-top: 30px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .cta-button {
-            padding: 15px 30px;
-            font-size: 18px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        .cta-button:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
-        }
-
-        .cta-button:active {
-            background-color: #004085;
-        }
-
-        form {
-            margin-top: 20px;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-        }
-
-        label {
-            font-weight: bold;
-        }
-
-        input {
-            display: block;
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-        }
-
-        button {
-            background-color: #28a745;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background-color: #218838;
-        }
-
-        /* Table Styling */
-        .table-container {
-            margin-top: 30px;
-            width: 100%;
-            overflow-x: auto;
-            text-align: center;
-        }
-
-        table {
-            width: 80%;
-            margin: 0 auto;
-            border-collapse: collapse;
-            display: none; /* Hidden by default */
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #007bff;
-            color: white;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        tr:hover {
-            background-color: #d9edf7;
-        }
-    </style>
 </head>
 <body>
-    <header>
-        <h1>Substitute</h1>
-        <nav>
-            <ul>
-                <button onclick="showSubs()">Show All Subs</button>
-                <button onclick="window.location.href='/admin/admin.html'">Admin Privilege</button>
-                <button class="logout-btn" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
-            </ul>
+    <header class="site-header">
+        <a class="brand-mark" href="/admin/admin.html">14 Stars Admin</a>
+        <button class="nav-toggle" type="button" data-nav-toggle data-target="primary-nav" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <nav class="nav-links" id="primary-nav">
+            <a class="nav-link" href="/admin/admin.html">Dashboard</a>
+            <a class="nav-link is-active" href="/substitute/register_substitutes.html">Substitutes</a>
+            <button class="btn btn--ghost" type="button" onclick="window.location.href='/admin/admin.html'">Admin Panel</button>
+            <button class="btn btn--danger" type="button" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
         </nav>
     </header>
 
-    <div class="container">
-        <form id="substitute-form">
-            <h1>Register Substitute</h1><br>
-            <label for="sub_f_name">First Name</label>
-            <input type="text" id="sub_f_name" name="sub_f_name" required>
-    
-            <label for="sub_l_name">Last Name</label>
-            <input type="text" id="sub_l_name" name="sub_l_name" required>
-    
-            <label for="sub_email">Email</label>
-            <input type="email" id="sub_email" name="sub_email" required>
-    
-            <label for="sub_phone">Phone</label>
-            <input type="tel" id="sub_phone" name="sub_phone">
-    
-            <button type="submit">Register</button>
-        </form>
-    </div>
-    
-    <!-- Table Container for Substitutes -->
-    <div class="table-container">
-        <table id="subs-table">
-            <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                </tr>
-            </thead>
-            <tbody id="subs-tbody">
-                <!-- Data will be dynamically populated here -->
-            </tbody>
-        </table>
-    </div>
+    <main class="stack">
+        <section class="page-header">
+            <div>
+                <p class="page-eyebrow">Admin Tools</p>
+                <h1>Substitute Directory</h1>
+                <p class="text-muted">Register a new substitute teacher or review everyone currently on your roster.</p>
+            </div>
+            <div class="page-actions">
+                <button class="btn btn--ghost" type="button" onclick="showSubs()">Load Directory</button>
+            </div>
+        </section>
+
+        <section class="panel panel--narrow stack">
+            <div>
+                <h2>Register Substitute</h2>
+                <p class="text-muted">Complete a quick profile so you can invite backup teachers with confidence.</p>
+            </div>
+            <form id="substitute-form" class="stack">
+                <div class="form-row">
+                    <div style="flex:1;">
+                        <label for="sub_f_name">First Name</label>
+                        <input type="text" id="sub_f_name" name="sub_f_name" required>
+                    </div>
+                    <div style="flex:1;">
+                        <label for="sub_l_name">Last Name</label>
+                        <input type="text" id="sub_l_name" name="sub_l_name" required>
+                    </div>
+                </div>
+
+                <label for="sub_email">Email</label>
+                <input type="email" id="sub_email" name="sub_email" required>
+
+                <label for="sub_phone">Phone</label>
+                <input type="tel" id="sub_phone" name="sub_phone" placeholder="Optional">
+
+                <div class="form-actions">
+                    <button class="btn" type="submit">Save Substitute</button>
+                    <button class="btn btn--ghost" type="reset">Reset</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="panel panel--narrow stack">
+            <div class="stack stack--tight">
+                <div>
+                    <p class="page-eyebrow">Directory</p>
+                    <h2>Available substitutes</h2>
+                </div>
+                <div class="data-table-wrapper is-hidden" id="subs-table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                            </tr>
+                        </thead>
+                        <tbody id="subs-tbody">
+                            <tr>
+                                <td colspan="4">No data yet</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
 
 <script>
     // Submit form data
@@ -202,7 +126,7 @@
             const result = await response.json();
 
             if (response.ok) {
-                const table = document.getElementById('subs-table');
+                const wrapper = document.getElementById('subs-table-wrapper');
                 const tbody = document.getElementById('subs-tbody');
                 tbody.innerHTML = ''; // Clear existing rows
 
@@ -223,8 +147,7 @@
                     tbody.appendChild(noDataRow);
                 }
 
-                // Show the table after loading data
-                table.style.display = 'table';
+                wrapper.classList.remove('is-hidden');
             } else {
                 console.error('Error fetching substitutes:', result);
                 alert('An error occurred while fetching substitutes.');
@@ -235,6 +158,8 @@
         }
     }
 </script>
+
+<script src="/scripts/ui.js" defer></script>
 
 </body>
 </html>

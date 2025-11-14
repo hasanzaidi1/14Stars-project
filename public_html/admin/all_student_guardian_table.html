@@ -4,9 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student-Guardian Table</title>
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+    <header class="site-header">
+        <a class="brand-mark" href="/admin/admin.html">14 Stars Admin</a>
+        <button class="nav-toggle" type="button" data-nav-toggle data-target="primary-nav" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <nav class="nav-links" id="primary-nav">
+            <a class="nav-link" href="/admin/admin.html">Dashboard</a>
+            <a class="nav-link" href="/admin/students.html">Students</a>
+            <a class="nav-link is-active" href="/admin/guardian.html">Guardians</a>
+            <a class="nav-link" href="/admin/teacher_table.html">Teachers</a>
+            <a class="nav-link" href="/admin/subjects.html">Subjects</a>
+            <a class="nav-link" href="/admin/levels.html">Levels</a>
+            <a class="nav-link" href="/admin/terms.html">Terms</a>
+            <a class="nav-link" href="/substitute/register_substitutes.html">Substitutes</a>
+            <button class="btn btn--danger" type="button" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
+        </nav>
+    </header>
     <header class="page-header">
         <div>
             <p class="page-eyebrow">Admin Portal</p>
@@ -80,6 +95,7 @@
         // Call the function to fetch data on page load
         window.onload = fetchStudentGuardianData;
     </script>
+    <script src="/scripts/ui.js" defer></script>
     
 </body>
 </html>

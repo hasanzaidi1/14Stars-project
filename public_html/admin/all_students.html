@@ -4,76 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Students</title>
-    <link rel="stylesheet" href="../styles.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            margin: 0;
-        }
-        header {
-            text-align: center;
-            margin-bottom: 20px;
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
-        }
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
-        nav button {
-            padding: 10px 20px;
-            margin: 5px;
-            background-color: #0056b3;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        nav button:hover {
-            background-color: #004085;
-        }
-        nav button:active {
-            background-color: #003366;
-        }
-        main {
-            padding: 10px;
-        }
-        .table-container {
-            width: 100%;
-            overflow-x: auto; /* Allow scrolling for small screens */
-            margin: 0 auto;
-        }
-        table {
-            width: 100%;
-            margin: 20px 0;
-            border-collapse: collapse;
-            background-color: white;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        @media screen and (max-width: 768px) {
-            header h1 {
-                font-size: 18px;
-            }
-            nav button {
-                font-size: 14px;
-                padding: 8px 15px;
-            }
-            th, td {
-                font-size: 14px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand-mark" href="/admin/admin.html">14 Stars Admin</a>
+        <button class="nav-toggle" type="button" data-nav-toggle data-target="primary-nav" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <nav class="nav-links" id="primary-nav">
+            <a class="nav-link" href="/admin/admin.html">Dashboard</a>
+            <a class="nav-link is-active" href="/admin/students.html">Students</a>
+            <a class="nav-link" href="/admin/guardian.html">Guardians</a>
+            <a class="nav-link" href="/admin/teacher_table.html">Teachers</a>
+            <a class="nav-link" href="/admin/subjects.html">Subjects</a>
+            <a class="nav-link" href="/admin/levels.html">Levels</a>
+            <a class="nav-link" href="/admin/terms.html">Terms</a>
+            <a class="nav-link" href="/substitute/register_substitutes.html">Substitutes</a>
+            <button class="btn btn--danger" type="button" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
+        </nav>
+    </header>
+
+    <main class="stack">
+        <section class="page-header">
+            <div>
+                <p class="page-eyebrow">Student Directory</p>
+                <h1>All Students</h1>
+                <p class="text-muted">Search-ready table of every registered learner.</p>
+            </div>
+            <div class="page-actions">
+                <button class="btn btn--ghost" type="button" onclick="window.location.href='/admin/students.html'">Back to Registration</button>
+            </div>
+        </section>
+
+        <section class="panel panel--flush">
+            <div class="panel-body">
+                <div class="data-table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>First</th>
+                                <th>MI</th>
+                                <th>Last</th>
+                                <th>DOB</th>
+                                <th>Address</th>
+                                <th>City</th>
+                                <th>State</th>
+                                <th>Zip</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Location</th>
+                                <th>Gender</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const response = await fetch('/admins/all');
@@ -83,78 +72,36 @@
 
         function displayStudents(students) {
             const tableBody = document.getElementById('studentTableBody');
-            tableBody.innerHTML = ''; // Clear previous results
+            tableBody.innerHTML = '';
 
-            if (students.length > 0) {
-                students.forEach(student => {
-                    const dob = new Date(student.dob); // Convert to Date object
-                    const formattedDOB = dob.toLocaleDateString('en-US', { // Format the date
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit'
-                    });
-
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${student.St_ID}</td>
-                        <td>${student.F_Name}</td>
-                        <td>${student.MI}</td>
-                        <td>${student.L_Name}</td>
-                        <td>${formattedDOB}</td> <!-- Use formattedDOB here -->
-                        <td>${student.st_address}</td>
-                        <td>${student.city}</td>
-                        <td>${student.state}</td>
-                        <td>${student.zip}</td>
-                        <td>${student.st_email}</td>
-                        <td>${student.st_cell}</td>
-                        <td>${student.student_location}</td>
-                        <td>${student.st_gender}</td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-            } else {
-                const row = document.createElement('tr');
-                row.innerHTML = '<td colspan="12">No students found.</td>';
-                tableBody.appendChild(row);
+            if (students.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="13">No students found.</td></tr>';
+                return;
             }
+
+            students.forEach(student => {
+                const dob = student.dob ? new Date(student.dob) : null;
+                const formattedDOB = dob ? dob.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }) : '—';
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${student.St_ID}</td>
+                    <td>${student.F_Name}</td>
+                    <td>${student.MI || ''}</td>
+                    <td>${student.L_Name}</td>
+                    <td>${formattedDOB}</td>
+                    <td>${student.st_address}</td>
+                    <td>${student.city}</td>
+                    <td>${student.state}</td>
+                    <td>${student.zip}</td>
+                    <td>${student.st_email}</td>
+                    <td>${student.st_cell}</td>
+                    <td>${student.student_location}</td>
+                    <td>${student.st_gender}</td>
+                `;
+                tableBody.appendChild(row);
+            });
         }
     </script>
-</head>
-<body>
-    <header>
-        <h1>All Students</h1>
-        <nav>
-            <ul>
-                <button onclick="window.location.href='/admin/students.html'">Back to Student Registration</button>
-                <button class="logout-btn" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Student ID</th>
-                        <th>First Name</th>
-                        <th>Middle Initial</th>
-                        <th>Last Name</th>
-                        <th>Date of Birth</th>
-                        <th>Address</th>
-                        <th>City</th>
-                        <th>State</th>
-                        <th>Zip</th>
-                        <th>Email</th>
-                        <th>Phone Number</th>
-                        <th>Location</th>
-                        <th>Gender</th>
-                    </tr>
-                </thead>
-                <tbody id="studentTableBody">
-                    <!-- Student data will be inserted here -->
-                </tbody>
-            </table>
-        </div>
-    </main>
+    <script src="/scripts/ui.js" defer></script>
 </body>
 </html>

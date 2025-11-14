@@ -3,27 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Success</title>
-    <style>
-        body { font-family: Arial, sans-serif; }
-        #message { margin-top: 20px; color: green; font-size: 18px; }
-    </style>
+    <title>Status</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <h1>Registration Status</h1>
+    <header class="site-header">
+        <a class="brand-mark" href="/index.html">14 Stars</a>
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" data-nav-toggle data-target="primary-nav">☰</button>
+        <nav class="nav-links" id="primary-nav">
+            <a class="nav-link" href="/index.html">Home</a>
+            <a class="nav-link" href="/parents/parents_login.html">Parents</a>
+            <a class="nav-link" href="/teachers/teachers.html">Teachers</a>
+            <a class="nav-link" href="/admin/admin-login.html">Admin</a>
+        </nav>
+    </header>
 
-    <!-- Placeholder for the success message -->
-    <div id="message"></div>
+    <main class="page-fill">
+        <section class="card stack" style="max-width: 520px;">
+            <p class="page-eyebrow">Portal Message</p>
+            <h1>All set!</h1>
+            <p class="text-muted">We captured the latest update from your submission below.</p>
+            <div id="message" class="message message--success"></div>
+            <div class="btn-group">
+                <button class="btn" type="button" onclick="window.location.href='/index.html'">Return Home</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2024 14 Stars Islamic School.</p>
+    </footer>
 
     <script>
-        // Grab the message from the query string and display it
-        const urlParams = new URLSearchParams(window.location.search);
-        const message = urlParams.get('message');
-        
-        if (message) {
-            // Decode the message and display it in the 'message' div
-            document.getElementById("message").innerText = decodeURIComponent(message);
+        const messageContainer = document.getElementById('message');
+        const params = new URLSearchParams(window.location.search);
+        const status = params.get('type');
+        const copy = params.get('message');
+
+        if (status === 'error') {
+            messageContainer.classList.remove('message--success');
+            messageContainer.classList.add('message--error');
+            document.querySelector('h1').textContent = 'Something went wrong';
         }
+
+        messageContainer.textContent = copy ? decodeURIComponent(copy) : 'Registration completed successfully.';
     </script>
+    <script src="/scripts/ui.js" defer></script>
 </body>
 </html>
