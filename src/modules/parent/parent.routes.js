@@ -10,6 +10,8 @@ router.get('/logout', parentController.logout);
 router.post('/register-from-parent', isParent, parentController.registerStudent);
 router.get('/students', isParent, parentController.getStudents);
 router.get('/guardianNames', parentController.getGuardianNames);
+router.put('/:id', parentController.updateGuardian);
+router.delete('/:id', parentController.deleteGuardian);
 
 
 module.exports = router;

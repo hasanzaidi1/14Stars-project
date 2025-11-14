@@ -62,6 +62,47 @@ class StudentController {
             res.status(500).json({ error: 'Internal Server Error' });
         }
     }
+
+    // Update a student profile
+    async update(req, res) {
+        const { id } = req.params;
+        const updates = req.body || {};
+
+        if (!id) {
+            return res.status(400).json({ message: 'Student ID is required' });
+        }
+
+        try {
+            const result = await Student.updateStudent(id, updates);
+            if (!result.affectedRows) {
+                return res.status(404).json({ message: 'Student not found or no changes applied' });
+            }
+            res.json({ message: 'Student updated successfully' });
+        } catch (error) {
+            console.error('Error updating student:', error);
+            res.status(500).json({ message: 'Internal server error' });
+        }
+    }
+
+    // Delete a student profile
+    async remove(req, res) {
+        const { id } = req.params;
+
+        if (!id) {
+            return res.status(400).json({ message: 'Student ID is required' });
+        }
+
+        try {
+            const result = await Student.deleteStudent(id);
+            if (!result.affectedRows) {
+                return res.status(404).json({ message: 'Student not found' });
+            }
+            res.json({ message: 'Student removed successfully' });
+        } catch (error) {
+            console.error('Error deleting student:', error);
+            res.status(500).json({ message: 'Internal server error' });
+        }
+    }
 }
 
 module.exports = new StudentController();

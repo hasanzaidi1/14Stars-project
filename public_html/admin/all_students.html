@@ -54,6 +54,7 @@
                                 <th>Phone</th>
                                 <th>Location</th>
                                 <th>Gender</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody id="studentTableBody"></tbody>
@@ -61,45 +62,214 @@
                 </div>
             </div>
         </section>
+
+        <section class="panel panel--narrow stack is-hidden" id="edit-student-panel">
+            <div>
+                <p class="page-eyebrow">Edit</p>
+                <h2>Edit Student</h2>
+            </div>
+            <form id="edit-student-form" class="stack">
+                <input type="hidden" id="edit-student-id">
+                <label for="edit-fname">First Name</label>
+                <input type="text" id="edit-fname" required>
+
+                <label for="edit-mi">Middle Initial</label>
+                <input type="text" id="edit-mi">
+
+                <label for="edit-lname">Last Name</label>
+                <input type="text" id="edit-lname" required>
+
+                <label for="edit-dob">Date of Birth</label>
+                <input type="date" id="edit-dob" required>
+
+                <label for="edit-address">Street Address</label>
+                <input type="text" id="edit-address" required>
+                <input type="text" id="edit-city" placeholder="City" required>
+                <input type="text" id="edit-state" placeholder="State" required>
+                <input type="text" id="edit-zip" placeholder="ZIP" required>
+
+                <label for="edit-email">Email</label>
+                <input type="email" id="edit-email" required>
+
+                <label for="edit-phone">Phone</label>
+                <input type="text" id="edit-phone" required>
+
+                <label for="edit-location">Location</label>
+                <select id="edit-location" required>
+                    <option value="on-site">On-Site</option>
+                    <option value="remote">Remote</option>
+                </select>
+
+                <div class="gender-options">
+                    <span class="gender-title">Gender</span>
+                    <label for="edit-gender-male">Male</label>
+                    <input type="radio" id="edit-gender-male" name="edit-gender" value="male">
+                    <label for="edit-gender-female">Female</label>
+                    <input type="radio" id="edit-gender-female" name="edit-gender" value="female">
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn" type="submit">Save Changes</button>
+                    <button class="btn btn--ghost" type="button" id="cancel-edit-student">Cancel</button>
+                </div>
+            </form>
+        </section>
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            const response = await fetch('/admins/all');
-            const students = await response.json();
-            displayStudents(students);
+        const tableBody = document.getElementById('studentTableBody');
+        const editPanel = document.getElementById('edit-student-panel');
+        const editForm = document.getElementById('edit-student-form');
+        let studentsCache = [];
+        let editingStudentId = null;
+
+        document.addEventListener('DOMContentLoaded', fetchStudents);
+
+        document.getElementById('cancel-edit-student').addEventListener('click', () => {
+            editingStudentId = null;
+            editPanel.classList.add('is-hidden');
+            editForm.reset();
         });
 
+        editForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            if (!editingStudentId) return;
+
+            const payload = {
+                fname: document.getElementById('edit-fname').value.trim(),
+                MI: document.getElementById('edit-mi').value.trim(),
+                lname: document.getElementById('edit-lname').value.trim(),
+                dob: document.getElementById('edit-dob').value,
+                st_address: document.getElementById('edit-address').value.trim(),
+                city: document.getElementById('edit-city').value.trim(),
+                state: document.getElementById('edit-state').value.trim(),
+                zip: document.getElementById('edit-zip').value.trim(),
+                st_email: document.getElementById('edit-email').value.trim(),
+                st_cell: document.getElementById('edit-phone').value.trim(),
+                student_location: document.getElementById('edit-location').value,
+                st_gender: editForm.querySelector('input[name="edit-gender"]:checked')?.value
+            };
+
+            try {
+                const response = await fetch(`/students/${editingStudentId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.message || 'Unable to update student');
+                    return;
+                }
+
+                alert('Student updated successfully');
+                editForm.reset();
+                editPanel.classList.add('is-hidden');
+                editingStudentId = null;
+                await fetchStudents();
+            } catch (error) {
+                console.error('Error updating student:', error);
+                alert('Unexpected error updating student');
+            }
+        });
+
+        async function fetchStudents() {
+            try {
+                const response = await fetch('/admins/all');
+                studentsCache = await response.json();
+                displayStudents(studentsCache);
+            } catch (error) {
+                console.error('Error loading students:', error);
+            }
+        }
+
         function displayStudents(students) {
-            const tableBody = document.getElementById('studentTableBody');
             tableBody.innerHTML = '';
 
-            if (students.length === 0) {
-                tableBody.innerHTML = '<tr><td colspan="13">No students found.</td></tr>';
+            if (!students.length) {
+                tableBody.innerHTML = '<tr><td colspan="14">No students found.</td></tr>';
                 return;
             }
 
             students.forEach(student => {
                 const dob = student.dob ? new Date(student.dob) : null;
-                const formattedDOB = dob ? dob.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }) : '—';
+                const formattedDOB = dob ? dob.toLocaleDateString('en-CA') : '—';
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${student.St_ID}</td>
                     <td>${student.F_Name}</td>
                     <td>${student.MI || ''}</td>
                     <td>${student.L_Name}</td>
-                    <td>${formattedDOB}</td>
-                    <td>${student.st_address}</td>
-                    <td>${student.city}</td>
-                    <td>${student.state}</td>
-                    <td>${student.zip}</td>
-                    <td>${student.st_email}</td>
-                    <td>${student.st_cell}</td>
-                    <td>${student.student_location}</td>
-                    <td>${student.st_gender}</td>
+                    <td>${formattedDOB !== '—' ? formattedDOB : '—'}</td>
+                    <td>${student.st_address || ''}</td>
+                    <td>${student.city || ''}</td>
+                    <td>${student.state || ''}</td>
+                    <td>${student.zip || ''}</td>
+                    <td>${student.st_email || ''}</td>
+                    <td>${student.st_cell || ''}</td>
+                    <td>${student.student_location || ''}</td>
+                    <td>${student.st_gender || ''}</td>
+                    <td class="table-actions">
+                        <button class="btn btn--ghost" type="button" data-action="edit" data-id="${student.St_ID}">Edit</button>
+                        <button class="btn btn--danger" type="button" data-action="delete" data-id="${student.St_ID}">Delete</button>
+                    </td>
                 `;
                 tableBody.appendChild(row);
             });
+
+            tableBody.querySelectorAll('button[data-action="edit"]').forEach(button => {
+                button.addEventListener('click', () => {
+                    const student = studentsCache.find(s => String(s.St_ID) === button.dataset.id);
+                    if (student) openEditPanel(student);
+                });
+            });
+
+            tableBody.querySelectorAll('button[data-action="delete"]').forEach(button => {
+                button.addEventListener('click', () => deleteStudent(button.dataset.id));
+            });
+        }
+
+        function openEditPanel(student) {
+            editingStudentId = student.St_ID;
+            document.getElementById('edit-fname').value = student.F_Name || '';
+            document.getElementById('edit-mi').value = student.MI || '';
+            document.getElementById('edit-lname').value = student.L_Name || '';
+            document.getElementById('edit-dob').value = student.dob ? new Date(student.dob).toISOString().split('T')[0] : '';
+            document.getElementById('edit-address').value = student.st_address || '';
+            document.getElementById('edit-city').value = student.city || '';
+            document.getElementById('edit-state').value = student.state || '';
+            document.getElementById('edit-zip').value = student.zip || '';
+            document.getElementById('edit-email').value = student.st_email || '';
+            document.getElementById('edit-phone').value = student.st_cell || '';
+            document.getElementById('edit-location').value = student.student_location || 'on-site';
+
+            const genderValue = (student.st_gender || '').toLowerCase();
+            editForm.querySelectorAll('input[name="edit-gender"]').forEach(input => {
+                input.checked = input.value === genderValue;
+            });
+
+            editPanel.classList.remove('is-hidden');
+            editPanel.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        async function deleteStudent(studentId) {
+            if (!confirm('Are you sure you want to remove this student?')) return;
+
+            try {
+                const response = await fetch(`/students/${studentId}`, { method: 'DELETE' });
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.message || 'Unable to delete student');
+                    return;
+                }
+
+                alert('Student removed successfully');
+                await fetchStudents();
+            } catch (error) {
+                console.error('Error deleting student:', error);
+                alert('Unexpected error deleting student');
+            }
         }
     </script>
     <script src="/scripts/ui.js" defer></script>

@@ -12,6 +12,8 @@ router.post('/register-parent', adminController.registerParent);
 router.get('/all-guardians', adminController.getAllGuardians);
 router.post('/assignGuardian', adminController.assignGuardian);
 router.get('/getStudentGuardianData', adminController.getStudentGuardianData);
+router.put('/student-guardian', adminController.updateStudentGuardian);
+router.delete('/student-guardian', adminController.deleteStudentGuardian);
 // router.post('/register-substitute', authMiddleware.isAuthenticated, adminController.registerSubstitute);
 // router.post('/register-subject', authMiddleware.isAuthenticated, adminController.registerSubject);
 // router.post('/register-level', authMiddleware.isAuthenticated, adminController.registerLevel);

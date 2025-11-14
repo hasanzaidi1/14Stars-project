@@ -189,6 +189,47 @@ class ParentController {
         }
     }
 
+    // Update guardian (admin use)
+    async updateGuardian(req, res) {
+        const { id } = req.params;
+        const updates = req.body || {};
+
+        if (!id) {
+            return res.status(400).json({ message: 'Guardian ID is required' });
+        }
+
+        try {
+            const result = await Parent.updateGuardian(id, updates);
+            if (!result.affectedRows) {
+                return res.status(404).json({ message: 'Guardian not found or no changes applied' });
+            }
+            res.json({ message: 'Guardian updated successfully' });
+        } catch (error) {
+            console.error('Error updating guardian:', error);
+            res.status(500).json({ message: 'Internal Server Error' });
+        }
+    }
+
+    // Delete guardian (admin use)
+    async deleteGuardian(req, res) {
+        const { id } = req.params;
+
+        if (!id) {
+            return res.status(400).json({ message: 'Guardian ID is required' });
+        }
+
+        try {
+            const result = await Parent.deleteGuardian(id);
+            if (!result.affectedRows) {
+                return res.status(404).json({ message: 'Guardian not found' });
+            }
+            res.json({ message: 'Guardian removed successfully' });
+        } catch (error) {
+            console.error('Error deleting guardian:', error);
+            res.status(500).json({ message: 'Internal Server Error' });
+        }
+    }
+
 
 }
 

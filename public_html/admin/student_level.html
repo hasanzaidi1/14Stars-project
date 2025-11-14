@@ -48,7 +48,12 @@
                 <select id="subject-select" required>
                     <option value="">Select a Subject</option>
                 </select>
-                <button type="submit">Assign Level</button>
+                <label for="assignment-school-year">School Year (optional for edits)</label>
+                <input type="text" id="assignment-school-year" placeholder="e.g., 2024-2025">
+                <div class="form-actions">
+                    <button type="submit" class="btn">Save Assignment</button>
+                    <button type="button" class="btn btn--ghost is-hidden" id="assignment-cancel-edit">Cancel Edit</button>
+                </div>
             </form>
         </section>
 
@@ -64,6 +69,7 @@
                                 <th>Level</th>
                                 <th>Subject</th>
                                 <th>School Year</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -76,28 +82,44 @@
     </main>
 
     <script>
-        // Fetch students, levels, subjects, and assigned levels when the page loads
+        const studentSelect = document.getElementById('student-select');
+        const levelSelect = document.getElementById('level-select');
+        const subjectSelect = document.getElementById('subject-select');
+        const assignmentForm = document.getElementById('assignment-form');
+        const cancelEditBtn = document.getElementById('assignment-cancel-edit');
+        const schoolYearInput = document.getElementById('assignment-school-year');
+        const tableBody = document.getElementById('student-level-table').querySelector('tbody');
+
+        let subjectsCache = [];
+        let editingAssignment = null;
+
         document.addEventListener('DOMContentLoaded', () => {
             fetchStudents();
             fetchLevels();
-            fetchSubjects();  // Fetch subjects
+            fetchSubjects();
             fetchAssignedLevels();
         });
 
-        // Fetch students and populate the select dropdown
+        cancelEditBtn.addEventListener('click', endEditAssignment);
+
+        assignmentForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            if (editingAssignment) {
+                await updateAssignment();
+            } else {
+                await createAssignment();
+            }
+        });
+
         async function fetchStudents() {
             try {
                 const response = await fetch('/students/fullName');
                 const students = await response.json();
-                const studentSelect = document.getElementById('student-select');
-
-                // Clear previous options
                 studentSelect.innerHTML = '';
-                
                 students.forEach(student => {
                     const option = document.createElement('option');
-                    option.value = student.St_ID; // Assuming St_ID is the identifier
-                    option.textContent = student.full_name; // Use the correct field name
+                    option.value = student.St_ID;
+                    option.textContent = student.full_name;
                     studentSelect.appendChild(option);
                 });
             } catch (error) {
@@ -105,20 +127,15 @@
             }
         }
 
-        // Fetch levels and populate the select dropdown
         async function fetchLevels() {
             try {
                 const response = await fetch('/levels/');
                 const levels = await response.json();
-                const levelSelect = document.getElementById('level-select');
-
-                // Clear previous options
                 levelSelect.innerHTML = '';
-
                 levels.forEach(level => {
                     const option = document.createElement('option');
-                    option.value = level.level_id; // Assuming level_id is the identifier
-                    option.textContent = level.level_number; // Assuming level_number is the display name
+                    option.value = level.level_id;
+                    option.textContent = level.level_number;
                     levelSelect.appendChild(option);
                 });
             } catch (error) {
@@ -128,17 +145,13 @@
 
         async function fetchSubjects() {
             try {
-                const response = await fetch('/subjects/fetch'); // Ensure the URL matches the backend route
-                const subjects = await response.json();
-                const subjectSelect = document.getElementById('subject-select');
-
-                // Clear previous options and add the new ones
-                subjectSelect.innerHTML = '<option value="">Select a Subject</option>'; // Default option
-
-                subjects.forEach(subject => {
+                const response = await fetch('/subjects/fetch');
+                subjectsCache = await response.json();
+                subjectSelect.innerHTML = '<option value="">Select a Subject</option>';
+                subjectsCache.forEach(subject => {
                     const option = document.createElement('option');
-                    option.value = subject.subject_id; // Assuming subject_id is the identifier
-                    option.textContent = subject.subject; // Assuming subject is the name of the subject
+                    option.value = subject.subject_id;
+                    option.textContent = subject.subject;
                     subjectSelect.appendChild(option);
                 });
             } catch (error) {
@@ -146,59 +159,189 @@
             }
         }
 
-        // Fetch assigned levels and populate the table
         async function fetchAssignedLevels() {
             try {
                 const response = await fetch('/student-levels/assigned');
                 const assignedLevels = await response.json();
-                const tableBody = document.getElementById('student-level-table').querySelector('tbody');
-
-                // Clear previous rows
-                tableBody.innerHTML = '';
-
-                assignedLevels.forEach(record => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${record.st_id}</td>
-                        <td>${record.full_name}</td>
-                        <td>${record.level_number}</td>
-                        <td>${record.subject}</td>
-                        <td>${record.school_year}</td>
-                    `;
-                    tableBody.appendChild(row);
-                });
+                renderAssignedLevels(assignedLevels);
             } catch (error) {
                 console.error('Error fetching assigned levels:', error);
             }
         }
 
-        // Handle the form submission to assign the level to the student
-        document.getElementById('assignment-form').addEventListener('submit', async (e) => {
-            e.preventDefault(); // Prevent form submission
+        function renderAssignedLevels(records) {
+            tableBody.innerHTML = '';
 
-            const studentId = document.getElementById('student-select').value;
-            const levelId = document.getElementById('level-select').value;
-            const subjectId = document.getElementById('subject-select').value; // Get the subject
+            if (!records.length) {
+                const row = document.createElement('tr');
+                row.innerHTML = '<td colspan="6">No assignments found.</td>';
+                tableBody.appendChild(row);
+                return;
+            }
+
+            records.forEach(record => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${record.st_id}</td>
+                    <td>${record.full_name}</td>
+                    <td>${record.level_number}</td>
+                    <td>${record.subject}</td>
+                    <td>${record.school_year || ''}</td>
+                `;
+
+                const actionsCell = document.createElement('td');
+                actionsCell.className = 'table-actions';
+
+                const editBtn = document.createElement('button');
+                editBtn.type = 'button';
+                editBtn.className = 'btn btn--ghost';
+                editBtn.textContent = 'Edit';
+                editBtn.addEventListener('click', () => startEditAssignment(record));
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.type = 'button';
+                deleteBtn.className = 'btn btn--danger';
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', () => deleteAssignment(record));
+
+                actionsCell.appendChild(editBtn);
+                actionsCell.appendChild(deleteBtn);
+                row.appendChild(actionsCell);
+                tableBody.appendChild(row);
+            });
+        }
+
+        async function createAssignment() {
+            const studentId = studentSelect.value;
+            const levelId = levelSelect.value;
+            const subjectId = subjectSelect.value;
+
+            if (!studentId || !levelId || !subjectId) {
+                alert('Please select a student, level, and subject.');
+                return;
+            }
 
             try {
                 const response = await fetch('/student-levels/assign', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ studentId, levelId, subjectId }), // Include subjectId
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ studentId, levelId, subjectId })
                 });
 
-                if (response.ok) {
-                    alert('Level assigned successfully!');
-                    fetchAssignedLevels(); // Refresh the assigned levels table
-                } else {
-                    alert('Error assigning level.');
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.message || 'Error assigning level.');
+                    return;
                 }
+
+                alert('Level assigned successfully!');
+                assignmentForm.reset();
+                fetchAssignedLevels();
             } catch (error) {
                 console.error('Error assigning level:', error);
             }
-        });
+        }
+
+        function startEditAssignment(record) {
+            editingAssignment = {
+                studentId: record.st_id,
+                originalLevelId: record.level_id,
+                originalSubject: record.subject,
+                schoolYear: record.school_year || ''
+            };
+
+            studentSelect.value = record.st_id;
+            studentSelect.disabled = true;
+            levelSelect.value = record.level_id;
+            const subjectMatch = subjectsCache.find(subject => subject.subject === record.subject);
+            subjectSelect.value = subjectMatch ? subjectMatch.subject_id : '';
+            schoolYearInput.value = record.school_year || '';
+            cancelEditBtn.classList.remove('is-hidden');
+            assignmentForm.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function endEditAssignment() {
+            editingAssignment = null;
+            studentSelect.disabled = false;
+            schoolYearInput.value = '';
+            cancelEditBtn.classList.add('is-hidden');
+            assignmentForm.reset();
+        }
+
+        async function updateAssignment() {
+            if (!editingAssignment) return;
+
+            const newLevelId = Number(levelSelect.value);
+            const newSubjectId = Number(subjectSelect.value);
+            const subjectName = subjectsCache.find(subject => subject.subject_id === newSubjectId)?.subject;
+
+            const payload = {
+                studentId: editingAssignment.studentId,
+                originalLevelId: editingAssignment.originalLevelId,
+                originalSubject: editingAssignment.originalSubject
+            };
+
+            if (newLevelId && newLevelId !== editingAssignment.originalLevelId) {
+                payload.levelId = newLevelId;
+            }
+            if (subjectName && subjectName !== editingAssignment.originalSubject) {
+                payload.subject = subjectName;
+            }
+            if (schoolYearInput.value.trim()) {
+                payload.schoolYear = schoolYearInput.value.trim();
+            }
+
+            if (Object.keys(payload).length === 3) {
+                alert('No changes to save.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/student-levels/assigned', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.message || 'Unable to update assignment.');
+                    return;
+                }
+
+                alert('Assignment updated successfully');
+                endEditAssignment();
+                fetchAssignedLevels();
+            } catch (error) {
+                console.error('Error updating assignment:', error);
+            }
+        }
+
+        async function deleteAssignment(record) {
+            if (!confirm('Remove this assignment?')) return;
+
+            try {
+                const response = await fetch('/student-levels/assigned', {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        studentId: record.st_id,
+                        levelId: record.level_id,
+                        subject: record.subject
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.message || 'Unable to delete assignment.');
+                    return;
+                }
+
+                fetchAssignedLevels();
+            } catch (error) {
+                console.error('Error deleting assignment:', error);
+            }
+        }
     </script>
     <script src="/scripts/ui.js" defer></script>
 </body>

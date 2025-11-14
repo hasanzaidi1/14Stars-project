@@ -196,6 +196,52 @@ class AdminController {
         }
     }
 
+    async updateStudentGuardian(req, res) {
+        const { studentId, guardianId, newGuardianId, relationship_type } = req.body;
+
+        if (!studentId || !guardianId) {
+            return res.status(400).json({ error: 'Student and guardian ids are required' });
+        }
+
+        const updates = {};
+        if (newGuardianId !== undefined) updates.newGuardianId = newGuardianId;
+        if (relationship_type !== undefined) updates.relationship_type = relationship_type;
+
+        if (!Object.keys(updates).length) {
+            return res.status(400).json({ error: 'No changes provided' });
+        }
+
+        try {
+            const result = await AdminModel.updateStudentGuardian(studentId, guardianId, updates);
+            if (!result.affectedRows) {
+                return res.status(404).json({ error: 'Relationship not found or unchanged' });
+            }
+            res.json({ message: 'Student-guardian relationship updated successfully' });
+        } catch (error) {
+            console.error('Error updating student-guardian relationship:', error);
+            res.status(500).json({ error: 'Failed to update student-guardian relationship' });
+        }
+    }
+
+    async deleteStudentGuardian(req, res) {
+        const { studentId, guardianId } = req.body;
+
+        if (!studentId || !guardianId) {
+            return res.status(400).json({ error: 'Student and guardian ids are required' });
+        }
+
+        try {
+            const result = await AdminModel.deleteStudentGuardian(studentId, guardianId);
+            if (!result.affectedRows) {
+                return res.status(404).json({ error: 'Relationship not found' });
+            }
+            res.json({ message: 'Student-guardian relationship removed successfully' });
+        } catch (error) {
+            console.error('Error deleting student-guardian relationship:', error);
+            res.status(500).json({ error: 'Failed to delete student-guardian relationship' });
+        }
+    }
+
 }
 
 

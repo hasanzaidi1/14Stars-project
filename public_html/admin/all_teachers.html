@@ -52,6 +52,7 @@
                                 <th>City</th>
                                 <th>State</th>
                                 <th>ZIP Code</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -63,36 +64,198 @@
         </section>
     </main>
 
+    <section class="panel panel--narrow stack is-hidden" id="edit-teacher-panel">
+        <div>
+            <p class="page-eyebrow">Edit</p>
+            <h2>Edit Teacher</h2>
+        </div>
+        <form id="edit-teacher-form" class="stack">
+            <label for="edit-teacher-first">First Name</label>
+            <input type="text" id="edit-teacher-first" required>
+
+            <label for="edit-teacher-mi">Middle Initial</label>
+            <input type="text" id="edit-teacher-mi">
+
+            <label for="edit-teacher-last">Last Name</label>
+            <input type="text" id="edit-teacher-last" required>
+
+            <label for="edit-teacher-email">Email</label>
+            <input type="email" id="edit-teacher-email" required>
+
+            <label for="edit-teacher-phone">Phone</label>
+            <input type="text" id="edit-teacher-phone">
+
+            <div class="gender-options">
+                <span class="gender-title">Gender</span>
+                <label for="edit-teacher-male">Male</label>
+                <input type="radio" id="edit-teacher-male" name="edit-teacher-gender" value="Male">
+                <label for="edit-teacher-female">Female</label>
+                <input type="radio" id="edit-teacher-female" name="edit-teacher-gender" value="Female">
+            </div>
+
+            <label for="edit-teacher-address">Street Address</label>
+            <input type="text" id="edit-teacher-address">
+            <input type="text" id="edit-teacher-city" placeholder="City">
+            <input type="text" id="edit-teacher-state" placeholder="State">
+            <input type="text" id="edit-teacher-zip" placeholder="ZIP Code">
+
+            <div class="form-actions">
+                <button class="btn" type="submit">Save Changes</button>
+                <button class="btn btn--ghost" type="button" id="cancel-edit-teacher">Cancel</button>
+            </div>
+        </form>
+    </section>
+
     <script>
-        // Fetch all teachers data from the server
-        fetch('/teachers/all')
-            .then(response => response.json())
-            .then(data => {
-                const tableBody = document.querySelector('#teachers-table tbody');
-                tableBody.innerHTML = ''; // Clear the table body before inserting rows
-                
-                // Loop through the teacher data and create rows
-                data.teachers.forEach(teacher => {
-                    const row = document.createElement('tr');
-                    
-                    row.innerHTML = `
-                        <td>${teacher.t_id}</td>
-                        <td>${teacher.t_f_name}</td>
-                        <td>${teacher.t_mi}</td>
-                        <td>${teacher.t_l_name}</td>
-                        <td>${teacher.t_email}</td>
-                        <td>${teacher.t_phone}</td>
-                        <td>${teacher.gender}</td>
-                        <td>${teacher.t_staddress}</td>
-                        <td>${teacher.t_city}</td>
-                        <td>${teacher.t_state}</td>
-                        <td>${teacher.t_zip}</td>
-                    `;
-                    
-                    tableBody.appendChild(row); // Add the row to the table
+        const teachersTableBody = document.querySelector('#teachers-table tbody');
+        const editPanel = document.getElementById('edit-teacher-panel');
+        const editForm = document.getElementById('edit-teacher-form');
+        const cancelTeacherEdit = document.getElementById('cancel-edit-teacher');
+
+        let teachersCache = [];
+        let editingTeacherId = null;
+
+        document.addEventListener('DOMContentLoaded', loadTeachers);
+
+        cancelTeacherEdit.addEventListener('click', closeTeacherEditPanel);
+
+        editForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            if (!editingTeacherId) return;
+
+            const payload = {
+                t_f_name: document.getElementById('edit-teacher-first').value.trim(),
+                t_mi: document.getElementById('edit-teacher-mi').value.trim(),
+                t_l_name: document.getElementById('edit-teacher-last').value.trim(),
+                t_email: document.getElementById('edit-teacher-email').value.trim(),
+                t_phone: document.getElementById('edit-teacher-phone').value.trim(),
+                gender: editForm.querySelector('input[name="edit-teacher-gender"]:checked')?.value,
+                t_staddress: document.getElementById('edit-teacher-address').value.trim(),
+                t_city: document.getElementById('edit-teacher-city').value.trim(),
+                t_state: document.getElementById('edit-teacher-state').value.trim(),
+                t_zip: document.getElementById('edit-teacher-zip').value.trim()
+            };
+
+            try {
+                const response = await fetch(`/teachers/${editingTeacherId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
                 });
-            })
-            .catch(error => console.error('Error fetching teachers:', error));
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.message || 'Unable to update teacher');
+                    return;
+                }
+
+                closeTeacherEditPanel();
+                loadTeachers();
+            } catch (error) {
+                console.error('Error updating teacher:', error);
+            }
+        });
+
+        async function loadTeachers() {
+            try {
+                const response = await fetch('/teachers/all');
+                const data = await response.json();
+                teachersCache = data.teachers || [];
+                renderTeachers();
+            } catch (error) {
+                console.error('Error fetching teachers:', error);
+            }
+        }
+
+        function renderTeachers() {
+            teachersTableBody.innerHTML = '';
+
+            if (!teachersCache.length) {
+                const row = document.createElement('tr');
+                row.innerHTML = '<td colspan="12">No teachers found.</td>';
+                teachersTableBody.appendChild(row);
+                return;
+            }
+
+            teachersCache.forEach(teacher => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${teacher.t_id}</td>
+                    <td>${teacher.t_f_name || ''}</td>
+                    <td>${teacher.t_mi || ''}</td>
+                    <td>${teacher.t_l_name || ''}</td>
+                    <td>${teacher.t_email || ''}</td>
+                    <td>${teacher.t_phone || ''}</td>
+                    <td>${teacher.gender || ''}</td>
+                    <td>${teacher.t_staddress || ''}</td>
+                    <td>${teacher.t_city || ''}</td>
+                    <td>${teacher.t_state || ''}</td>
+                    <td>${teacher.t_zip || ''}</td>
+                `;
+
+                const actionsCell = document.createElement('td');
+                actionsCell.className = 'table-actions';
+                const editBtn = document.createElement('button');
+                editBtn.type = 'button';
+                editBtn.className = 'btn btn--ghost';
+                editBtn.textContent = 'Edit';
+                editBtn.addEventListener('click', () => openTeacherEditPanel(teacher));
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.type = 'button';
+                deleteBtn.className = 'btn btn--danger';
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', () => deleteTeacher(teacher.t_id));
+
+                actionsCell.appendChild(editBtn);
+                actionsCell.appendChild(deleteBtn);
+                row.appendChild(actionsCell);
+                teachersTableBody.appendChild(row);
+            });
+        }
+
+        function openTeacherEditPanel(teacher) {
+            editingTeacherId = teacher.t_id;
+            document.getElementById('edit-teacher-first').value = teacher.t_f_name || '';
+            document.getElementById('edit-teacher-mi').value = teacher.t_mi || '';
+            document.getElementById('edit-teacher-last').value = teacher.t_l_name || '';
+            document.getElementById('edit-teacher-email').value = teacher.t_email || '';
+            document.getElementById('edit-teacher-phone').value = teacher.t_phone || '';
+            document.getElementById('edit-teacher-address').value = teacher.t_staddress || '';
+            document.getElementById('edit-teacher-city').value = teacher.t_city || '';
+            document.getElementById('edit-teacher-state').value = teacher.t_state || '';
+            document.getElementById('edit-teacher-zip').value = teacher.t_zip || '';
+
+            const genderValue = teacher.gender || '';
+            editForm.querySelectorAll('input[name="edit-teacher-gender"]').forEach(input => {
+                input.checked = input.value.toLowerCase() === genderValue.toLowerCase();
+            });
+
+            editPanel.classList.remove('is-hidden');
+            editPanel.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function closeTeacherEditPanel() {
+            editingTeacherId = null;
+            editPanel.classList.add('is-hidden');
+            editForm.reset();
+        }
+
+        async function deleteTeacher(id) {
+            if (!confirm('Delete this teacher?')) return;
+
+            try {
+                const response = await fetch(`/teachers/${id}`, { method: 'DELETE' });
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.message || 'Unable to delete teacher');
+                    return;
+                }
+                loadTeachers();
+            } catch (error) {
+                console.error('Error deleting teacher:', error);
+            }
+        }
     </script>
     <script src="/scripts/ui.js" defer></script>
 </body>

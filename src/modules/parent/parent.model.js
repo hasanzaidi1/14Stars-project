@@ -121,6 +121,47 @@ class ParentModel {
             throw error;
         }
     }
+
+    // Update guardian profile
+    static async updateGuardian(guardianId, updates) {
+        const columnMap = {
+            g_f_name: 'g_f_name',
+            g_mi: 'g_mi',
+            g_l_name: 'g_l_name',
+            g_cell: 'g_cell',
+            g_email: 'g_email',
+            g_staddress: 'g_staddress',
+            g_city: 'g_city',
+            g_state: 'g_state',
+            g_zip: 'g_zip',
+            gender: 'gender'
+        };
+
+        const fields = [];
+        const values = [];
+
+        for (const [key, column] of Object.entries(columnMap)) {
+            if (updates[key] !== undefined) {
+                fields.push(`${column} = ?`);
+                values.push(updates[key]);
+            }
+        }
+
+        if (!fields.length) {
+            return { affectedRows: 0 };
+        }
+
+        const query = `UPDATE guardian SET ${fields.join(', ')} WHERE g_id = ?`;
+        const [result] = await pool.query(query, [...values, guardianId]);
+        return result;
+    }
+
+    // Remove guardian profile
+    static async deleteGuardian(guardianId) {
+        const query = 'DELETE FROM guardian WHERE g_id = ?';
+        const [result] = await pool.query(query, [guardianId]);
+        return result;
+    }
 }
 
 module.exports = ParentModel;

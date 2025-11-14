@@ -51,6 +51,7 @@
                             <tr>
                                 <th>Term Name</th>
                                 <th>School Year</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -65,7 +66,7 @@
         const tableBody = document.querySelector('#terms-table tbody');
         const feedback = document.getElementById('form-feedback');
 
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const termName = document.getElementById('termName').value.trim();
 
@@ -79,14 +80,121 @@
             const startYear = now.getMonth() >= 6 ? now.getFullYear() : now.getFullYear() - 1;
             const schoolYear = `${startYear}-${startYear + 1}`;
 
-            const row = document.createElement('tr');
-            row.innerHTML = `<td>${termName}</td><td>${schoolYear}</td>`;
-            tableBody.appendChild(row);
+            try {
+                const response = await fetch('/terms', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ term_name: termName, school_year: schoolYear })
+                });
 
-            feedback.textContent = `Term "${termName}" added for ${schoolYear}.`;
-            feedback.style.color = 'var(--success-500)';
-            form.reset();
+                if (!response.ok) {
+                    const error = await response.json();
+                    feedback.textContent = error.message || 'Unable to add term.';
+                    feedback.style.color = 'var(--danger-500)';
+                    return;
+                }
+
+                feedback.textContent = `Term "${termName}" added for ${schoolYear}.`;
+                feedback.style.color = 'var(--success-500)';
+                form.reset();
+                await loadTerms();
+            } catch (error) {
+                console.error('Error adding term:', error);
+                feedback.textContent = 'Server error. Please try again.';
+                feedback.style.color = 'var(--danger-500)';
+            }
         });
+
+        async function loadTerms() {
+            try {
+                const response = await fetch('/terms');
+                const terms = await response.json();
+                renderTerms(terms);
+            } catch (error) {
+                console.error('Error fetching terms:', error);
+            }
+        }
+
+        function renderTerms(terms) {
+            tableBody.innerHTML = '';
+
+            if (!terms.length) {
+                const emptyRow = document.createElement('tr');
+                emptyRow.innerHTML = '<td colspan="3">No terms recorded.</td>';
+                tableBody.appendChild(emptyRow);
+                return;
+            }
+
+            terms.forEach(term => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${term.term_name}</td>
+                    <td>${term.school_year}</td>
+                `;
+
+                const actionsCell = document.createElement('td');
+                actionsCell.className = 'table-actions';
+                const editBtn = document.createElement('button');
+                editBtn.type = 'button';
+                editBtn.className = 'btn btn--ghost';
+                editBtn.textContent = 'Edit';
+                editBtn.addEventListener('click', () => editTerm(term.term_id, term.term_name, term.school_year));
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.type = 'button';
+                deleteBtn.className = 'btn btn--danger';
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', () => deleteTerm(term.term_id));
+
+                actionsCell.appendChild(editBtn);
+                actionsCell.appendChild(deleteBtn);
+                row.appendChild(actionsCell);
+                tableBody.appendChild(row);
+            });
+        }
+
+        async function editTerm(id, termName, schoolYear) {
+            const newName = prompt('Term name', termName);
+            if (!newName) return;
+            const newSchoolYear = prompt('School year', schoolYear);
+            if (!newSchoolYear) return;
+
+            try {
+                const response = await fetch(`/terms/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ term_name: newName, school_year: newSchoolYear })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.message || 'Unable to update term');
+                    return;
+                }
+
+                await loadTerms();
+            } catch (error) {
+                console.error('Error updating term:', error);
+            }
+        }
+
+        async function deleteTerm(id) {
+            if (!confirm('Delete this term?')) return;
+
+            try {
+                const response = await fetch(`/terms/${id}`, { method: 'DELETE' });
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.message || 'Unable to delete term');
+                    return;
+                }
+                await loadTerms();
+            } catch (error) {
+                console.error('Error deleting term:', error);
+            }
+        }
+
+        loadTerms();
     </script>
     <script src="/scripts/ui.js" defer></script>
 </body>

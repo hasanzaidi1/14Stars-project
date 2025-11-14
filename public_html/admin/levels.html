@@ -70,13 +70,27 @@
 
                 levels.forEach(level => {
                     const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td>${level.level_number}</td>
-                        <td class="table-actions">
-                            <button class="btn btn--ghost" onclick="editLevel('${level.id}')">Edit</button>
-                            <button class="btn btn--danger" onclick="deleteLevel('${level.id}')">Delete</button>
-                        </td>
-                    `;
+                    const levelCell = document.createElement('td');
+                    levelCell.textContent = level.level_number;
+
+                    const actionsCell = document.createElement('td');
+                    actionsCell.className = 'table-actions';
+                    const editBtn = document.createElement('button');
+                    editBtn.type = 'button';
+                    editBtn.className = 'btn btn--ghost';
+                    editBtn.textContent = 'Edit';
+                    editBtn.addEventListener('click', () => editLevel(level.level_id, level.level_number));
+
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.type = 'button';
+                    deleteBtn.className = 'btn btn--danger';
+                    deleteBtn.textContent = 'Delete';
+                    deleteBtn.addEventListener('click', () => deleteLevel(level.level_id));
+
+                    actionsCell.appendChild(editBtn);
+                    actionsCell.appendChild(deleteBtn);
+                    tr.appendChild(levelCell);
+                    tr.appendChild(actionsCell);
                     levelsList.appendChild(tr);
                 });
             } catch (error) {
@@ -111,12 +125,48 @@
             }
         });
 
-        function editLevel(id) {
-            alert(`Edit Level ID: ${id}`);
+        async function editLevel(id, currentValue) {
+            const newValue = prompt('Enter the new level number', currentValue);
+            if (newValue === null) return;
+            const parsedValue = parseInt(newValue, 10);
+            if (Number.isNaN(parsedValue)) {
+                alert('Please enter a valid number');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/levels/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ level: parsedValue })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.error || 'Unable to update level');
+                    return;
+                }
+
+                fetchLevels();
+            } catch (error) {
+                console.error('Error updating level:', error);
+            }
         }
 
-        function deleteLevel(id) {
-            alert(`Delete Level ID: ${id}`);
+        async function deleteLevel(id) {
+            if (!confirm('Delete this level?')) return;
+
+            try {
+                const response = await fetch(`/levels/${id}`, { method: 'DELETE' });
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.error || 'Unable to delete level');
+                    return;
+                }
+                fetchLevels();
+            } catch (error) {
+                console.error('Error deleting level:', error);
+            }
         }
 
         window.onload = fetchLevels;

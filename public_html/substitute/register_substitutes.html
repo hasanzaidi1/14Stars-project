@@ -74,20 +74,56 @@
                                 <th>Last Name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody id="subs-tbody">
                             <tr>
-                                <td colspan="4">No data yet</td>
+                                <td colspan="5">No data yet</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </section>
+        <section class="panel panel--narrow stack is-hidden" id="edit-substitute-panel">
+            <div>
+                <p class="page-eyebrow">Edit</p>
+                <h2>Edit Substitute</h2>
+            </div>
+            <form id="edit-substitute-form" class="stack">
+                <label for="edit-sub-first">First Name</label>
+                <input type="text" id="edit-sub-first" required>
+
+                <label for="edit-sub-last">Last Name</label>
+                <input type="text" id="edit-sub-last" required>
+
+                <label for="edit-sub-email">Email</label>
+                <input type="email" id="edit-sub-email" required>
+
+                <label for="edit-sub-phone">Phone</label>
+                <input type="text" id="edit-sub-phone">
+
+                <div class="form-actions">
+                    <button class="btn" type="submit">Save Changes</button>
+                    <button class="btn btn--ghost" type="button" id="cancel-edit-sub">Cancel</button>
+                </div>
+            </form>
+        </section>
     </main>
 
 <script>
+    const subsTableWrapper = document.getElementById('subs-table-wrapper');
+    const subsTableBody = document.getElementById('subs-tbody');
+    const editPanel = document.getElementById('edit-substitute-panel');
+    const editForm = document.getElementById('edit-substitute-form');
+    const cancelEditBtn = document.getElementById('cancel-edit-sub');
+
+    let substitutesCache = [];
+    let editingSubId = null;
+
+    cancelEditBtn.addEventListener('click', closeEditPanel);
+
     // Submit form data
     document.getElementById('substitute-form').addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -110,6 +146,7 @@
             if (response.ok) {
                 alert('Substitute registered successfully');
                 document.getElementById('substitute-form').reset();
+                loadSubstitutes();
             } else {
                 alert('Error: ' + result.message);
             }
@@ -119,35 +156,47 @@
         }
     });
 
-    // Fetch and display all substitutes
-    async function showSubs() {
+    editForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        if (!editingSubId) return;
+
+        const formData = {
+            sub_f_name: document.getElementById('edit-sub-first').value,
+            sub_l_name: document.getElementById('edit-sub-last').value,
+            sub_email: document.getElementById('edit-sub-email').value,
+            sub_phone: document.getElementById('edit-sub-phone').value
+        };
+
+        try {
+            const response = await fetch(`/substitute/${editingSubId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                alert(error.message || 'Unable to update substitute.');
+                return;
+            }
+
+            alert('Substitute updated successfully');
+            closeEditPanel();
+            loadSubstitutes();
+        } catch (error) {
+            console.error('Error updating substitute:', error);
+        }
+    });
+
+    async function loadSubstitutes() {
         try {
             const response = await fetch('/substitute/fetch');
             const result = await response.json();
 
             if (response.ok) {
-                const wrapper = document.getElementById('subs-table-wrapper');
-                const tbody = document.getElementById('subs-tbody');
-                tbody.innerHTML = ''; // Clear existing rows
-
-                if (result.substitutes && result.substitutes.length > 0) {
-                    result.substitutes.forEach(sub => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td>${sub.sub_f_name}</td>
-                            <td>${sub.sub_l_name}</td>
-                            <td>${sub.sub_email}</td>
-                            <td>${sub.sub_phone}</td>
-                        `;
-                        tbody.appendChild(row);
-                    });
-                } else {
-                    const noDataRow = document.createElement('tr');
-                    noDataRow.innerHTML = '<td colspan="4">No substitutes found</td>';
-                    tbody.appendChild(noDataRow);
-                }
-
-                wrapper.classList.remove('is-hidden');
+                substitutesCache = result.substitutes || [];
+                renderSubstitutes();
+                subsTableWrapper.classList.remove('is-hidden');
             } else {
                 console.error('Error fetching substitutes:', result);
                 alert('An error occurred while fetching substitutes.');
@@ -157,6 +206,85 @@
             alert('An error occurred while fetching substitutes.');
         }
     }
+
+    function renderSubstitutes() {
+        subsTableBody.innerHTML = '';
+
+        if (!substitutesCache.length) {
+            const row = document.createElement('tr');
+            row.innerHTML = '<td colspan="5">No substitutes found</td>';
+            subsTableBody.appendChild(row);
+            return;
+        }
+
+        substitutesCache.forEach(sub => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${sub.sub_f_name}</td>
+                <td>${sub.sub_l_name}</td>
+                <td>${sub.sub_email}</td>
+                <td>${sub.sub_phone || ''}</td>
+            `;
+
+            const actionsCell = document.createElement('td');
+            actionsCell.className = 'table-actions';
+            const editBtn = document.createElement('button');
+            editBtn.type = 'button';
+            editBtn.className = 'btn btn--ghost';
+            editBtn.textContent = 'Edit';
+            editBtn.addEventListener('click', () => openEditPanel(sub));
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.type = 'button';
+            deleteBtn.className = 'btn btn--danger';
+            deleteBtn.textContent = 'Delete';
+            deleteBtn.addEventListener('click', () => deleteSubstitute(sub.substitute_id));
+
+            actionsCell.appendChild(editBtn);
+            actionsCell.appendChild(deleteBtn);
+            row.appendChild(actionsCell);
+            subsTableBody.appendChild(row);
+        });
+    }
+
+    function openEditPanel(sub) {
+        editingSubId = sub.substitute_id;
+        document.getElementById('edit-sub-first').value = sub.sub_f_name || '';
+        document.getElementById('edit-sub-last').value = sub.sub_l_name || '';
+        document.getElementById('edit-sub-email').value = sub.sub_email || '';
+        document.getElementById('edit-sub-phone').value = sub.sub_phone || '';
+        editPanel.classList.remove('is-hidden');
+        editPanel.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function closeEditPanel() {
+        editingSubId = null;
+        editPanel.classList.add('is-hidden');
+        editForm.reset();
+    }
+
+    async function deleteSubstitute(id) {
+        if (!confirm('Delete this substitute?')) return;
+
+        try {
+            const response = await fetch(`/substitute/${id}`, { method: 'DELETE' });
+            if (!response.ok) {
+                const error = await response.json();
+                alert(error.message || 'Unable to delete substitute.');
+                return;
+            }
+            loadSubstitutes();
+        } catch (error) {
+            console.error('Error deleting substitute:', error);
+        }
+    }
+
+    function showSubs() {
+        loadSubstitutes();
+    }
+
+    // Load table on page load
+    loadSubstitutes();
 </script>
 
 <script src="/scripts/ui.js" defer></script>

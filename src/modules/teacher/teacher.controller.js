@@ -86,6 +86,47 @@ class TeacherController {
             res.redirect('/teachers/teachers');
         });
     }
+
+    // Update teacher profile
+    async updateTeacher(req, res) {
+        const { id } = req.params;
+        const updates = req.body || {};
+
+        if (!id) {
+            return res.status(400).json({ message: 'Teacher ID is required' });
+        }
+
+        try {
+            const updated = await Teacher.updateById(id, updates);
+            if (!updated) {
+                return res.status(404).json({ message: 'Teacher not found or no changes applied' });
+            }
+            res.json({ message: 'Teacher updated successfully' });
+        } catch (error) {
+            console.error('Error updating teacher:', error);
+            res.status(500).json({ message: 'Error updating teacher' });
+        }
+    }
+
+    // Delete teacher
+    async deleteTeacher(req, res) {
+        const { id } = req.params;
+
+        if (!id) {
+            return res.status(400).json({ message: 'Teacher ID is required' });
+        }
+
+        try {
+            const deleted = await Teacher.deleteById(id);
+            if (!deleted) {
+                return res.status(404).json({ message: 'Teacher not found' });
+            }
+            res.json({ message: 'Teacher removed successfully' });
+        } catch (error) {
+            console.error('Error deleting teacher:', error);
+            res.status(500).json({ message: 'Error deleting teacher' });
+        }
+    }
 }
 
 module.exports = new TeacherController(); // Export the instance of the controller
