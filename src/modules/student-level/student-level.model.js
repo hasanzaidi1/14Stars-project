@@ -1,11 +1,20 @@
 const pool = require('../../config/dbConfig');
 
-const assignStudentLevel = async (studentId, levelId, fullName, subjectName, schoolYear) => {
+const assignStudentLevel = async (studentId, levelId, fullName, subjectName, schoolYear, grades = {}) => {
     const query = `
-        INSERT INTO student_level (st_id, level_id, full_name, subject, school_year) 
-        VALUES (?, ?, ?, ?, ?)
+        INSERT INTO student_level (st_id, level_id, full_name, subject, school_year, midterm_grade, final_grade, average_grade) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `;
-    const [result] = await pool.query(query, [studentId, levelId, fullName, subjectName, schoolYear]);
+    const [result] = await pool.query(query, [
+        studentId,
+        levelId,
+        fullName,
+        subjectName,
+        schoolYear,
+        grades.midtermGrade ?? null,
+        grades.finalGrade ?? null,
+        grades.averageGrade ?? null
+    ]);
     return result.insertId;
 };
 
@@ -17,7 +26,10 @@ const getAssignedLevels = async () => {
             level.level_number,
             student_level.full_name,
             student_level.subject,
-            student_level.school_year
+            student_level.school_year,
+            student_level.midterm_grade,
+            student_level.final_grade,
+            student_level.average_grade
         FROM student_level
         JOIN level ON student_level.level_id = level.level_id
         ORDER BY student_level.full_name
@@ -30,7 +42,10 @@ const updateAssignedLevel = async (studentId, currentLevelId, currentSubject, up
     const columnMap = {
         levelId: 'level_id',
         subject: 'subject',
-        schoolYear: 'school_year'
+        schoolYear: 'school_year',
+        midtermGrade: 'midterm_grade',
+        finalGrade: 'final_grade',
+        averageGrade: 'average_grade'
     };
 
     const fields = [];
