@@ -143,8 +143,8 @@ class ParentModel {
 
         const whereClause = conditions.length ? `WHERE (${conditions.join(' OR ')})` : '';
 
-        try {
-            const query = `
+        const buildQuery = (withTeacherAssignments = false) => {
+            const baseSelect = `
                 SELECT 
                     s.St_ID AS student_id,
                     CONCAT(s.F_Name, ' ', s.L_Name) AS student_name,
@@ -158,12 +158,49 @@ class ParentModel {
                     sl.midterm_grade,
                     sl.final_grade,
                     sl.average_grade
+                    ${withTeacherAssignments ? `,
+                        tca.teacher_id,
+                        CONCAT(teacher.t_f_name, ' ', teacher.t_l_name) AS teacher_name
+                    ` : `,
+                        NULL AS teacher_id,
+                        NULL AS teacher_name
+                    `}
                 FROM student s
                 INNER JOIN student_guardian sg ON sg.st_id = s.St_ID
                 INNER JOIN guardian g ON g.g_id = sg.g_id
                 LEFT JOIN student_level sl ON sl.st_id = s.St_ID
                 LEFT JOIN level lvl ON sl.level_id = lvl.level_id
                 LEFT JOIN term t ON sl.term_id = t.term_id
+            `;
+
+            const teacherJoins = withTeacherAssignments
+                ? `
+                    LEFT JOIN (
+                        SELECT 
+                            subject_id,
+                            LOWER(
+                                TRIM(CONVERT(subject USING utf8mb4))
+                            ) COLLATE utf8mb4_unicode_ci AS normalized_subject
+                        FROM subject
+                    ) subj_lookup
+                        ON sl.subject IS NOT NULL
+                        AND LOWER(
+                            TRIM(CONVERT(sl.subject USING utf8mb4))
+                        ) COLLATE utf8mb4_unicode_ci = subj_lookup.normalized_subject
+                    LEFT JOIN teacher_class_assignments tca
+                        ON tca.level_id = sl.level_id
+                        AND tca.subject_id = subj_lookup.subject_id
+                        AND TRIM(tca.school_year) = COALESCE(
+                            NULLIF(TRIM(sl.school_year), ''),
+                            CAST(t.school_year AS CHAR)
+                        )
+                    LEFT JOIN teachers teacher ON teacher.t_id = tca.teacher_id
+                `
+                : '';
+
+            return `
+                ${baseSelect}
+                ${teacherJoins}
                 ${whereClause}
                 ORDER BY 
                     s.St_ID,
@@ -173,10 +210,24 @@ class ParentModel {
                     t.term_name ASC,
                     sl.subject ASC
             `;
+        };
 
-            const [rows] = await pool.query(query, values);
+        try {
+            const [rows] = await pool.query(buildQuery(true), values);
             return rows;
         } catch (error) {
+            if (
+                error.code === 'ER_NO_SUCH_TABLE' && error.sqlMessage?.includes('teacher_class_assignments')
+            ) {
+                console.warn('Teacher assignment table missing; falling back to legacy academic query');
+                const [fallbackRows] = await pool.query(buildQuery(false), values);
+                return fallbackRows;
+            }
+            if (error.code === 'ER_CANT_AGGREGATE_2COLLATIONS') {
+                console.warn('Collation mismatch detected; falling back to legacy academic query');
+                const [fallbackRows] = await pool.query(buildQuery(false), values);
+                return fallbackRows;
+            }
             console.error('Error fetching student academic records for guardian:', error);
             throw error;
         }

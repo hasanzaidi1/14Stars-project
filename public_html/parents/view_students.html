@@ -146,7 +146,9 @@
             classesSection.classList.add('student-classes', 'stack');
 
             const currentSchoolYear = getCurrentSchoolYear();
-            const currentClasses = dedupeClasses(studentRecords.filter(record => record.className && (record.isCurrentYear || record.schoolYear === currentSchoolYear)));
+            const currentClasses = dedupeClasses(
+                studentRecords.filter(record => record.className && (record.isCurrentYear || record.schoolYear === currentSchoolYear))
+            );
 
             classesSection.innerHTML = `<h4>Current Classes <span class="text-muted">(${currentSchoolYear})</span></h4>`;
 
@@ -158,7 +160,8 @@
                     const item = document.createElement('li');
                     const levelLabel = cls.levelNumber ? `Level ${cls.levelNumber}` : 'Level N/A';
                     const termLabel = cls.termName ? `${cls.termName}` : 'Term N/A';
-                    item.innerHTML = `<strong>${cls.className}</strong> &mdash; ${levelLabel} (${termLabel})`;
+                    const teacherLabel = cls.teacherName ? cls.teacherName : 'Unassigned';
+                    item.innerHTML = `<strong>${cls.className}</strong> &mdash; ${levelLabel} (${termLabel}) <span class="text-muted">Teacher: ${teacherLabel}</span>`;
                     list.appendChild(item);
                 });
 
@@ -197,6 +200,7 @@
                         <th>Term</th>
                         <th>Class</th>
                         <th>Level</th>
+                        <th>Teacher</th>
                         <th>Midterm</th>
                         <th>Final</th>
                         <th>Average</th>
@@ -209,6 +213,7 @@
                             <td>${entry.termName || '—'}</td>
                             <td>${entry.className || 'Unassigned'}</td>
                             <td>${entry.levelNumber ?? '—'}</td>
+                            <td>${entry.teacherName || 'Unassigned'}</td>
                             <td>${formatGrade(entry.midtermGrade)}</td>
                             <td>${formatGrade(entry.finalGrade)}</td>
                             <td>${formatGrade(entry.averageGrade)}</td>
@@ -226,7 +231,7 @@
             const seen = new Set();
 
             records.forEach(record => {
-                const key = `${record.className}-${record.levelNumber ?? 'none'}-${record.termId ?? 'none'}`;
+                const key = `${record.className}-${record.levelNumber ?? 'none'}-${record.termId ?? 'none'}-${record.teacherId ?? record.teacherName ?? 'none'}`;
                 if (!seen.has(key)) {
                     seen.add(key);
                     unique.push(record);

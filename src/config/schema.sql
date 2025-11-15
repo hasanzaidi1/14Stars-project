@@ -140,6 +140,23 @@ CREATE TABLE `teachers` (
   UNIQUE KEY `t_email` (`t_email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Table structure for teacher-class assignments
+CREATE TABLE `teacher_class_assignments` (
+  `assignment_id` int NOT NULL AUTO_INCREMENT,
+  `teacher_id` int NOT NULL,
+  `level_id` int NOT NULL,
+  `subject_id` int NOT NULL,
+  `school_year` varchar(15) NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`assignment_id`),
+  UNIQUE KEY `uq_teacher_class_year` (`teacher_id`,`level_id`,`subject_id`,`school_year`),
+  KEY `idx_teacher_class_level` (`level_id`),
+  KEY `idx_teacher_class_subject` (`subject_id`),
+  CONSTRAINT `fk_teacher_class_teacher` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`t_id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_teacher_class_level` FOREIGN KEY (`level_id`) REFERENCES `level` (`level_id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_teacher_class_subject` FOREIGN KEY (`subject_id`) REFERENCES `subject` (`subject_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Dedicated teacher accounts table (stores credentials + account info only)
 CREATE TABLE `teacher_accounts` (
   `account_id` int NOT NULL AUTO_INCREMENT,
