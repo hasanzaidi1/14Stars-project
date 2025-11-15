@@ -1,24 +1,41 @@
 const SubstituteRequest = require('./substitute-request.model');
+const helpers = require('../../utils/helpers');
 
 exports.submitRequest = async (req, res) => {
     const { teacher_name, teacher_email, reason, date } = req.body;
 
     if (!teacher_name || !teacher_email || !date) {
-        return res.status(400).json({ message: 'All fields are required.' });
+        return helpers.sendPortalResponse(req, res, {
+            success: false,
+            message: 'All fields are required.',
+            statusCode: 400
+        });
     }
 
     try {
         const existingRequest = await SubstituteRequest.findByEmailAndDate(teacher_email, date);
 
         if (existingRequest.length > 0) {
-            return res.status(400).json({ message: 'A substitute request for this date already exists.' });
+            return helpers.sendPortalResponse(req, res, {
+                success: false,
+                message: 'A substitute request for this date already exists.',
+                statusCode: 409
+            });
         }
 
         await SubstituteRequest.create(teacher_name, teacher_email, reason, date);
-        res.status(201).json({ message: 'Substitute request submitted successfully.' });
+        return helpers.sendPortalResponse(req, res, {
+            success: true,
+            message: 'Substitute request submitted successfully.',
+            statusCode: 201
+        });
     } catch (error) {
         console.error('Error submitting substitute request:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
+        return helpers.sendPortalResponse(req, res, {
+            success: false,
+            message: 'Internal Server Error',
+            statusCode: 500
+        });
     }
 };
 

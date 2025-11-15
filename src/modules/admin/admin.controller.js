@@ -32,7 +32,11 @@ class AdminController {
         // Check if student already exists
         const existingStudent = await StudentModel.doesExist(fname, lname, DOB);
         if (existingStudent) {
-            return helpers.sendErrorResponse(res, 'Student already exists', 400);
+            return helpers.sendPortalResponse(req, res, {
+                success: false,
+                message: 'Student already exists',
+                statusCode: 409
+            });
         }
         // Validate required fields
         const requiredFields = [
@@ -45,15 +49,32 @@ class AdminController {
         ];
         
         const validationError = helpers.validateRequiredFields(requiredFields);
-        if (validationError) return helpers.sendErrorResponse(res, validationError, 400);
+        if (validationError) {
+            return helpers.sendPortalResponse(req, res, {
+                success: false,
+                message: validationError,
+                statusCode: 400
+            });
+        }
 
         const result = await AdminModel.registerStudent({ fname, MI, lname, DOB, st_address, city, state, zip, st_email, st_cell, student_location, gender });
 
         if (result.success) {
-            res.json({ message: result.message });
-        } else {
-            res.status(400).json({ error: result.error });
+            return helpers.sendPortalResponse(req, res, {
+                success: true,
+                message: result.message,
+                statusCode: 201,
+                data: { student_id: result.student_id }
+            });
         }
+
+        const errorMessage = result.error || 'Unable to register student.';
+        const errorStatus = errorMessage.toLowerCase().includes('exists') ? 409 : 500;
+        return helpers.sendPortalResponse(req, res, {
+            success: false,
+            message: errorMessage,
+            statusCode: errorStatus
+        });
     };
 
     async registerParent(req, res) {
@@ -83,7 +104,13 @@ class AdminController {
         ];
 
         const validationError = helpers.validateRequiredFields(requiredFields);
-        if (validationError) return helpers.sendErrorResponse(res, validationError, 400);   
+        if (validationError) {
+            return helpers.sendPortalResponse(req, res, {
+                success: false,
+                message: validationError,
+                statusCode: 400
+            });
+        }
 
         const guardianData = {
             g_f_name,
@@ -98,13 +125,21 @@ class AdminController {
             gender
         };
 
-        const result = await ParentModel.registerGuardian(guardianData);
-
-        if (result.success) {
-            res.json({ message: result.message });
-        }
-        else {
-            res.status(400).json({ error: result.error });
+        try {
+            const result = await ParentModel.registerGuardian(guardianData);
+            return helpers.sendPortalResponse(req, res, {
+                success: true,
+                message: result.message,
+                statusCode: 201
+            });
+        } catch (error) {
+            console.error('Error registering guardian:', error);
+            const duplicate = error && error.code === 'ER_DUP_ENTRY';
+            return helpers.sendPortalResponse(req, res, {
+                success: false,
+                message: duplicate ? 'Guardian already exists.' : 'Failed to register guardian. Please try again.',
+                statusCode: duplicate ? 409 : 500
+            });
         }
 
     }
