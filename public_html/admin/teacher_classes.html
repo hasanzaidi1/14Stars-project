@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <title>Teacher Class Assignments</title>
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand-mark" href="/admin/admin.html">14 Stars Admin</a>
+        <button class="nav-toggle" type="button" data-nav-toggle data-target="primary-nav" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <nav class="nav-links" id="primary-nav">
+            <a class="nav-link" href="/admin/admin.html">Dashboard</a>
+            <a class="nav-link" href="/admin/students.html">Students</a>
+            <a class="nav-link" href="/admin/guardian.html">Guardians</a>
+            <a class="nav-link" href="/admin/teacher_table.html">Teachers</a>
+            <a class="nav-link is-active" href="/admin/teacher_classes.html">Teacher Classes</a>
+            <a class="nav-link" href="/admin/subjects.html">Subjects</a>
+            <a class="nav-link" href="/admin/levels.html">Levels</a>
+            <a class="nav-link" href="/admin/terms.html">Terms</a>
+            <a class="nav-link" href="/substitute/register_substitutes.html">Substitutes</a>
+            <button class="btn btn--danger" type="button" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
+        </nav>
+    </header>
+
+    <main class="stack">
+        <section class="page-header">
+            <div>
+                <p class="page-eyebrow">Admin Portal</p>
+                <h1>Assign Teachers to Classes</h1>
+                <p class="text-muted">Pair registered teachers with the classes (level + subject) they cover for a school year.</p>
+            </div>
+            <div class="page-actions">
+                <button type="button" class="btn btn--secondary" onclick="window.location.href='/admin/admin.html'">Admin Dashboard</button>
+                <button type="button" class="btn btn--danger" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
+            </div>
+        </section>
+
+        <section class="panel panel--narrow stack">
+            <div id="assignment-message" class="message is-hidden" role="status"></div>
+            <form id="teacher-class-form" class="stack">
+                <label for="teacher-select">Select Teacher</label>
+                <select id="teacher-select" required></select>
+
+                <label for="level-select">Select Level</label>
+                <select id="level-select" required></select>
+
+                <label for="subject-select">Select Subject</label>
+                <select id="subject-select" required></select>
+
+                <label for="school-year">School Year</label>
+                <input type="text" id="school-year" placeholder="e.g., 2024-2025" required>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn" id="assignment-submit">Save Assignment</button>
+                    <button type="button" class="btn btn--ghost is-hidden" id="assignment-cancel">Cancel Edit</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="panel panel--flush">
+            <div class="panel-body">
+                <h2>Assigned Teacher Classes</h2>
+                <div class="data-table-wrapper">
+                    <table id="teacher-class-table">
+                        <thead>
+                            <tr>
+                                <th>Teacher</th>
+                                <th>Level</th>
+                                <th>Subject</th>
+                                <th>School Year</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const teacherSelect = document.getElementById('teacher-select');
+        const levelSelect = document.getElementById('level-select');
+        const subjectSelect = document.getElementById('subject-select');
+        const schoolYearInput = document.getElementById('school-year');
+        const messageEl = document.getElementById('assignment-message');
+        const formEl = document.getElementById('teacher-class-form');
+        const cancelBtn = document.getElementById('assignment-cancel');
+        const submitBtn = document.getElementById('assignment-submit');
+        const tableBody = document.querySelector('#teacher-class-table tbody');
+
+        let assignmentsCache = [];
+        let editingAssignmentId = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTeachers();
+            loadLevels();
+            loadSubjects();
+            loadAssignments();
+            schoolYearInput.value = getDefaultSchoolYear();
+        });
+
+        formEl.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            if (editingAssignmentId) {
+                await updateAssignment();
+            } else {
+                await createAssignment();
+            }
+        });
+
+        cancelBtn.addEventListener('click', resetFormState);
+
+        function setMessage(message, isError = false) {
+            messageEl.textContent = message;
+            messageEl.className = `message ${isError ? 'message--error' : 'message--success'}`;
+            messageEl.classList.remove('is-hidden');
+        }
+
+        function clearMessage() {
+            messageEl.textContent = '';
+            messageEl.className = 'message is-hidden';
+        }
+
+        function getDefaultSchoolYear() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const startsThisYear = today.getMonth() + 1 >= 7;
+            return startsThisYear ? `${year}-${year + 1}` : `${year - 1}-${year}`;
+        }
+
+        async function loadTeachers() {
+            try {
+                const response = await fetch('/teachers/all');
+                const data = await response.json();
+                const teachers = data.teachers || [];
+                teacherSelect.innerHTML = '';
+                teachers.forEach((teacher) => {
+                    const option = document.createElement('option');
+                    option.value = teacher.t_id;
+                    option.textContent = teacher.full_name || `${teacher.t_f_name || ''} ${teacher.t_l_name || ''}`.trim();
+                    teacherSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error loading teachers:', error);
+            }
+        }
+
+        async function loadLevels() {
+            try {
+                const response = await fetch('/levels/');
+                const levels = await response.json();
+                levelSelect.innerHTML = '';
+                levels.forEach((level) => {
+                    const option = document.createElement('option');
+                    option.value = level.level_id;
+                    option.textContent = `Level ${level.level_number}`;
+                    levelSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error loading levels:', error);
+            }
+        }
+
+        async function loadSubjects() {
+            try {
+                const response = await fetch('/subjects/fetch');
+                const subjects = await response.json();
+                subjectSelect.innerHTML = '';
+                subjects.forEach((subject) => {
+                    const option = document.createElement('option');
+                    option.value = subject.subject_id;
+                    option.textContent = subject.subject;
+                    subjectSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error loading subjects:', error);
+            }
+        }
+
+        async function loadAssignments() {
+            try {
+                const response = await fetch('/teacher-classes/assigned');
+                assignmentsCache = await response.json();
+                renderAssignments();
+            } catch (error) {
+                console.error('Error loading assignments:', error);
+            }
+        }
+
+        function renderAssignments() {
+            tableBody.innerHTML = '';
+
+            if (!assignmentsCache.length) {
+                const row = document.createElement('tr');
+                row.innerHTML = '<td colspan="5">No assignments found.</td>';
+                tableBody.appendChild(row);
+                return;
+            }
+
+            assignmentsCache.forEach((assignment) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${assignment.teacher_name}</td>
+                    <td>Level ${assignment.level_number}</td>
+                    <td>${assignment.subject}</td>
+                    <td>${assignment.school_year}</td>
+                    <td class="table-actions">
+                        <button type="button" class="btn btn--ghost" data-action="edit">Edit</button>
+                        <button type="button" class="btn btn--ghost" data-action="delete">Delete</button>
+                    </td>
+                `;
+                row.querySelector('[data-action="edit"]').addEventListener('click', () => beginEdit(assignment.assignment_id));
+                row.querySelector('[data-action="delete"]').addEventListener('click', () => deleteAssignment(assignment.assignment_id));
+                tableBody.appendChild(row);
+            });
+        }
+
+        async function createAssignment() {
+            clearMessage();
+            const payload = {
+                teacherId: teacherSelect.value,
+                levelId: levelSelect.value,
+                subjectId: subjectSelect.value,
+                schoolYear: schoolYearInput.value.trim()
+            };
+
+            try {
+                const response = await fetch('/teacher-classes/assign', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || 'Unable to save assignment.');
+                }
+
+                setMessage(data.message || 'Teacher assigned successfully.');
+                await loadAssignments();
+                formEl.reset();
+                schoolYearInput.value = payload.schoolYear || getDefaultSchoolYear();
+            } catch (error) {
+                console.error('Error creating assignment:', error);
+                setMessage(error.message, true);
+            }
+        }
+
+        async function updateAssignment() {
+            clearMessage();
+            const payload = {
+                teacherId: teacherSelect.value,
+                levelId: levelSelect.value,
+                subjectId: subjectSelect.value,
+                schoolYear: schoolYearInput.value.trim()
+            };
+
+            try {
+                const response = await fetch(`/teacher-classes/assigned/${editingAssignmentId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await response.json();
+                if (!response.ok) {
+                    throw new Error(data.message || 'Unable to update assignment.');
+                }
+                setMessage(data.message || 'Assignment updated successfully.');
+                await loadAssignments();
+                resetFormState();
+            } catch (error) {
+                console.error('Error updating assignment:', error);
+                setMessage(error.message, true);
+            }
+        }
+
+        async function deleteAssignment(assignmentId) {
+            const confirmed = confirm('Are you sure you want to remove this assignment?');
+            if (!confirmed) return;
+
+            try {
+                const response = await fetch(`/teacher-classes/assigned/${assignmentId}`, {
+                    method: 'DELETE'
+                });
+                const data = await response.json();
+                if (!response.ok) {
+                    throw new Error(data.message || 'Unable to delete assignment.');
+                }
+                setMessage(data.message || 'Assignment removed successfully.');
+                await loadAssignments();
+                if (editingAssignmentId === assignmentId) {
+                    resetFormState();
+                }
+            } catch (error) {
+                console.error('Error deleting assignment:', error);
+                setMessage(error.message, true);
+            }
+        }
+
+        function beginEdit(assignmentId) {
+            const assignment = assignmentsCache.find((item) => item.assignment_id === assignmentId);
+            if (!assignment) return;
+            editingAssignmentId = assignment.assignment_id;
+            teacherSelect.value = assignment.teacher_id;
+            levelSelect.value = assignment.level_id;
+            subjectSelect.value = assignment.subject_id;
+            schoolYearInput.value = assignment.school_year;
+            submitBtn.textContent = 'Update Assignment';
+            cancelBtn.classList.remove('is-hidden');
+        }
+
+        function resetFormState() {
+            editingAssignmentId = null;
+            formEl.reset();
+            schoolYearInput.value = getDefaultSchoolYear();
+            submitBtn.textContent = 'Save Assignment';
+            cancelBtn.classList.add('is-hidden');
+            clearMessage();
+        }
+    </script>
+    <script src="/scripts/ui.js" defer></script>
+</body>
+</html>

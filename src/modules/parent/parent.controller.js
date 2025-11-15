@@ -255,6 +255,8 @@ class ParentController {
                     averageGrade: record.average_grade !== undefined && record.average_grade !== null
                         ? Number(record.average_grade)
                         : null,
+                    teacherId: record.teacher_id || null,
+                    teacherName: record.teacher_name || null,
                     isCurrentYear: !!normalizedSchoolYear && normalizedSchoolYear === currentSchoolYear
                 };
             });

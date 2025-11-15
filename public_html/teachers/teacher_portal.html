@@ -62,6 +62,7 @@
                     <caption>Student &amp; Guardian</caption>
                     <thead>
                         <tr>
+                            <th>Student ID</th>
                             <th>Student Name</th>
                             <th>Guardian Name</th>
                             <th>Relationship</th>
@@ -77,12 +78,13 @@
         <section id="classes-table-section" class="panel panel--narrow is-hidden">
             <div class="data-table-wrapper">
                 <table>
-                    <caption>Classes</caption>
+                    <caption>Teacher Class Assignments</caption>
                     <thead>
                         <tr>
-                            <th>Class Name</th>
                             <th>Teacher</th>
-                            <th>Time</th>
+                            <th>Level</th>
+                            <th>Subject</th>
+                            <th>School Year</th>
                         </tr>
                     </thead>
                     <tbody id="classes-table"></tbody>
@@ -141,6 +143,9 @@
             teachers: document.getElementById('teachers-table-section')
         };
 
+        let currentTeacherEmail = '';
+        let teacherClassAssignments = [];
+
         function hideAllSections() {
             Object.values(sections).forEach(section => section.classList.add('is-hidden'));
         }
@@ -150,20 +155,20 @@
             formSection.classList.toggle('is-hidden');
         }
 
-        // Function to fetch student-guardian data and display it
         function fetchStudentGuardianData() {
             fetch('/admins/getStudentGuardianData')
                 .then(response => response.json())
                 .then(data => {
                     const tableBody = document.getElementById('guardian-table');
-                    tableBody.innerHTML = ''; // Clear previous data
+                    tableBody.innerHTML = '';
 
                     data.forEach(entry => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
+                            <td>${entry.St_ID}</td>
                             <td>${entry.student_name}</td>
-                            <td>${entry.guardian_name}</td>
-                            <td>${entry.relationship_type}</td>
+                            <td>${entry.guardian_name || ''}</td>
+                            <td>${entry.relationship_type || ''}</td>
                             <td>${entry.g_cell || ''}</td>
                             <td>${entry.g_email || ''}</td>
                         `;
@@ -174,20 +179,19 @@
                 .catch(error => console.error('Error fetching guardian data:', error));
         }
 
-        // Function to fetch assigned levels data and display it
         function fetchAssignedLevelsData() {
-            fetch('/student-levels/assigned') // Use your existing route
+            fetch('/student-levels/assigned')
                 .then(response => response.json())
                 .then(data => {
                     const tableBody = document.getElementById('stud-lvl-table');
-                    tableBody.innerHTML = ''; // Clear previous data
+                    tableBody.innerHTML = '';
 
                     data.forEach(entry => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
                             <td>${entry.st_id || 'N/A'}</td>
                             <td>${entry.full_name || 'N/A'}</td>
-                            <td>${entry.level_number || 'N/A'}</td> 
+                            <td>${entry.level_number || 'N/A'}</td>
                             <td>${entry.subject || 'N/A'}</td>
                             <td>${entry.term_name || 'N/A'}</td>
                             <td>${entry.school_year || entry.term_school_year || 'N/A'}</td>
@@ -202,35 +206,89 @@
                 .catch(error => console.error('Error fetching assigned levels data:', error));
         }
 
-        // Function to fetch teachers data and display it
         function fetchTeachersData() {
-    console.log("Fetching Teachers Data..."); // Log when the function is called
-    fetch('/teachers/all')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => {
-            const tableBody = document.getElementById('teachers-table');
-            tableBody.innerHTML = ''; // Clear previous data
+            fetch('/teachers/all')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Unable to load teachers');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const tableBody = document.getElementById('teachers-table');
+                    tableBody.innerHTML = '';
 
-            data.teachers.forEach(entry => { // Adjusted to access 'teachers' key
+                    (data.teachers || []).forEach(entry => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${entry.full_name || 'N/A'}</td>
+                            <td>${entry.t_email || 'N/A'}</td>
+                            <td>${entry.t_phone || 'N/A'}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                    sections.teachers.classList.remove('is-hidden');
+                })
+                .catch(error => console.error('Error fetching teachers data:', error));
+        }
+
+        function fetchTeacherClassesData() {
+            fetch('/teacher-classes/assigned')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Unable to load teacher-class assignments');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    teacherClassAssignments = Array.isArray(data) ? data : [];
+                    renderTeacherClasses();
+                    sections.classes.classList.remove('is-hidden');
+                })
+                .catch(error => console.error('Error fetching teacher-class assignments:', error));
+        }
+
+        function getVisibleTeacherAssignments() {
+            if (!teacherClassAssignments.length) {
+                return [];
+            }
+            if (!currentTeacherEmail) {
+                return teacherClassAssignments;
+            }
+            const normalized = currentTeacherEmail.toLowerCase();
+            const mine = teacherClassAssignments.filter(assignment =>
+                (assignment.teacher_email || '').toLowerCase() === normalized
+            );
+            return mine.length ? mine : teacherClassAssignments;
+        }
+
+        function renderTeacherClasses() {
+            const tableBody = document.getElementById('classes-table');
+            if (!tableBody) {
+                return;
+            }
+            tableBody.innerHTML = '';
+
+            const records = getVisibleTeacherAssignments();
+            if (!records.length) {
+                const emptyRow = document.createElement('tr');
+                emptyRow.innerHTML = '<td colspan="4">No assignments recorded yet.</td>';
+                tableBody.appendChild(emptyRow);
+                return;
+            }
+
+            records.forEach(record => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${entry.full_name || 'N/A'}</td>
-                    <td>${entry.t_email || 'N/A'}</td>
-                    <td>${entry.t_phone || 'N/A'}</td>
+                    <td>${record.teacher_name}</td>
+                    <td>${record.level_number ? `Level ${record.level_number}` : 'N/A'}</td>
+                    <td>${record.subject || 'N/A'}</td>
+                    <td>${record.school_year}</td>
                 `;
                 tableBody.appendChild(row);
             });
-            sections.teachers.classList.remove('is-hidden');
-        })
-        .catch(error => console.error('Error fetching teachers data:', error));
-}
+        }
 
-        // Function to show the selected table
         async function populateTeacherIdentity() {
             const emailInput = document.getElementById('teacher-email');
             const nameInput = document.getElementById('teacher-name');
@@ -246,12 +304,14 @@
                 const data = await response.json();
                 if (data.success) {
                     emailInput.value = data.email || '';
+                    currentTeacherEmail = (data.email || '').trim();
                     if (nameInput && (!nameInput.value || nameInput.value.trim() === '')) {
                         const fullName = [data.first_name, data.last_name].filter(Boolean).join(' ').trim();
                         if (fullName) {
                             nameInput.value = fullName;
                         }
                     }
+                    renderTeacherClasses();
                 } else {
                     emailInput.removeAttribute('readonly');
                 }
@@ -262,8 +322,9 @@
         }
 
         function formatGrade(value) {
-            if (value === null || value === undefined) return '';
-            return Number(value).toFixed(2);
+            if (value === null || value === undefined || value === '') return '';
+            const number = Number(value);
+            return Number.isFinite(number) ? number.toFixed(2) : '';
         }
 
         function showTable(table) {
@@ -272,7 +333,7 @@
             if (table === 'studentGuardian') {
                 fetchStudentGuardianData();
             } else if (table === 'classes') {
-                sections.classes.classList.remove('is-hidden');
+                fetchTeacherClassesData();
             } else if (table === 'studentLevel') {
                 fetchAssignedLevelsData();
             } else if (table === 'teachers') {
