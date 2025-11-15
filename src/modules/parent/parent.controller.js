@@ -219,6 +219,53 @@ class ParentController {
         }
     }
 
+    // **Get student classes and grade history for the logged-in parent**
+    async getStudentAcademicRecords(req, res) {
+        const parentId = req.session.parentId;
+        const parentEmail = req.session.parentEmail;
+
+        if (!parentId && !parentEmail) {
+            return res.status(401).json({ success: false, message: 'Parent authentication required' });
+        }
+
+        try {
+            const rawRecords = await Parent.findStudentAcademicRecords({
+                guardianId: parentId,
+                guardianEmail: parentEmail
+            });
+            const currentSchoolYear = helper.determineSchoolYear(new Date());
+
+            const records = rawRecords.map((record) => {
+                const normalizedSchoolYear = record.term_school_year || record.school_year || null;
+                return {
+                    studentId: record.student_id,
+                    studentName: record.student_name,
+                    className: record.class_name,
+                    levelId: record.level_id,
+                    levelNumber: record.level_number,
+                    termId: record.term_id,
+                    termName: record.term_name || null,
+                    schoolYear: normalizedSchoolYear,
+                    midtermGrade: record.midterm_grade !== undefined && record.midterm_grade !== null
+                        ? Number(record.midterm_grade)
+                        : null,
+                    finalGrade: record.final_grade !== undefined && record.final_grade !== null
+                        ? Number(record.final_grade)
+                        : null,
+                    averageGrade: record.average_grade !== undefined && record.average_grade !== null
+                        ? Number(record.average_grade)
+                        : null,
+                    isCurrentYear: !!normalizedSchoolYear && normalizedSchoolYear === currentSchoolYear
+                };
+            });
+
+            res.json(records);
+        } catch (error) {
+            console.error('Error getting student academic records:', error);
+            res.status(500).json({ success: false, message: 'Failed to fetch academic records.' });
+        }
+    }
+
     // Get all students by parents email
     async getStudentsByParentEmail(req, res) {
         const { parent_email } = req.body;

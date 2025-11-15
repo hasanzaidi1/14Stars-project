@@ -100,6 +100,8 @@
                             <th>Student Name</th>
                             <th>Level</th>
                             <th>Subject</th>
+                            <th>Term</th>
+                            <th>School Year</th>
                             <th>Midterm</th>
                             <th>Final</th>
                             <th>Average</th>
@@ -187,6 +189,8 @@
                             <td>${entry.full_name || 'N/A'}</td>
                             <td>${entry.level_number || 'N/A'}</td> 
                             <td>${entry.subject || 'N/A'}</td>
+                            <td>${entry.term_name || 'N/A'}</td>
+                            <td>${entry.school_year || entry.term_school_year || 'N/A'}</td>
                             <td>${formatGrade(entry.midterm_grade)}</td>
                             <td>${formatGrade(entry.final_grade)}</td>
                             <td>${formatGrade(entry.average_grade)}</td>

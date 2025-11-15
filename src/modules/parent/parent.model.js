@@ -122,6 +122,66 @@ class ParentModel {
         }
     }
 
+    // **Fetch student classes and grade history for guardians**
+    static async findStudentAcademicRecords({ guardianId, guardianEmail } = {}) {
+        if (!guardianId && !guardianEmail) {
+            return [];
+        }
+
+        const conditions = [];
+        const values = [];
+
+        if (guardianId) {
+            conditions.push('g.g_id = ?');
+            values.push(guardianId);
+        }
+
+        if (guardianEmail) {
+            conditions.push('g.g_email = ?');
+            values.push(guardianEmail);
+        }
+
+        const whereClause = conditions.length ? `WHERE (${conditions.join(' OR ')})` : '';
+
+        try {
+            const query = `
+                SELECT 
+                    s.St_ID AS student_id,
+                    CONCAT(s.F_Name, ' ', s.L_Name) AS student_name,
+                    sl.level_id,
+                    lvl.level_number,
+                    sl.term_id,
+                    sl.subject AS class_name,
+                    sl.school_year,
+                    t.term_name,
+                    t.school_year AS term_school_year,
+                    sl.midterm_grade,
+                    sl.final_grade,
+                    sl.average_grade
+                FROM student s
+                INNER JOIN student_guardian sg ON sg.st_id = s.St_ID
+                INNER JOIN guardian g ON g.g_id = sg.g_id
+                LEFT JOIN student_level sl ON sl.st_id = s.St_ID
+                LEFT JOIN level lvl ON sl.level_id = lvl.level_id
+                LEFT JOIN term t ON sl.term_id = t.term_id
+                ${whereClause}
+                ORDER BY 
+                    s.St_ID,
+                    sl.term_id IS NULL,
+                    sl.school_year IS NULL,
+                    sl.school_year DESC,
+                    t.term_name ASC,
+                    sl.subject ASC
+            `;
+
+            const [rows] = await pool.query(query, values);
+            return rows;
+        } catch (error) {
+            console.error('Error fetching student academic records for guardian:', error);
+            throw error;
+        }
+    }
+
     // Update guardian profile
     static async updateGuardian(guardianId, updates) {
         const columnMap = {

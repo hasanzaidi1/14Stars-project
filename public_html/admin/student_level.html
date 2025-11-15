@@ -48,6 +48,11 @@
                 <select id="subject-select" required>
                     <option value="">Select a Subject</option>
                 </select>
+
+                <label for="term-select">Select Term</label>
+                <select id="term-select" required>
+                    <option value="">Select a Term</option>
+                </select>
                 <label for="assignment-school-year">School Year (optional for edits)</label>
                 <input type="text" id="assignment-school-year" placeholder="e.g., 2024-2025">
 
@@ -84,6 +89,7 @@
                                 <th>Student Name</th>
                                 <th>Level</th>
                                 <th>Subject</th>
+                                <th>Term</th>
                                 <th>School Year</th>
                                 <th>Midterm</th>
                                 <th>Final</th>
@@ -104,6 +110,7 @@
         const studentSelect = document.getElementById('student-select');
         const levelSelect = document.getElementById('level-select');
         const subjectSelect = document.getElementById('subject-select');
+        const termSelect = document.getElementById('term-select');
         const assignmentForm = document.getElementById('assignment-form');
         const cancelEditBtn = document.getElementById('assignment-cancel-edit');
         const schoolYearInput = document.getElementById('assignment-school-year');
@@ -114,12 +121,14 @@
         const tableBody = document.getElementById('student-level-table').querySelector('tbody');
 
         let subjectsCache = [];
+        let termsCache = [];
         let editingAssignment = null;
 
         document.addEventListener('DOMContentLoaded', () => {
             fetchStudents();
             fetchLevels();
             fetchSubjects();
+            fetchTerms();
             fetchAssignedLevels();
         });
 
@@ -199,7 +208,7 @@
 
             if (!records.length) {
                 const row = document.createElement('tr');
-                row.innerHTML = '<td colspan="9">No assignments found.</td>';
+                row.innerHTML = '<td colspan="10">No assignments found.</td>';
                 tableBody.appendChild(row);
                 return;
             }
@@ -211,7 +220,8 @@
                     <td>${record.full_name}</td>
                     <td>${record.level_number}</td>
                     <td>${record.subject}</td>
-                    <td>${record.school_year || ''}</td>
+                    <td>${record.term_name || ''}</td>
+                    <td>${record.term_school_year || record.school_year || ''}</td>
                     <td>${formatGrade(record.midterm_grade)}</td>
                     <td>${formatGrade(record.final_grade)}</td>
                     <td>${formatGrade(record.average_grade)}</td>
@@ -248,9 +258,10 @@
             const studentId = studentSelect.value;
             const levelId = levelSelect.value;
             const subjectId = subjectSelect.value;
+            const termId = termSelect.value;
 
-            if (!studentId || !levelId || !subjectId) {
-                alert('Please select a student, level, and subject.');
+            if (!studentId || !levelId || !subjectId || !termId) {
+                alert('Please select a student, level, subject, and term.');
                 return;
             }
 
@@ -258,7 +269,7 @@
                 const response = await fetch('/student-levels/assign', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ studentId, levelId, subjectId })
+                    body: JSON.stringify({ studentId, levelId, subjectId, termId })
                 });
 
                 if (!response.ok) {
@@ -271,6 +282,7 @@
                 assignmentForm.reset();
                 averageGradeInput.value = '';
                 fetchAssignedLevels();
+                termSelect.value = '';
             } catch (error) {
                 console.error('Error assigning level:', error);
             }
@@ -281,7 +293,8 @@
                 studentId: record.st_id,
                 originalLevelId: record.level_id,
                 originalSubject: record.subject,
-                schoolYear: record.school_year || '',
+                termId: record.term_id ?? '',
+                schoolYear: record.school_year || record.term_school_year || '',
                 midtermGrade: record.midterm_grade ?? '',
                 finalGrade: record.final_grade ?? '',
                 averageGrade: record.average_grade ?? ''
@@ -292,7 +305,12 @@
             levelSelect.value = record.level_id;
             const subjectMatch = subjectsCache.find(subject => subject.subject === record.subject);
             subjectSelect.value = subjectMatch ? subjectMatch.subject_id : '';
-            schoolYearInput.value = record.school_year || '';
+            if (record.term_id) {
+                termSelect.value = record.term_id;
+            } else {
+                termSelect.value = '';
+            }
+            schoolYearInput.value = record.school_year || record.term_school_year || '';
             midtermGradeInput.value = record.midterm_grade ?? '';
             finalGradeInput.value = record.final_grade ?? '';
             averageGradeInput.value = record.average_grade ?? '';
@@ -306,6 +324,7 @@
             editingAssignment = null;
             studentSelect.disabled = false;
             schoolYearInput.value = '';
+            termSelect.value = '';
             midtermGradeInput.value = '';
             finalGradeInput.value = '';
             averageGradeInput.value = '';
@@ -321,6 +340,7 @@
             const newLevelId = Number(levelSelect.value);
             const newSubjectId = Number(subjectSelect.value);
             const subjectName = subjectsCache.find(subject => subject.subject_id === newSubjectId)?.subject;
+            const newTermId = termSelect.value;
             const payload = {
                 studentId: editingAssignment.studentId,
                 originalLevelId: editingAssignment.originalLevelId,
@@ -335,6 +355,10 @@
             }
             if (subjectName && subjectName !== editingAssignment.originalSubject) {
                 payload.subject = subjectName;
+                hasChanges = true;
+            }
+            if (newTermId && newTermId !== String(editingAssignment.termId || '')) {
+                payload.termId = Number(newTermId);
                 hasChanges = true;
             }
             const normalizedSchoolYear = schoolYearInput.value.trim();
@@ -412,6 +436,22 @@
                 fetchAssignedLevels();
             } catch (error) {
                 console.error('Error deleting assignment:', error);
+            }
+        }
+
+        async function fetchTerms() {
+            try {
+                const response = await fetch('/terms');
+                termsCache = await response.json();
+                termSelect.innerHTML = '<option value="">Select a Term</option>';
+                termsCache.forEach(term => {
+                    const option = document.createElement('option');
+                    option.value = term.term_id;
+                    option.textContent = `${term.term_name} (${term.school_year})`;
+                    termSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error fetching terms:', error);
             }
         }
 

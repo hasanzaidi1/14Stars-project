@@ -102,6 +102,16 @@ Teacher accounts are now created directly from the Teacher portal or the admin d
 > ```
 > The admin portal now reads/writes these columns, and the teacher portal displays them.
 
+> **Migration note (terms linked to student assignments):** run this SQL before deploying the term-aware portals:
+> ```sql
+> ALTER TABLE student_level
+>   ADD COLUMN term_id INT NULL AFTER level_id,
+>   ADD INDEX student_level_ibfk_3 (term_id),
+>   ADD CONSTRAINT student_level_ibfk_3
+>     FOREIGN KEY (term_id) REFERENCES term(term_id);
+> ```
+> Existing records will have `term_id = NULL`. Revisit `/admin/student_level.html` to assign the correct term so parents and teachers see accurate histories.
+
 ### Sample `.env`
 ```
 PORT=30000

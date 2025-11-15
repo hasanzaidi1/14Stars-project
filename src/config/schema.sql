@@ -77,6 +77,7 @@ CREATE TABLE `student_guardian` (
 CREATE TABLE `student_level` (
   `st_id` int NOT NULL,
   `level_id` int NOT NULL,
+  `term_id` int DEFAULT NULL,
   `full_name` text NOT NULL,
   `subject` varchar(255) NOT NULL,
   `school_year` varchar(255) DEFAULT NULL,
@@ -86,8 +87,10 @@ CREATE TABLE `student_level` (
   PRIMARY KEY (`st_id`, `level_id`, `subject`),
   UNIQUE KEY `unique_student_level_subject` (`st_id`, `level_id`, `subject`),
   KEY `student_level_ibfk_2` (`level_id`),
+  KEY `student_level_ibfk_3` (`term_id`),
   CONSTRAINT `student_level_ibfk_1` FOREIGN KEY (`st_id`) REFERENCES `student` (`St_ID`),
-  CONSTRAINT `student_level_ibfk_2` FOREIGN KEY (`level_id`) REFERENCES `level` (`level_id`)
+  CONSTRAINT `student_level_ibfk_2` FOREIGN KEY (`level_id`) REFERENCES `level` (`level_id`),
+  CONSTRAINT `student_level_ibfk_3` FOREIGN KEY (`term_id`) REFERENCES `term` (`term_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Table structure for table `subject`
