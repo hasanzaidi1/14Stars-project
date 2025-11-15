@@ -25,6 +25,53 @@ const sendErrorResponse = (res, message, statusCode = 500) => {
 };
 
 /**
+ * Determines whether the caller expects a JSON response instead of an HTML redirect.
+ * @param {Object} req - The Express request object.
+ * @returns {boolean}
+ */
+const expectsJson = (req) => {
+    if (!req || !req.headers) {
+        return false;
+    }
+    const accepts = (req.headers.accept || '').toLowerCase();
+    const contentType = (req.headers['content-type'] || '').toLowerCase();
+    return Boolean(req.xhr)
+        || contentType.includes('application/json')
+        || accepts.includes('application/json');
+};
+
+/**
+ * Sends a user-friendly response for portal forms. Browser form posts get redirected to the
+ * shared success page, whereas JSON/XHR callers receive structured JSON messages.
+ * @param {Object} req - Request object.
+ * @param {Object} res - Response object.
+ * @param {Object} options - Response configuration.
+ * @param {boolean} options.success - Indicates success or failure.
+ * @param {string} options.message - Message copy to display.
+ * @param {number} [options.statusCode] - HTTP status to send for JSON callers.
+ * @param {Object} [options.data] - Additional JSON payload for API consumers.
+ */
+const sendPortalResponse = (req, res, { success, message, statusCode, data }) => {
+    const code = typeof statusCode === 'number'
+        ? statusCode
+        : (success ? 200 : 400);
+
+    if (expectsJson(req)) {
+        const payload = { success, message };
+        if (data && typeof data === 'object') {
+            Object.assign(payload, data);
+        }
+        return res.status(code).json(payload);
+    }
+
+    const params = new URLSearchParams({
+        type: success ? 'success' : 'error',
+        message: message || ''
+    });
+    return res.redirect(303, `/success.html?${params.toString()}`);
+};
+
+/**
  * Validates an email address using a simple regex.
  * @param {string} email - The email address to validate.
  * @returns {boolean} - True if valid, false otherwise.
@@ -100,6 +147,7 @@ function cleanData(data) {
 module.exports = {
     validateRequiredFields,
     sendErrorResponse,
+    sendPortalResponse,
     isValidEmail,
     isValidPhoneNumber,
     isAuthenticated,

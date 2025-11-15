@@ -1,8 +1,24 @@
+const path = require('path');
 const bcrypt = require('bcrypt');
 const Parent = require('./parent.model');
 const StudentGuardian = require('../guardian/student-guardian.model');
 const Student = require('../student/student.model');
 const helper = require('../../utils/helpers');
+
+const wantsJsonResponse = (req) => {
+    const accepts = (req.headers?.accept || '').toLowerCase();
+    const contentType = (req.headers?.['content-type'] || '').toLowerCase();
+    return Boolean(req.xhr)
+        || accepts.includes('application/json')
+        || contentType.includes('application/json');
+};
+
+const respondWithLoginError = (req, res, statusCode = 401, message = 'Invalid email or password') => {
+    if (wantsJsonResponse(req)) {
+        return res.status(statusCode).json({ success: false, message });
+    }
+    return res.status(statusCode).sendFile(path.resolve('public_html/invalid-credentials.html'));
+};
 
 class ParentController {
     // **Register a New Parent**
@@ -31,16 +47,15 @@ class ParentController {
     async login(req, res) {
         const { email, password } = req.body;
         try {
-            console.log('Logging in parent:', email, password);
             const parent = await Parent.findByEmail(email);
             if (!parent) {
-                return res.status(401).json({ success: false, message: 'Invalid email or password' });
+                return respondWithLoginError(req, res);
             }
 
             // Compare entered password with hashed password
             const isMatch = await bcrypt.compare(password, parent.password);
             if (!isMatch) {
-                return res.status(401).json({ success: false, message: 'Invalid email or password' });
+                return respondWithLoginError(req, res);
             }
 
             // Set session variables
@@ -52,7 +67,7 @@ class ParentController {
             res.redirect('/parents/parents_portal'); // Redirect to portal
         } catch (error) {
             console.error('Error logging in parent:', error);
-            res.status(500).json({ success: false, message: 'Error logging in parent. Please try again.' });
+            return respondWithLoginError(req, res, 500, 'Error logging in parent. Please try again.');
         }
     }
 
