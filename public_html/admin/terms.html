@@ -38,6 +38,18 @@
             <form id="term-form" class="stack">
                 <label for="termName">Term Name</label>
                 <input type="text" id="termName" name="termName" placeholder="e.g., Fall" required>
+
+                <label for="termSchoolYear">School Year</label>
+                <input
+                    type="text"
+                    id="termSchoolYear"
+                    name="termSchoolYear"
+                    list="termSchoolYearOptions"
+                    placeholder="e.g., 2024-2025"
+                    required
+                >
+                <datalist id="termSchoolYearOptions"></datalist>
+
                 <div id="form-feedback" class="text-muted"></div>
                 <button class="btn" type="submit">Add Term</button>
             </form>
@@ -66,20 +78,26 @@
         const form = document.getElementById('term-form');
         const tableBody = document.querySelector('#terms-table tbody');
         const feedback = document.getElementById('form-feedback');
+        const schoolYearInput = document.getElementById('termSchoolYear');
+        const schoolYearOptionsList = document.getElementById('termSchoolYearOptions');
+
+        populateSchoolYearOptions();
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const termName = document.getElementById('termName').value.trim();
+            const schoolYear = schoolYearInput.value.trim();
 
             if (!termName) {
                 feedback.textContent = 'Please enter a valid term name.';
                 feedback.style.color = 'var(--danger-500)';
                 return;
             }
-
-            const now = new Date();
-            const startYear = now.getMonth() >= 6 ? now.getFullYear() : now.getFullYear() - 1;
-            const schoolYear = `${startYear}-${startYear + 1}`;
+            if (!schoolYear || !/^\d{4}-\d{4}$/.test(schoolYear)) {
+                feedback.textContent = 'Enter a school year in the format YYYY-YYYY.';
+                feedback.style.color = 'var(--danger-500)';
+                return;
+            }
 
             try {
                 const response = await fetch('/terms', {
@@ -98,6 +116,8 @@
                 feedback.textContent = `Term "${termName}" added for ${schoolYear}.`;
                 feedback.style.color = 'var(--success-500)';
                 form.reset();
+                populateSchoolYearOptions();
+                schoolYearInput.value = schoolYear;
                 await loadTerms();
             } catch (error) {
                 console.error('Error adding term:', error);
@@ -105,6 +125,38 @@
                 feedback.style.color = 'var(--danger-500)';
             }
         });
+
+        function populateSchoolYearOptions() {
+            const suggestions = buildSchoolYearOptions();
+            schoolYearOptionsList.innerHTML = '';
+            suggestions.forEach(({ value }) => {
+                const option = document.createElement('option');
+                option.value = value;
+                schoolYearOptionsList.appendChild(option);
+            });
+            if (!schoolYearInput.value && suggestions.length) {
+                schoolYearInput.value = suggestions[0].value;
+            }
+        }
+
+        function buildSchoolYearOptions() {
+            const today = new Date();
+            const currentYear = today.getFullYear();
+            const startsThisYear = today.getMonth() >= 6;
+            const baseYear = startsThisYear ? currentYear : currentYear - 1;
+            const options = [];
+
+            for (let offset = -1; offset <= 3; offset++) {
+                const start = baseYear + offset;
+                const end = start + 1;
+                options.push({
+                    value: `${start}-${end}`,
+                    label: `${start}-${end}`
+                });
+            }
+
+            return options;
+        }
 
         async function loadTerms() {
             try {
