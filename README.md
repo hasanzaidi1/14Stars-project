@@ -58,6 +58,9 @@ graph TD
    ```
    Visit `http://localhost:30000` (or `PORT`) to load HTML portals or call APIs.
 
+## Database migrations
+- Run ad-hoc migrations from `docs/migrations/` when rolling updates onto an existing database. Each file maps to the production notes in this README (teacher accounts, student grades, student-level terms, teacher-class assignments) and can be executed individually with `mysql -u <user> -p <db> < docs/migrations/00x_*.sql`.
+
 ## Screenshots / Demo Placeholders
 | View | Placeholder |
 | --- | --- |
