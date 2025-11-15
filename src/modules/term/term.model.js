@@ -15,6 +15,13 @@ class Term {
         return result;
     }
 
+    // Fetch single term by ID
+    static async findById(termId) {
+        const query = 'SELECT * FROM term WHERE term_id = ?';
+        const [rows] = await pool.query(query, [termId]);
+        return rows.length ? rows[0] : null;
+    }
+
     // Fetch all terms with all their details
     static async findAll() {
         const query = `

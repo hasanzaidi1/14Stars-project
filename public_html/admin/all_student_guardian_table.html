@@ -15,6 +15,7 @@
             <a class="nav-link" href="/admin/students.html">Students</a>
             <a class="nav-link is-active" href="/admin/guardian.html">Guardians</a>
             <a class="nav-link" href="/admin/teacher_table.html">Teachers</a>
+            <a class="nav-link" href="/admin/teacher_classes.html">Teacher Classes</a>
             <a class="nav-link" href="/admin/subjects.html">Subjects</a>
             <a class="nav-link" href="/admin/levels.html">Levels</a>
             <a class="nav-link" href="/admin/terms.html">Terms</a>
@@ -173,7 +174,7 @@
 
             if (!assignments.length) {
                 const row = document.createElement('tr');
-                row.innerHTML = '<td colspan="6">No assignments found.</td>';
+                row.innerHTML = '<td colspan="7">No assignments found.</td>';
                 tableBody.appendChild(row);
                 return;
             }
@@ -214,7 +215,7 @@
 
         function openEditPanel(record) {
             editingRecord = record;
-            editStudentLabel.textContent = `Student: ${record.student_name}`;
+            editStudentLabel.textContent = `Student: #${record.St_ID} ${record.student_name}`;
             guardianSelect.value = record.g_id;
             relationshipSelect.value = record.relationship_type || 'Guardian';
             editPanel.classList.remove('is-hidden');

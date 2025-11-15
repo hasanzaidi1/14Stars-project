@@ -6,6 +6,7 @@ Backend service for the 14 Stars Education Center. It exposes RESTful APIs and s
 - Session-based authentication flows for admins, teachers, and parents (with optional "remember me" cookies for admins).
 - Student lifecycle management: registration, lookups, guardian assignments, level placements, and parent self-service enrollment.
 - Subject, level, and term catalogs used to organize instruction and reporting.
+- Teacher-class assignments that bind a rostered teacher to a level/subject for a given school year (with duplication safeguards).
 - Substitute onboarding plus submission and tracking of substitute requests (including "satisfied by" updates).
 - JSON + HTML delivery: `/public_html` hosts the portals, while JSON APIs live under `/admins`, `/teachers`, `/parents`, etc.
 - Structured request logging (per-request IDs + daily log files) paired with a persistent MySQL-backed session store.
@@ -32,6 +33,7 @@ Backend service for the 14 Stars Education Center. It exposes RESTful APIs and s
 │   │   ├── subject/
 │   │   ├── level/
 │   │   ├── student-level/
+│   │   ├── teacher-class/
 │   │   ├── term/
 │   │   ├── substitute/
 │   │   └── substitute-request/
@@ -102,6 +104,33 @@ Teacher accounts are now created directly from the Teacher portal or the admin d
 > ```
 > The admin portal now reads/writes these columns, and the teacher portal displays them.
 
+> **Migration note (terms linked to student assignments):** run this SQL before deploying the term-aware portals:
+> ```sql
+> ALTER TABLE student_level
+>   ADD COLUMN term_id INT NULL AFTER level_id,
+>   ADD INDEX student_level_ibfk_3 (term_id),
+>   ADD CONSTRAINT student_level_ibfk_3
+>     FOREIGN KEY (term_id) REFERENCES term(term_id);
+> ```
+> Existing records will have `term_id = NULL`. Revisit `/admin/student_level.html` to assign the correct term so parents and teachers see accurate histories.
+
+> **Migration note (teacher-class assignments):** apply this SQL to add the new bridge table that powers the Teacher Classes admin screen and `/teacher-classes` API.
+> ```sql
+> CREATE TABLE IF NOT EXISTS teacher_class_assignments (
+>   assignment_id INT AUTO_INCREMENT PRIMARY KEY,
+>   teacher_id INT NOT NULL,
+>   level_id INT NOT NULL,
+>   subject_id INT NOT NULL,
+>   school_year VARCHAR(15) NOT NULL,
+>   created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+>   UNIQUE KEY uq_teacher_class_year (teacher_id, level_id, subject_id, school_year),
+>   CONSTRAINT fk_teacher_class_teacher FOREIGN KEY (teacher_id) REFERENCES teachers (t_id) ON DELETE CASCADE,
+>   CONSTRAINT fk_teacher_class_level FOREIGN KEY (level_id) REFERENCES level (level_id) ON DELETE CASCADE,
+>   CONSTRAINT fk_teacher_class_subject FOREIGN KEY (subject_id) REFERENCES subject (subject_id) ON DELETE CASCADE
+> ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+> ```
+> Once the table exists, the admin portal's **Teacher Classes** page can create/edit the assignments without throwing `ER_NO_SUCH_TABLE`.
+
 ### Sample `.env`
 ```
 PORT=30000
@@ -121,6 +150,7 @@ LOG_LEVEL=info
 `config/schema.sql` builds the following core tables:
 - `student`, `guardian`, and the bridge table `student_guardian` (plus `parent_account` for parent logins).
 - Teaching metadata: `subject`, `level`, `student_level` (with `midterm_grade`, `final_grade`, and `average_grade`), and `term`.
+- Teacher coverage metadata: `teacher_class_assignments` links a teacher, level, subject, and school year (used by the admin Teacher Classes board and `/teacher-classes` API).
 - `teacher_accounts` for login credentials plus the legacy `teachers` directory used by admins.
 - Substitute operations: `substitute` and `substitute_requests`.
 - Auth state persistence: the `sessions` table stores Express sessions in MySQL.
@@ -181,6 +211,14 @@ The Express routers are mounted in `app.js`. All endpoints accept/return JSON un
 - `POST /student-levels/assign` – assign a student + subject combination to a level (grades are entered later, once the assignment exists).
 - `GET /student-levels/assigned` – list all placements, including grade fields for midterm/final/average.
 - `PUT /student-levels/assigned` – update an assignment’s level/subject/school year and/or any of the grade fields (grades are edited from the Student Levels admin table after the record is created).
+
+### Teacher-Class Assignments (`/teacher-classes`)
+- `POST /teacher-classes/assign` – create a teacher/level/subject pairing for a school year (duplicates are blocked server-side).
+- `GET /teacher-classes/assigned` – list every pairing, including teacher names, level numbers, and subjects (used by `/admin/teacher_classes.html`).
+- `PUT /teacher-classes/assigned/:assignmentId` – modify the teacher, level, subject, and/or school year for an existing pairing.
+- `DELETE /teacher-classes/assigned/:assignmentId` – remove a pairing when a teacher leaves a class.
+
+> Admin UI tip: open **Admin → Teacher Classes** in the portal to use a form-driven version of these endpoints. The page pulls live teacher/level/subject dropdowns, shows validation errors (e.g., duplicates), and lets you edit or delete assignments inline.
 
 ### Terms (`/terms`)
 - `POST /terms` – create a term (`term_name`, `school_year`).

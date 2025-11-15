@@ -6,6 +6,7 @@ const {
 } = require('./student-level.model');
 
 const { getSubjectName } = require('../subject/subject.model');
+const TermModel = require('../term/term.model');
 
 const { getFullNameByStudentId, determineSchoolYear } = require('../../utils/helpers');
 
@@ -31,9 +32,23 @@ const parseGradeField = (label, rawValue) => {
 };
 
 const assignLevel = async (req, res) => {
-    const { studentId, levelId, subjectId, midtermGrade, finalGrade, averageGrade } = req.body;
+    const { studentId, levelId, subjectId, termId, midtermGrade, finalGrade, averageGrade } = req.body;
 
     try {
+        if (!termId) {
+            return res.status(400).send('Term is required for assigning a level.');
+        }
+
+        const numericTermId = Number(termId);
+        if (Number.isNaN(numericTermId)) {
+            return res.status(400).send('Term must be a valid identifier.');
+        }
+
+        const term = await TermModel.findById(numericTermId);
+        if (!term) {
+            return res.status(400).send('Invalid term selected.');
+        }
+
         // Fetch full name
         const fullName = await getFullNameByStudentId(studentId);
         if (!fullName) return res.status(400).send('Invalid student ID');
@@ -42,7 +57,7 @@ const assignLevel = async (req, res) => {
         const subjectName = await getSubjectName(subjectId);
         if (!subjectName) return res.status(400).send('Invalid subject ID');
 
-        const schoolYear = determineSchoolYear(new Date());
+        const schoolYear = term.school_year || determineSchoolYear(new Date());
 
         const midterm = parseGradeField('Midterm grade', midtermGrade);
         const final = parseGradeField('Final grade', finalGrade);
@@ -55,6 +70,7 @@ const assignLevel = async (req, res) => {
         const assignedLevelId = await assignStudentLevel(
             studentId,
             levelId,
+            numericTermId,
             fullName,
             subjectName,
             schoolYear,
@@ -88,7 +104,8 @@ const updateAssignment = async (req, res) => {
         schoolYear,
         midtermGrade,
         finalGrade,
-        averageGrade
+        averageGrade,
+        termId
     } = req.body;
 
     if (!studentId || !originalLevelId || !originalSubject) {
@@ -101,6 +118,21 @@ const updateAssignment = async (req, res) => {
     if (schoolYear !== undefined) updates.schoolYear = schoolYear;
 
     try {
+        if (termId !== undefined) {
+            const numericTermId = Number(termId);
+            if (Number.isNaN(numericTermId)) {
+                return res.status(400).json({ message: 'Term must be a valid identifier.' });
+            }
+            const term = await TermModel.findById(numericTermId);
+            if (!term) {
+                return res.status(400).json({ message: 'Selected term does not exist.' });
+            }
+            updates.termId = numericTermId;
+            if (updates.schoolYear === undefined || updates.schoolYear === null || updates.schoolYear === '') {
+                updates.schoolYear = term.school_year;
+            }
+        }
+
         const midterm = parseGradeField('Midterm grade', midtermGrade);
         const final = parseGradeField('Final grade', finalGrade);
         let average = parseGradeField('Average grade', averageGrade);
