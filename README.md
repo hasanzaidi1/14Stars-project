@@ -65,9 +65,9 @@ graph TD
 ## Screenshots / Demo Placeholders
 | View | Placeholder |
 | --- | --- |
-| Admin dashboard | `![Admin dashboard](docs/images/admin-portal.png)` |
-| Parent portal | `![Parent portal](docs/images/parent-portal.png)` |
-| Teacher portal | `![Teacher portal](docs/images/teacher-portal.png)` |
+| Admin dashboard | ![Admin dashboard](docs/images/admin-portal.png) |
+| Parent portal | ![Parent portal](docs/images/parent-portal.png) |
+| Teacher portal | ![Teacher portal](docs/images/teacher-portal.png) |
 
 ## Documentation Index
 - [Setup & Installation](docs/SETUP_AND_INSTALLATION.md)
