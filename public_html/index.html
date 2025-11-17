@@ -34,24 +34,16 @@
             </div>
         </section>
 
-        <section class="card stack" id="upcoming-events">
+        <section class="card stack" id="home-announcements">
             <div>
-                <p class="page-eyebrow">Community Calendar</p>
-                <h2>Upcoming events</h2>
-                <p class="text-muted">Stay close to the moments that matter most for our students.</p>
+                <p class="page-eyebrow">Community Updates</p>
+                <h2>Announcements &amp; Events</h2>
+                <p class="text-muted">Administrators keep this board current so every family stays aligned.</p>
             </div>
-            <div class="cards-grid">
-                <article class="card event-card">
-                    <h3>Parent-Teacher Meeting</h3>
-                    <p>October 10 &middot; Collaboration on student growth</p>
-                </article>
-                <article class="card event-card">
-                    <h3>Qur'an Recitation Showcase</h3>
-                    <p>October 15 &middot; Celebrate memorization milestones</p>
-                </article>
-                <article class="card event-card">
-                    <h3>Eid Celebration</h3>
-                    <p>November 1 &middot; Community iftar and reflections</p>
+            <div class="cards-grid" id="announcementCards" aria-live="polite">
+                <article class="card card--muted" data-placeholder>
+                    <h3>Loading announcements…</h3>
+                    <p>Please hold on while we fetch the latest updates.</p>
                 </article>
             </div>
         </section>
@@ -61,6 +53,62 @@
         <p>&copy; 2024 14 Stars Islamic School. All rights reserved.</p>
     </footer>
 
+    <script>
+        async function loadHomepageAnnouncements() {
+            const container = document.getElementById('announcementCards');
+            if (!container) return;
+
+            try {
+                const response = await fetch('/announcements/public?limit=3');
+                if (!response.ok) throw new Error('Failed to fetch announcements');
+                const announcements = await response.json();
+
+                container.innerHTML = '';
+                if (!announcements.length) {
+                    const empty = document.createElement('article');
+                    empty.className = 'card card--muted';
+                    empty.innerHTML = '<h3>No announcements yet</h3><p>Check back soon for upcoming events.</p>';
+                    container.appendChild(empty);
+                    return;
+                }
+
+                announcements.forEach((announcement) => {
+                    const article = document.createElement('article');
+                    article.className = 'card event-card';
+
+                    const title = document.createElement('h3');
+                    title.textContent = announcement.title;
+
+                    const body = document.createElement('p');
+                    body.textContent = announcement.body;
+
+                    article.appendChild(title);
+                    article.appendChild(body);
+
+                    if (announcement.ctaLabel && announcement.ctaUrl) {
+                        const action = document.createElement('a');
+                        action.href = announcement.ctaUrl;
+                        action.textContent = announcement.ctaLabel;
+                        action.className = 'btn btn--ghost';
+                        action.target = '_blank';
+                        action.rel = 'noopener noreferrer';
+                        article.appendChild(action);
+                    }
+
+                    container.appendChild(article);
+                });
+            } catch (error) {
+                console.error('Unable to load announcements:', error);
+                container.innerHTML = '';
+                const fallback = document.createElement('article');
+                fallback.className = 'card card--muted';
+                fallback.innerHTML = '<h3>Announcements unavailable</h3><p>Please refresh to try again.</p>';
+                container.appendChild(fallback);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadHomepageAnnouncements);
+    </script>
     <script src="/scripts/ui.js" defer></script>
 </body>
 </html>

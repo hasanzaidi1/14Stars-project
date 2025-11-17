@@ -10,6 +10,7 @@
 - **Academic Structure Management** – Terms, levels, subjects, and teacher-class assignments can be created, updated, or removed through dedicated modules to keep curricular data normalized (`src/modules/term`, `src/modules/level`, `src/modules/subject`, `src/modules/teacher-class`).
 - **Grade & Level Tracking** – `student_level` captures per-term subject assignments plus midterm/final/average grades with numeric validation (`src/modules/student-level/student-level.controller.js:16`). Parents can query records filtered by guardian session metadata.
 - **Substitute Network & Requests** – Schools manage substitute rosters and collect day-specific substitution requests. Deduplication ensures one request per email/date combination (`src/modules/substitute-request/substitute-request.controller.js:5`).
+- **Homepage Announcements** – Admins publish dynamic announcements with optional action links that render on the landing page via the `/announcements` module and admin UI.
 - **Operational Observability** – Custom logging writes daily log files with leveled output (`logs/` directory via `src/utils/logger.js`). Request tracing injects `x-request-id` and captures latency metrics (`src/middlewares/requestLogger.js:3`).
 
 ## Tech Stack
@@ -59,7 +60,7 @@ graph TD
    Visit `http://localhost:30000` (or `PORT`) to load HTML portals or call APIs.
 
 ## Database migrations
-- Run ad-hoc migrations from `docs/migrations/` when rolling updates onto an existing database. Each file maps to the production notes in this README (teacher accounts, student grades, student-level terms, teacher-class assignments) and can be executed individually with `mysql -u <user> -p <db> < docs/migrations/00x_*.sql`.
+- Run ad-hoc migrations from `docs/migrations/` when rolling updates onto an existing database. Each file maps to the production notes in this README (teacher accounts, student grades, student-level terms, teacher-class assignments, homepage announcements) and can be executed individually with `mysql -u <user> -p <db> < docs/migrations/00x_*.sql`.
 
 ## Screenshots / Demo Placeholders
 | View | Placeholder |

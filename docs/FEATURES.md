@@ -61,3 +61,8 @@ graph TD
 ## 7. Observability & Maintenance
 - **Structured logging** with metadata enables tracing by session or user agent.
 - **Helpers** centralize validation, formatting, and future cross-module utilities, reducing duplicate logic.
+
+## 8. Homepage Announcements
+- **Dynamic landing content** – Announcements stored in MySQL via the `announcements` table are surfaced on `/index.html` so visitors always see the most recent community updates.
+- **Admin workflow** – `/admin/announcements.html` lets authenticated admins create, edit, publish/unpublish, and delete announcements, including optional CTA buttons.
+- **Safe publishing** – API validation ensures CTA links are HTTPS and drafts remain hidden until toggled live. Frontend falls back gracefully when no announcements exist.
