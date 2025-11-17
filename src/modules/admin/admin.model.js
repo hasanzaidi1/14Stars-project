@@ -54,15 +54,75 @@ const AdminModel = {
             if (!firstName && !lastName) {
                 return { success: false, error: "First name or last name must be provided" };
             }
-    
-            const query = `SELECT * FROM student WHERE F_Name LIKE ? OR L_Name LIKE ?`;
-            const values = [`%${firstName || ''}%`, `%${lastName || ''}%`];
 
-            console.log("Query:", query);
-            console.log("Values:", values);
+            const filters = [];
+            const values = [];
 
-            const [students] = await pool.query(query, values);
-            return { success: true, students };
+            if (firstName) {
+                filters.push('s.F_Name LIKE ?');
+                values.push(`%${firstName}%`);
+            }
+
+            if (lastName) {
+                filters.push('s.L_Name LIKE ?');
+                values.push(`%${lastName}%`);
+            }
+
+            const whereClause = filters.length ? `WHERE ${filters.join(' AND ')}` : '';
+
+            const query = `
+                SELECT 
+                    s.St_ID,
+                    s.F_Name,
+                    s.MI,
+                    s.L_Name,
+                    s.st_email,
+                    s.st_cell,
+                    s.student_location,
+                    g.g_id,
+                    g.g_f_name,
+                    g.g_l_name,
+                    g.g_cell,
+                    g.g_email,
+                    sg.relationship_type
+                FROM student s
+                LEFT JOIN student_guardian sg ON sg.st_id = s.St_ID
+                LEFT JOIN guardian g ON g.g_id = sg.g_id
+                ${whereClause}
+                ORDER BY s.F_Name, s.L_Name, g.g_l_name;
+            `;
+
+            const [rows] = await pool.query(query, values);
+
+            const studentMap = new Map();
+
+            rows.forEach((row) => {
+                if (!studentMap.has(row.St_ID)) {
+                    studentMap.set(row.St_ID, {
+                        St_ID: row.St_ID,
+                        F_Name: row.F_Name,
+                        MI: row.MI,
+                        L_Name: row.L_Name,
+                        st_email: row.st_email,
+                        st_cell: row.st_cell,
+                        student_location: row.student_location,
+                        guardians: []
+                    });
+                }
+
+                if (row.g_id) {
+                    studentMap.get(row.St_ID).guardians.push({
+                        g_id: row.g_id,
+                        g_f_name: row.g_f_name,
+                        g_l_name: row.g_l_name,
+                        g_cell: row.g_cell,
+                        g_email: row.g_email,
+                        relationship_type: row.relationship_type
+                    });
+                }
+            });
+
+            return { success: true, students: Array.from(studentMap.values()) };
         } catch (error) {
             console.error('Database Error:', error);
             return { success: false, error: 'Internal Server Error' };

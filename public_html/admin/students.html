@@ -137,12 +137,49 @@
 
             function displayResults(result) {
                 resultsContainer.classList.remove('is-hidden');
-                if (result.students && result.students.length > 0) {
-                    resultsContainer.innerHTML = result.students.map(student => `
-                        <p><strong>${student.F_Name} ${student.L_Name}</strong> — ${student.st_email || 'No email on file'}</p>
-                    `).join('');
+                const students = Array.isArray(result.students) ? result.students : [];
+
+                if (students.length) {
+                    resultsContainer.classList.remove('card--muted');
+                    resultsContainer.classList.add('stack', 'stack--tight');
+                    resultsContainer.innerHTML = students.map(student => {
+                        const guardians = Array.isArray(student.guardians) && student.guardians.length
+                            ? student.guardians.map(guardian => `
+                                <div class="stack stack--tight card card--muted">
+                                    <p><strong>${guardian.g_f_name || ''} ${guardian.g_l_name || ''}</strong>${guardian.relationship_type ? ` — ${guardian.relationship_type}` : ''}</p>
+                                    <p class="text-muted">
+                                        ${guardian.g_cell ? `Phone: ${guardian.g_cell}` : 'Phone: Not provided'}
+                                        <br>
+                                        ${guardian.g_email ? `Email: <a href="mailto:${guardian.g_email}">${guardian.g_email}</a>` : 'Email: Not provided'}
+                                    </p>
+                                </div>
+                            `).join('')
+                            : '<p class="text-muted">No guardian on file.</p>';
+
+                        const middleInitial = student.MI ? `${student.MI}.` : '';
+
+                        return `
+                            <article class="card stack stack--tight">
+                                <div>
+                                    <p class="page-eyebrow">Student ID #${student.St_ID}</p>
+                                    <h3>${student.F_Name} ${middleInitial} ${student.L_Name}</h3>
+                                    <p class="text-muted">${student.student_location ? student.student_location.replace('-', ' ') : 'Location not set'}</p>
+                                    <p><strong>Email:</strong> ${student.st_email || 'Not provided'}</p>
+                                    <p><strong>Phone:</strong> ${student.st_cell || 'Not provided'}</p>
+                                </div>
+                                <div>
+                                    <p class="page-eyebrow">Parent / Guardian</p>
+                                    <div class="stack stack--tight">
+                                        ${guardians}
+                                    </div>
+                                </div>
+                            </article>
+                        `;
+                    }).join('');
                 } else {
-                    resultsContainer.textContent = result.message || 'No students found.';
+                    resultsContainer.classList.add('card--muted');
+                    resultsContainer.classList.remove('stack', 'stack--tight');
+                    resultsContainer.innerHTML = `<p>${result.message || 'No students found.'}</p>`;
                 }
             }
         });
