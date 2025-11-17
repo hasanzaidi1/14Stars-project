@@ -20,7 +20,7 @@ class AdminController {
                     maxAge: 30 * 24 * 60 * 60 * 1000 
                 });
             }
-            res.redirect('/admin/admin');
+            return res.redirect('/admin/admin');
         }
 
         return res.status(401).sendFile(path.resolve('public_html/invalid-credentials.html'));
