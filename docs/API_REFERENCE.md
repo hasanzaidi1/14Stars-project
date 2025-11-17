@@ -176,6 +176,27 @@ Teacher registration body fields: `t_f_name`, `t_l_name`, `t_email`, address, ph
 }
 ```
 
+### Announcements (`/announcements`)
+| Method & Path | Auth | Description |
+| --- | --- | --- |
+| `GET /announcements/public?limit=` | none | Retrieve published announcements for public pages. |
+| `GET /announcements` | Admin | Return all announcements, including drafts. |
+| `POST /announcements` | Admin | Create announcement `{ title, body, ctaLabel?, ctaUrl?, displayOrder?, isPublished? }`. |
+| `PUT /announcements/:id` | Admin | Update any combination of fields; set `isPublished` to show/hide. |
+| `DELETE /announcements/:id` | Admin | Permanently remove an announcement. |
+
+**Create example**
+```json
+{
+  "title": "Parent-Teacher Conferences",
+  "body": "Slots open this Saturday from 10am–2pm.",
+  "ctaLabel": "Reserve a time",
+  "ctaUrl": "https://calendly.com/14stars/conference",
+  "displayOrder": 1,
+  "isPublished": true
+}
+```
+
 ## Error Handling
 - 4xx responses for validation/auth issues.
 - 5xx responses collapse to `Internal server error`; logged via `logger.error`.
