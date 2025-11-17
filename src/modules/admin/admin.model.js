@@ -30,7 +30,7 @@ const AdminModel = {
     // Get student by ID
     async getStudentById(studentId) {
         try {
-            const [students] = await pool.query(`SELECT * FROM student WHERE student_id = ?`, [studentId]);
+            const [students] = await pool.query(`SELECT * FROM student WHERE St_ID = ?`, [studentId]);
             return students.length ? students[0] : null;
         } catch (error) {
             console.error('Database Error:', error);

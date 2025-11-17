@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage Announcements</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand-mark" href="/admin/admin.html">14 Stars Admin</a>
+        <button class="nav-toggle" type="button" data-nav-toggle data-target="primary-nav" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <nav class="nav-links" id="primary-nav">
+            <a class="nav-link" href="/admin/admin.html">Dashboard</a>
+            <a class="nav-link" href="/admin/students.html">Students</a>
+            <a class="nav-link" href="/admin/guardian.html">Guardians</a>
+            <a class="nav-link" href="/admin/teacher_table.html">Teachers</a>
+            <a class="nav-link" href="/admin/teacher_classes.html">Teacher Classes</a>
+            <a class="nav-link" href="/admin/subjects.html">Subjects</a>
+            <a class="nav-link" href="/admin/levels.html">Levels</a>
+            <a class="nav-link" href="/admin/terms.html">Terms</a>
+            <a class="nav-link is-active" href="/admin/announcements.html">Announcements</a>
+            <a class="nav-link" href="/substitute/register_substitutes.html">Substitutes</a>
+            <button class="btn btn--danger" type="button" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
+        </nav>
+    </header>
+
+    <main class="stack">
+        <section class="page-header">
+            <div>
+                <p class="page-eyebrow">Homepage</p>
+                <h1>Announcements Board</h1>
+                <p class="text-muted">Publish updates that appear on the public landing page. Drafts stay hidden until published.</p>
+            </div>
+        </section>
+
+        <section class="panel panel--narrow stack">
+            <div class="page-actions">
+                <div>
+                    <h2 id="formTitle">Create Announcement</h2>
+                    <p class="text-muted">Fill in the details below. You can attach an optional call-to-action link.</p>
+                </div>
+            </div>
+            <form id="announcementForm" class="stack">
+                <label for="announcementTitle">Title</label>
+                <input type="text" id="announcementTitle" name="title" placeholder="e.g., Parent-Teacher Conferences" required>
+
+                <label for="announcementBody">Body</label>
+                <textarea id="announcementBody" name="body" rows="4" placeholder="Share key information or reminders." required></textarea>
+
+                <div class="grid grid--two">
+                    <div class="stack">
+                        <label for="announcementCtaLabel">CTA Label <span class="text-muted">(optional)</span></label>
+                        <input type="text" id="announcementCtaLabel" name="ctaLabel" placeholder="View schedule">
+                    </div>
+                    <div class="stack">
+                        <label for="announcementCtaUrl">CTA URL <span class="text-muted">(optional)</span></label>
+                        <input type="url" id="announcementCtaUrl" name="ctaUrl" placeholder="https://example.com/agenda">
+                    </div>
+                </div>
+
+                <div class="grid grid--two">
+                    <div class="stack">
+                        <label for="announcementDisplayOrder">Display Order</label>
+                        <input type="number" id="announcementDisplayOrder" name="displayOrder" min="0" value="0">
+                    </div>
+                    <div class="stack">
+                        <label class="checkbox">
+                            <input type="checkbox" id="announcementPublished" name="isPublished" checked>
+                            <span>Visible on homepage</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="page-actions">
+                    <button class="btn" type="submit" id="announcementSubmit">Publish Announcement</button>
+                    <button class="btn btn--ghost is-hidden" type="button" id="cancelEdit">Cancel editing</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="panel panel--narrow stack">
+            <div class="page-actions">
+                <div>
+                    <h2>Current Announcements</h2>
+                    <p class="text-muted">Edit, hide, or delete announcements as needed.</p>
+                </div>
+                <button class="btn btn--ghost" type="button" onclick="fetchAnnouncements()">Refresh</button>
+            </div>
+            <ul id="announcementList" class="stack"></ul>
+        </section>
+    </main>
+
+    <script>
+        const form = document.getElementById('announcementForm');
+        const formTitle = document.getElementById('formTitle');
+        const submitBtn = document.getElementById('announcementSubmit');
+        const cancelEditBtn = document.getElementById('cancelEdit');
+        const listEl = document.getElementById('announcementList');
+        let editingAnnouncementId = null;
+
+        async function fetchAnnouncements() {
+            listEl.innerHTML = '<li class="card card--muted">Loading announcements…</li>';
+            try {
+                const response = await fetch('/announcements');
+                if (response.status === 403) {
+                    listEl.innerHTML = '<li class="card card--muted">Please log in as an administrator to manage announcements.</li>';
+                    return;
+                }
+                if (!response.ok) throw new Error('Unable to load announcements');
+                const data = await response.json();
+                renderAnnouncements(data.announcements || []);
+            } catch (error) {
+                console.error(error);
+                listEl.innerHTML = '<li class="card card--muted">Unable to load announcements. Please refresh.</li>';
+            }
+        }
+
+        function renderAnnouncements(announcements) {
+            listEl.innerHTML = '';
+            if (!announcements.length) {
+                const empty = document.createElement('li');
+                empty.className = 'card card--muted';
+                empty.textContent = 'No announcements yet.';
+                listEl.appendChild(empty);
+                return;
+            }
+
+            announcements.forEach((announcement) => {
+                const li = document.createElement('li');
+                li.className = 'card card--muted';
+
+                const body = document.createElement('div');
+                body.className = 'card-body stack';
+
+                const title = document.createElement('h3');
+                title.textContent = announcement.title;
+                body.appendChild(title);
+
+                const description = document.createElement('p');
+                description.textContent = announcement.body;
+                body.appendChild(description);
+
+                const meta = document.createElement('p');
+                meta.className = 'text-muted';
+                meta.textContent = `${announcement.isPublished ? 'Visible' : 'Hidden'} · Display order ${announcement.displayOrder}`;
+                body.appendChild(meta);
+
+                if (announcement.ctaLabel && announcement.ctaUrl) {
+                    const link = document.createElement('a');
+                    link.href = announcement.ctaUrl;
+                    link.textContent = announcement.ctaLabel;
+                    link.className = 'btn btn--ghost';
+                    link.target = '_blank';
+                    link.rel = 'noopener noreferrer';
+                    body.appendChild(link);
+                }
+
+                const actions = document.createElement('div');
+                actions.className = 'card-actions';
+
+                const editBtn = document.createElement('button');
+                editBtn.className = 'btn btn--ghost';
+                editBtn.type = 'button';
+                editBtn.textContent = 'Edit';
+                editBtn.addEventListener('click', () => startEditing(announcement));
+
+                const toggleBtn = document.createElement('button');
+                toggleBtn.className = 'btn btn--light';
+                toggleBtn.type = 'button';
+                toggleBtn.textContent = announcement.isPublished ? 'Hide' : 'Publish';
+                toggleBtn.addEventListener('click', () => togglePublished(announcement.id, !announcement.isPublished));
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'btn btn--danger';
+                deleteBtn.type = 'button';
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', () => deleteAnnouncement(announcement.id));
+
+                actions.appendChild(editBtn);
+                actions.appendChild(toggleBtn);
+                actions.appendChild(deleteBtn);
+
+                li.appendChild(body);
+                li.appendChild(actions);
+                listEl.appendChild(li);
+            });
+        }
+
+        function startEditing(announcement) {
+            editingAnnouncementId = announcement.id;
+            formTitle.textContent = 'Edit Announcement';
+            submitBtn.textContent = 'Update Announcement';
+            cancelEditBtn.classList.remove('is-hidden');
+
+            document.getElementById('announcementTitle').value = announcement.title;
+            document.getElementById('announcementBody').value = announcement.body;
+            document.getElementById('announcementCtaLabel').value = announcement.ctaLabel || '';
+            document.getElementById('announcementCtaUrl').value = announcement.ctaUrl || '';
+            document.getElementById('announcementDisplayOrder').value = announcement.displayOrder;
+            document.getElementById('announcementPublished').checked = announcement.isPublished;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function resetForm() {
+            editingAnnouncementId = null;
+            form.reset();
+            document.getElementById('announcementDisplayOrder').value = 0;
+            document.getElementById('announcementPublished').checked = true;
+            formTitle.textContent = 'Create Announcement';
+            submitBtn.textContent = 'Publish Announcement';
+            cancelEditBtn.classList.add('is-hidden');
+        }
+
+        cancelEditBtn.addEventListener('click', resetForm);
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const payload = {
+                title: document.getElementById('announcementTitle').value.trim(),
+                body: document.getElementById('announcementBody').value.trim(),
+                ctaLabel: document.getElementById('announcementCtaLabel').value.trim(),
+                ctaUrl: document.getElementById('announcementCtaUrl').value.trim(),
+                displayOrder: Number(document.getElementById('announcementDisplayOrder').value) || 0,
+                isPublished: document.getElementById('announcementPublished').checked
+            };
+
+            if (!payload.title || !payload.body) {
+                alert('Title and body are required.');
+                return;
+            }
+
+            const requestOptions = {
+                method: editingAnnouncementId ? 'PUT' : 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            };
+
+            const endpoint = editingAnnouncementId ? `/announcements/${editingAnnouncementId}` : '/announcements';
+
+            try {
+                const response = await fetch(endpoint, requestOptions);
+                const result = await response.json();
+                if (!response.ok) {
+                    alert(result.message || 'Unable to save announcement.');
+                    return;
+                }
+                resetForm();
+                fetchAnnouncements();
+            } catch (error) {
+                console.error(error);
+                alert('Unable to save announcement.');
+            }
+        });
+
+        async function togglePublished(id, nextState) {
+            try {
+                const response = await fetch(`/announcements/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ isPublished: nextState })
+                });
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.message || 'Unable to update announcement');
+                    return;
+                }
+                if (editingAnnouncementId === id) {
+                    document.getElementById('announcementPublished').checked = nextState;
+                }
+                fetchAnnouncements();
+            } catch (error) {
+                console.error(error);
+                alert('Unable to update announcement visibility.');
+            }
+        }
+
+        async function deleteAnnouncement(id) {
+            if (!confirm('Delete this announcement?')) return;
+            try {
+                const response = await fetch(`/announcements/${id}`, { method: 'DELETE' });
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.message || 'Unable to delete announcement');
+                    return;
+                }
+                if (editingAnnouncementId === id) {
+                    resetForm();
+                }
+                fetchAnnouncements();
+            } catch (error) {
+                console.error(error);
+                alert('Unable to delete announcement.');
+            }
+        }
+
+        fetchAnnouncements();
+    </script>
+    <script src="/scripts/ui.js" defer></script>
+</body>
+</html>

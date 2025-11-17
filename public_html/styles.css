@@ -146,6 +146,27 @@ section + section {
     gap: 1.5rem;
 }
 
+.grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.grid--two {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-weight: 500;
+}
+
+.checkbox input[type="checkbox"] {
+    width: 1.1rem;
+    height: 1.1rem;
+}
+
 .stack--tight {
     gap: 1rem;
 }

@@ -20,6 +20,7 @@ const studentLevelRoutes = require('./modules/student-level/student-level.routes
 const studentRoutes = require('./modules/student/student.routes');
 const termRoutes = require('./modules/term/term.routes');
 const teacherClassRoutes = require('./modules/teacher-class/teacher-class.routes');
+const announcementRoutes = require('./modules/announcement/announcement.routes');
 
 const logBindings = {
     log: 'info',
@@ -72,6 +73,7 @@ app.use('/student-levels', studentLevelRoutes);
 app.use('/students', studentRoutes);
 app.use('/terms', termRoutes);
 app.use('/teacher-classes', teacherClassRoutes);
+app.use('/announcements', announcementRoutes);
 app.use(serveExtensionlessHtml);
 app.use(errorHandler);
 
