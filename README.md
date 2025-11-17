@@ -68,9 +68,6 @@ graph TD
 | Admin dashboard | `![Admin dashboard](docs/images/admin-portal.png)` |
 | Parent portal | `![Parent portal](docs/images/parent-portal.png)` |
 | Teacher portal | `![Teacher portal](docs/images/teacher-portal.png)` |
-| Substitute request board | `![Substitute request](docs/images/sub-request.png)` |
-
-_(Replace placeholders with actual captures before release.)_
 
 ## Documentation Index
 - [Setup & Installation](docs/SETUP_AND_INSTALLATION.md)
