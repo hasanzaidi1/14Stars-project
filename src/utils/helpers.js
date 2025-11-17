@@ -100,10 +100,15 @@ const isValidPhoneNumber = (phone) => {
  * @returns {Function} - Calls the next middleware function if authenticated.
  */
 function isAuthenticated(req, res, next) {
-    if (req.session.isAdmin || req.cookies.username) {
+    const hasSession =
+        (req.session && (req.session.isAdmin || req.session.isTeacher || req.session.isParent))
+        || (req.cookies && req.cookies.username);
+
+    if (hasSession) {
         return next();
     }
-    return next();
+
+    return res.status(401).json({ message: 'Authentication required.' });
 }
 
 /**
