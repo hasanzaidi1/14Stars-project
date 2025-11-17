@@ -4,153 +4,291 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Students</title>
-    <link rel="stylesheet" href="./../styles.css">
-    <style>
-        /* Reset some default browser styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        .btn-container {
-            margin-top: 30px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .cta-button {
-            padding: 15px 30px;
-            font-size: 18px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        .cta-button:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
-        }
-
-        .cta-button:active {
-            background-color: #004085;
-        }
-
-        #student-info {
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            width: 70%;
-        }
-        
-        .student-card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 10px;
-            background-color: #f1f5f9;
-        }
-    </style>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <header>
-        <h1>Parents Portal</h1>
-        <nav>
-            <ul>
-                <li><button onclick="window.location.href='parents_portal.html'">Parent Portal</button></li>
-                <li><button class="logout-btn" onclick="window.location.href='parents_login.html'">Logout</button></li>
-            </ul>
+    <header class="site-header">
+        <a class="brand-mark" href="/index.html">14 Stars</a>
+        <button class="nav-toggle" type="button" data-nav-toggle data-target="primary-nav" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <nav class="nav-links" id="primary-nav">
+            <a class="nav-link" href="/parents/parents_portal.html">Parent Portal</a>
+            <a class="nav-link is-active" href="/parents/view_students.html">View Students</a>
+            <a class="nav-link" href="/parents/student_registration.html">Register Student</a>
+            <button class="btn btn--danger" type="button" onclick="window.location.href='/parents/logout'">Logout</button>
         </nav>
     </header>
 
-    <div>
-        <form action="/parents/students" method="POST">
-            <label>Parent Email Address</label>
-            <p style="font-size: 12px; color: #770303;">*Parent email associated with the student(s)</p>
-            <input type="text" name="parent_email" id="parent_email" placeholder="Email" required>
-            <button type="submit" class="cta-button">Submit</button>
-        </form>
-    </div>
+    <main class="stack">
+        <section class="page-header">
+            <div>
+                <p class="page-eyebrow">Family Overview</p>
+                <h1>Your students</h1>
+                <p class="text-muted">Every student linked to your guardian account appears below.</p>
+            </div>
+            <div class="page-actions">
+                <button class="btn btn--ghost" type="button" onclick="window.location.href='student_registration.html'">Add Student</button>
+            </div>
+        </section>
 
-    <div id="student-info"></div>
+        <section class="panel panel--narrow">
+            <div id="student-info" class="stack">
+                <p class="text-muted">Loading your students...</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2024 14 Stars Islamic School.</p>
+    </footer>
 
     <script>
-        const form = document.querySelector('form');
         const studentInfoDiv = document.getElementById('student-info');
-    
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault(); // Prevent the default form submission
-    
-            const formData = new FormData(form);
-            const parentEmail = formData.get('parent_email');
-    
+        document.addEventListener('DOMContentLoaded', loadStudents);
+
+        async function loadStudents() {
+            studentInfoDiv.innerHTML = '<p class="text-muted">Loading your students...</p>';
+
             try {
-                const response = await fetch('/parents/students', {
-                    method: 'POST',
-                    body: JSON.stringify({ parent_email: parentEmail }),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-    
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    studentInfoDiv.innerHTML = `<p style="color: red;">${errorData.message}</p>`;
+                const [studentsResponse, academicsResponse] = await Promise.all([
+                    fetch('/parents/students', {
+                        method: 'GET',
+                        headers: { 'Accept': 'application/json' },
+                        credentials: 'same-origin'
+                    }),
+                    fetch('/parents/student-academics', {
+                        method: 'GET',
+                        headers: { 'Accept': 'application/json' },
+                        credentials: 'same-origin'
+                    })
+                ]);
+
+                if ([studentsResponse.status, academicsResponse.status].some(status => status === 401 || status === 403)) {
+                    window.location.href = 'parents_login.html';
                     return;
                 }
-    
-                const students = await response.json();
-                // Clear previous student info
-                studentInfoDiv.innerHTML = '';
-    
-                // Display the students' information
-                if (students.length > 0) {
-                    students.forEach(student => {
-                        const studentDiv = document.createElement('div');
-                        studentDiv.classList.add('student-card');
-                        studentDiv.innerHTML = `
-                            <p><strong>Name:</strong> ${student.F_Name} ${student.L_Name}</p>
-                            <p><strong>DOB:</strong> ${student.dob ? formatDateOfBirth(student.dob) : 'N/A'}</p>
-                            <p><strong>Email:</strong> ${student.st_email}</p>
-                            <p><strong>Phone:</strong> ${student.st_cell}</p>
-                        `;
-                        studentInfoDiv.appendChild(studentDiv);
-                    });
-                } else {
-                    studentInfoDiv.innerHTML = '<p>No students found for this email.</p>';
+
+                if (!studentsResponse.ok) {
+                    const errorData = await safeJson(studentsResponse);
+                    studentInfoDiv.innerHTML = `<div class="message message--error">${(errorData && errorData.message) || 'Unable to load students.'}</div>`;
+                    return;
                 }
-    
+
+                const students = await studentsResponse.json();
+                let academicRecords = [];
+                let academicDataError = false;
+
+                if (academicsResponse.ok) {
+                    academicRecords = await academicsResponse.json();
+                } else {
+                    academicDataError = true;
+                }
+
+                renderStudents(students, academicRecords, academicDataError);
             } catch (error) {
                 console.error('Error:', error);
-                studentInfoDiv.innerHTML = `<p style="color: red;">Failed to fetch student information.</p>`;
+                studentInfoDiv.innerHTML = `<div class="message message--error">Failed to fetch student information.</div>`;
             }
-        });
+        }
+
+        function renderStudents(students, records, academicDataError) {
+            studentInfoDiv.innerHTML = '';
+
+            if (academicDataError) {
+                studentInfoDiv.appendChild(createNotice('We were unable to load class and grade history. The academic team has been notified.'));
+            }
+
+            if (!students.length) {
+                const emptyState = document.createElement('p');
+                emptyState.classList.add('text-muted');
+                emptyState.textContent = 'No students found for your account.';
+                studentInfoDiv.appendChild(emptyState);
+                return;
+            }
+
+            const recordsByStudent = groupRecordsByStudent(records);
+
+            students.forEach(student => {
+                const studentDiv = document.createElement('article');
+                studentDiv.classList.add('card', 'stack');
+                const studentRecords = recordsByStudent[student.St_ID] || [];
+
+                studentDiv.innerHTML = `
+                    <div>
+                        <p><strong>Name:</strong> ${student.F_Name} ${student.L_Name}</p>
+                        <p><strong>DOB:</strong> ${student.dob ? formatDateOfBirth(student.dob) : 'N/A'}</p>
+                        <p><strong>Email:</strong> ${student.st_email || 'N/A'}</p>
+                        <p><strong>Phone:</strong> ${student.st_cell || 'N/A'}</p>
+                    </div>
+                `;
+
+                studentDiv.appendChild(buildClassesSection(studentRecords));
+                studentDiv.appendChild(buildHistorySection(studentRecords));
+
+                studentInfoDiv.appendChild(studentDiv);
+            });
+        }
+
+        function groupRecordsByStudent(records) {
+            return records.reduce((acc, record) => {
+                if (!record.studentId) {
+                    return acc;
+                }
+                if (!acc[record.studentId]) {
+                    acc[record.studentId] = [];
+                }
+                acc[record.studentId].push(record);
+                return acc;
+            }, {});
+        }
+
+        function buildClassesSection(studentRecords) {
+            const classesSection = document.createElement('div');
+            classesSection.classList.add('student-classes', 'stack');
+
+            const currentSchoolYear = getCurrentSchoolYear();
+            const currentClasses = dedupeClasses(
+                studentRecords.filter(record => record.className && (record.isCurrentYear || record.schoolYear === currentSchoolYear))
+            );
+
+            classesSection.innerHTML = `<h4>Current Classes <span class="text-muted">(${currentSchoolYear})</span></h4>`;
+
+            if (currentClasses.length) {
+                const list = document.createElement('ul');
+                list.classList.add('list', 'list--bulleted');
+
+                currentClasses.forEach(cls => {
+                    const item = document.createElement('li');
+                    const levelLabel = cls.levelNumber ? `Level ${cls.levelNumber}` : 'Level N/A';
+                    const termLabel = cls.termName ? `${cls.termName}` : 'Term N/A';
+                    const teacherLabel = cls.teacherName ? cls.teacherName : 'Unassigned';
+                    item.innerHTML = `<strong>${cls.className}</strong> &mdash; ${levelLabel} (${termLabel}) <span class="text-muted">Teacher: ${teacherLabel}</span>`;
+                    list.appendChild(item);
+                });
+
+                classesSection.appendChild(list);
+            } else {
+                const message = document.createElement('p');
+                message.classList.add('text-muted');
+                message.textContent = 'No classes recorded for the current school year yet.';
+                classesSection.appendChild(message);
+            }
+
+            return classesSection;
+        }
+
+        function buildHistorySection(studentRecords) {
+            const historySection = document.createElement('div');
+            historySection.classList.add('student-history', 'stack');
+            historySection.innerHTML = '<h4>Class & Level History</h4>';
+
+            const historyEntries = studentRecords.filter(record => record.className || record.schoolYear || hasGrade(record));
+
+            if (!historyEntries.length) {
+                const message = document.createElement('p');
+                message.classList.add('text-muted');
+                message.textContent = 'No historical grade information available yet.';
+                historySection.appendChild(message);
+                return historySection;
+            }
+
+            const table = document.createElement('table');
+            table.classList.add('data-table');
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>School Year</th>
+                        <th>Term</th>
+                        <th>Class</th>
+                        <th>Level</th>
+                        <th>Teacher</th>
+                        <th>Midterm</th>
+                        <th>Final</th>
+                        <th>Average</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${historyEntries.map(entry => `
+                        <tr>
+                            <td>${entry.schoolYear || '—'}</td>
+                            <td>${entry.termName || '—'}</td>
+                            <td>${entry.className || 'Unassigned'}</td>
+                            <td>${entry.levelNumber ?? '—'}</td>
+                            <td>${entry.teacherName || 'Unassigned'}</td>
+                            <td>${formatGrade(entry.midtermGrade)}</td>
+                            <td>${formatGrade(entry.finalGrade)}</td>
+                            <td>${formatGrade(entry.averageGrade)}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            `;
+
+            historySection.appendChild(table);
+            return historySection;
+        }
+
+        function dedupeClasses(records) {
+            const unique = [];
+            const seen = new Set();
+
+            records.forEach(record => {
+                const key = `${record.className}-${record.levelNumber ?? 'none'}-${record.termId ?? 'none'}-${record.teacherId ?? record.teacherName ?? 'none'}`;
+                if (!seen.has(key)) {
+                    seen.add(key);
+                    unique.push(record);
+                }
+            });
+
+            return unique;
+        }
+
+        function hasGrade(record) {
+            return [record.midtermGrade, record.finalGrade, record.averageGrade].some(value => value !== null && value !== undefined);
+        }
+
+        function formatGrade(value) {
+            if (value === null || value === undefined) return '—';
+            const number = Number(value);
+            return Number.isFinite(number) ? number.toFixed(2) : value;
+        }
 
         function formatDateOfBirth(dateString) {
             if (!dateString) return 'N/A';
 
-            // Ensure it's a valid date
             const dob = new Date(dateString);
             if (isNaN(dob.getTime())) {
                 console.error('Invalid DOB:', dateString);
                 return 'Invalid Date';
             }
 
-            // Extract the correct parts (Year-Month-Day)
-            const year = dob.getUTCFullYear(); // Use UTC to avoid time zone shifts
-            const month = String(dob.getUTCMonth() + 1).padStart(2, '0'); // Ensure two-digit month
-            const day = String(dob.getUTCDate()).padStart(2, '0'); // Ensure two-digit day
+            const year = dob.getUTCFullYear();
+            const month = String(dob.getUTCMonth() + 1).padStart(2, '0');
+            const day = String(dob.getUTCDate()).padStart(2, '0');
 
             return `${year}-${month}-${day}`;
         }
 
+        function getCurrentSchoolYear() {
+            const today = new Date();
+            const currentYear = today.getFullYear();
+            const month = today.getMonth() + 1;
+            return month >= 7 ? `${currentYear}-${currentYear + 1}` : `${currentYear - 1}-${currentYear}`;
+        }
+
+        async function safeJson(response) {
+            try {
+                return await response.json();
+            } catch (error) {
+                return null;
+            }
+        }
+
+        function createNotice(message) {
+            const notice = document.createElement('div');
+            notice.classList.add('message', 'message--warning');
+            notice.textContent = message;
+            return notice;
+        }
     </script>
+    <script src="/scripts/ui.js" defer></script>
 </body>
 </html>

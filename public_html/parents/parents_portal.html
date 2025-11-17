@@ -4,62 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Parent Portal</title>
-    <link rel="stylesheet" href="./../styles.css">
-    <style>
-        /* Reset some default browser styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        .btn-container {
-            margin-top: 30px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .cta-button {
-            padding: 15px 30px;
-            font-size: 18px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        .cta-button:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
-        }
-
-        .cta-button:active {
-            background-color: #004085;
-        }
-    </style>
-    <script>
-
-    </script>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <header>
-        <h1>Parents Portal</h1>
-        <nav>
-            <ul>
-                <button onclick="window.location.href='#'">Parent Portal</button>
-                <button class="logout-btn" onclick="window.location.href='/parents/logout'">Logout</button>
-            </ul>
+    <header class="site-header">
+        <a class="brand-mark" href="/index.html">14 Stars</a>
+        <button class="nav-toggle" type="button" data-nav-toggle data-target="primary-nav" aria-expanded="false" aria-label="Toggle navigation">☰</button>
+        <nav class="nav-links" id="primary-nav">
+            <a class="nav-link" href="/index.html">Home</a>
+            <a class="nav-link is-active" href="/parents/parents_portal.html">Parents</a>
+            <a class="nav-link" href="/parents/view_students.html">View Students</a>
+            <button class="btn btn--ghost" type="button" onclick="window.location.href='/parents/logout'">Logout</button>
         </nav>
     </header>
-    
-    <div class="btn-container">
-        <button class="cta-button" onclick="window.location.href='./../index.html'">Home</button>
-        <button class="cta-button" onclick="window.location.href='view_students.html'">View Students</button>
-        <button class="cta-button" onclick="window.location.href='student_registration.html'">Register Student</button>
-    </div>
+
+    <main class="stack">
+        <section class="page-header">
+            <div>
+                <p class="page-eyebrow">Parent Portal</p>
+                <h1>Welcome back</h1>
+                <p class="text-muted">Track your children's classes and manage family information in one place.</p>
+            </div>
+            <div class="page-actions">
+                <button class="btn" type="button" onclick="window.location.href='view_students.html'">View Students</button>
+                <button class="btn btn--ghost" type="button" onclick="window.location.href='student_registration.html'">Register Student</button>
+            </div>
+        </section>
+
+        <section class="panel panel--narrow stack">
+            <h2>Quick Actions</h2>
+            <div class="btn-container">
+                <button class="btn" type="button" onclick="window.location.href='/index.html'">School Home</button>
+                <button class="btn btn--secondary" type="button" onclick="window.location.href='view_students.html'">View Students</button>
+                <button class="btn btn--ghost" type="button" onclick="window.location.href='student_registration.html'">Register Student</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2024 14 Stars Islamic School.</p>
+    </footer>
+
+    <script src="/scripts/ui.js" defer></script>
 </body>
 </html>

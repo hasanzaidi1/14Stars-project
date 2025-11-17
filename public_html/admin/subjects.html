@@ -4,91 +4,172 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subject Management</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
-    <style>
-        
-        ul, h2 {
-            list-style-type: none;
-            padding: 0;
-            text-align: center;
-        }
-
-        form {
-            width: 50%;
-            justify-content: center;
-        }
-
-        input {
-            width: 50%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            box-sizing: border-box;
-        }
-    </style>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <header>
-        <h1>Subject Management</h1>
-        <nav>
-            <ul>
-                <button onclick="window.location.href='/admin/admin.html'">Back to Admin Page</button>
-                <button class="logout-btn" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
-            </ul>
+    <header class="site-header">
+        <a class="brand-mark" href="/admin/admin.html">14 Stars Admin</a>
+        <button class="nav-toggle" type="button" data-nav-toggle data-target="primary-nav" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <nav class="nav-links" id="primary-nav">
+            <a class="nav-link" href="/admin/admin.html">Dashboard</a>
+            <a class="nav-link" href="/admin/students.html">Students</a>
+            <a class="nav-link" href="/admin/guardian.html">Guardians</a>
+            <a class="nav-link" href="/admin/teacher_table.html">Teachers</a>
+            <a class="nav-link" href="/admin/teacher_classes.html">Teacher Classes</a>
+            <a class="nav-link is-active" href="/admin/subjects.html">Subjects</a>
+            <a class="nav-link" href="/admin/levels.html">Levels</a>
+            <a class="nav-link" href="/admin/terms.html">Terms</a>
+            <a class="nav-link" href="/substitute/register_substitutes.html">Substitutes</a>
+            <button class="btn btn--danger" type="button" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
         </nav>
     </header>
-    
-    <form id="subjectForm">
-        <label for="subject">Add Subject:</label>
-        <input type="text" id="subject" name="subject" required>
-        <button type="submit">Add Subject</button>
-    </form>
 
-    <h2>All Subjects</h2>
-    <ul id="subjectList"></ul>
+    <main class="stack">
+        <section class="page-header">
+            <div>
+                <p class="page-eyebrow">Curriculum</p>
+                <h1>Subject Management</h1>
+                <p class="text-muted">Add new subjects and keep the directory tidy for level assignments.</p>
+            </div>
+        </section>
+
+        <section class="panel panel--narrow stack">
+            <h2>Add a Subject</h2>
+            <form id="subjectForm" class="stack">
+                <label for="subject">Subject Name</label>
+                <input type="text" id="subject" name="subject" placeholder="e.g., Quran Memorization" required>
+                <button class="btn" type="submit">Add Subject</button>
+            </form>
+        </section>
+
+        <section class="panel panel--narrow stack">
+            <div>
+                <h2>All Subjects</h2>
+                <p class="text-muted">Subjects update here automatically after you add a new one.</p>
+            </div>
+            <ul id="subjectList" class="stack"></ul>
+        </section>
+    </main>
 
     <script>
-        // Function to fetch and display all subjects
         async function fetchSubjects() {
-    try {
-        const response = await fetch('/subjects/fetch');
-        const subjects = await response.json();
-        console.log('Fetched subjects:', subjects); // Add this line
-        const subjectList = document.getElementById('subjectList');
-        subjectList.innerHTML = '';
+            try {
+                const response = await fetch('/subjects/fetch');
+                const subjects = await response.json();
+                renderSubjects(subjects);
+            } catch (error) {
+                console.error('Error fetching subjects:', error);
+            }
+        }
 
-        subjects.forEach(subject => {
-            const li = document.createElement('li');
-            li.textContent = subject.subject; // Ensure this matches your database column name
-            subjectList.appendChild(li);
-        });
-    } catch (error) {
-        console.error('Error fetching subjects:', error);
-    }
-}
+        function renderSubjects(subjects) {
+            const subjectList = document.getElementById('subjectList');
+            subjectList.innerHTML = '';
 
+            if (!subjects.length) {
+                const empty = document.createElement('li');
+                empty.className = 'card card--muted';
+                empty.textContent = 'No subjects found.';
+                subjectList.appendChild(empty);
+                return;
+            }
 
-        // Function to handle form submission
+            subjects.forEach(subject => {
+                const li = document.createElement('li');
+                li.className = 'card card--muted';
+
+                const body = document.createElement('div');
+                body.className = 'card-body';
+                const title = document.createElement('strong');
+                title.textContent = subject.subject;
+                body.appendChild(title);
+
+                const actions = document.createElement('div');
+                actions.className = 'card-actions';
+                const editBtn = document.createElement('button');
+                editBtn.type = 'button';
+                editBtn.className = 'btn btn--ghost';
+                editBtn.textContent = 'Edit';
+                editBtn.addEventListener('click', () => editSubject(subject.subject_id, subject.subject));
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.type = 'button';
+                deleteBtn.className = 'btn btn--danger';
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', () => deleteSubject(subject.subject_id));
+
+                actions.appendChild(editBtn);
+                actions.appendChild(deleteBtn);
+                li.appendChild(body);
+                li.appendChild(actions);
+                subjectList.appendChild(li);
+            });
+        }
+
         document.getElementById('subjectForm').addEventListener('submit', async (event) => {
-            event.preventDefault(); // Prevent default form submission
-
+            event.preventDefault();
             const subjectInput = document.getElementById('subject');
-            const subjectValue = subjectInput.value;
+            const subjectValue = subjectInput.value.trim();
 
-            // Make a POST request to add a new subject
-            await fetch('/subjects/add', {
+            if (!subjectValue) return;
+
+            const response = await fetch('/subjects/add', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ subject: subjectValue }),
+                body: JSON.stringify({ subject: subjectValue })
             });
 
-            subjectInput.value = ''; // Clear the input field
-            fetchSubjects(); // Refresh the subject list
+            if (response.ok) {
+                subjectInput.value = '';
+                fetchSubjects();
+            } else {
+                alert('Unable to add subject.');
+            }
         });
 
-        // Fetch subjects when the page loads
+        async function editSubject(id, currentValue) {
+            const newValue = prompt('Update subject name', currentValue);
+            if (!newValue) return;
+
+            try {
+                const response = await fetch(`/subjects/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ subject: newValue })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.error || 'Unable to update subject');
+                    return;
+                }
+
+                fetchSubjects();
+            } catch (error) {
+                console.error('Error updating subject:', error);
+            }
+        }
+
+        async function deleteSubject(id) {
+            if (!confirm('Delete this subject?')) return;
+
+            try {
+                const response = await fetch(`/subjects/${id}`, { method: 'DELETE' });
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.error || 'Unable to delete subject');
+                    return;
+                }
+                fetchSubjects();
+            } catch (error) {
+                console.error('Error deleting subject:', error);
+            }
+        }
+
         fetchSubjects();
     </script>
+    <script src="/scripts/ui.js" defer></script>
 </body>
 </html>

@@ -3,231 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles.css">
-    <title>Admin</title>
-    <style>
-        /* Reset some default browser styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        .btn-container {
-            margin-top: 30px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .cta-button {
-            padding: 15px 30px;
-            font-size: 18px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        .highlight-row {
-            background-color: #fff3cd; /* soft yellow */
-        }
-
-        .cta-button:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
-        }
-
-        .cta-button:active {
-            background-color: #004085;
-        }
-
-        /* Table styling */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 30px;
-        }
-
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #007bff;
-            color: white;
-        }
-
-        /* Hide the table by default */
-        #substitute-requests-table {
-            display: none;
-        }
-
-        /* Make table scrollable on small screens */
-        @media screen and (max-width: 768px) {
-            table {
-                display: block;
-                overflow-x: auto;
-                white-space: nowrap;
-            }
-
-            th, td {
-                text-align: center;
-            }
-
-            .text-entry {
-                font-size: 14px;
-                padding: 3px;
-            }
-
-            .submit-btn {
-                font-size: 12px;
-                padding: 3px 10px;
-            }
-        }
-
-        /* Adjust button sizes and spacing for smaller screens */
-        @media screen and (max-width: 576px) {
-            .cta-button {
-                font-size: 16px;
-                padding: 10px 20px;
-            }
-
-            .btn-container {
-                gap: 10px;
-            }
-        }
-
-        /* Styling for the text entry fields */
-        .text-entry {
-            width: 100%;
-            padding: 5px;
-            font-size: 16px;
-        }
-
-        /* Style for the submit button */
-        .submit-btn {
-            padding: 5px 15px;
-            font-size: 14px;
-            border: none;
-            background-color: #28a745;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .submit-btn:hover {
-            background-color: #218838;
-        }
-        /* Added margin and padding to the <hr> tag to space it out */
-        hr {
-            margin-top: 20px;  /* Adds space above */
-            margin-bottom: 20px; /* Adds space below */
-            width: 100%; /* Ensures full width */
-            border: 1px solid #ddd;  /* Makes it a light gray line */
-        }
-    </style>
+    <link rel="stylesheet" href="/styles.css">
+    <title>Admin Dashboard</title>
 </head>
 <body>
-    <header>
-        <h1>Admin Privilege</h1>
-        <nav>
-            <ul>
-                <button onclick="window.location.href='/admin/admin.html'">Admin Privilege</button>
-                <button class="logout-btn" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
-            </ul>
+    <header class="site-header">
+        <a class="brand-mark" href="/admin/admin.html">14 Stars Admin</a>
+        <button class="nav-toggle" type="button" data-nav-toggle data-target="primary-nav" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <nav class="nav-links" id="primary-nav">
+            <a class="nav-link is-active" href="/admin/admin.html">Dashboard</a>
+            <a class="nav-link" href="/admin/students.html">Students</a>
+            <a class="nav-link" href="/admin/guardian.html">Guardians</a>
+            <a class="nav-link" href="/admin/teacher_table.html">Teachers</a>
+            <a class="nav-link" href="/admin/teacher_classes.html">Teacher Classes</a>
+            <a class="nav-link" href="/admin/subjects.html">Subjects</a>
+            <a class="nav-link" href="/admin/levels.html">Levels</a>
+            <a class="nav-link" href="/admin/terms.html">Terms</a>
+            <a class="nav-link" href="/substitute/register_substitutes.html">Substitutes</a>
+            <button class="btn btn--danger" type="button" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
         </nav>
     </header>
 
-    <div class="btn-container">
-        <button class="cta-button" onclick="window.location.href='/index.html'">Home</button>
-        <hr>
-        <button class="cta-button" onclick="window.location.href='#'">Classes</button>
-        <button class="cta-button" onclick="window.location.href='subjects.html'">Subjects</button>
-        <button class="cta-button" onclick="window.location.href='levels.html'">Levels</button>
-        <button class="cta-button" onclick="window.location.href='students.html'">Students</button>
-        <button class="cta-button" onclick="window.location.href='student_level.html'">Student-Level</button>
-        <hr>
-        <button class="cta-button" onclick="window.location.href='guardian.html'">Parent<br>/Guardian</button>
-        <button class="cta-button" onclick="window.location.href='student_guardian.html'">Student-Guardian</button>
-        <hr>
-        <button class="cta-button" onclick="window.location.href='teacher_table.html'">Teachers</button>
-        <button class="cta-button" onclick="window.location.href='/substitute/register_substitutes.html'">Substitute Teachers</button>
-        <button class="cta-button" onclick="toggleSubstituteRequests()">Substitute Requests</button>
-        <button class="cta-button" onclick="window.location.href='#'">Teacher-Class</button>
-        <hr>
-        <button class="cta-button" onclick="window.location.href='#'">Announcements</button>
-    </div>
+    <main class="stack">
+        <section class="page-header">
+            <div>
+                <p class="page-eyebrow">Admin Console</p>
+                <h1>Welcome, Admin</h1>
+                <p class="text-muted">Choose a workflow or review urgent substitute needs below.</p>
+            </div>
+        </section>
 
-    <!-- Table to display substitute requests -->
-    <div id="substitute-requests-table">
-        <h2>Substitute Requests</h2>
-        <table id="substitute-requests">
-            <thead>
-                <tr>
-                    <th>Created Date</th>
-                    <th>Teacher Name</th>
-                    <th>Teacher Email</th>
-                    <th>Reason</th>
-                    <th>Date Requeseted</th>
-                    <th>Satisfied By</th> <!-- Text Entry column -->
-                    <th>Action</th> <!-- Submit button column -->
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Substitute requests will be dynamically added here -->
-            </tbody>
-        </table>
-    </div>
+        <section class="panel panel--narrow stack">
+            <h2>Quick Actions</h2>
+            <div class="btn-container">
+                <button class="btn" onclick="window.location.href='/index.html'">School Home</button>
+                <button class="btn btn--ghost" onclick="window.location.href='/admin/students.html'">Students</button>
+                <button class="btn btn--ghost" onclick="window.location.href='/admin/all_students.html'">All Students</button>
+                <button class="btn btn--ghost" onclick="window.location.href='/admin/student_level.html'">Student Levels</button>
+                <button class="btn btn--ghost" onclick="window.location.href='/admin/levels.html'">Levels</button>
+                <button class="btn btn--ghost" onclick="window.location.href='/admin/subjects.html'">Subjects</button>
+                <button class="btn btn--ghost" onclick="window.location.href='/admin/terms.html'">Terms</button>
+                <button class="btn btn--ghost" onclick="window.location.href='/admin/guardian.html'">Guardians</button>
+                <button class="btn btn--ghost" onclick="window.location.href='/admin/student_guardian.html'">Student &amp; Guardian</button>
+                <button class="btn btn--ghost" onclick="window.location.href='/admin/teacher_table.html'">Teacher Registration</button>
+                <button class="btn btn--ghost" onclick="window.location.href='/admin/all_teachers.html'">All Teachers</button>
+                <button class="btn btn--ghost" onclick="window.location.href='/admin/teacher_classes.html'">Teacher Classes</button>
+                <button class="btn btn--ghost" onclick="window.location.href='/substitute/register_substitutes.html'">Substitutes</button>
+                <button class="btn btn--ghost" onclick="window.location.href='/teachers/teacher_portal.html'">Teacher Portal</button>
+            </div>
+        </section>
+
+        <section class="panel panel--narrow stack" id="substitute-requests-panel">
+            <div class="page-actions">
+                <button class="btn btn--ghost" type="button" onclick="loadSubstituteRequests()">Refresh</button>
+            </div>
+            <div class="data-table-wrapper is-hidden" id="substitute-requests-wrapper">
+                <table id="substitute-requests">
+                    <thead>
+                        <tr>
+                            <th>Created</th>
+                            <th>Teacher</th>
+                            <th>Email</th>
+                            <th>Reason</th>
+                            <th>Date Requested</th>
+                            <th>Satisfied By</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
 
     <script>
-        // Function to toggle the visibility of the substitute requests table
-        function toggleSubstituteRequests() {
-            const tableContainer = document.getElementById('substitute-requests-table');
-            if (tableContainer.style.display === 'none' || tableContainer.style.display === '') {
-                tableContainer.style.display = 'block';
-                loadSubstituteRequests();
-            } else {
-                tableContainer.style.display = 'none';
-            }
-        }
-
         async function loadSubstituteRequests() {
             try {
                 const response = await fetch('/substitute-requests/fetch');
                 const data = await response.json();
                 const tbody = document.querySelector('#substitute-requests tbody');
+                const wrapper = document.getElementById('substitute-requests-wrapper');
                 tbody.innerHTML = '';
 
-                // Get the upcoming Saturday date (if today is already Saturday, it will be today's date)
                 const saturdayDate = getUpcomingSaturday();
 
-                // Sort the requests: requests for the upcoming Saturday come first, then others
                 data.substituteRequests.sort((a, b) => {
                     const dateA = new Date(a.date);
                     const dateB = new Date(b.date);
-                    if (isSameDay(dateA, saturdayDate)) return -1; // Request for Saturday should come first
-                    if (isSameDay(dateB, saturdayDate)) return 1; // Request for Saturday should come first
-                    return dateB - dateA; // Otherwise, sort by most recent (latest first)
+                    if (isSameDay(dateA, saturdayDate)) return -1;
+                    if (isSameDay(dateB, saturdayDate)) return 1;
+                    return dateB - dateA;
                 });
 
                 data.substituteRequests.forEach(request => {
                     const requestDate = new Date(request.date);
                     const today = new Date();
-                    // Strip time for fair comparison
                     today.setHours(0, 0, 0, 0);
                     requestDate.setHours(0, 0, 0, 0);
+
                     const row = document.createElement('tr');
-                    // Highlight only if not satisfied AND the date is today or future
                     if (!request.satisfied_by && requestDate >= today) {
                         row.classList.add('highlight-row');
                     }
@@ -238,38 +112,30 @@
                         <td>${request.reason}</td>
                         <td>${formatDate(request.date)}</td>
                         <td>
-                            ${
-                                request.satisfied_by
-                                    ? `<span>${request.satisfied_by}</span>`
-                                    : `<input type="text" class="text-entry" placeholder="Enter Substitute Name" />`
-                            }
+                            ${request.satisfied_by ? `<span>${request.satisfied_by}</span>` : `<input type="text" class="text-entry" placeholder="Enter Substitute Name" />`}
                         </td>
                         <td>
-                            ${
-                                request.satisfied_by
-                                    ? `<span>Already Satisfied</span>`
-                                    : `<button class="submit-btn" onclick="submitSatisfiedBy(${request.id}, '${request.teacher_email}', this)">Enter</button>`
-                            }
+                            ${request.satisfied_by ? `<span>Recorded</span>` : `<button class="btn btn--light" onclick="submitSatisfiedBy(${request.id}, '${request.teacher_email}', this)">Save</button>`}
                         </td>
                     `;
                     tbody.appendChild(row);
                 });
+
+                wrapper.classList.remove('is-hidden');
             } catch (error) {
                 console.error('Error fetching requests:', error);
             }
         }
 
-        // Function to get the upcoming Saturday
         function getUpcomingSaturday() {
             const today = new Date();
             const dayOfWeek = today.getDay();
-            const daysUntilSaturday = (6 - dayOfWeek + 7) % 7; // 6 is Saturday (0 is Sunday)
+            const daysUntilSaturday = (6 - dayOfWeek + 7) % 7;
             const upcomingSaturday = new Date(today);
             upcomingSaturday.setDate(today.getDate() + daysUntilSaturday);
             return upcomingSaturday;
         }
 
-        // Function to check if two dates are the same day
         function isSameDay(date1, date2) {
             return date1.getFullYear() === date2.getFullYear() &&
                 date1.getMonth() === date2.getMonth() &&
@@ -278,7 +144,7 @@
 
         async function submitSatisfiedBy(requestId, teacherEmail, button) {
             const input = button.closest('tr').querySelector('.text-entry');
-            const satisfiedBy = input.value;
+            const satisfiedBy = input?.value;
 
             if (!satisfiedBy) {
                 alert('Please enter a name!');
@@ -289,21 +155,19 @@
                 const response = await fetch('/substitute-requests/update', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ request_id: requestId, teacher_email: teacherEmail, satisfied_by: satisfiedBy }),
+                    body: JSON.stringify({ request_id: requestId, teacher_email: teacherEmail, satisfied_by: satisfiedBy })
                 });
 
                 if (response.ok) {
-                    alert('Successfully updated!');
                     await loadSubstituteRequests();
                 } else {
-                    console.error('Failed to update');
+                    alert('Failed to update.');
                 }
             } catch (error) {
                 console.error('Error updating:', error);
             }
         }
 
-        // Function to format the date
         function formatDate(dateString) {
             const date = new Date(dateString);
             const year = date.getFullYear();
@@ -311,6 +175,9 @@
             const day = String(date.getDate()).padStart(2, '0');
             return `${year}-${month}-${day}`;
         }
+
+        loadSubstituteRequests();
     </script>
+    <script src="/scripts/ui.js" defer></script>
 </body>
 </html>

@@ -3,189 +3,261 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/styles.css">
     <title>All Teachers</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-
-        header {
-            background-color: #2c3e50;
-            padding: 20px;
-            color: white;
-            margin-bottom: 20px;
-        }
-
-        header h1 {
-            margin: 0;
-        }
-
-        header nav ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        header nav button {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin: 5px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        header nav button:hover {
-            background-color: #2980b9;
-        }
-
-        table {
-            width: 90%;
-            margin: 0 auto;
-            border-collapse: collapse;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            background-color: white;
-        }
-
-
-        /* Make table scrollable on small screens */
-        @media screen and (max-width: 768px) {
-            table {
-                display: block;
-                overflow-x: auto;
-                white-space: nowrap;
-            }
-
-            th, td {
-                text-align: center;
-            }
-
-            .text-entry {
-                font-size: 14px;
-                padding: 3px;
-            }
-
-            .submit-btn {
-                font-size: 12px;
-                padding: 3px 10px;
-            }
-        }
-
-        /* Adjust button sizes and spacing for smaller screens */
-        @media screen and (max-width: 576px) {
-            .cta-button {
-                font-size: 16px;
-                padding: 10px 20px;
-            }
-
-            .btn-container {
-                gap: 10px;
-            }
-        }
-
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #3498db;
-            color: white;
-            text-transform: uppercase;
-            font-size: 14px;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        tr:hover {
-            background-color: #f1c40f;
-            color: white;
-        }
-
-        td {
-            font-size: 14px;
-        }
-
-        .logout-btn {
-            background-color: #e74c3c;
-        }
-
-        .logout-btn:hover {
-            background-color: #c0392b;
-        }
-    </style>
 </head>
 <body>
-    <header>
-        <h1>All Registered Teachers</h1>
-        <nav>
-            <ul>
-                <button onclick="window.location.href='/admin/teacher_table.html'">Register New Teacher</button>
-                <button onclick="window.location.href='/admin/admin.html'">Admin Privilege</button>
-                <button class="logout-btn" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
-            </ul>
+    <header class="site-header">
+        <a class="brand-mark" href="/admin/admin.html">14 Stars Admin</a>
+        <button class="nav-toggle" type="button" data-nav-toggle data-target="primary-nav" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <nav class="nav-links" id="primary-nav">
+            <a class="nav-link" href="/admin/admin.html">Dashboard</a>
+            <a class="nav-link" href="/admin/students.html">Students</a>
+            <a class="nav-link" href="/admin/guardian.html">Guardians</a>
+            <a class="nav-link is-active" href="/admin/teacher_table.html">Teachers</a>
+            <a class="nav-link" href="/admin/teacher_classes.html">Teacher Classes</a>
+            <a class="nav-link" href="/admin/subjects.html">Subjects</a>
+            <a class="nav-link" href="/admin/levels.html">Levels</a>
+            <a class="nav-link" href="/admin/terms.html">Terms</a>
+            <a class="nav-link" href="/substitute/register_substitutes.html">Substitutes</a>
+            <button class="btn btn--danger" type="button" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
         </nav>
     </header>
+    <header class="page-header">
+        <div>
+            <p class="page-eyebrow">Admin Portal</p>
+            <h1>All Registered Teachers</h1>
+        </div>
+        <div class="page-actions">
+            <button type="button" class="btn" onclick="window.location.href='/admin/teacher_table.html'">Register Teacher</button>
+            <button type="button" class="btn btn--secondary" onclick="window.location.href='/admin/admin.html'">Admin Dashboard</button>
+            <button type="button" class="btn btn--danger" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
+        </div>
+    </header>
 
-    <table id="teachers-table" border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>First Name</th>
-                <th>Middle Initial</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Gender</th>
-                <th>Street Address</th>
-                <th>City</th>
-                <th>State</th>
-                <th>ZIP Code</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Rows will be dynamically inserted here -->
-        </tbody>
-    </table>
+    <main>
+        <section class="panel panel--flush">
+            <div class="panel-body">
+                <div class="data-table-wrapper">
+                    <table id="teachers-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>First Name</th>
+                                <th>Middle Initial</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Gender</th>
+                                <th>Street Address</th>
+                                <th>City</th>
+                                <th>State</th>
+                                <th>ZIP Code</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="panel panel--narrow stack is-hidden" id="edit-teacher-panel">
+        <div>
+            <p class="page-eyebrow">Edit</p>
+            <h2>Edit Teacher</h2>
+        </div>
+        <form id="edit-teacher-form" class="stack">
+            <label for="edit-teacher-first">First Name</label>
+            <input type="text" id="edit-teacher-first" required>
+
+            <label for="edit-teacher-mi">Middle Initial</label>
+            <input type="text" id="edit-teacher-mi">
+
+            <label for="edit-teacher-last">Last Name</label>
+            <input type="text" id="edit-teacher-last" required>
+
+            <label for="edit-teacher-email">Email</label>
+            <input type="email" id="edit-teacher-email" required>
+
+            <label for="edit-teacher-phone">Phone</label>
+            <input type="text" id="edit-teacher-phone">
+
+            <div class="gender-options">
+                <span class="gender-title">Gender</span>
+                <label for="edit-teacher-male">Male</label>
+                <input type="radio" id="edit-teacher-male" name="edit-teacher-gender" value="Male">
+                <label for="edit-teacher-female">Female</label>
+                <input type="radio" id="edit-teacher-female" name="edit-teacher-gender" value="Female">
+            </div>
+
+            <label for="edit-teacher-address">Street Address</label>
+            <input type="text" id="edit-teacher-address">
+            <input type="text" id="edit-teacher-city" placeholder="City">
+            <input type="text" id="edit-teacher-state" placeholder="State">
+            <input type="text" id="edit-teacher-zip" placeholder="ZIP Code">
+
+            <div class="form-actions">
+                <button class="btn" type="submit">Save Changes</button>
+                <button class="btn btn--ghost" type="button" id="cancel-edit-teacher">Cancel</button>
+            </div>
+        </form>
+    </section>
 
     <script>
-        // Fetch all teachers data from the server
-        fetch('/teachers/all')
-            .then(response => response.json())
-            .then(data => {
-                const tableBody = document.querySelector('#teachers-table tbody');
-                tableBody.innerHTML = ''; // Clear the table body before inserting rows
-                
-                // Loop through the teacher data and create rows
-                data.teachers.forEach(teacher => {
-                    const row = document.createElement('tr');
-                    
-                    row.innerHTML = `
-                        <td>${teacher.t_id}</td>
-                        <td>${teacher.t_f_name}</td>
-                        <td>${teacher.t_mi}</td>
-                        <td>${teacher.t_l_name}</td>
-                        <td>${teacher.t_email}</td>
-                        <td>${teacher.t_phone}</td>
-                        <td>${teacher.gender}</td>
-                        <td>${teacher.t_staddress}</td>
-                        <td>${teacher.t_city}</td>
-                        <td>${teacher.t_state}</td>
-                        <td>${teacher.t_zip}</td>
-                    `;
-                    
-                    tableBody.appendChild(row); // Add the row to the table
+        const teachersTableBody = document.querySelector('#teachers-table tbody');
+        const editPanel = document.getElementById('edit-teacher-panel');
+        const editForm = document.getElementById('edit-teacher-form');
+        const cancelTeacherEdit = document.getElementById('cancel-edit-teacher');
+
+        let teachersCache = [];
+        let editingTeacherId = null;
+
+        document.addEventListener('DOMContentLoaded', loadTeachers);
+
+        cancelTeacherEdit.addEventListener('click', closeTeacherEditPanel);
+
+        editForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            if (!editingTeacherId) return;
+
+            const payload = {
+                t_f_name: document.getElementById('edit-teacher-first').value.trim(),
+                t_mi: document.getElementById('edit-teacher-mi').value.trim(),
+                t_l_name: document.getElementById('edit-teacher-last').value.trim(),
+                t_email: document.getElementById('edit-teacher-email').value.trim(),
+                t_phone: document.getElementById('edit-teacher-phone').value.trim(),
+                gender: editForm.querySelector('input[name="edit-teacher-gender"]:checked')?.value,
+                t_staddress: document.getElementById('edit-teacher-address').value.trim(),
+                t_city: document.getElementById('edit-teacher-city').value.trim(),
+                t_state: document.getElementById('edit-teacher-state').value.trim(),
+                t_zip: document.getElementById('edit-teacher-zip').value.trim()
+            };
+
+            try {
+                const response = await fetch(`/teachers/${editingTeacherId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
                 });
-            })
-            .catch(error => console.error('Error fetching teachers:', error));
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.message || 'Unable to update teacher');
+                    return;
+                }
+
+                closeTeacherEditPanel();
+                loadTeachers();
+            } catch (error) {
+                console.error('Error updating teacher:', error);
+            }
+        });
+
+        async function loadTeachers() {
+            try {
+                const response = await fetch('/teachers/all');
+                const data = await response.json();
+                teachersCache = data.teachers || [];
+                renderTeachers();
+            } catch (error) {
+                console.error('Error fetching teachers:', error);
+            }
+        }
+
+        function renderTeachers() {
+            teachersTableBody.innerHTML = '';
+
+            if (!teachersCache.length) {
+                const row = document.createElement('tr');
+                row.innerHTML = '<td colspan="12">No teachers found.</td>';
+                teachersTableBody.appendChild(row);
+                return;
+            }
+
+            teachersCache.forEach(teacher => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${teacher.t_id}</td>
+                    <td>${teacher.t_f_name || ''}</td>
+                    <td>${teacher.t_mi || ''}</td>
+                    <td>${teacher.t_l_name || ''}</td>
+                    <td>${teacher.t_email || ''}</td>
+                    <td>${teacher.t_phone || ''}</td>
+                    <td>${teacher.gender || ''}</td>
+                    <td>${teacher.t_staddress || ''}</td>
+                    <td>${teacher.t_city || ''}</td>
+                    <td>${teacher.t_state || ''}</td>
+                    <td>${teacher.t_zip || ''}</td>
+                `;
+
+                const actionsCell = document.createElement('td');
+                actionsCell.className = 'table-actions';
+                const editBtn = document.createElement('button');
+                editBtn.type = 'button';
+                editBtn.className = 'btn btn--ghost';
+                editBtn.textContent = 'Edit';
+                editBtn.addEventListener('click', () => openTeacherEditPanel(teacher));
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.type = 'button';
+                deleteBtn.className = 'btn btn--danger';
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', () => deleteTeacher(teacher.t_id));
+
+                actionsCell.appendChild(editBtn);
+                actionsCell.appendChild(deleteBtn);
+                row.appendChild(actionsCell);
+                teachersTableBody.appendChild(row);
+            });
+        }
+
+        function openTeacherEditPanel(teacher) {
+            editingTeacherId = teacher.t_id;
+            document.getElementById('edit-teacher-first').value = teacher.t_f_name || '';
+            document.getElementById('edit-teacher-mi').value = teacher.t_mi || '';
+            document.getElementById('edit-teacher-last').value = teacher.t_l_name || '';
+            document.getElementById('edit-teacher-email').value = teacher.t_email || '';
+            document.getElementById('edit-teacher-phone').value = teacher.t_phone || '';
+            document.getElementById('edit-teacher-address').value = teacher.t_staddress || '';
+            document.getElementById('edit-teacher-city').value = teacher.t_city || '';
+            document.getElementById('edit-teacher-state').value = teacher.t_state || '';
+            document.getElementById('edit-teacher-zip').value = teacher.t_zip || '';
+
+            const genderValue = teacher.gender || '';
+            editForm.querySelectorAll('input[name="edit-teacher-gender"]').forEach(input => {
+                input.checked = input.value.toLowerCase() === genderValue.toLowerCase();
+            });
+
+            editPanel.classList.remove('is-hidden');
+            editPanel.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function closeTeacherEditPanel() {
+            editingTeacherId = null;
+            editPanel.classList.add('is-hidden');
+            editForm.reset();
+        }
+
+        async function deleteTeacher(id) {
+            if (!confirm('Delete this teacher?')) return;
+
+            try {
+                const response = await fetch(`/teachers/${id}`, { method: 'DELETE' });
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.message || 'Unable to delete teacher');
+                    return;
+                }
+                loadTeachers();
+            } catch (error) {
+                console.error('Error deleting teacher:', error);
+            }
+        }
     </script>
+    <script src="/scripts/ui.js" defer></script>
 </body>
 </html>

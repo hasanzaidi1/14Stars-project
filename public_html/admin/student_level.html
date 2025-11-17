@@ -3,153 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/styles.css">
     <title>Assign Level to Student</title>
-    <style>
-        /* General styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-        }
-
-        form {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            width: 60%;
-        }
-
-        label {
-            display: block;
-            margin: 10px 0 5px;
-        }
-
-        /* Select and button styles */
-        select {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        button {
-            background-color: #4CAF50; /* Green */
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        /* Table styles */
-        h2 {
-            text-align: center;
-        }
-        
-        table {
-            width: 80%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            margin: 0 auto;  /* Horizontally center the table */
-        }
-
-        table th, table td {
-            padding: 10px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-
-        table th {
-            background-color: #4CAF50; /* Green */
-            color: white;
-        }
-
-        table tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        table tr:hover {
-            background-color: #ddd;
-        }
-
-        /* Responsive styles */
-        @media (max-width: 600px) {
-            select, button {
-                font-size: 14px;
-            }
-        }
-    </style>
 </head>
 <body>
-    <header>
-        <h1>Assign Level to Student</h1>
-        <ul>
-            <button onclick="window.location.href='/admin/admin.html'">Admin Privilege</button>
-            <button class="logout-btn" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
-        </ul>
+    <header class="site-header">
+        <a class="brand-mark" href="/admin/admin.html">14 Stars Admin</a>
+        <button class="nav-toggle" type="button" data-nav-toggle data-target="primary-nav" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <nav class="nav-links" id="primary-nav">
+            <a class="nav-link" href="/admin/admin.html">Dashboard</a>
+            <a class="nav-link is-active" href="/admin/students.html">Students</a>
+            <a class="nav-link" href="/admin/guardian.html">Guardians</a>
+            <a class="nav-link" href="/admin/teacher_table.html">Teachers</a>
+            <a class="nav-link" href="/admin/teacher_classes.html">Teacher Classes</a>
+            <a class="nav-link" href="/admin/subjects.html">Subjects</a>
+            <a class="nav-link" href="/admin/levels.html">Levels</a>
+            <a class="nav-link" href="/admin/terms.html">Terms</a>
+            <a class="nav-link" href="/substitute/register_substitutes.html">Substitutes</a>
+            <button class="btn btn--danger" type="button" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
+        </nav>
     </header>
-    <form id="assignment-form">
-        <label for="student-select">Select Student:</label>
-        <select id="student-select"></select>
+    <header class="page-header">
+        <div>
+            <p class="page-eyebrow">Admin Portal</p>
+            <h1>Assign Level to Student</h1>
+        </div>
+        <div class="page-actions">
+            <button type="button" class="btn btn--secondary" onclick="window.location.href='/admin/admin.html'">Admin Dashboard</button>
+            <button type="button" class="btn btn--danger" onclick="window.location.href='/admin/admin-login.html'">Logout</button>
+        </div>
+    </header>
 
-        <label for="level-select">Select Level:</label>
-        <select id="level-select"></select>
+    <main>
+        <section class="panel panel--narrow">
+            <h2>Assignment Details</h2>
+            <p class="text-muted">Select a student, level, and subject to create a new assignment record.</p>
+            <form id="assignment-form">
+                <label for="student-select">Select Student</label>
+                <select id="student-select" required></select>
 
-        <label for="subject-select">Select Subject:</label>
-        <select id="subject-select">
-            <!-- Default option that remains static -->
-            <option value="">Select a Subject</option>
-        </select>
-        <button type="submit">Assign Level</button>
-    </form>
+                <label for="level-select">Select Level</label>
+                <select id="level-select" required></select>
 
-    <h2>Assigned Levels</h2>
-    <table id="student-level-table">
-        <thead>
-            <tr>
-                <th>Student ID</th>
-                <th>Student Name</th>
-                <th>Level</th>
-                <th>Subject</th>
-                <th>School Year</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Rows will be populated here -->
-        </tbody>
-    </table>
+                <label for="subject-select">Select Subject</label>
+                <select id="subject-select" required>
+                    <option value="">Select a Subject</option>
+                </select>
+
+                <label for="term-select">Select Term</label>
+                <select id="term-select" required>
+                    <option value="">Select a Term</option>
+                </select>
+                <label for="assignment-school-year">School Year (optional for edits)</label>
+                <input type="text" id="assignment-school-year" placeholder="e.g., 2024-2025">
+
+                <div id="grade-edit-fields" class="stack is-hidden">
+                    <p class="text-muted">Grades can only be recorded for existing assignments.</p>
+                    <div class="grid grid--2col">
+                        <div>
+                            <label for="midterm-grade">Midterm Grade</label>
+                            <input type="number" id="midterm-grade" min="0" max="100" step="0.01" placeholder="0-100">
+                        </div>
+                        <div>
+                            <label for="final-grade">Final Grade</label>
+                            <input type="number" id="final-grade" min="0" max="100" step="0.01" placeholder="0-100">
+                        </div>
+                    </div>
+                    <label for="average-grade">Average Grade</label>
+                    <input type="number" id="average-grade" min="0" max="100" step="0.01" placeholder="Auto-calculated when both grades are set">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn">Save Assignment</button>
+                    <button type="button" class="btn btn--ghost is-hidden" id="assignment-cancel-edit">Cancel Edit</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="panel panel--flush">
+            <div class="panel-body">
+                <h2>Assigned Levels</h2>
+                <div class="data-table-wrapper">
+                    <table id="student-level-table">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Student Name</th>
+                                <th>Level</th>
+                                <th>Subject</th>
+                                <th>Term</th>
+                                <th>School Year</th>
+                                <th>Midterm</th>
+                                <th>Final</th>
+                                <th>Average</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <script>
-        // Fetch students, levels, subjects, and assigned levels when the page loads
+        const studentSelect = document.getElementById('student-select');
+        const levelSelect = document.getElementById('level-select');
+        const subjectSelect = document.getElementById('subject-select');
+        const termSelect = document.getElementById('term-select');
+        const assignmentForm = document.getElementById('assignment-form');
+        const cancelEditBtn = document.getElementById('assignment-cancel-edit');
+        const schoolYearInput = document.getElementById('assignment-school-year');
+        const gradeEditFields = document.getElementById('grade-edit-fields');
+        const midtermGradeInput = document.getElementById('midterm-grade');
+        const finalGradeInput = document.getElementById('final-grade');
+        const averageGradeInput = document.getElementById('average-grade');
+        const tableBody = document.getElementById('student-level-table').querySelector('tbody');
+
+        let subjectsCache = [];
+        let termsCache = [];
+        let editingAssignment = null;
+
         document.addEventListener('DOMContentLoaded', () => {
             fetchStudents();
             fetchLevels();
-            fetchSubjects();  // Fetch subjects
+            fetchSubjects();
+            fetchTerms();
             fetchAssignedLevels();
         });
 
-        // Fetch students and populate the select dropdown
+        cancelEditBtn.addEventListener('click', endEditAssignment);
+        midtermGradeInput.addEventListener('input', syncAverageGrade);
+        finalGradeInput.addEventListener('input', syncAverageGrade);
+
+        assignmentForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            if (editingAssignment) {
+                await updateAssignment();
+            } else {
+                await createAssignment();
+            }
+        });
+
         async function fetchStudents() {
             try {
                 const response = await fetch('/students/fullName');
                 const students = await response.json();
-                const studentSelect = document.getElementById('student-select');
-
-                // Clear previous options
                 studentSelect.innerHTML = '';
-                
                 students.forEach(student => {
                     const option = document.createElement('option');
-                    option.value = student.St_ID; // Assuming St_ID is the identifier
-                    option.textContent = student.full_name; // Use the correct field name
+                    option.value = student.St_ID;
+                    option.textContent = student.full_name;
                     studentSelect.appendChild(option);
                 });
             } catch (error) {
@@ -157,20 +162,15 @@
             }
         }
 
-        // Fetch levels and populate the select dropdown
         async function fetchLevels() {
             try {
                 const response = await fetch('/levels/');
                 const levels = await response.json();
-                const levelSelect = document.getElementById('level-select');
-
-                // Clear previous options
                 levelSelect.innerHTML = '';
-
                 levels.forEach(level => {
                     const option = document.createElement('option');
-                    option.value = level.level_id; // Assuming level_id is the identifier
-                    option.textContent = level.level_number; // Assuming level_number is the display name
+                    option.value = level.level_id;
+                    option.textContent = level.level_number;
                     levelSelect.appendChild(option);
                 });
             } catch (error) {
@@ -180,17 +180,13 @@
 
         async function fetchSubjects() {
             try {
-                const response = await fetch('/subjects/fetch'); // Ensure the URL matches the backend route
-                const subjects = await response.json();
-                const subjectSelect = document.getElementById('subject-select');
-
-                // Clear previous options and add the new ones
-                subjectSelect.innerHTML = '<option value="">Select a Subject</option>'; // Default option
-
-                subjects.forEach(subject => {
+                const response = await fetch('/subjects/fetch');
+                subjectsCache = await response.json();
+                subjectSelect.innerHTML = '<option value="">Select a Subject</option>';
+                subjectsCache.forEach(subject => {
                     const option = document.createElement('option');
-                    option.value = subject.subject_id; // Assuming subject_id is the identifier
-                    option.textContent = subject.subject; // Assuming subject is the name of the subject
+                    option.value = subject.subject_id;
+                    option.textContent = subject.subject;
                     subjectSelect.appendChild(option);
                 });
             } catch (error) {
@@ -198,59 +194,279 @@
             }
         }
 
-        // Fetch assigned levels and populate the table
         async function fetchAssignedLevels() {
             try {
                 const response = await fetch('/student-levels/assigned');
                 const assignedLevels = await response.json();
-                const tableBody = document.getElementById('student-level-table').querySelector('tbody');
-
-                // Clear previous rows
-                tableBody.innerHTML = '';
-
-                assignedLevels.forEach(record => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${record.st_id}</td>
-                        <td>${record.full_name}</td>
-                        <td>${record.level_number}</td>
-                        <td>${record.subject}</td>
-                        <td>${record.school_year}</td>
-                    `;
-                    tableBody.appendChild(row);
-                });
+                renderAssignedLevels(assignedLevels);
             } catch (error) {
                 console.error('Error fetching assigned levels:', error);
             }
         }
 
-        // Handle the form submission to assign the level to the student
-        document.getElementById('assignment-form').addEventListener('submit', async (e) => {
-            e.preventDefault(); // Prevent form submission
+        function renderAssignedLevels(records) {
+            tableBody.innerHTML = '';
 
-            const studentId = document.getElementById('student-select').value;
-            const levelId = document.getElementById('level-select').value;
-            const subjectId = document.getElementById('subject-select').value; // Get the subject
+            if (!records.length) {
+                const row = document.createElement('tr');
+                row.innerHTML = '<td colspan="10">No assignments found.</td>';
+                tableBody.appendChild(row);
+                return;
+            }
+
+            records.forEach(record => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${record.st_id}</td>
+                    <td>${record.full_name}</td>
+                    <td>${record.level_number}</td>
+                    <td>${record.subject}</td>
+                    <td>${record.term_name || ''}</td>
+                    <td>${record.term_school_year || record.school_year || ''}</td>
+                    <td>${formatGrade(record.midterm_grade)}</td>
+                    <td>${formatGrade(record.final_grade)}</td>
+                    <td>${formatGrade(record.average_grade)}</td>
+                `;
+
+                const actionsCell = document.createElement('td');
+                actionsCell.className = 'table-actions';
+
+                const editBtn = document.createElement('button');
+                editBtn.type = 'button';
+                editBtn.className = 'btn btn--ghost';
+                editBtn.textContent = 'Edit';
+                editBtn.addEventListener('click', () => startEditAssignment(record));
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.type = 'button';
+                deleteBtn.className = 'btn btn--danger';
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', () => deleteAssignment(record));
+
+                actionsCell.appendChild(editBtn);
+                actionsCell.appendChild(deleteBtn);
+                row.appendChild(actionsCell);
+                tableBody.appendChild(row);
+            });
+        }
+
+        function formatGrade(value) {
+            if (value === null || value === undefined) return '';
+            return Number(value).toFixed(2);
+        }
+
+        async function createAssignment() {
+            const studentId = studentSelect.value;
+            const levelId = levelSelect.value;
+            const subjectId = subjectSelect.value;
+            const termId = termSelect.value;
+
+            if (!studentId || !levelId || !subjectId || !termId) {
+                alert('Please select a student, level, subject, and term.');
+                return;
+            }
 
             try {
                 const response = await fetch('/student-levels/assign', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ studentId, levelId, subjectId }), // Include subjectId
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ studentId, levelId, subjectId, termId })
                 });
 
-                if (response.ok) {
-                    alert('Level assigned successfully!');
-                    fetchAssignedLevels(); // Refresh the assigned levels table
-                } else {
-                    alert('Error assigning level.');
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.message || 'Error assigning level.');
+                    return;
                 }
+
+                alert('Level assigned successfully!');
+                assignmentForm.reset();
+                averageGradeInput.value = '';
+                fetchAssignedLevels();
+                termSelect.value = '';
             } catch (error) {
                 console.error('Error assigning level:', error);
             }
-        });
+        }
+
+        function startEditAssignment(record) {
+            editingAssignment = {
+                studentId: record.st_id,
+                originalLevelId: record.level_id,
+                originalSubject: record.subject,
+                termId: record.term_id ?? '',
+                schoolYear: record.school_year || record.term_school_year || '',
+                midtermGrade: record.midterm_grade ?? '',
+                finalGrade: record.final_grade ?? '',
+                averageGrade: record.average_grade ?? ''
+            };
+
+            studentSelect.value = record.st_id;
+            studentSelect.disabled = true;
+            levelSelect.value = record.level_id;
+            const subjectMatch = subjectsCache.find(subject => subject.subject === record.subject);
+            subjectSelect.value = subjectMatch ? subjectMatch.subject_id : '';
+            if (record.term_id) {
+                termSelect.value = record.term_id;
+            } else {
+                termSelect.value = '';
+            }
+            schoolYearInput.value = record.school_year || record.term_school_year || '';
+            midtermGradeInput.value = record.midterm_grade ?? '';
+            finalGradeInput.value = record.final_grade ?? '';
+            averageGradeInput.value = record.average_grade ?? '';
+            syncAverageGrade();
+            cancelEditBtn.classList.remove('is-hidden');
+            gradeEditFields.classList.remove('is-hidden');
+            assignmentForm.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function endEditAssignment() {
+            editingAssignment = null;
+            studentSelect.disabled = false;
+            schoolYearInput.value = '';
+            termSelect.value = '';
+            midtermGradeInput.value = '';
+            finalGradeInput.value = '';
+            averageGradeInput.value = '';
+            syncAverageGrade();
+            cancelEditBtn.classList.add('is-hidden');
+            gradeEditFields.classList.add('is-hidden');
+            assignmentForm.reset();
+        }
+
+        async function updateAssignment() {
+            if (!editingAssignment) return;
+
+            const newLevelId = Number(levelSelect.value);
+            const newSubjectId = Number(subjectSelect.value);
+            const subjectName = subjectsCache.find(subject => subject.subject_id === newSubjectId)?.subject;
+            const newTermId = termSelect.value;
+            const payload = {
+                studentId: editingAssignment.studentId,
+                originalLevelId: editingAssignment.originalLevelId,
+                originalSubject: editingAssignment.originalSubject
+            };
+
+            let hasChanges = false;
+
+            if (newLevelId && newLevelId !== editingAssignment.originalLevelId) {
+                payload.levelId = newLevelId;
+                hasChanges = true;
+            }
+            if (subjectName && subjectName !== editingAssignment.originalSubject) {
+                payload.subject = subjectName;
+                hasChanges = true;
+            }
+            if (newTermId && newTermId !== String(editingAssignment.termId || '')) {
+                payload.termId = Number(newTermId);
+                hasChanges = true;
+            }
+            const normalizedSchoolYear = schoolYearInput.value.trim();
+            if (normalizedSchoolYear && normalizedSchoolYear !== editingAssignment.schoolYear) {
+                payload.schoolYear = normalizedSchoolYear;
+                hasChanges = true;
+            } else if (!normalizedSchoolYear && editingAssignment.schoolYear) {
+                payload.schoolYear = '';
+                hasChanges = true;
+            }
+
+            const normalizeGradeForComparison = (inputEl, existingValueKey, payloadKey) => {
+                const rawValue = inputEl.value.trim();
+                const existing = editingAssignment[existingValueKey];
+                const normalizedInput = rawValue === '' ? '' : Number(rawValue).toString();
+                const normalizedExisting = existing === '' || existing === null || existing === undefined
+                    ? ''
+                    : Number(existing).toString();
+                if (normalizedInput !== normalizedExisting) {
+                    payload[payloadKey] = rawValue;
+                    hasChanges = true;
+                }
+            };
+
+            normalizeGradeForComparison(midtermGradeInput, 'midtermGrade', 'midtermGrade');
+            normalizeGradeForComparison(finalGradeInput, 'finalGrade', 'finalGrade');
+            normalizeGradeForComparison(averageGradeInput, 'averageGrade', 'averageGrade');
+
+            if (!hasChanges) {
+                alert('No changes to save.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/student-levels/assigned', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.message || 'Unable to update assignment.');
+                    return;
+                }
+
+                alert('Assignment updated successfully');
+                endEditAssignment();
+                fetchAssignedLevels();
+            } catch (error) {
+                console.error('Error updating assignment:', error);
+            }
+        }
+
+        async function deleteAssignment(record) {
+            if (!confirm('Remove this assignment?')) return;
+
+            try {
+                const response = await fetch('/student-levels/assigned', {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        studentId: record.st_id,
+                        levelId: record.level_id,
+                        subject: record.subject
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(error.message || 'Unable to delete assignment.');
+                    return;
+                }
+
+                fetchAssignedLevels();
+            } catch (error) {
+                console.error('Error deleting assignment:', error);
+            }
+        }
+
+        async function fetchTerms() {
+            try {
+                const response = await fetch('/terms');
+                termsCache = await response.json();
+                termSelect.innerHTML = '<option value="">Select a Term</option>';
+                termsCache.forEach(term => {
+                    const option = document.createElement('option');
+                    option.value = term.term_id;
+                    option.textContent = `${term.term_name} (${term.school_year})`;
+                    termSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error fetching terms:', error);
+            }
+        }
+
+        function syncAverageGrade() {
+            if (gradeEditFields.classList.contains('is-hidden')) {
+                return;
+            }
+            const midterm = parseFloat(midtermGradeInput.value);
+            const final = parseFloat(finalGradeInput.value);
+            if (!Number.isNaN(midterm) && !Number.isNaN(final)) {
+                averageGradeInput.value = ((midterm + final) / 2).toFixed(2);
+            }
+        }
     </script>
+    <script src="/scripts/ui.js" defer></script>
 </body>
 </html>

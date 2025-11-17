@@ -3,337 +3,345 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./../styles.css">
+    <link rel="stylesheet" href="/styles.css">
     <title>Teachers Portal</title>
-    <style>
-        /* Reset some default browser styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        .btn-container {
-            margin-top: 30px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .cta-button {
-            padding: 15px 30px;
-            font-size: 18px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        .cta-button:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
-        }
-
-        .cta-button:active {
-            background-color: #004085;
-        }
-
-        /* Style for tables */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            display: none; /* Initially hide all tables */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
-            border-radius: 8px; /* Rounded corners */
-            overflow: hidden; /* Hide overflow for rounded corners */
-        }
-
-        th, td {
-            border: 1px solid #ddd; /* Light gray border */
-            padding: 12px; /* Increase padding for more space */
-            text-align: center;
-        }
-
-        th {
-            background-color: #007bff; /* Primary color for header */
-            color: white; /* White text for header */
-            font-weight: bold; /* Bold text for header */
-        }
-
-        td {
-            background-color: #f9f9f9; /* Light background for table cells */
-            transition: background-color 0.3s ease; /* Smooth transition for hover effect */
-        }
-
-        td:hover {
-            background-color: #f1f1f1; /* Light hover effect */
-        }
-
-        /* Style for alternating row colors */
-        tbody tr:nth-child(even) td {
-            background-color: #f2f2f2; /* Light gray for even rows */
-        }
-
-        tbody tr:hover td {
-            background-color: #e9ecef; /* Slightly darker gray on row hover */
-        }
-
-        /* Add some responsiveness */
-        @media (max-width: 600px) {
-            table {
-                font-size: 14px; /* Smaller font on small screens */
-            }
-        }
-        /* Style for the substitute request form */
-        .substitute-form {
-            display: none; /* Hidden by default */
-            margin-top: 20px;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-        }
-
-        .substitute-form input,
-        .substitute-form select,
-        .substitute-form button {
-            padding: 10px;
-            margin: 10px 0;
-            width: 100%;
-            font-size: 16px;
-            border-radius: 5px;
-        }
-
-        .substitute-form button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        .substitute-form button:hover {
-            background-color: #0056b3;
-        }
-
-        .substitute-form button:active {
-            background-color: #004085;
-        }
-    </style>
 </head>
 <body>
-    <header>
-        <h1>Teachers Portal</h1>
-        <nav>
-            <ul>
-                <button onclick="window.location.href='/teachers/teacher_portal.html'">Teacher Portal</button>
-                <button class="logout-btn" onclick="window.location.href='/teachers/teacher-logout'">Logout</button>
-            </ul>
+    <header class="site-header">
+        <a class="brand-mark" href="/index.html">14 Stars</a>
+        <button class="nav-toggle" type="button" data-nav-toggle data-target="primary-nav" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <nav class="nav-links" id="primary-nav">
+            <a class="nav-link" href="/index.html">Home</a>
+            <a class="nav-link is-active" href="/teachers/teacher_portal.html">Teacher Portal</a>
+            <button class="btn btn--danger" type="button" onclick="window.location.href='/teachers/teacher-logout'">Logout</button>
         </nav>
     </header>
-    <div class="btn-container">
-        <button class="cta-button" onclick="window.location.href='./../index.html'">Home</button>
-        <button class="cta-button" onclick="showTable('classes')">Classes</button>
-        <button class="cta-button" onclick="showTable('studentGuardian')">Student-Guardian</button>
-        <button class="cta-button" onclick="showTable('studentLevel')">Student-Level</button>
-        <button class="cta-button" onclick="toggleSubstituteForm()">Request Substitute</button>
-        <button class="cta-button" onclick="showTable('teachers')">Teachers</button>
-    </div>
 
-    <!-- Substitute Request Form -->
-    <div id="substitute-form" class="substitute-form">
-        <h2>Request a Substitute</h2>
-        <form action="/substitute-requests/submit" method="POST">
-            <label for="teacher-name">Teacher Name:</label>
-            <input type="text" id="teacher-name" name="teacher_name" required>
-            
-            <label for="teacher-email">Teacher Email:</label>
-            <input type="text" id="teacher-email" name="teacher_email" required>
+    <main class="stack">
+        <section class="page-header">
+            <div>
+                <p class="page-eyebrow">Faculty Tools</p>
+                <h1>Teachers Portal</h1>
+                <p class="text-muted">Switch between guardian info, student levels, and teacher details quickly.</p>
+            </div>
+        </section>
 
-            <label for="reason">Reason for Substitute:</label>
-            <textarea id="reason" name="reason" rows="4"></textarea>
-            
-            <label for="date">Date:</label>
-            <input type="date" id="date" name="date" required>
-            
-            <button type="submit">Submit Request</button>
-        </form>
-    </div>
+        <section class="panel panel--narrow stack">
+            <h2>Quick views</h2>
+            <div class="btn-container">
+                <button class="btn" onclick="showTable('classes')">Classes</button>
+                <button class="btn btn--ghost" onclick="showTable('studentGuardian')">Student &amp; Guardian</button>
+                <button class="btn btn--ghost" onclick="showTable('studentLevel')">Student Levels</button>
+                <button class="btn btn--ghost" onclick="showTable('teachers')">Teachers</button>
+                <button class="btn btn--secondary" onclick="toggleSubstituteForm()">Request Substitute</button>
+            </div>
+        </section>
 
-    <!-- Student-Guardian Table -->
-    <table id="guardian-table">
-        <thead>
-            <tr>
-                <th>Student Name</th>
-                <th>Guardian Name</th>
-                <th>Relationship Type</th>
-                <th>Cell</th>
-                <th>Email</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+        <section id="substitute-form-section" class="panel panel--narrow stack is-hidden">
+            <h2>Request a substitute</h2>
+            <form action="/substitute-requests/submit" method="POST" class="stack">
+                <label for="teacher-name">Teacher Name</label>
+                <input type="text" id="teacher-name" name="teacher_name" required>
 
-    <!-- Classes Table -->
-    <table id="classes-table">
-        <thead>
-            <tr>
-                <th>Class Name</th>
-                <th>Teacher</th>
-                <th>Time</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+                <label for="teacher-email">Teacher Email</label>
+                <input type="email" id="teacher-email" name="teacher_email" readonly required>
 
-    
-    <!-- Student-Level Table -->
-    <table id="stud-lvl-table">
-        <thead>
-            <tr>
-                <th>Student ID</th>
-                <th>Student Name</th>
-                <th>Level</th>
-                <th>Subject</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+                <label for="reason">Reason for Substitute</label>
+                <textarea id="reason" name="reason" rows="4"></textarea>
 
-    <!-- Teachers Table -->
-    <table id="teachers-table">
-        <thead>
-            <tr>
-                <th>Full Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+                <label for="date">Date</label>
+                <input type="date" id="date" name="date" required>
+
+                <button class="btn" type="submit">Submit Request</button>
+            </form>
+        </section>
+
+        <section id="guardian-table-section" class="panel panel--narrow is-hidden">
+            <div class="data-table-wrapper">
+                <table>
+                    <caption>Student &amp; Guardian</caption>
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Student Name</th>
+                            <th>Guardian Name</th>
+                            <th>Relationship</th>
+                            <th>Cell</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody id="guardian-table"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="classes-table-section" class="panel panel--narrow is-hidden">
+            <div class="data-table-wrapper">
+                <table>
+                    <caption>Teacher Class Assignments</caption>
+                    <thead>
+                        <tr>
+                            <th>Teacher</th>
+                            <th>Level</th>
+                            <th>Subject</th>
+                            <th>School Year</th>
+                        </tr>
+                    </thead>
+                    <tbody id="classes-table"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="stud-lvl-table-section" class="panel panel--narrow is-hidden">
+            <div class="data-table-wrapper">
+                <table>
+                    <caption>Student Levels</caption>
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Student Name</th>
+                            <th>Level</th>
+                            <th>Subject</th>
+                            <th>Term</th>
+                            <th>School Year</th>
+                            <th>Midterm</th>
+                            <th>Final</th>
+                            <th>Average</th>
+                        </tr>
+                    </thead>
+                    <tbody id="stud-lvl-table"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="teachers-table-section" class="panel panel--narrow is-hidden">
+            <div class="data-table-wrapper">
+                <table>
+                    <caption>Teachers</caption>
+                    <thead>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                        </tr>
+                    </thead>
+                    <tbody id="teachers-table"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
 
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            populateTeacherIdentity();
+        });
 
-        // Toggle the visibility of the substitute form
-        function toggleSubstituteForm() {
-            const form = document.getElementById('substitute-form');
-            form.style.display = (form.style.display === 'none' || form.style.display === '') ? 'block' : 'none';
+        const sections = {
+            guardian: document.getElementById('guardian-table-section'),
+            classes: document.getElementById('classes-table-section'),
+            studentLevel: document.getElementById('stud-lvl-table-section'),
+            teachers: document.getElementById('teachers-table-section')
+        };
+
+        let currentTeacherEmail = '';
+        let teacherClassAssignments = [];
+
+        function hideAllSections() {
+            Object.values(sections).forEach(section => section.classList.add('is-hidden'));
         }
 
-        // Function to fetch student-guardian data and display it
+        function toggleSubstituteForm() {
+            const formSection = document.getElementById('substitute-form-section');
+            formSection.classList.toggle('is-hidden');
+        }
+
         function fetchStudentGuardianData() {
-            fetch('/admins/getStudentGuardianData') // Use your existing route
+            fetch('/admins/getStudentGuardianData')
                 .then(response => response.json())
                 .then(data => {
-                    const tableBody = document.getElementById('guardian-table').getElementsByTagName('tbody')[0];
-                    tableBody.innerHTML = ''; // Clear previous data
+                    const tableBody = document.getElementById('guardian-table');
+                    tableBody.innerHTML = '';
 
                     data.forEach(entry => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
+                            <td>${entry.St_ID}</td>
                             <td>${entry.student_name}</td>
-                            <td>${entry.guardian_name}</td>
-                            <td>${entry.relationship_type}</td>
+                            <td>${entry.guardian_name || ''}</td>
+                            <td>${entry.relationship_type || ''}</td>
                             <td>${entry.g_cell || ''}</td>
                             <td>${entry.g_email || ''}</td>
                         `;
                         tableBody.appendChild(row);
                     });
-                    document.getElementById('guardian-table').style.display = 'table'; // Show the guardian table
+                    sections.guardian.classList.remove('is-hidden');
                 })
                 .catch(error => console.error('Error fetching guardian data:', error));
         }
 
-        // Function to fetch assigned levels data and display it
         function fetchAssignedLevelsData() {
-            fetch('/student-levels/assigned') // Use your existing route
+            fetch('/student-levels/assigned')
                 .then(response => response.json())
                 .then(data => {
-                    const tableBody = document.getElementById('stud-lvl-table').getElementsByTagName('tbody')[0];
-                    tableBody.innerHTML = ''; // Clear previous data
+                    const tableBody = document.getElementById('stud-lvl-table');
+                    tableBody.innerHTML = '';
 
                     data.forEach(entry => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
                             <td>${entry.st_id || 'N/A'}</td>
                             <td>${entry.full_name || 'N/A'}</td>
-                            <td>${entry.level_number || 'N/A'}</td> 
+                            <td>${entry.level_number || 'N/A'}</td>
                             <td>${entry.subject || 'N/A'}</td>
+                            <td>${entry.term_name || 'N/A'}</td>
+                            <td>${entry.school_year || entry.term_school_year || 'N/A'}</td>
+                            <td>${formatGrade(entry.midterm_grade)}</td>
+                            <td>${formatGrade(entry.final_grade)}</td>
+                            <td>${formatGrade(entry.average_grade)}</td>
                         `;
                         tableBody.appendChild(row);
                     });
-                    document.getElementById('stud-lvl-table').style.display = 'table'; // Show the student-level table
+                    sections.studentLevel.classList.remove('is-hidden');
                 })
                 .catch(error => console.error('Error fetching assigned levels data:', error));
         }
 
-        // Function to fetch teachers data and display it
         function fetchTeachersData() {
-    console.log("Fetching Teachers Data..."); // Log when the function is called
-    fetch('/teachers/all') // Updated route
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => {
-            const tableBody = document.getElementById('teachers-table').getElementsByTagName('tbody')[0];
-            tableBody.innerHTML = ''; // Clear previous data
+            fetch('/teachers/all')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Unable to load teachers');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const tableBody = document.getElementById('teachers-table');
+                    tableBody.innerHTML = '';
 
-            data.teachers.forEach(entry => { // Adjusted to access 'teachers' key
+                    (data.teachers || []).forEach(entry => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${entry.full_name || 'N/A'}</td>
+                            <td>${entry.t_email || 'N/A'}</td>
+                            <td>${entry.t_phone || 'N/A'}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                    sections.teachers.classList.remove('is-hidden');
+                })
+                .catch(error => console.error('Error fetching teachers data:', error));
+        }
+
+        function fetchTeacherClassesData() {
+            fetch('/teacher-classes/assigned')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Unable to load teacher-class assignments');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    teacherClassAssignments = Array.isArray(data) ? data : [];
+                    renderTeacherClasses();
+                    sections.classes.classList.remove('is-hidden');
+                })
+                .catch(error => console.error('Error fetching teacher-class assignments:', error));
+        }
+
+        function getVisibleTeacherAssignments() {
+            if (!teacherClassAssignments.length) {
+                return [];
+            }
+            if (!currentTeacherEmail) {
+                return teacherClassAssignments;
+            }
+            const normalized = currentTeacherEmail.toLowerCase();
+            const mine = teacherClassAssignments.filter(assignment =>
+                (assignment.teacher_email || '').toLowerCase() === normalized
+            );
+            return mine.length ? mine : teacherClassAssignments;
+        }
+
+        function renderTeacherClasses() {
+            const tableBody = document.getElementById('classes-table');
+            if (!tableBody) {
+                return;
+            }
+            tableBody.innerHTML = '';
+
+            const records = getVisibleTeacherAssignments();
+            if (!records.length) {
+                const emptyRow = document.createElement('tr');
+                emptyRow.innerHTML = '<td colspan="4">No assignments recorded yet.</td>';
+                tableBody.appendChild(emptyRow);
+                return;
+            }
+
+            records.forEach(record => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${entry.full_name || 'N/A'}</td>
-                    <td>${entry.t_email || 'N/A'}</td>
-                    <td>${entry.t_phone || 'N/A'}</td>
+                    <td>${record.teacher_name}</td>
+                    <td>${record.level_number ? `Level ${record.level_number}` : 'N/A'}</td>
+                    <td>${record.subject || 'N/A'}</td>
+                    <td>${record.school_year}</td>
                 `;
                 tableBody.appendChild(row);
             });
-            document.getElementById('teachers-table').style.display = 'table'; // Show the teachers table
-        })
-        .catch(error => console.error('Error fetching teachers data:', error));
-}
+        }
 
-        // Function to show the selected table
+        async function populateTeacherIdentity() {
+            const emailInput = document.getElementById('teacher-email');
+            const nameInput = document.getElementById('teacher-name');
+            if (!emailInput) {
+                return;
+            }
+
+            try {
+                const response = await fetch('/teachers/me', { credentials: 'same-origin' });
+                if (!response.ok) {
+                    throw new Error('Unable to load teacher identity');
+                }
+                const data = await response.json();
+                if (data.success) {
+                    emailInput.value = data.email || '';
+                    currentTeacherEmail = (data.email || '').trim();
+                    if (nameInput && (!nameInput.value || nameInput.value.trim() === '')) {
+                        const fullName = [data.first_name, data.last_name].filter(Boolean).join(' ').trim();
+                        if (fullName) {
+                            nameInput.value = fullName;
+                        }
+                    }
+                    renderTeacherClasses();
+                } else {
+                    emailInput.removeAttribute('readonly');
+                }
+            } catch (error) {
+                console.error('Error fetching teacher identity:', error);
+                emailInput.removeAttribute('readonly');
+            }
+        }
+
+        function formatGrade(value) {
+            if (value === null || value === undefined || value === '') return '';
+            const number = Number(value);
+            return Number.isFinite(number) ? number.toFixed(2) : '';
+        }
+
         function showTable(table) {
-            // Hide all tables
-            document.getElementById('guardian-table').style.display = 'none';
-            document.getElementById('classes-table').style.display = 'none';
-            document.getElementById('stud-lvl-table').style.display = 'none';
-            document.getElementById('teachers-table').style.display = 'none';
+            hideAllSections();
 
-            // Show specific table based on the argument
             if (table === 'studentGuardian') {
-                fetchStudentGuardianData(); // Fetch data for Student-Guardian table
+                fetchStudentGuardianData();
             } else if (table === 'classes') {
-                // Implement fetching for classes if needed
-                // clear out the previous opened table or form
-                document.getElementById('guardian-table').style.display = 'none';
-                document.getElementById('stud-lvl-table').style.display = 'none';
-                document.getElementById('teachers-table').style.display = 'none';
-                document.getElementById('classes-table').style.display = 'table'; // Show the classes table
+                fetchTeacherClassesData();
             } else if (table === 'studentLevel') {
-                // Fetch data for Student-Level table
-                // clear out the previous opened table or form  
-                document.getElementById('guardian-table').style.display = 'none';
-                document.getElementById('classes-table').style.display = 'none';
-                document.getElementById('teachers-table').style.display = 'none';
-
-                fetchAssignedLevelsData(); // Fetch data for Student-Level table
+                fetchAssignedLevelsData();
             } else if (table === 'teachers') {
-                // Fetch data for Teachers table
-                // clear out the previous opened table or form
-                document.getElementById('guardian-table').style.display = 'none';
-                document.getElementById('classes-table').style.display = 'none';
-                document.getElementById('stud-lvl-table').style.display = 'none';   
-                
-                fetchTeachersData(); // Fetch data for Teachers table
+                fetchTeachersData();
             }
         }
     </script>
+
+    <script src="/scripts/ui.js" defer></script>
 </body>
 </html>

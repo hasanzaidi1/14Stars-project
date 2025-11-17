@@ -4,152 +4,150 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Registration</title>
-    <link rel="stylesheet" href="./../styles.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand-mark" href="/index.html">14 Stars</a>
+        <button class="nav-toggle" type="button" data-nav-toggle data-target="primary-nav" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <nav class="nav-links" id="primary-nav">
+            <a class="nav-link" href="/parents/parents_portal.html">Parent Portal</a>
+            <a class="nav-link" href="/parents/view_students.html">View Students</a>
+            <a class="nav-link is-active" href="/parents/student_registration.html">Register Student</a>
+            <button class="btn btn--danger" type="button" onclick="window.location.href='/parents/logout'">Logout</button>
+        </nav>
+    </header>
 
-        header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+    <main class="stack">
+        <section class="page-header">
+            <div>
+                <p class="page-eyebrow">Parent Portal</p>
+                <h1>Register a Student</h1>
+                <p class="text-muted">Provide the details below so we can match your child to the right level.</p>
+            </div>
+        </section>
 
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
+        <section class="panel panel--narrow stack">
+            <form action="/parents/register-from-parent" method="POST" id="registration-form" class="stack">
+                <h2>Student Information</h2>
+                <label for="fname">Student Name</label>
+                <div class="student-name">
+                    <input placeholder="First" type="text" id="fname" name="fname" required>
+                    <input placeholder="Middle" type="text" id="MI" name="MI">
+                    <input placeholder="Last" type="text" id="lname" name="lname" required>
+                </div>
 
-        nav button {
-            margin: 5px;
-        }
+                <label for="DOB">Date Of Birth</label>
+                <input type="date" id="DOB" name="DOB" required>
 
-        main {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+                <label for="st_address">Address</label>
+                <input type="text" id="st_address" name="st_address" placeholder="Street" required>
+                <input type="text" id="city" name="city" placeholder="City" required>
+                <input type="text" id="state" name="state" placeholder="State" required>
+                <input type="number" id="zip" name="zip" placeholder="Zipcode" required>
 
-        form {
-            background-color: #ffffff;
-            border: 1px solid #ddd;
-            padding: 20px;
-            margin: 20px auto;
-            width: 70%;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            display: none; /* Hide forms by default */
-        }
+                <label for="st_email">Student Contact</label>
+                <input type="text" id="st_email" name="st_email" placeholder="Email">
+                <input type="text" id="st_cell" name="st_cell" placeholder="Phone Number" maxlength="10">
 
-        .active {
-            display: block; /* Show active form */
-        }
+                <label for="student_location">Student Location</label>
+                <select id="student_location" name="student_location" required>
+                    <option value="on-site">On-Site</option>
+                    <option value="remote">Remote</option>
+                </select>
 
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
+                <div class="gender-options">
+                    <span class="gender-title">Gender</span>
+                    <label for="male">Male</label>
+                    <input type="radio" id="male" name="gender" value="male" required>
+                    <label for="female">Female</label>
+                    <input type="radio" id="female" name="gender" value="female" required>
+                </div>
 
-        input[type="text"],
-        input[type="number"],
-        input[type="tel"],
-        input[type="date"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
+                <hr>
+                <h2>Parent / Guardian</h2>
+                <div class="parent-name">
+                    <input type="text" name="parent-first-name" placeholder="First Name" required>
+                    <input type="text" name="parent-MI" placeholder="Middle Initial">
+                    <input type="text" name="parent-last-name" placeholder="Last Name" required>
+                </div>
 
-        button {
-            background-color: #28a745;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
+                <div class="gender-options">
+                    <span class="gender-title">Guardian Gender</span>
+                    <label for="pmale">Male</label>
+                    <input type="radio" name="parent-gender" value="pmale" required>
+                    <label for="pfemale">Female</label>
+                    <input type="radio" name="parent-gender" value="pfemale" required>
+                </div>
 
-        button:hover {
-            background-color: #218838;
-        }
+                <label for="relation">Relation</label>
+                <select id="relation" name="relation" required>
+                    <option value="" disabled selected>Select relation</option>
+                    <option value="mother">Mother</option>
+                    <option value="father">Father</option>
+                    <option value="guardian">Guardian</option>
+                </select>
 
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
+                <div class="stack">
+                    <div class="form-row" style="justify-content: space-between; align-items: center;">
+                        <label for="parent_st_address">Parent Address</label>
+                        <button class="btn btn--ghost" type="button" onclick="copyAddress()">Use Student Address</button>
+                    </div>
+                    <input type="text" id="parent_st_address" name="parent_st_address" placeholder="Street" required>
+                    <input type="text" id="parent_city" name="parent_city" placeholder="City" required>
+                    <input type="text" id="parent_state" name="parent_state" placeholder="State" required>
+                    <input type="number" id="parent_zip" name="parent_zip" placeholder="Zipcode" required>
+                </div>
 
-        .btn-container {
-            margin-bottom: 20px;
-        }
+                <label for="parent_cell">Parent Contact</label>
+                <input type="text" id="parent_cell" name="parent_cell" placeholder="Phone Number" required>
+                <p class="text-muted" style="margin-top:-0.75rem;">Your account email will be used automatically.</p>
 
-        .gender-options {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            padding-bottom: 10px;
-        }
+                <div class="form-actions">
+                    <button class="btn" type="submit">Submit Registration</button>
+                    <button class="btn btn--ghost" type="reset">Clear</button>
+                </div>
+            </form>
+        </section>
+    </main>
 
-        .name {
-            display: flex;
-        }
+    <footer class="site-footer">
+        <p>&copy; 2024 14 Stars Islamic School.</p>
+    </footer>
 
-        .gender-title {
-            padding-right: 20px;
-        }
-
-        .student-name input {
-            margin-right: 10px;
-            flex: 1;
-        }
-
-        .gender-options input {
-            margin-left: 5px; /* Space between label and radio button */
-        }
-
-        .btn-container {
-            margin-top: 30px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-        }
-    </style>
     <script>
-        document.getElementById("registration-form").addEventListener("submit", async function(event) {
-            event.preventDefault(); // Prevent page refresh
-
-            const formData = new FormData(this); // Get form data
-
-            try {
-                const response = await fetch("/parents/register-from-parent", {
-                    method: "POST",
-                    body: formData
-                });
-
-                const result = await response.json();
-
-                if (response.ok) {
-                    alert("✅ Registration successful!");
-                    this.reset(); // Clear form on success
-                } else {
-                    alert("❌ Error: " + result.error);
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('registration-form');
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                if (!form.reportValidity()) {
+                    return;
                 }
-            } catch (error) {
-                console.error("❌ Server error:", error);
-                alert("❌ Failed to submit form. Try again.");
-            }
+                const formData = new FormData(form);
+                const payload = Object.fromEntries(formData.entries());
+
+                try {
+                    const response = await fetch('/parents/register-from-parent', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(payload),
+                        credentials: 'same-origin'
+                    });
+
+                    const result = await response.json().catch(() => ({}));
+                    if (response.ok && result.success) {
+                        alert(result.message || 'Registration successful!');
+                        form.reset();
+                    } else {
+                        alert(result.message || result.error || 'Unable to register student.');
+                    }
+                } catch (error) {
+                    console.error('Server error', error);
+                    alert('Failed to submit form. Try again.');
+                }
+            });
         });
 
         function copyAddress() {
@@ -158,133 +156,7 @@
             document.getElementById('parent_state').value = document.getElementById('state').value;
             document.getElementById('parent_zip').value = document.getElementById('zip').value;
         }
-
-
-        function showForm(formId) {
-            // Hide all forms
-            const forms = document.querySelectorAll('form');
-            forms.forEach(form => {
-                form.classList.remove('active');
-            });
-
-            // Show the selected form
-            const selectedForm = document.getElementById(formId);
-            if (selectedForm) {
-                selectedForm.classList.add('active');
-            }
-        }
     </script>
-</head>
-<body>
-    <header>
-        <h1>Student Registration</h1>
-        <nav>
-            <ul>
-                <button onclick="window.location.href='parents_portal.html'">Parent Portal</button>
-                <button class="logout-btn" onclick="window.location.href='parents_login.html'">Logout</button>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <div class="btn-container">
-            <button onclick="showForm('registration-form')">Register Student</button>
-            <!-- <button onclick="showForm('show-students')">See All Students</button> -->
-        </div>
-        
-        
-        <!-- Registration Form -->
-        <form action="/parents/register-from-parent" method="POST" id="registration-form">
-            <h2>Register a New Student</h2>
-            <label for="fname">Student Name:</label>
-            <div class="name">
-                <input placeholder="First" type="text" id="fname" name="fname" required>
-                <input placeholder="Middle Initial" type="text" id="MI" name="MI">
-                <input placeholder="Last" type="text" id="lname" name="lname" required>
-            </div>
-
-            <div class="DOB">
-                <label for="DOB">Date Of Birth:</label>
-                <input type="date" id="DOB" name="DOB" required>    
-            </div>
-            
-            <div class="address">
-                <label for="Address">Address:</label>
-                <input type="text" id="st_address" name="st_address" placeholder="Street" required>
-                <input type="text" id="city" name="city" placeholder="City" required>
-                <input type="text" id="state" name="state" placeholder="State" required>
-                <input type="number" id="zip" name="zip" placeholder="Zipcode" required>
-            </div>
-            
-            <div class="student-contact">
-                <label for="contact">Student Contact:</label>
-                <input type="text" id="st_email" name="st_email" placeholder="Email">
-                <input type="text" id="st_cell" name="st_cell" placeholder="Phone Number" maxlength="10">
-            </div>
-
-            <label for="student_location">Student Location:</label>
-            <select id="student_location" name="student_location" required>
-                <option value="on-site">On-Site</option>
-                <option value="remote">Remote</option>
-            </select>
-
-            <div class="gender-options">
-                <h4 class="gender-title">Gender:</h4>
-                <label for="male">Male</label>
-                <input type="radio" id="male" name="gender" value="male" required>
-                
-                <label for="female">Female</label>
-                <input type="radio" id="female" name="gender" value="female" required>
-            </div>
-            
-            <!-- Parent Info -->
-            <hr>
-            <div class="parent-info">
-                <h3>Parent Information</h3>
-                <div class="parent-name">
-                    <h4>Parent Name:</h4>
-                    <input type="text" name="parent-first-name" placeholder="First Name" required>
-                    <input type="text" name="parent-MI" placeholder="Middle Initial" required>
-                    <input type="text" name="parent-last-name" placeholder="Last Name" required>
-                </div>
-
-                <div class="gender-options">
-                    <h4 class="gender-title">Guardian/Parent Gender:</h4>
-                    <label for="pmale">Male</label>
-                    <input type="radio" name="parent-gender" value="pmale" required />
-                    <label for="pfemale">Female</label>
-                    <input type="radio" name="parent-gender" value="pfemale" required />
-                </div>
-
-                <label for="relation">Relation:</label>
-                <select id="relation" name="relation" required>
-                    <option value="" disabled selected>Select relation</option>
-                    <option value="mother">Mother</option>
-                    <option value="father">Father</option>
-                    <option value="guardian">Guardian</option>
-                </select>
-
-                <div class="parent-address">
-                    <h4>Parent Address:
-                    <button type="button" onclick="copyAddress()">Use Student Address</button></h4>
-                    <input type="text" id="parent_st_address" name="parent_st_address" placeholder="Street" required>
-                    <input type="text" id="parent_city" name="parent_city" placeholder="City" required>
-                    <input type="text" id="parent_state" name="parent_state" placeholder="State" required>
-                    <input type="number" id="parent_zip" name="parent_zip" placeholder="Zipcode" required>
-                </div>
-                
-                <div class="parent-contact">
-                    <h4>Parent Contact:</h4>
-                    <input type="text" id="parent_cell" name="parent_cell" placeholder="Phone Number" required>
-                    <p style="font-size: 12px; color: #410101; margin-top: 5px;">*Use the same email used for making account.</p>
-                    <input type="text" id="parent_email" name="parent_email" placeholder="Email" required>
-                </div>
-            </div>
-
-
-            <button type="submit">Register</button>
-        </form>
-        
-    </main>
-
+    <script src="/scripts/ui.js" defer></script>
 </body>
 </html>
