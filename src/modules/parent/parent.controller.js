@@ -26,20 +26,26 @@ class ParentController {
         const { f_name, l_name, email, password } = req.body;
 
         try {
-            // Check if email already exists
             const parent = await Parent.findByEmail(email);
             if (parent) {
-                return res.status(400).json({ success: false, message: 'Email already exists' });
+                return helper.sendPortalResponse(req, res, {
+                    success: false,
+                    message: 'An account with that email already exists.',
+                    statusCode: 409
+                });
             }
 
-            // Hash password before saving
             const hashedPassword = await bcrypt.hash(password, 10);
             await Parent.createParent(f_name, l_name, email, hashedPassword);
 
-            res.redirect('/parents/parents_login'); // Redirect to login page after successful registration
+            return res.redirect('/parents/parents_login'); // Redirect to login page after successful registration
         } catch (error) {
             console.error('Error during parent registration:', error);
-            res.status(500).send('Internal Server Error');
+            return helper.sendPortalResponse(req, res, {
+                success: false,
+                message: 'Unable to create your account. Please try again.',
+                statusCode: 500
+            });
         }
     }
 
